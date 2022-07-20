@@ -10,6 +10,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:osol/Company/PresentationLayer/UnitsScreenDetailsCompany/view.dart';
 import 'package:osol/Company/businessLogicLayer/bannersCubit/banners_cubit.dart';
 import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
+import 'package:osol/Company/dataLayer/dataModel/features/featuresModel.dart';
 import 'package:osol/Shared/Customicon.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/DataLayer/Model/modelOfData/onBoardingModel.dart';
@@ -422,62 +423,28 @@ class _HomeViewDataState extends State<HomeViewCompanyData> {
           )),
           SliverToBoxAdapter(
             child: BlocConsumer<UnitCubit, UnitState>(
-              listener: (context, state) {
-                // TODO: implement listener
-              },
+              listener: (context, state) {},
               builder: (context, state) {
                 var cubit = UnitCubit.get(context);
                 if (cubit.getDataFeature.isEmpty) {
                   return _EmptyList(title: 'No Feature ads added');
                 }
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => UnitDetailsCompanyScreen()));
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 20.0, left: 0),
-                    child: Container(
-                      height: sizeFromHeight(2.1),
-                      child: ListView.builder(
-                          itemCount: cubit.getDataFeature.isNotEmpty
-                              ? cubit.getDataFeature.length
-                              : homeScreenSliderData.length,
-                          scrollDirection: Axis.horizontal,
-                          physics: BouncingScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 8.0, bottom: 8),
-                              child: CardHomeDetailsCompanyView(
-                                  city: cubit.getDataFeature != null
-                                      ? cubit.getDataFeature[index].city
-                                          .toString()
-                                      : "",
-                                  departType: cubit.getDataFeature != null
-                                      ? cubit.getDataFeature[index].type
-                                          .toString()
-                                      : "",
-                                  country: cubit.getDataFeature != null
-                                      ? cubit.getDataFeature[index].country
-                                          .toString()
-                                      : "",
-                                  index: index,
-                                  image: cubit.getDataFeature != null
-                                      ? DecorationImage(
-                                          image: NetworkImage(cubit
-                                              .getDataFeature[index]
-                                              .images![0]),
-                                          fit: BoxFit.cover)
-                                      : DecorationImage(
-                                          image: AssetImage(
-                                              "${homeScreenSliderData[index].image}"),
-                                          fit: BoxFit.scaleDown)),
-                            );
-                          }),
-                    ),
+                return Padding(
+                  padding: const EdgeInsets.only(right: 20.0, left: 0),
+                  child: Container(
+                    height: sizeFromHeight(2.1),
+                    child: ListView.builder(
+                        itemCount: cubit.getDataFeature.isNotEmpty
+                            ? cubit.getDataFeature.length
+                            : homeScreenSliderData.length,
+                        scrollDirection: Axis.horizontal,
+                        physics: BouncingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return _FeaturedItem(
+                            featured: cubit.getDataFeature[index],
+                            index: index,
+                          );
+                        }),
                   ),
                 );
               },
@@ -716,6 +683,32 @@ class _EmptyList extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _FeaturedItem extends StatelessWidget {
+  const _FeaturedItem({Key? key, required this.featured, required this.index})
+      : super(key: key);
+  final DataFeatures featured;
+  final int index;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (_) => UnitDetailsCompanyScreen()));
+      },
+      child: Padding(
+          padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+          child: CardHomeDetailsCompanyView(
+              city: featured.city.toString(),
+              departType: featured.type.toString(),
+              country: featured.country.toString(),
+              index: index,
+              image: DecorationImage(
+                  image: NetworkImage(featured.images![0]),
+                  fit: BoxFit.cover))),
     );
   }
 }
