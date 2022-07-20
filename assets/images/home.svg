@@ -1,0 +1,12 @@
+<svg id="home_work_black_24dp" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="Group_743" data-name="Group 743">
+    <rect id="Rectangle_1527" data-name="Rectangle 1527" width="24" height="24" fill="none"/>
+    <rect id="Rectangle_1528" data-name="Rectangle 1528" width="24" height="24" fill="none"/>
+  </g>
+  <g id="Group_745" data-name="Group 745">
+    <g id="Group_744" data-name="Group 744">
+      <path id="Path_307" data-name="Path 307" d="M20,3H12a1,1,0,0,0-1,1V5.61l.01.01,5,4.5A2.991,2.991,0,0,1,17,12.35V13h2v2H17v2h2v2H17v2h3a1,1,0,0,0,1-1V4A1,1,0,0,0,20,3ZM15,7H13V5h2Zm4,4H17V9h2Zm0-4H17V5h2Z" fill="#464646"/>
+      <path id="Path_308" data-name="Path 308" d="M15,20V12.35a1,1,0,0,0-.33-.74l-5-4.5A.961.961,0,0,0,9,6.85a1.008,1.008,0,0,0-.67.26l-5,4.5a.969.969,0,0,0-.33.74V20a1,1,0,0,0,1,1H6a1,1,0,0,0,1-1V16h4v4a1,1,0,0,0,1,1h2A1,1,0,0,0,15,20Z" fill="#464646"/>
+    </g>
+  </g>
+</svg>

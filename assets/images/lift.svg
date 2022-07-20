@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="14.146" height="24" viewBox="0 0 14.146 24">
+  <g id="lift-svgrepo-com" transform="translate(-105.113)">
+    <rect id="Rectangle_11501" data-name="Rectangle 11501" width="13.19" height="18.394" transform="translate(105.591 5.127)" fill="#e8e8e8"/>
+    <rect id="Rectangle_11502" data-name="Rectangle 11502" width="4.7" height="2.88" transform="translate(107.486 0.478)" fill="#f07057"/>
+    <rect id="Rectangle_11503" data-name="Rectangle 11503" width="4.7" height="2.88" transform="translate(112.186 0.478)" fill="#84b3d2"/>
+    <path id="Path_22165" data-name="Path 22165" d="M118.781,99.183h-13.19a.478.478,0,0,0-.478.478v18.395a.478.478,0,0,0,.478.478h13.19a.478.478,0,0,0,.478-.478V99.661A.478.478,0,0,0,118.781,99.183Zm-12.711.956h5.639v17.438h-5.639ZM118.3,117.578h-5.639V100.139H118.3v17.438Z" transform="translate(0 -94.534)" fill="#2699fb"/>
+    <path id="Path_22166" data-name="Path 22166" d="M146.019,0a.478.478,0,0,0-.478.478v2.88a.478.478,0,0,0,.478.478h9.4a.478.478,0,0,0,.478-.478V.478A.478.478,0,0,0,155.419,0Zm8.921,2.88H151.2V.956h3.744ZM146.5.956h3.744V2.88H146.5V.956Z" transform="translate(-38.533)" fill="#2699fb"/>
+    <path id="Path_22167" data-name="Path 22167" d="M191.519,27.765l-.291.291a.478.478,0,0,0,.676.676l.291-.291a.478.478,0,0,0-.676-.676Z" transform="translate(-81.946 -26.33)" fill="#2699fb"/>
+    <path id="Path_22168" data-name="Path 22168" d="M294.744,28.732a.478.478,0,1,0,.676-.676l-.291-.291a.478.478,0,1,0-.676.676Z" transform="translate(-180.332 -26.33)" fill="#2699fb"/>
+    <path id="Path_22169" data-name="Path 22169" d="M355.165,294.5a.478.478,0,0,0,.478-.478v-.3a.478.478,0,0,0-.956,0v.3A.478.478,0,0,0,355.165,294.5Z" transform="translate(-237.875 -279.491)" fill="#2699fb"/>
+    <path id="Path_22170" data-name="Path 22170" d="M355.165,341.021a.478.478,0,0,0,.478-.478v-5.862a.478.478,0,1,0-.956,0v5.862A.478.478,0,0,0,355.165,341.021Z" transform="translate(-237.875 -318.537)" fill="#2699fb"/>
+  </g>
+</svg>

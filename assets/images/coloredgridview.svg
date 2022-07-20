@@ -1,0 +1,13 @@
+<svg id="grid_view_black_24dp" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="Group_757" data-name="Group 757">
+    <rect id="Rectangle_1535" data-name="Rectangle 1535" width="24" height="24" fill="none"/>
+  </g>
+  <g id="Group_759" data-name="Group 759">
+    <g id="Group_758" data-name="Group 758">
+      <path id="Path_314" data-name="Path 314" d="M5,11H9a2.006,2.006,0,0,0,2-2V5A2.006,2.006,0,0,0,9,3H5A2.006,2.006,0,0,0,3,5V9A2.006,2.006,0,0,0,5,11Z" fill="#006aff"/>
+      <path id="Path_315" data-name="Path 315" d="M5,21H9a2.006,2.006,0,0,0,2-2V15a2.006,2.006,0,0,0-2-2H5a2.006,2.006,0,0,0-2,2v4A2.006,2.006,0,0,0,5,21Z" fill="#006aff"/>
+      <path id="Path_316" data-name="Path 316" d="M13,5V9a2.006,2.006,0,0,0,2,2h4a2.006,2.006,0,0,0,2-2V5a2.006,2.006,0,0,0-2-2H15A2.006,2.006,0,0,0,13,5Z" fill="#006aff"/>
+      <path id="Path_317" data-name="Path 317" d="M15,21h4a2.006,2.006,0,0,0,2-2V15a2.006,2.006,0,0,0-2-2H15a2.006,2.006,0,0,0-2,2v4A2.006,2.006,0,0,0,15,21Z" fill="#006aff"/>
+    </g>
+  </g>
+</svg>

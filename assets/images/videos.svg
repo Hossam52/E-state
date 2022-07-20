@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="271" height="79" viewBox="0 0 271 79">
+  <g id="buttons" transform="translate(-52 -426)">
+    <g id="Ellipse_236" data-name="Ellipse 236" transform="translate(148 426)" fill="none" stroke="#818181" stroke-width="2">
+      <circle cx="39.5" cy="39.5" r="39.5" stroke="none"/>
+      <circle cx="39.5" cy="39.5" r="38.5" fill="none"/>
+    </g>
+    <g id="Component_210_1" data-name="Component 210 – 1" transform="translate(108 458)">
+      <rect id="Rectangle_1455" data-name="Rectangle 1455" width="16" height="16" transform="translate(0)" fill="none"/>
+      <path id="Union_45" data-name="Union 45" d="M-949-17060.92a1,1,0,0,1-1-1V-17071a1,1,0,0,1,1-1h1.692a1,1,0,0,1,1,1v9.078a1,1,0,0,1-1,1Zm13.162-.232-7.361-4.293a1.165,1.165,0,0,1,0-2.086l7.361-4.293a1.216,1.216,0,0,1,1.838,1.1v8.467a1.279,1.279,0,0,1-1.31,1.215A1.345,1.345,0,0,1-935.839-17061.152Z" transform="translate(950 17073.998)" fill="#464646"/>
+    </g>
+    <g id="Component_212_1" data-name="Component 212 – 1" transform="translate(250.999 457)">
+      <rect id="Rectangle_1456" data-name="Rectangle 1456" width="16" height="16" fill="none"/>
+      <path id="Union_47" data-name="Union 47" d="M-936.693-17060.924a1,1,0,0,1-1-1v-9.08a1,1,0,0,1,1-1H-935a1,1,0,0,1,1,1v9.08a1,1,0,0,1-1,1Zm-13.308-1.4v-8.467a1.307,1.307,0,0,1,1.842-1.105l7.361,4.293a1.169,1.169,0,0,1,0,2.088l-7.361,4.293a1.261,1.261,0,0,1-.63.172A1.234,1.234,0,0,1-950-17062.32Z" transform="translate(950.001 17074.002)" fill="#464646"/>
+    </g>
+    <g id="Component_213_1" data-name="Component 213 – 1" transform="translate(307 457)">
+      <rect id="Rectangle_1459" data-name="Rectangle 1459" width="16" height="16" fill="none"/>
+      <path id="Union_48" data-name="Union 48" d="M-937.766-17060.707h-1.411a4.815,4.815,0,0,1-4.234-2.637l-1.694-3.295a2.783,2.783,0,0,0-2.544-1.6H-950v-1.881h2.351a4.817,4.817,0,0,1,4.238,2.637l1.694,3.293a2.773,2.773,0,0,0,2.54,1.6h1.411v-1.883l3.766,2.826-3.766,2.822Zm-12.234,0v-1.883h2.351a2.766,2.766,0,0,0,2.073-.848l.375.941a5.282,5.282,0,0,0,.472.754,4.414,4.414,0,0,1-2.919,1.035Zm12.234-7.529h-1.411a2.78,2.78,0,0,0-2.073.848l-.375-.939a5.184,5.184,0,0,0-.472-.754,4.414,4.414,0,0,1,2.919-1.035h1.411V-17072l3.766,2.82-3.766,2.828Z" transform="translate(950 17074)" fill="#464646"/>
+    </g>
+    <g id="Component_211_1" data-name="Component 211 – 1" transform="translate(179 458)">
+      <rect id="Rectangle_1448" data-name="Rectangle 1448" width="16" height="16" fill="none"/>
+      <path id="Union_46" data-name="Union 46" d="M-939.4-17056a1,1,0,0,1-1-1v-14a1,1,0,0,1,1-1h2.8a1,1,0,0,1,1,1v14a1,1,0,0,1-1,1Zm-9.6,0a1,1,0,0,1-1-1v-14a1,1,0,0,1,1-1h2.8a1,1,0,0,1,1,1v14a1,1,0,0,1-1,1Z" transform="translate(951 17072)" fill="#464646"/>
+    </g>
+    <g id="Component_209_9" data-name="Component 209 – 9" transform="translate(52 458)">
+      <path id="Path_189" data-name="Path 189" d="M5,10c.5,0,.7.3.3.7L3.8,12.2A5.988,5.988,0,0,0,8,14a6.048,6.048,0,0,0,6-5.2A1.011,1.011,0,0,1,16,9v.2A8,8,0,0,1,8,16a8.362,8.362,0,0,1-5.7-2.3L.7,15.3c-.4.4-.7.2-.7-.3V10.5A.472.472,0,0,1,.5,10Zm6-4c-.5,0-.7-.3-.3-.7l1.5-1.5A5.988,5.988,0,0,0,8,2,6.048,6.048,0,0,0,2,7.2.95.95,0,0,1,1,8,.945.945,0,0,1,0,7V6.8A8,8,0,0,1,8,0a8.362,8.362,0,0,1,5.7,2.3L15.3.7c.4-.4.7-.2.7.3V5.5a.472.472,0,0,1-.5.5Z" fill="#464646" fill-rule="evenodd"/>
+    </g>
+  </g>
+</svg>

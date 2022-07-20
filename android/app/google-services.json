@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "414809923843",
+    "project_id": "estategps-94f8f",
+    "storage_bucket": "estategps-94f8f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:414809923843:android:d33265e5a84d0530e6c936",
+        "android_client_info": {
+          "package_name": "com.example.osol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "414809923843-ina3lg5lm7vqf8n12k3849itiab8t2jq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGlKRKVOkivdV2gC_wzSGlZvcEywhxAbs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "414809923843-ina3lg5lm7vqf8n12k3849itiab8t2jq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

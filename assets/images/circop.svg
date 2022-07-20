@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="385.446" height="433.379" viewBox="0 0 385.446 433.379">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Subtraction_3" data-name="Subtraction 3" d="M368.446,433.379H298.632a17.006,17.006,0,0,1-16.674-13.674c-.091-.807-.193-1.626-.3-2.434-.015-.3-.023-.6-.023-.892v-.018h-.1c-7-48.646-44.352-83.953-88.805-83.953s-81.8,35.307-88.806,83.953h-.1v.018c0,.3-.008.6-.023.893-.109.8-.211,1.624-.3,2.433a16.984,16.984,0,0,1-16.675,13.674H17a17,17,0,0,1-17-17V0H385.446V416.379a17,17,0,0,1-17,17Z" transform="translate(0 0)" fill="#4a4b4d" opacity="0.35"/>
+    </clipPath>
+  </defs>
+  <g id="Background_objects" data-name="Background objects" transform="translate(0 0)" clip-path="url(#clip-path)">
+    <g id="background_objects-2" data-name="background objects" transform="translate(-90.632 -180.411)">
+      <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="91.673" cy="100.991" rx="91.673" ry="100.991" transform="translate(27.085 117.659)" fill="#fff" opacity="0.14"/>
+      <ellipse id="Ellipse_5" data-name="Ellipse 5" cx="149.49" cy="163.742" rx="149.49" ry="163.742" transform="translate(260.436)" fill="#fff" opacity="0.14"/>
+      <ellipse id="Ellipse_4" data-name="Ellipse 4" cx="53.65" cy="59.81" rx="53.65" ry="59.81" transform="translate(112.508 267.675)" fill="#fff" opacity="0.14"/>
+      <ellipse id="Ellipse_6" data-name="Ellipse 6" cx="8.855" cy="9.805" rx="8.855" ry="9.805" transform="translate(246.893 314.739)" fill="#fff" opacity="0.21"/>
+      <ellipse id="Ellipse_8" data-name="Ellipse 8" cx="6.25" cy="7.844" rx="6.25" ry="7.844" transform="translate(247.935 428.476)" fill="#fff" opacity="0.21"/>
+      <ellipse id="Ellipse_9" data-name="Ellipse 9" cx="10.938" cy="11.766" rx="10.938" ry="11.766" transform="translate(461.493 552.999)" fill="#fff" opacity="0.21"/>
+      <ellipse id="Ellipse_7" data-name="Ellipse 7" cx="15.626" cy="16.668" rx="15.626" ry="16.668" transform="translate(319.815 327.485)" fill="#fff" opacity="0.21"/>
+      <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="119.801" cy="131.876" rx="119.801" ry="131.876" transform="translate(0 428.476)" fill="#fff" opacity="0.14"/>
+    </g>
+  </g>
+</svg>
