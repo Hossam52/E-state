@@ -46,6 +46,7 @@ Future<void> main() async {
   DioHelper.init();
   await Shared.initSharedPref();
   final companyToken = await Shared.prefGetString(key: "CompanyTokenVerify");
+  final isDarkMode = await Shared.prefGetBoolen(key: "isDark");
   final accessType = await Shared.prefGetString(key: "accessType");
   HttpOverrides.global = MyHttpOverrides();
   BlocOverrides.runZoned(
@@ -54,6 +55,7 @@ Future<void> main() async {
         MyApp(
           token: companyToken,
           accessType: accessType,
+          darkMode: isDarkMode,
         ),
       );
     },
@@ -64,8 +66,9 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   String? token;
   String? accessType;
+  bool? darkMode;
 
-  MyApp({this.token, this.accessType});
+  MyApp({this.token, this.accessType, this.darkMode});
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +104,9 @@ class MyApp extends StatelessWidget {
               ..getUnitById()
               ..getAllUnitDetails(),
           ),
-          BlocProvider(create: (context) => AppSettingCubit()),
+          BlocProvider(
+              create: (context) => AppSettingCubit()
+                ..chandeDarkMode(darkMode != null ? darkMode : false)),
 
           ///company
           BlocProvider(create: (context) => AuthCompanyCubit()),
@@ -144,7 +149,7 @@ class MyApp extends StatelessWidget {
                         headline5: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w600,
-                          color: Colors.black,
+                          color: ColorManager.TextHomeColor,
                         ),
                         headline2: TextStyle(
                           color: ColorManager.blackFontStyle,
@@ -180,7 +185,6 @@ class MyApp extends StatelessWidget {
                       ),
                       elevation: 0,
                     ),
-
                     primaryColor: ColorManager.DarkThemeBackGround,
                     textTheme: TextTheme(
                         headline1: TextStyle(
@@ -191,7 +195,7 @@ class MyApp extends StatelessWidget {
                         headline5: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w600,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                         headline2: TextStyle(
                           color: Colors.white,

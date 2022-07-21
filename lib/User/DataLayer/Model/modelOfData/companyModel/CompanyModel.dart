@@ -63,7 +63,7 @@ class CompanyData {
   String? image;
   String? address;
   String? about;
-  int? branchesNum;
+  String? branchesNum;
   String? type;
   String? regestrationNum;
   String? phone;

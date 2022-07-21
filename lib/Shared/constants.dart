@@ -164,4 +164,4 @@ double sizeFromWidth(double fraction) {
 
 String googleMapsApiKeys = "AIzaSyD4BfBM9coQMwggb811oOO1_IGjBorAhgY";
 
-String BASE_URL = "https://royalmazad.com/public/estate_gps/public";
+String BASE_URL = "http://estategps.com/";

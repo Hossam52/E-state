@@ -326,7 +326,9 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
         var cubit = HomeCubit.get(context);
         return Container(
           decoration: BoxDecoration(
-              color: ColorManager.DarkThemeBlackGround2,
+              color: AppSettingCubit.get(context).isDark
+                  ? ColorManager.DarkThemeBlackGround2
+                  : Colors.white,
               border: Border.all(color: Colors.lightBlueAccent, width: 0.5),
               borderRadius: BorderRadius.circular(6)),
           child: Column(
@@ -365,7 +367,7 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 8.0, top: 2),
                         child: Text(
                           "${cubit.dataPopular[index].type}",
-                          style:Theme.of(context).textTheme.headline3,
+                          style: Theme.of(context).textTheme.headline3,
                         ),
                       ),
                       Padding(
@@ -407,7 +409,7 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
                             ),
                             Text(
                               "${cubit.dataPopular[index].city} , ${cubit.dataPopular[index].country}",
-                              style:Theme.of(context).textTheme.headline4,
+                              style: Theme.of(context).textTheme.headline4,
                             )
                           ],
                         ),

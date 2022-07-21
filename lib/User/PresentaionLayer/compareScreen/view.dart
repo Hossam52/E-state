@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Shared/Customicon.dart';
 import 'package:osol/Shared/component/custom_app_bar_with_search.dart';
 import 'package:osol/Shared/constants.dart';
+import 'package:osol/User/BussinssLogic/AppSettingCubit/app_setting_cubit.dart';
 import 'package:osol/User/BussinssLogic/authCubit/auth_cubit.dart';
 import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
 import 'package:osol/User/DataLayer/Model/modelOfData/onBoardingModel.dart';
@@ -38,7 +39,6 @@ class _CompareViewState extends State<CompareView> {
       builder: (context, state) {
         var cubit = UnitClientCubit.get(context);
         return Scaffold(
-          backgroundColor: ColorManager.WhiteScreen,
           body: Padding(
             padding: const EdgeInsets.all(8.0),
             child: state is ErrorGetUnitClientDetails
@@ -60,11 +60,7 @@ class _CompareViewState extends State<CompareView> {
                     ? Center(
                         child: Text(
                         "There Is No Data",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
+                        style: Theme.of(context).textTheme.headline1,
                       ))
                     : CustomScrollView(
                         slivers: [
@@ -250,6 +246,9 @@ class _GridCardsInCompareState extends State<GridCardsInCompare> {
       onTap: widget.onTap,
       child: Container(
         decoration: BoxDecoration(
+            color: AppSettingCubit.get(context).isDark
+                ? ColorManager.DarkThemeBlackGround2
+                : Colors.white,
             border: Border.all(color: Colors.lightBlueAccent, width: 0.5),
             borderRadius: BorderRadius.circular(6)),
         child: Column(
@@ -294,10 +293,7 @@ class _GridCardsInCompareState extends State<GridCardsInCompare> {
                 padding: const EdgeInsets.only(left: 3.0, top: 5),
                 child: Text(
                   "${widget.txt}",
-                  style: TextStyle(
-                    color: ColorManager.TextHomeColor,
-                    fontSize: 12,
-                  ),
+                  style: Theme.of(context).textTheme.headline4,
                 ),
               ),
             ),
@@ -317,7 +313,7 @@ class _GridCardsInCompareState extends State<GridCardsInCompare> {
                     ),
                     Text(
                       "${widget.city} , ${widget.country}",
-                      style: TextStyle(fontSize: 10),
+                      style: Theme.of(context).textTheme.headline4,
                     )
                   ],
                 ),
@@ -536,6 +532,9 @@ class _CompareUnitDetailsState extends State<CompareUnitDetails> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: AppSettingCubit.get(context).isDark
+          ? ColorManager.DarkThemeBlackGround2
+          : Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       elevation: 5,
       child: Container(
@@ -569,10 +568,7 @@ class _CompareUnitDetailsState extends State<CompareUnitDetails> {
                     children: [
                       Text(
                         "${widget.txt}",
-                        style: TextStyle(
-                          color: ColorManager.TextHomeColor,
-                          fontSize: 14.sp,
-                        ),
+                        style: Theme.of(context).textTheme.headline2,
                       ),
                     ],
                   ),
@@ -591,7 +587,7 @@ class _CompareUnitDetailsState extends State<CompareUnitDetails> {
                           ),
                           Text(
                             "${widget.city} ,${widget.country}",
-                            style: TextStyle(fontSize: 10.sp),
+                            style: Theme.of(context).textTheme.headline4,
                           )
                         ],
                       ),

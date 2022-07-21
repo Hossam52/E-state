@@ -10,9 +10,18 @@ class Shared {
   static prefSetString({key, value}) {
     sharedPreferences?.setString(key, value);
   }
-  static prefClear(){
+
+  static prefSetBoolen({key, value}) {
+    sharedPreferences?.setBool(key, value);
+  }
+  static prefGetBoolen({key}) {
+    sharedPreferences?.getBool(key);
+  }
+
+  static prefClear() {
     return sharedPreferences?.clear();
   }
+
   static prefSetInt({key, value}) {
     sharedPreferences?.setInt(key, value);
   }

@@ -36,10 +36,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
         return WillPopScope(
           onWillPop: () => onWillPopFunction(context),
           child: Scaffold(
-            backgroundColor: ColorManager.WhiteScreen,
             appBar: AppBar(
-              elevation: 0,
-              backgroundColor: ColorManager.WhiteScreen,
               toolbarHeight: 80,
               leading: IconButton(
                 onPressed: () async {
@@ -52,18 +49,13 @@ class _ComparingScreenState extends State<ComparingScreen> {
                 },
                 icon: const Icon(
                   Icons.arrow_back,
-                  color: Colors.black54,
                   size: 28,
                 ),
               ),
               centerTitle: true,
-              title: const Text(
+              title: Text(
                 "Compare",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+                style: Theme.of(context).textTheme.headline1,
               ),
             ),
             body: cubit.secondUnit.isEmpty || cubit.firstUnit.isEmpty
@@ -144,7 +136,6 @@ class _ComparingScreenState extends State<ComparingScreen> {
                       ),
                       Container(
                         height: 110.h,
-                        color: ColorManager.WhiteScreen,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -157,11 +148,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       horizontal: 20.0),
                                   child: Text(
                                     "Location",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.headline2,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -193,11 +181,9 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                                           "false"
                                                       ? "mo"
                                                       : "${cubit.secondUnit[0].city},${cubit.secondUnit[0].country}",
-                                              style: const TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w400,
-                                              ),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline3,
                                               textAlign: TextAlign.center,
                                             ),
                                 ),
@@ -222,11 +208,9 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                             )
                                           : Text(
                                               "${cubit.firstUnit[0].city},${cubit.secondUnit[0].country}",
-                                              style: const TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w400,
-                                              ),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline3,
                                               textAlign: TextAlign.center,
                                             ),
                                 ),
@@ -237,7 +221,6 @@ class _ComparingScreenState extends State<ComparingScreen> {
                       ),
                       Container(
                         height: 110.h,
-                        color: ColorManager.CompareConatainer,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -249,11 +232,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                   padding: const EdgeInsets.only(left: 20.0),
                                   child: Text(
                                     "Price (EGP)",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.headline2,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -267,11 +247,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                   alignment: Alignment.center,
                                   child: Text(
                                     "${cubit.secondUnit[0].price == null ? 0 : cubit.secondUnit[0].price}",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -286,11 +263,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                   alignment: Alignment.center,
                                   child: Text(
                                     "${cubit.firstUnit[0].price == null ? 0 : cubit.firstUnit[0].price}",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -301,7 +275,6 @@ class _ComparingScreenState extends State<ComparingScreen> {
                       ),
                       Container(
                         height: 110.h,
-                        color: ColorManager.WhiteScreen,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -314,11 +287,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       horizontal: 20.0),
                                   child: Text(
                                     "Area",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.headline2,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -332,11 +302,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                   alignment: Alignment.center,
                                   child: Text(
                                     "${cubit.secondUnit[0].area == null ? 0 : cubit.secondUnit[0].area} m2",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -350,11 +317,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                   alignment: Alignment.center,
                                   child: Text(
                                     "${cubit.firstUnit[0].area == null ? 0 : cubit.firstUnit[0].area} m2",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -365,7 +329,6 @@ class _ComparingScreenState extends State<ComparingScreen> {
                       ),
                       Container(
                         height: 110.h,
-                        color: ColorManager.CompareConatainer,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -378,11 +341,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       horizontal: 20.0),
                                   child: Text(
                                     "Rooms",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.headline2,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -396,11 +356,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                   alignment: Alignment.center,
                                   child: Text(
                                     "${cubit.secondUnit[0].rooms == null ? 0 : cubit.secondUnit[0].rooms} ",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -414,11 +371,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                   alignment: Alignment.center,
                                   child: Text(
                                     "${cubit.firstUnit[0].rooms == null ? 0 : cubit.firstUnit[0].rooms} ",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -429,7 +383,6 @@ class _ComparingScreenState extends State<ComparingScreen> {
                       ),
                       Container(
                         height: 110.h,
-                        color: ColorManager.WhiteScreen,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -442,11 +395,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       horizontal: 20.0),
                                   child: Text(
                                     "Floor",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.headline2,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -460,11 +410,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                   alignment: Alignment.center,
                                   child: Text(
                                     "${cubit.secondUnit[0].floor == null ? 0 : cubit.secondUnit[0].floor} ",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -478,11 +425,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                   alignment: Alignment.center,
                                   child: Text(
                                     "${cubit.firstUnit[0].floor == null ? 0 : cubit.firstUnit[0].floor} ",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -493,7 +437,6 @@ class _ComparingScreenState extends State<ComparingScreen> {
                       ),
                       Container(
                         height: 110.h,
-                        color: ColorManager.CompareConatainer,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -506,11 +449,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       horizontal: 20.0),
                                   child: Text(
                                     "Bathrooms",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.headline2,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -524,11 +464,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                   alignment: Alignment.center,
                                   child: Text(
                                     "${cubit.secondUnit[0].bathroom == null ? 0 : cubit.secondUnit[0].bathroom}",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -542,11 +479,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                   alignment: Alignment.center,
                                   child: Text(
                                     "${cubit.firstUnit[0].bathroom == null ? 0 : cubit.firstUnit[0].bathroom} ",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -557,7 +491,6 @@ class _ComparingScreenState extends State<ComparingScreen> {
                       ),
                       Container(
                         height: 110.h,
-                        color: ColorManager.WhiteScreen,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -570,11 +503,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       horizontal: 20.0),
                                   child: Text(
                                     "Finishes",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.headline2,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -588,11 +518,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                   alignment: Alignment.center,
                                   child: Text(
                                     "${cubit.secondUnit[0].finishedType == null ? "Ignore" : cubit.secondUnit[0].finishedType} ",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.headline2,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -606,11 +533,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                   alignment: Alignment.center,
                                   child: Text(
                                     "${cubit.firstUnit[0].finishedType == null ? "Ignore" : cubit.secondUnit[0].finishedType} ",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -621,7 +545,6 @@ class _ComparingScreenState extends State<ComparingScreen> {
                       ),
                       Container(
                         height: 110.h,
-                        color: ColorManager.CompareConatainer,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -634,11 +557,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       horizontal: 20.0),
                                   child: Text(
                                     "Build Year",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.headline2,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -652,11 +572,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                   alignment: Alignment.center,
                                   child: Text(
                                     "${cubit.secondUnit[0].yearBuild == null ? 0 : cubit.secondUnit[0].yearBuild} ",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -670,11 +587,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                   alignment: Alignment.center,
                                   child: Text(
                                     "${cubit.firstUnit[0].yearBuild == null ? 0 : cubit.firstUnit[0].yearBuild} ",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -685,7 +599,6 @@ class _ComparingScreenState extends State<ComparingScreen> {
                       ),
                       Container(
                         height: 110.h,
-                        color: ColorManager.WhiteScreen,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -698,11 +611,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       horizontal: 20.0),
                                   child: Text(
                                     "View",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                    style:
+                                    Theme.of(context).textTheme.headline2,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -715,12 +625,9 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                 child: Container(
                                   alignment: Alignment.center,
                                   child: Text(
-                                    "${cubit.secondUnit[0].view==null?"Not Detected":cubit.secondUnit[0].view}",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                    "${cubit.secondUnit[0].view == null ? "Not Detected" : cubit.secondUnit[0].view}",
+                                    style:
+                                    Theme.of(context).textTheme.headline3,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -733,12 +640,9 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                 child: Container(
                                   alignment: Alignment.center,
                                   child: Text(
-                                    "${cubit.firstUnit[0].view==null?"Not Detected":cubit.firstUnit[0].view} ",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                    "${cubit.firstUnit[0].view == null ? "Not Detected" : cubit.firstUnit[0].view} ",
+                                    style:
+                                    Theme.of(context).textTheme.headline3,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -749,7 +653,6 @@ class _ComparingScreenState extends State<ComparingScreen> {
                       ),
                       Container(
                         height: 110.h,
-                        color: ColorManager.CompareConatainer,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -762,11 +665,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       horizontal: 20.0),
                                   child: Text(
                                     "Parking",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                    style:
+                                    Theme.of(context).textTheme.headline2,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -811,7 +711,6 @@ class _ComparingScreenState extends State<ComparingScreen> {
                       ),
                       Container(
                         height: 110.h,
-                        color: ColorManager.WhiteScreen,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -824,11 +723,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       horizontal: 20.0),
                                   child: Text(
                                     "Reception",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                    style:
+                                    Theme.of(context).textTheme.headline2,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -873,7 +769,6 @@ class _ComparingScreenState extends State<ComparingScreen> {
                       ),
                       Container(
                         height: 110.h,
-                        color: ColorManager.CompareConatainer,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -886,11 +781,8 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       horizontal: 20.0),
                                   child: Text(
                                     "Security",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                    style:
+                                    Theme.of(context).textTheme.headline2,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),

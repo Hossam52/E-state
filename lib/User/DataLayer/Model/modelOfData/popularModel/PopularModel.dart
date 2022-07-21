@@ -68,9 +68,9 @@ class PopularData {
   int? numYears;
   int? price;
   String? paymentMethod;
-  int? countryId;
-  int? cityId;
-  int? areaId;
+  String? countryId;
+  String? cityId;
+  String? areaId;
   String? country;
   String? city;
   String? cityArea;
