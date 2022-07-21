@@ -675,7 +675,9 @@ class CardFreeListingData extends StatelessWidget {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return UnitDetailsCompanyScreen();
+                  return UnitDetailsCompanyScreen(
+                    unit: PopularCubit.get(context).detectedUnitList[index],
+                  );
                 },
               ),
             );

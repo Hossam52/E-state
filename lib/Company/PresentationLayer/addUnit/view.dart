@@ -610,9 +610,9 @@ class _AddUnitInCompanyScreenState extends State<AddUnitInCompanyScreen> {
                                     grill: cubit.valueGrill ? "on" : null,
                                     heater: cubit.valueHeater ? "on" : null,
                                     internet: cubit.valueInternet ? "on" : null,
-                                    lat: "11231126",
+                                    lat: cubit.latitude,
                                     lift: cubit.valueLift ? "on" : null,
-                                    long: "1231313",
+                                    long: cubit.longitude,
                                     metro: cubit.metroDistance,
                                     microwave:
                                         cubit.valueMicrowave ? "on" : null,

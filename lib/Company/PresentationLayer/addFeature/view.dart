@@ -390,353 +390,344 @@ class CustomOtherDataAddInCompany extends StatelessWidget {
       child: Container(
         height: sizeFromHeight(1.1),
         width: sizeFromWidth(1.5),
-        child: Expanded(
-          child: Container(
-            padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: Colors.black54,
-                  width: 1,
-                )),
-            child: ListView(
-              physics: NeverScrollableScrollPhysics(),
-              children: [
-                Container(
-                  height: sizeFromHeight(1.1),
-                  child: PageView.builder(itemBuilder: (context, index) {
-                    return Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Distance",
-                            style: TextStyle(
-                                color: ColorManager.onboardingColorDots,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          ListTile(
-                            leading:
-                                SvgPicture.asset("assets/images/train.svg"),
-                            title: Text("Metro"),
-                            trailing: Container(
-                              height: 40,
-                              width: sizeFromWidth(4),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                          width: 1,
-                                          color: Colors.black54,
-                                        )),
-                                    height: sizeFromHeight(18),
-                                    width: sizeFromWidth(5.5),
-                                    child: TextFormField(
-                                      cursorColor: Colors.black54,
-                                      cursorHeight: 20,
-                                      decoration: InputDecoration(
-                                          border: OutlineInputBorder(
-                                        borderSide: BorderSide.none,
-                                      )),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      "M",
-                                      style: TextStyle(
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          ListTile(
-                            leading:
-                                SvgPicture.asset("assets/images/train.svg"),
-                            title: Text("Metro"),
-                            trailing: Container(
-                              height: 40,
-                              width: sizeFromWidth(4),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                          width: 1,
-                                          color: Colors.black54,
-                                        )),
-                                    height: sizeFromHeight(18),
-                                    width: sizeFromWidth(5.5),
-                                    child: TextFormField(
-                                      cursorColor: Colors.black54,
-                                      cursorHeight: 20,
-                                      decoration: InputDecoration(
-                                          border: OutlineInputBorder(
-                                        borderSide: BorderSide.none,
-                                      )),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      "M",
-                                      style: TextStyle(
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          ListTile(
-                            leading:
-                                SvgPicture.asset("assets/images/train.svg"),
-                            title: Text("Metro"),
-                            trailing: Container(
-                              height: 40,
-                              width: sizeFromWidth(4),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                          width: 1,
-                                          color: Colors.black54,
-                                        )),
-                                    height: sizeFromHeight(18),
-                                    width: sizeFromWidth(5.5),
-                                    child: TextFormField(
-                                      cursorColor: Colors.black54,
-                                      cursorHeight: 20,
-                                      decoration: InputDecoration(
-                                          border: OutlineInputBorder(
-                                        borderSide: BorderSide.none,
-                                      )),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      "M",
-                                      style: TextStyle(
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          ListTile(
-                            leading:
-                                SvgPicture.asset("assets/images/train.svg"),
-                            title: Text("Metro"),
-                            trailing: Container(
-                              height: 40,
-                              width: sizeFromWidth(4),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                          width: 1,
-                                          color: Colors.black54,
-                                        )),
-                                    height: sizeFromHeight(18),
-                                    width: sizeFromWidth(5.5),
-                                    child: TextFormField(
-                                      cursorColor: Colors.black54,
-                                      cursorHeight: 20,
-                                      decoration: InputDecoration(
-                                          border: OutlineInputBorder(
-                                        borderSide: BorderSide.none,
-                                      )),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      "M",
-                                      style: TextStyle(
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          ListTile(
-                            leading:
-                                SvgPicture.asset("assets/images/train.svg"),
-                            title: Text("Metro"),
-                            trailing: Container(
-                              height: 40,
-                              width: sizeFromWidth(4),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                          width: 1,
-                                          color: Colors.black54,
-                                        )),
-                                    height: sizeFromHeight(18),
-                                    width: sizeFromWidth(5.5),
-                                    child: TextFormField(
-                                      cursorColor: Colors.black54,
-                                      cursorHeight: 20,
-                                      decoration: InputDecoration(
-                                          border: OutlineInputBorder(
-                                        borderSide: BorderSide.none,
-                                      )),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      "M",
-                                      style: TextStyle(
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          ListTile(
-                            leading:
-                                SvgPicture.asset("assets/images/train.svg"),
-                            title: Text("Metro"),
-                            trailing: Container(
-                              height: 40,
-                              width: sizeFromWidth(4),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                          width: 1,
-                                          color: Colors.black54,
-                                        )),
-                                    height: sizeFromHeight(18),
-                                    width: sizeFromWidth(5.5),
-                                    child: TextFormField(
-                                      cursorColor: Colors.black54,
-                                      cursorHeight: 20,
-                                      decoration: InputDecoration(
-                                          border: OutlineInputBorder(
-                                        borderSide: BorderSide.none,
-                                      )),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      "M",
-                                      style: TextStyle(
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          ListTile(
-                            leading:
-                                SvgPicture.asset("assets/images/train.svg"),
-                            title: Text("Metro"),
-                            trailing: Container(
-                              height: 40,
-                              width: sizeFromWidth(4),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                          width: 1,
-                                          color: Colors.black54,
-                                        )),
-                                    height: sizeFromHeight(18),
-                                    width: sizeFromWidth(5.5),
-                                    child: TextFormField(
-                                      cursorColor: Colors.black54,
-                                      cursorHeight: 20,
-                                      decoration: InputDecoration(
-                                          border: OutlineInputBorder(
-                                        borderSide: BorderSide.none,
-                                      )),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      "M",
-                                      style: TextStyle(
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }),
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+        child: Container(
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: Colors.black54,
+                width: 1,
+              )),
+          child: ListView(
+            physics: NeverScrollableScrollPhysics(),
+            children: [
+              Container(
+                height: sizeFromHeight(1.1),
+                child: PageView.builder(itemBuilder: (context, index) {
+                  return Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Next",
+                          "Distance",
                           style: TextStyle(
-                            color: Colors.black54,
+                              color: ColorManager.onboardingColorDots,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        ListTile(
+                          leading: SvgPicture.asset("assets/images/train.svg"),
+                          title: Text("Metro"),
+                          trailing: Container(
+                            height: 40,
+                            width: sizeFromWidth(4),
+                            child: Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                        width: 1,
+                                        color: Colors.black54,
+                                      )),
+                                  height: sizeFromHeight(18),
+                                  width: sizeFromWidth(5.5),
+                                  child: TextFormField(
+                                    cursorColor: Colors.black54,
+                                    cursorHeight: 20,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                    )),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Text(
+                                    "M",
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        Icon(
-                          Icons.arrow_forward,
-                          color: Colors.black54,
-                        )
+                        ListTile(
+                          leading: SvgPicture.asset("assets/images/train.svg"),
+                          title: Text("Metro"),
+                          trailing: Container(
+                            height: 40,
+                            width: sizeFromWidth(4),
+                            child: Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                        width: 1,
+                                        color: Colors.black54,
+                                      )),
+                                  height: sizeFromHeight(18),
+                                  width: sizeFromWidth(5.5),
+                                  child: TextFormField(
+                                    cursorColor: Colors.black54,
+                                    cursorHeight: 20,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                    )),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Text(
+                                    "M",
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          leading: SvgPicture.asset("assets/images/train.svg"),
+                          title: Text("Metro"),
+                          trailing: Container(
+                            height: 40,
+                            width: sizeFromWidth(4),
+                            child: Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                        width: 1,
+                                        color: Colors.black54,
+                                      )),
+                                  height: sizeFromHeight(18),
+                                  width: sizeFromWidth(5.5),
+                                  child: TextFormField(
+                                    cursorColor: Colors.black54,
+                                    cursorHeight: 20,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                    )),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Text(
+                                    "M",
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          leading: SvgPicture.asset("assets/images/train.svg"),
+                          title: Text("Metro"),
+                          trailing: Container(
+                            height: 40,
+                            width: sizeFromWidth(4),
+                            child: Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                        width: 1,
+                                        color: Colors.black54,
+                                      )),
+                                  height: sizeFromHeight(18),
+                                  width: sizeFromWidth(5.5),
+                                  child: TextFormField(
+                                    cursorColor: Colors.black54,
+                                    cursorHeight: 20,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                    )),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Text(
+                                    "M",
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          leading: SvgPicture.asset("assets/images/train.svg"),
+                          title: Text("Metro"),
+                          trailing: Container(
+                            height: 40,
+                            width: sizeFromWidth(4),
+                            child: Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                        width: 1,
+                                        color: Colors.black54,
+                                      )),
+                                  height: sizeFromHeight(18),
+                                  width: sizeFromWidth(5.5),
+                                  child: TextFormField(
+                                    cursorColor: Colors.black54,
+                                    cursorHeight: 20,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                    )),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Text(
+                                    "M",
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          leading: SvgPicture.asset("assets/images/train.svg"),
+                          title: Text("Metro"),
+                          trailing: Container(
+                            height: 40,
+                            width: sizeFromWidth(4),
+                            child: Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                        width: 1,
+                                        color: Colors.black54,
+                                      )),
+                                  height: sizeFromHeight(18),
+                                  width: sizeFromWidth(5.5),
+                                  child: TextFormField(
+                                    cursorColor: Colors.black54,
+                                    cursorHeight: 20,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                    )),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Text(
+                                    "M",
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          leading: SvgPicture.asset("assets/images/train.svg"),
+                          title: Text("Metro"),
+                          trailing: Container(
+                            height: 40,
+                            width: sizeFromWidth(4),
+                            child: Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                        width: 1,
+                                        color: Colors.black54,
+                                      )),
+                                  height: sizeFromHeight(18),
+                                  width: sizeFromWidth(5.5),
+                                  child: TextFormField(
+                                    cursorColor: Colors.black54,
+                                    cursorHeight: 20,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                    )),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Text(
+                                    "M",
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ],
                     ),
+                  );
+                }),
+              ),
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        "Next",
+                        style: TextStyle(
+                          color: Colors.black54,
+                        ),
+                      ),
+                      Icon(
+                        Icons.arrow_forward,
+                        color: Colors.black54,
+                      )
+                    ],
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         ),
       ),

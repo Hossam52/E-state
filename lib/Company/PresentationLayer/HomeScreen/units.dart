@@ -697,8 +697,12 @@ class _FeaturedItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (_) => UnitDetailsCompanyScreen()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => UnitDetailsCompanyScreen(
+                      unit: featured,
+                    )));
       },
       child: Padding(
           padding: const EdgeInsets.only(top: 8.0, bottom: 8),

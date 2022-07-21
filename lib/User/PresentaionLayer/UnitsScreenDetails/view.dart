@@ -15,10 +15,8 @@ class UnitsDetailsScreen extends StatefulWidget {
 }
 
 class _UnitsDetailsScreenState extends State<UnitsDetailsScreen> {
-
-
   TextEditingController writeReviewController = TextEditingController();
-  ScrollController scrollController=ScrollController();
+  ScrollController scrollController = ScrollController();
 
   void initState() {
     UnitClientCubit.get(context).unitAllReviewList.clear();
@@ -31,19 +29,18 @@ class _UnitsDetailsScreenState extends State<UnitsDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UnitClientCubit, UnitClientState>(
-      listener: (context, state) {
-
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         var cubit = UnitClientCubit.get(context);
         cubit.getUnitByIdList.isEmpty ? cubit.getUnitById : print("All Data ");
         return Scaffold(
           backgroundColor: ColorManager.WhiteScreen,
-          appBar: CustomAppBar(context, "${
-              cubit.getUnitByIdList.isEmpty || state is LoadingGetAllReviewState
-              ?"Waiting" :
-              cubit.getUnitByIdList[0].title}", cubit),
-          body: cubit.getUnitByIdList.isEmpty || state is LoadingGetAllReviewState
+          appBar: CustomAppBar(
+              context,
+              "${cubit.getUnitByIdList.isEmpty || state is LoadingGetAllReviewState ? "Waiting" : cubit.getUnitByIdList[0].title}",
+              cubit),
+          body: cubit.getUnitByIdList.isEmpty ||
+                  state is LoadingGetAllReviewState
               ? Center(
                   child: CircularProgressIndicator(),
                 )
@@ -140,30 +137,8 @@ class _UnitsDetailsScreenState extends State<UnitsDetailsScreen> {
                       ),
                     ),
                     SliverToBoxAdapter(
-                      child: CustomAboutDeveloper(
-                        airCondition:
-                            "${cubit.getUnitByIdList[0].airCondition}",
-                        bakary: "${cubit.getUnitByIdList[0].bakary}",
-                        balcony: "${cubit.getUnitByIdList[0].balcony}",
-                        beach: "${cubit.getUnitByIdList[0].beach}",
-                        bus: "${cubit.getUnitByIdList[0].bus}",
-                        cableTv: "${cubit.getUnitByIdList[0].cableTv}",
-                        coffe: "${cubit.getUnitByIdList[0].coffe}",
-                        computer: "${cubit.getUnitByIdList[0].computer}",
-                        dishwasher: "${cubit.getUnitByIdList[0].dishwasher}",
-                        gasLine: "${cubit.getUnitByIdList[0].gasLine}",
-                        grill: "${cubit.getUnitByIdList[0].grill}",
-                        heater: "${cubit.getUnitByIdList[0].heater}",
-                        internet: "${cubit.getUnitByIdList[0].internet}",
-                        lift: "${cubit.getUnitByIdList[0].lift}",
-                        metro: "${cubit.getUnitByIdList[0].metro}",
-                        microwave: "${cubit.getUnitByIdList[0].microwave}",
-                        parking: "${cubit.getUnitByIdList[0].parking}",
-                        pharmacy: "${cubit.getUnitByIdList[0].pharmacy}",
-                        pool: "${cubit.getUnitByIdList[0].pool}",
-                        resaurant: "${cubit.getUnitByIdList[0].resturant}",
-                        train: "${cubit.getUnitByIdList[0].train}",
-                      ),
+                      child:
+                          CustomAboutDeveloper(unit: cubit.getUnitByIdList[0]),
                     ),
                     SliverToBoxAdapter(
                       child: Padding(
@@ -218,7 +193,6 @@ class _UnitsDetailsScreenState extends State<UnitsDetailsScreen> {
                                 reviewBody: writeReviewController.text,
                                 starNum: 5);
                             UnitClientCubit.get(context).getAllUnitReview();
-
                           },
                           controller: writeReviewController,
                         ),
