@@ -71,7 +71,6 @@ class AllUnitsData {
   String? paymentMethod;
   String? countryId;
   String? cityId;
-
   String? areaId;
   String? country;
   String? city;
