@@ -365,7 +365,7 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 8.0, top: 2),
                         child: Text(
                           "${cubit.dataPopular[index].type}",
-                          style:Theme.of(context).textTheme.headline3,
+                          style: Theme.of(context).textTheme.headline3,
                         ),
                       ),
                       Padding(
@@ -407,7 +407,7 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
                             ),
                             Text(
                               "${cubit.dataPopular[index].city} , ${cubit.dataPopular[index].country}",
-                              style:Theme.of(context).textTheme.headline4,
+                              style: Theme.of(context).textTheme.headline4,
                             )
                           ],
                         ),

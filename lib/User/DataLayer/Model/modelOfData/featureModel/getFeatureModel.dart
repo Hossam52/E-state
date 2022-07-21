@@ -68,9 +68,9 @@ class FeatureData {
   String? paymentMethod;
   String? city;
   String? country;
-  int? countryId;
-  int? cityId;
-  int? areaId;
+  String? countryId;
+  String? cityId;
+  String? areaId;
   bool? available;
   String? availableDate;
   String? lat;
@@ -254,8 +254,8 @@ class FeatureData {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data["city"]=this.city;
-    data["country"]=this.country;
+    data["city"] = this.city;
+    data["country"] = this.country;
     data['title'] = this.title;
     data['type'] = this.type;
     data['required_fields'] = this.requiredFields;
