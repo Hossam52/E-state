@@ -13,6 +13,7 @@ import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/BussinssLogic/commonCubit/common_cubit.dart';
 import 'package:osol/User/PresentaionLayer/RegisterScreen/signUp/view.dart';
+
 // import 'package:osol/User/PresentaionLayer/RegisterScreen/signUp/view.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
@@ -62,7 +63,10 @@ class _AddUnitInCompanyScreenState extends State<AddUnitInCompanyScreen> {
       create: (context) => UnitCubit(),
       child: BlocConsumer<UnitCubit, UnitState>(
         listener: (context, state) {
-          // TODO: implement listener
+          state is SuccesAddingDataState
+              ? Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext context) => NavigationDrawerCompany()))
+              : debugPrint("Error on Adding the value");
         },
         builder: (context, state) {
           var cubit = UnitCubit.get(context);
@@ -558,8 +562,9 @@ class _AddUnitInCompanyScreenState extends State<AddUnitInCompanyScreen> {
                           horizontal: 20.0, vertical: 20),
                       child: Container(
                         height: sizeFromHeight(10),
-                        child: state is! SuccesAddingDataState
-                            ? ElevatedButton(
+                        child: state is LoadingAddUnitState
+                            ? const Center(child: CircularProgressIndicator())
+                            : ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     maximumSize:
                                         const Size(double.infinity, 50)),
@@ -632,12 +637,6 @@ class _AddUnitInCompanyScreenState extends State<AddUnitInCompanyScreen> {
                                     view: cubit.ViewsValue,
                                     year_build: yearBuildController.text,
                                   );
-                                  state is SuccesAddingDataState
-                                      ? Navigator.of(context).pushReplacement(
-                                          MaterialPageRoute(
-                                              builder: (BuildContext context) =>
-                                                  NavigationDrawerCompany()))
-                                      : debugPrint("Error on Adding the value");
                                 },
                                 child: const Text(
                                   "Publish",
@@ -646,8 +645,7 @@ class _AddUnitInCompanyScreenState extends State<AddUnitInCompanyScreen> {
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold),
                                 ),
-                              )
-                            : const Center(child: CircularProgressIndicator()),
+                              ),
                       ),
                     ),
                   ),

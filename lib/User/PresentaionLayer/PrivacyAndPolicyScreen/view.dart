@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Shared/constants.dart';
+import 'package:osol/User/BussinssLogic/AppSettingCubit/app_setting_cubit.dart';
 
 class PrivacyAndPolicyView extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.WhiteScreen,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: ColorManager.WhiteScreen,
         toolbarHeight: 80,
         leading: IconButton(
           onPressed: () {
@@ -18,7 +16,6 @@ class PrivacyAndPolicyView extends StatelessWidget {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: Colors.black54,
             size: 28,
           ),
         ),
@@ -31,7 +28,9 @@ class PrivacyAndPolicyView extends StatelessWidget {
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: AppSettingCubit.get(context).isDark
+                ? Colors.white
+                : Colors.black,
           ),
         ),
       ),
@@ -44,26 +43,16 @@ class PrivacyAndPolicyView extends StatelessWidget {
               width: double.infinity,
               height: sizeFromHeight(6),
               child: Text(
-                "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 30,
-                ),
-              ),
+                  "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.",
+                  style: Theme.of(context).textTheme.headline1),
             ),
             Container(
               width: double.infinity,
               height: sizeFromHeight(3),
               child: Text(
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut ero labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco poriti laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in uienply voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat norin proident, sunt in "
-                    "culpa qui officia deserunt mollit anim id est laborum.",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 17,
-                ),
-              ),
+                  "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut ero labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco poriti laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in uienply voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat norin proident, sunt in "
+                  "culpa qui officia deserunt mollit anim id est laborum.",
+                  style: Theme.of(context).textTheme.headline2),
             ),
             Container(
               height: sizeFromHeight(10),
@@ -78,7 +67,10 @@ class PrivacyAndPolicyView extends StatelessWidget {
                       SizedBox(
                         width: 5,
                       ),
-                      Text("June 2, 2017"),
+                      Text(
+                        "June 2, 2017",
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
                     ],
                   ),
                   FaIcon(

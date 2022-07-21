@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Shared/CustomToast.dart';
 import 'package:osol/Shared/constants.dart';
+import 'package:osol/User/BussinssLogic/AppSettingCubit/app_setting_cubit.dart';
 import 'package:osol/User/BussinssLogic/customerServicesCubit/customer_services_cubit.dart';
 
 class CustomerServicesView extends StatefulWidget {
@@ -38,10 +39,8 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
       builder: (context, state) {
         var cubit = CustomerServicesCubit.get(context);
         return Scaffold(
-          backgroundColor: ColorManager.WhiteScreen,
           appBar: AppBar(
             elevation: 0,
-            backgroundColor: ColorManager.WhiteScreen,
             toolbarHeight: 80,
             leading: IconButton(
               onPressed: () {
@@ -49,7 +48,6 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
               },
               icon: Icon(
                 Icons.arrow_back,
-                color: Colors.black54,
                 size: 28,
               ),
             ),
@@ -57,14 +55,8 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
             ),
             centerTitle: true,
-            title: Text(
-              "Customer Service",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
+            title: Text("Customer Service",
+                style: Theme.of(context).textTheme.headline1),
           ),
           body: Form(
             key: _customerServicesKey,
@@ -80,7 +72,9 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
                     flex: 4,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: ColorManager.CompareConatainer,
+                        color: AppSettingCubit.get(context).isDark
+                            ? ColorManager.DarkThemeBlackGround2
+                            : ColorManager.CompareConatainer,
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(30),
                           topLeft: Radius.circular(30),
@@ -98,7 +92,6 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
                                     padding: const EdgeInsets.only(left: 20.0),
                                     child: FaIcon(
                                       FontAwesomeIcons.user,
-                                      color: Colors.grey[900],
                                     ),
                                   ),
                                 ),
@@ -191,7 +184,7 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Icon(
-                                  Icons.phone,
+                                  Icons.pending_actions,
                                 ),
                                 Text("Problem Description"),
                               ],

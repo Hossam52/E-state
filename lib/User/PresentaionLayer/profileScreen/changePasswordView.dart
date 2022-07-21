@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osol/Shared/constants.dart';
+import 'package:osol/User/BussinssLogic/AppSettingCubit/app_setting_cubit.dart';
 import 'package:osol/User/BussinssLogic/commonCubit/profieCubit/profile_cubit.dart';
 
 class ChangePasswordView extends StatefulWidget {
@@ -24,18 +25,11 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: ColorManager.WhiteScreen,
           appBar: AppBar(
-            backgroundColor: ColorManager.WhiteScreen,
-            elevation: 0,
             centerTitle: true,
             title: Text(
               "Change Password",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
+              style: Theme.of(context).textTheme.headline1,
             ),
           ),
           body: Form(
@@ -151,6 +145,10 @@ class _CustomProfileTextFormState extends State<CustomProfileTextForm> {
                   },
                 ),
           labelText: widget.labelTxt,
+          labelStyle: Theme.of(context).textTheme.headline2,
+          suffixIconColor: AppSettingCubit.get(context).isDark
+              ? ColorManager.DarkThemeBlackGround2
+              : Colors.white,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),

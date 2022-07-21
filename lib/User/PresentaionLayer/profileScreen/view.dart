@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Shared/constants.dart';
+import 'package:osol/User/BussinssLogic/AppSettingCubit/app_setting_cubit.dart';
 import 'package:osol/User/BussinssLogic/commonCubit/profieCubit/profile_cubit.dart';
 import 'package:osol/User/PresentaionLayer/profileScreen/updateProfile.dart';
 
@@ -15,10 +16,7 @@ class ProfileView extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: ColorManager.WhiteScreen,
           appBar: AppBar(
-            elevation: 0,
-            backgroundColor: ColorManager.WhiteScreen,
             toolbarHeight: 80,
             leading: IconButton(
               onPressed: () {
@@ -26,7 +24,6 @@ class ProfileView extends StatelessWidget {
               },
               icon: Icon(
                 Icons.arrow_back,
-                color: Colors.black54,
                 size: 28,
               ),
             ),
@@ -36,11 +33,7 @@ class ProfileView extends StatelessWidget {
             centerTitle: true,
             title: Text(
               "Profile",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
+              style: Theme.of(context).textTheme.headline1,
             ),
           ),
           body: Column(
@@ -55,20 +48,13 @@ class ProfileView extends StatelessWidget {
                 ),
                 title: Text(
                   "${cubit.profileDate[0].client?.userName}",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                  ),
+                  style: Theme.of(context).textTheme.headline2,
                 ),
                 subtitle: Container(
                   width: double.infinity,
                   child: Text(
                     "Personal account",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w300,
-                      fontSize: 12,
-                    ),
+                    style: Theme.of(context).textTheme.headline2,
                   ),
                 ),
                 trailing: InkWell(
@@ -80,6 +66,9 @@ class ProfileView extends StatelessWidget {
                     );
                   },
                   child: Card(
+                    color: AppSettingCubit.get(context).isDark
+                        ? ColorManager.DarkThemeBlackGround2
+                        : Colors.white,
                     shape: BeveledRectangleBorder(
                       borderRadius: BorderRadius.circular(3.0),
                     ),
@@ -98,11 +87,7 @@ class ProfileView extends StatelessWidget {
                 padding: const EdgeInsets.all(18.0),
                 child: Text(
                   "Personal Data",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: Theme.of(context).textTheme.headline2,
                 ),
               ),
               Padding(
@@ -111,20 +96,18 @@ class ProfileView extends StatelessWidget {
                 ),
                 child: Container(
                   decoration: BoxDecoration(
-                      color: ColorManager.CompareConatainer,
+                      color: AppSettingCubit.get(context).isDark
+                          ? ColorManager.DarkThemeBlackGround2
+                          : Colors.white,
                       borderRadius: BorderRadius.circular(5)),
                   child: ListTile(
                     onTap: () {},
                     title: Text(
                       "Change Name",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                      ),
+                      style: Theme.of(context).textTheme.headline2,
                     ),
                     trailing: Icon(
                       Icons.arrow_forward_ios,
-                      color: Colors.grey[800],
                     ),
                   ),
                 ),
@@ -138,7 +121,9 @@ class ProfileView extends StatelessWidget {
                 ),
                 child: Container(
                   decoration: BoxDecoration(
-                      color: ColorManager.CompareConatainer,
+                      color: AppSettingCubit.get(context).isDark
+                          ? ColorManager.DarkThemeBlackGround2
+                          : Colors.white,
                       borderRadius: BorderRadius.circular(5)),
                   child: ListTile(
                     onTap: () {
@@ -148,16 +133,12 @@ class ProfileView extends StatelessWidget {
                         ),
                       );
                     },
-                    title: const Text(
+                    title: Text(
                       "Change Password",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                      ),
+                      style: Theme.of(context).textTheme.headline2,
                     ),
                     trailing: Icon(
                       Icons.arrow_forward_ios,
-                      color: Colors.grey[800],
                     ),
                   ),
                 ),

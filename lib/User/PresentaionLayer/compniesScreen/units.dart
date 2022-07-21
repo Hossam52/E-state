@@ -7,6 +7,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:osol/User/BussinssLogic/AppSettingCubit/app_setting_cubit.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import 'package:osol/Shared/Customicon.dart';
 import 'package:osol/Shared/constants.dart';
@@ -18,8 +19,6 @@ import 'companiesDetails.dart';
 
 AppBar companyAppBar(cubit) {
   return AppBar(
-    elevation: 0,
-    backgroundColor: ColorManager.WhiteScreen,
     bottom: PreferredSize(
       preferredSize: Size(50, 10),
       child: Container(
@@ -157,6 +156,9 @@ class CompaniesListView extends StatelessWidget {
             );
           },
           child: Card(
+            color: AppSettingCubit.get(context).isDark
+                ? ColorManager.DarkThemeBlackGround2
+                : Colors.white,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             elevation: 5,
@@ -199,11 +201,7 @@ class CompaniesListView extends StatelessWidget {
                           children: [
                             Text(
                               "${cubit.companyData[index].name}",
-                              style: TextStyle(
-                                color: ColorManager.TextHomeColor,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
-                              ),
+                              style: Theme.of(context).textTheme.headline2,
                             ),
                             // Padding(
                             //   padding: const EdgeInsets.all(8.0),
@@ -238,7 +236,7 @@ class CompaniesListView extends StatelessWidget {
                             ),
                             Text(
                               "${cubit.companyData[index].city} , ${cubit.companyData[index].country}",
-                              style: TextStyle(fontSize: 14),
+                              style: Theme.of(context).textTheme.headline4,
                             )
                           ],
                         ),
@@ -259,9 +257,7 @@ class CompaniesListView extends StatelessWidget {
                               ),
                               Text(
                                 "${cubit.companyData[index].branchesNum}",
-                                style: TextStyle(
-                                    color: ColorManager.TextHomeColor,
-                                    fontSize: 12),
+                                style: Theme.of(context).textTheme.headline4,
                               ),
                             ],
                           ),
@@ -283,9 +279,7 @@ class CompaniesListView extends StatelessWidget {
                               ),
                               Text(
                                 "register number ${cubit.companyData[index].regestrationNum} ",
-                                style: TextStyle(
-                                    color: ColorManager.TextHomeColor,
-                                    fontSize: 12),
+                                style: Theme.of(context).textTheme.headline4,
                               ),
                             ],
                           ),
@@ -856,7 +850,8 @@ class CustomDescriptionCompanies extends StatelessWidget {
                       builder: (_) => ChatView(
                         image: CompanyCubit.get(context)
                             .companyDetectedData[0]
-                            .image.toString(),
+                            .image
+                            .toString(),
                         email: CompanyCubit.get(context)
                             .companyDetectedData[0]
                             .email

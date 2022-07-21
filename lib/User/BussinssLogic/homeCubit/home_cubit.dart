@@ -290,7 +290,7 @@ class HomeCubit extends Cubit<HomeState> {
     debugPrint("mmmmmmmm${cToken}");
     emit(LoadingGetFeatureState());
     Response response;
-    try {
+
       response = await DioHelper.postDataWithAuth(
         url: getFeatureURL,
         data: currentLabelindex == 0
@@ -322,24 +322,22 @@ class HomeCubit extends Cubit<HomeState> {
         clientFeatureModel = ClientFeatureModel.fromJson(response.data);
         clientFeatureModel?.units?.data?.forEach((element) {
           dataFeature.add(element);
-          debugPrint("home feature:${element.purpose}");
         });
-        debugPrint("feature data :::::::${response.data}");
         emit(SuccesGetFeatureState());
-        if (dataFeature.length != null) {
-          for (int i = 0; i < dataFeature.length; i++) {
-            dataFeature[i].images?.forEach((element) {
-              print("$i ${element}");
-              imagesFeature.add(element);
-            });
-          }
+
+        for (int i = 0; i < dataFeature.length; i++) {
+          dataFeature[i].images?.forEach((element) {
+            print("$i ${element}");
+            imagesFeature.add(element);
+          });
+
           emit(SuccessGetFeatureImage());
         }
       }
-    } catch (e) {
-      emit(ErrorGetFeatureState());
-      debugPrint("${e.toString()}");
-    }
+    // } catch (e) {
+    //   emit(ErrorGetFeatureState());
+    //   debugPrint("${e.toString()}");
+    // }
   }
 
   ///get popular data

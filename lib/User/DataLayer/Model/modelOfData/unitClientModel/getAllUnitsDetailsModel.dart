@@ -6,7 +6,8 @@ class GetAllUnitsDetailsModel {
 
   GetAllUnitsDetailsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    units = json['units'] != null ? new UnitsOfData.fromJson(json['units']) : null;
+    units =
+        json['units'] != null ? new UnitsOfData.fromJson(json['units']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -68,9 +69,10 @@ class AllUnitsData {
   int? numYears;
   int? price;
   String? paymentMethod;
-  int? countryId;
-  int? cityId;
-  int? areaId;
+  String? countryId;
+  String? cityId;
+
+  String? areaId;
   String? country;
   String? city;
   String? cityArea;
@@ -123,72 +125,72 @@ class AllUnitsData {
 
   AllUnitsData(
       {this.id,
-        this.title,
-        this.type,
-        this.requiredFields,
-        this.view,
-        this.description,
-        this.purpose,
-        this.companyName,
-        this.companyLogo,
-        this.downPayment,
-        this.monthlyPayment,
-        this.deposite,
-        this.numYears,
-        this.price,
-        this.paymentMethod,
-        this.countryId,
-        this.cityId,
-        this.areaId,
-        this.country,
-        this.city,
-        this.cityArea,
-        this.available,
-        this.availableDate,
-        this.lat,
-        this.long,
-        this.video,
-        this.rooms,
-        this.bathroom,
-        this.floor,
-        this.yearBuild,
-        this.area,
-        this.bedrooms,
-        this.finishedType,
-        this.metro,
-        this.train,
-        this.bus,
-        this.pharmacy,
-        this.beach,
-        this.bakary,
-        this.resturant,
-        this.coffe,
-        this.airCondition,
-        this.cableTv,
-        this.computer,
-        this.gasLine,
-        this.dishwasher,
-        this.internet,
-        this.heater,
-        this.microwave,
-        this.balcony,
-        this.lift,
-        this.grill,
-        this.pool,
-        this.parking,
-        this.recption,
-        this.security,
-        this.addType,
-        this.companyId,
-        this.status,
-        this.images,
-        this.watchNum,
-        this.leadNum,
-        this.openedNum,
-        this.authWatch,
-        this.authOpen,
-        this.authLead,
-        this.authFavourite});
+      this.title,
+      this.type,
+      this.requiredFields,
+      this.view,
+      this.description,
+      this.purpose,
+      this.companyName,
+      this.companyLogo,
+      this.downPayment,
+      this.monthlyPayment,
+      this.deposite,
+      this.numYears,
+      this.price,
+      this.paymentMethod,
+      this.countryId,
+      this.cityId,
+      this.areaId,
+      this.country,
+      this.city,
+      this.cityArea,
+      this.available,
+      this.availableDate,
+      this.lat,
+      this.long,
+      this.video,
+      this.rooms,
+      this.bathroom,
+      this.floor,
+      this.yearBuild,
+      this.area,
+      this.bedrooms,
+      this.finishedType,
+      this.metro,
+      this.train,
+      this.bus,
+      this.pharmacy,
+      this.beach,
+      this.bakary,
+      this.resturant,
+      this.coffe,
+      this.airCondition,
+      this.cableTv,
+      this.computer,
+      this.gasLine,
+      this.dishwasher,
+      this.internet,
+      this.heater,
+      this.microwave,
+      this.balcony,
+      this.lift,
+      this.grill,
+      this.pool,
+      this.parking,
+      this.recption,
+      this.security,
+      this.addType,
+      this.companyId,
+      this.status,
+      this.images,
+      this.watchNum,
+      this.leadNum,
+      this.openedNum,
+      this.authWatch,
+      this.authOpen,
+      this.authLead,
+      this.authFavourite});
 
   AllUnitsData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -336,8 +338,8 @@ class AllUnitsData {
 class Links {
   String? first;
   String? last;
-  Null? prev;
-  Null? next;
+  String? prev;
+  String? next;
 
   Links({this.first, this.last, this.prev, this.next});
 
@@ -369,12 +371,12 @@ class Meta {
 
   Meta(
       {this.currentPage,
-        this.from,
-        this.lastPage,
-        this.path,
-        this.perPage,
-        this.to,
-        this.total});
+      this.from,
+      this.lastPage,
+      this.path,
+      this.perPage,
+      this.to,
+      this.total});
 
   Meta.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
