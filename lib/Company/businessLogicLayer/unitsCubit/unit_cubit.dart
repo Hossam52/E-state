@@ -14,6 +14,7 @@ import 'package:osol/Company/dataLayer/dataModel/pobular/popularModel.dart';
 import 'package:osol/Shared/CustomToast.dart';
 import 'package:osol/User/DataLayer/DataProvider/dioHelper.dart';
 import 'package:osol/Shared/constants.dart';
+import 'package:osol/common_models/unit_model.dart';
 
 import '../../../User/DataLayer/localDataLayer/localData.dart';
 
@@ -296,7 +297,7 @@ class UnitCubit extends Cubit<UnitState> {
 
   ///Get Features
   GetAllFeaturesCompanyModel? getAllFeaturesCompanyModel;
-  List<DataFeatures> getDataFeature = [];
+  List<UnitModel> getDataFeature = [];
   List<String> images = [];
   int? currentPage;
   int? lastPage;
@@ -350,7 +351,7 @@ class UnitCubit extends Cubit<UnitState> {
 
   ///Get Pobular Data
   PopularModel? getAllPobularCompanyModel;
-  List<DataPopular> getDataPopular = [];
+  List<UnitModel> getDataPopular = [];
   List<String> imagesPobular = [];
 
   Future getAllPobular() async {

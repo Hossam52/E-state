@@ -16,6 +16,7 @@ import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/DataLayer/Model/modelOfData/onBoardingModel.dart';
 import 'package:osol/User/PresentaionLayer/HomeScreen/units.dart';
 import 'package:osol/User/PresentaionLayer/searchScreen/view.dart';
+import 'package:osol/common_models/unit_model.dart';
 
 class HomeViewCompanyData extends StatefulWidget {
   const HomeViewCompanyData({Key? key}) : super(key: key);
@@ -690,7 +691,7 @@ class _EmptyList extends StatelessWidget {
 class _FeaturedItem extends StatelessWidget {
   const _FeaturedItem({Key? key, required this.featured, required this.index})
       : super(key: key);
-  final DataFeatures featured;
+  final UnitModel featured;
   final int index;
   @override
   Widget build(BuildContext context) {

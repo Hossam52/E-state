@@ -31,11 +31,11 @@ class CompanyDetectedData {
   String? image;
   String? address;
   String? about;
-  int? branchesNum;
+  String? branchesNum;
   String? type;
   String? regestrationNum;
   String? phone;
-  Null? reason;
+  String? reason;
   String? status;
   List<MyBranches>? myBranches;
   String? date;
@@ -69,7 +69,7 @@ class CompanyDetectedData {
     image = json['image'];
     address = json['address'];
     about = json['about'];
-    branchesNum = json['branches_num'];
+    branchesNum = json['branches_num'].toString();
     type = json['type'];
     regestrationNum = json['regestration_num'];
     phone = json['phone'];

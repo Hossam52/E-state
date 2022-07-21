@@ -8,6 +8,7 @@ import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
 import 'package:osol/User/DataLayer/DataProvider/dioHelper.dart';
 import 'package:osol/User/DataLayer/Model/modelOfData/savedModel/SavedModel.dart';
+import 'package:osol/common_models/unit_model.dart';
 
 import '../../DataLayer/localDataLayer/localData.dart';
 
@@ -42,7 +43,7 @@ class SavedCubit extends Cubit<SavedState> {
   }
 
   SavedModel? savedGetModel;
-  List<UnitSavedData> dataUnit = [];
+  List<UnitModel> dataUnit = [];
 
   getMySavedData() async {
     dataUnit.clear();

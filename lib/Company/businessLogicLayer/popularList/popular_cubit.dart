@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:osol/User/DataLayer/DataProvider/dioHelper.dart';
+import 'package:osol/common_models/unit_model.dart';
 
 import '../../../User/DataLayer/localDataLayer/localData.dart';
 
@@ -50,7 +51,7 @@ class PopularCubit extends Cubit<PopularState> {
 
   ///Get Popular Data
   PopularListModel? popularListModel;
-  List<DataDetected> detectedUnitList = [];
+  List<UnitModel> detectedUnitList = [];
 
   Future getDetectedPopularList() async {
     detectedUnitList.clear();
@@ -61,7 +62,7 @@ class PopularCubit extends Cubit<PopularState> {
         url: getAllUnitsdetails,
         data: tappedContainer == "Sale" || tappedContainer == "Rent"
             ? {
-                "add_type":"Popular",
+                "add_type": "Popular",
                 "purpose": tappedContainer,
               }
             : {

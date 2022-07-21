@@ -21,6 +21,7 @@ import 'package:osol/User/PresentaionLayer/MapScreen/mapDetails.dart';
 import 'package:osol/User/PresentaionLayer/compareScreen/view.dart';
 import 'package:osol/User/PresentaionLayer/compniesScreen/view.dart';
 import 'package:osol/User/PresentaionLayer/moreScreen/view.dart';
+import 'package:osol/common_models/unit_model.dart';
 
 import '../../DataLayer/localDataLayer/localData.dart';
 
@@ -281,7 +282,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   ///get feature data of client
   ClientFeatureModel? clientFeatureModel;
-  List<FeatureData> dataFeature = [];
+  List<UnitModel> dataFeature = [];
   List<String> imagesFeature = [];
 
   Future<void> getFeatureOfClientHome() async {
@@ -291,49 +292,49 @@ class HomeCubit extends Cubit<HomeState> {
     emit(LoadingGetFeatureState());
     Response response;
 
-      response = await DioHelper.postDataWithAuth(
-        url: getFeatureURL,
-        data: currentLabelindex == 0
-            ? {
-                "add_type": "Feature",
-              }
-            : currentLabelindex == 1
-                ? {
-                    "purpose": "Sale",
-                    "add_type": "Feature",
-                  }
-                : currentLabelindex == 2
-                    ? {
-                        "purpose": "Rent",
-                        "add_type": "Feature",
-                      }
-                    : currentLabelindex == 3
-                        ? {
-                            "type": "Compound",
-                            "add_type": "Feature",
-                          }
-                        : {
-                            "type": "Estate",
-                            "add_type": "Feature",
-                          },
-      );
-      dataFeature.clear();
-      if (response.statusCode == 200) {
-        clientFeatureModel = ClientFeatureModel.fromJson(response.data);
-        clientFeatureModel?.units?.data?.forEach((element) {
-          dataFeature.add(element);
+    response = await DioHelper.postDataWithAuth(
+      url: getFeatureURL,
+      data: currentLabelindex == 0
+          ? {
+              "add_type": "Feature",
+            }
+          : currentLabelindex == 1
+              ? {
+                  "purpose": "Sale",
+                  "add_type": "Feature",
+                }
+              : currentLabelindex == 2
+                  ? {
+                      "purpose": "Rent",
+                      "add_type": "Feature",
+                    }
+                  : currentLabelindex == 3
+                      ? {
+                          "type": "Compound",
+                          "add_type": "Feature",
+                        }
+                      : {
+                          "type": "Estate",
+                          "add_type": "Feature",
+                        },
+    );
+    dataFeature.clear();
+    if (response.statusCode == 200) {
+      clientFeatureModel = ClientFeatureModel.fromJson(response.data);
+      clientFeatureModel?.units?.data?.forEach((element) {
+        dataFeature.add(element);
+      });
+      emit(SuccesGetFeatureState());
+
+      for (int i = 0; i < dataFeature.length; i++) {
+        dataFeature[i].images?.forEach((element) {
+          print("$i ${element}");
+          imagesFeature.add(element);
         });
-        emit(SuccesGetFeatureState());
 
-        for (int i = 0; i < dataFeature.length; i++) {
-          dataFeature[i].images?.forEach((element) {
-            print("$i ${element}");
-            imagesFeature.add(element);
-          });
-
-          emit(SuccessGetFeatureImage());
-        }
+        emit(SuccessGetFeatureImage());
       }
+    }
     // } catch (e) {
     //   emit(ErrorGetFeatureState());
     //   debugPrint("${e.toString()}");
@@ -343,7 +344,7 @@ class HomeCubit extends Cubit<HomeState> {
   ///get popular data
 
   ClientPopularModel? clientPopularModel;
-  List<PopularData> dataPopular = [];
+  List<UnitModel> dataPopular = [];
   List<String> imagesPopular = [];
   Set<Marker> myMarker = Set();
 

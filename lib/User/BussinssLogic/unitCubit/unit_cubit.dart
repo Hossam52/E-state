@@ -6,6 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
 import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
 import 'package:osol/User/DataLayer/DataProvider/dioHelper.dart';
+import 'package:osol/common_models/unit_model.dart';
 
 import '../../../Shared/constants.dart';
 import '../../DataLayer/Model/modelOfData/unitClientModel/getAllReviewData.dart';
@@ -21,8 +22,8 @@ class UnitClientCubit extends Cubit<UnitClientState> {
 
   static UnitClientCubit get(context) => BlocProvider.of(context);
 
-  Units? getUnitByIdModel;
-  List<Units> getUnitByIdList = [];
+  UnitModel? getUnitByIdModel;
+  List<UnitModel> getUnitByIdList = [];
   List imagesData = [];
   String? image;
   var unitId;
@@ -34,10 +35,10 @@ class UnitClientCubit extends Cubit<UnitClientState> {
   }
 
   List unitDetectedId = [];
-  List<Units> firstUnit = [];
-  List<Units> secondUnit = [];
-  Units? getUnitByIdFirstModel;
-  Units? getUnitByIdSecondModel;
+  List<UnitModel> firstUnit = [];
+  List<UnitModel> secondUnit = [];
+  UnitModel? getUnitByIdFirstModel;
+  UnitModel? getUnitByIdSecondModel;
 
   getUnitById() async {
     getUnitByIdList.clear();
@@ -49,7 +50,7 @@ class UnitClientCubit extends Cubit<UnitClientState> {
       token: clienToken,
     );
     if (response.statusCode == 200) {
-      getUnitByIdModel = Units.fromJson(response.data["units"]);
+      getUnitByIdModel = UnitModel.fromJson(response.data["units"]);
       getUnitByIdList.add(getUnitByIdModel!);
       getUnitByIdModel?.images?.forEach((element) {
         imagesData.add(element);
@@ -75,7 +76,7 @@ class UnitClientCubit extends Cubit<UnitClientState> {
       token: clienToken,
     );
     if (response.statusCode == 200) {
-      getUnitByIdFirstModel = Units.fromJson(response.data["units"]);
+      getUnitByIdFirstModel = UnitModel.fromJson(response.data["units"]);
       firstUnit.add(getUnitByIdFirstModel!);
       print("print body ${firstUnit}");
       emit(SuccessGetFirstUnitById());
@@ -103,7 +104,7 @@ class UnitClientCubit extends Cubit<UnitClientState> {
       token: clienToken,
     );
     if (response.statusCode == 200) {
-      getUnitByIdSecondModel = Units.fromJson(response.data["units"]);
+      getUnitByIdSecondModel = UnitModel.fromJson(response.data["units"]);
 
       secondUnit.add(getUnitByIdSecondModel!);
       print("print body ${secondUnit}");
@@ -237,7 +238,7 @@ class UnitClientCubit extends Cubit<UnitClientState> {
     print("${start},$end");
   }
 
-  int indexOfTypeOfFilter=2;
+  int indexOfTypeOfFilter = 2;
 
   changeTypeOfFilter(index) {
     indexOfTypeOfFilter = index;
@@ -248,7 +249,7 @@ class UnitClientCubit extends Cubit<UnitClientState> {
   ///get all unit details
   String? cToken;
   GetAllUnitsDetailsModel? getAllUnitsDetailsModel;
-  List<AllUnitsData> getAllDataList = [];
+  List<UnitModel> getAllDataList = [];
 
   getAllData() {
     getUnitByIdFirstUnit();
@@ -340,6 +341,7 @@ class UnitClientCubit extends Cubit<UnitClientState> {
     compareUnitId.length = 0;
     emit(ClearCompareList());
   }
+
   /// map Screen
   ScrollController scrollController = new ScrollController();
   double _width = sizeFromWidth(1.5);
