@@ -34,7 +34,6 @@ class _CompaniesViewDataState extends State<CompaniesViewData> {
       builder: (context, state) {
         var cubit = CompanyCubit.get(context);
         return Scaffold(
-          backgroundColor: ColorManager.WhiteScreen,
           appBar: companyAppBar(cubit),
           body: cubit.indexTogleIcons == 0
               ? ListView.builder(

@@ -45,18 +45,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
       },
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: ColorManager.WhiteScreen,
           appBar: AppBar(
-            backgroundColor: ColorManager.WhiteScreen,
-            elevation: 0,
             centerTitle: true,
             title: Text(
               "Update Profile",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
+              style: Theme.of(context).textTheme.headline1,
             ),
           ),
           body: cubit.profileDate.isEmpty
@@ -296,11 +289,7 @@ class _UploadNewImageState extends State<UploadNewImage> {
                 ),
                 Text(
                   "Upload Personal Image",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                  ),
+                  style: Theme.of(context).textTheme.headline2,
                 )
               ],
             ),

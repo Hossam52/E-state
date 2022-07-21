@@ -326,7 +326,9 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
         var cubit = HomeCubit.get(context);
         return Container(
           decoration: BoxDecoration(
-              color: ColorManager.DarkThemeBlackGround2,
+              color: AppSettingCubit.get(context).isDark
+                  ? ColorManager.DarkThemeBlackGround2
+                  : Colors.white,
               border: Border.all(color: Colors.lightBlueAccent, width: 0.5),
               borderRadius: BorderRadius.circular(6)),
           child: Column(

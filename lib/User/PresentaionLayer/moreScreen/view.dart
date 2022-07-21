@@ -15,10 +15,10 @@ class MoreViewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.WhiteScreen,
       body: Padding(
         padding: const EdgeInsets.only(
-          left: 10.0,top: 15,
+          left: 10.0,
+          top: 15,
         ),
         child: ListView(
           children: [
@@ -32,11 +32,11 @@ class MoreViewScreen extends StatelessWidget {
                 height: sizeFromHeight(13),
                 width: sizeFromHeight(13),
                 decoration: BoxDecoration(
-                    color: ColorManager.OnBoardingScreen,
-                    borderRadius: BorderRadius.circular(
-                      10,
-                    ),
-                   ),
+                  color: ColorManager.OnBoardingScreen,
+                  borderRadius: BorderRadius.circular(
+                    10,
+                  ),
+                ),
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(
@@ -49,21 +49,14 @@ class MoreViewScreen extends StatelessWidget {
               ),
               title: Text(
                 "My account",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                ),
+                style: Theme.of(context).textTheme.headline2,
               ),
               subtitle: Container(
                 width: double.infinity,
                 child: FittedBox(
                   child: Text(
                     "change your account data,email,password...etc",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w300,
-                      fontSize: 12,
-                    ),
+                    style: Theme.of(context).textTheme.headline4,
                   ),
                 ),
               ),
@@ -99,20 +92,13 @@ class MoreViewScreen extends StatelessWidget {
               ),
               title: Text(
                 "Messages",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                ),
+                style: Theme.of(context).textTheme.headline2,
               ),
               subtitle: Container(
                 width: double.infinity,
                 child: Text(
                   "2 new messages found",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w300,
-                    fontSize: 12,
-                  ),
+                  style: Theme.of(context).textTheme.headline4,
                 ),
               ),
               trailing: Icon(
@@ -130,11 +116,11 @@ class MoreViewScreen extends StatelessWidget {
                 height: sizeFromHeight(13),
                 width: sizeFromHeight(13),
                 decoration: BoxDecoration(
-                    color: ColorManager.OnBoardingScreen,
-                    borderRadius: BorderRadius.circular(
-                      10,
-                    ),
-                                      ),
+                  color: ColorManager.OnBoardingScreen,
+                  borderRadius: BorderRadius.circular(
+                    10,
+                  ),
+                ),
                 child: Align(
                   alignment: Alignment.center,
                   child: FaIcon(
@@ -146,23 +132,16 @@ class MoreViewScreen extends StatelessWidget {
               ),
               title: Text(
                 "App Settings",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                ),
+                style: Theme.of(context).textTheme.headline2,
               ),
               subtitle: Container(
                 alignment: Alignment.centerLeft,
                 width: double.infinity,
                 child: FittedBox(
-                  fit:BoxFit.scaleDown,
+                  fit: BoxFit.scaleDown,
                   child: Text(
                     "change languages, dark moe and manage your app",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w300,
-                      fontSize: 12,
-                    ),
+                    style: Theme.of(context).textTheme.headline4,
                   ),
                 ),
               ),
@@ -181,11 +160,11 @@ class MoreViewScreen extends StatelessWidget {
                 height: sizeFromHeight(13),
                 width: sizeFromHeight(13),
                 decoration: BoxDecoration(
-                    color: ColorManager.OnBoardingScreen,
-                    borderRadius: BorderRadius.circular(
-                      10,
-                    ),
-                    ),
+                  color: ColorManager.OnBoardingScreen,
+                  borderRadius: BorderRadius.circular(
+                    10,
+                  ),
+                ),
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(
@@ -197,20 +176,13 @@ class MoreViewScreen extends StatelessWidget {
               ),
               title: Text(
                 "About App",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                ),
+                style: Theme.of(context).textTheme.headline2,
               ),
               subtitle: Container(
                 width: double.infinity,
                 child: Text(
                   "Learn More about Osol App",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w300,
-                    fontSize: 12,
-                  ),
+                  style: Theme.of(context).textTheme.headline4,
                 ),
               ),
               trailing: Icon(
@@ -228,39 +200,33 @@ class MoreViewScreen extends StatelessWidget {
                 height: sizeFromHeight(13),
                 width: sizeFromHeight(13),
                 decoration: BoxDecoration(
-                    color: ColorManager.OnBoardingScreen,
-                    borderRadius: BorderRadius.circular(
-                      10,
-                    ),
-                    ),
+                  color: ColorManager.OnBoardingScreen,
+                  borderRadius: BorderRadius.circular(
+                    10,
+                  ),
+                ),
                 child: Align(
                   alignment: Alignment.center,
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Container(
-                      child: SvgPicture.asset("assets/images/custser.svg",
+                      child: SvgPicture.asset(
+                        "assets/images/custser.svg",
                         color: Colors.white,
-                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
               title: Text(
                 "Customer Services",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                ),
+                style: Theme.of(context).textTheme.headline2,
               ),
               subtitle: Container(
                 width: double.infinity,
                 child: Text(
                   "Contact us if you have some issues",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w300,
-                    fontSize: 12,
-                  ),
+                  style: Theme.of(context).textTheme.headline4,
                 ),
               ),
               trailing: Icon(
@@ -298,20 +264,13 @@ class MoreViewScreen extends StatelessWidget {
               ),
               title: Text(
                 "Privacy and Policy",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                ),
+                style: Theme.of(context).textTheme.headline2,
               ),
               subtitle: Container(
                 width: double.infinity,
                 child: Text(
                   "Contact us if you have some issue",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w300,
-                    fontSize: 12,
-                  ),
+                  style: Theme.of(context).textTheme.headline4,
                 ),
               ),
               trailing: Icon(

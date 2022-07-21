@@ -14,10 +14,7 @@ class AppSettingView extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: ColorManager.WhiteScreen,
           appBar: AppBar(
-            elevation: 0,
-            backgroundColor: ColorManager.WhiteScreen,
             toolbarHeight: 80,
             leading: IconButton(
               onPressed: () {
@@ -25,7 +22,6 @@ class AppSettingView extends StatelessWidget {
               },
               icon: Icon(
                 Icons.arrow_back,
-                color: Colors.black54,
                 size: 28,
               ),
             ),
@@ -33,14 +29,8 @@ class AppSettingView extends StatelessWidget {
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
             ),
             centerTitle: true,
-            title: Text(
-              "App Setting",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
+            title: Text("App Setting",
+                style: Theme.of(context).textTheme.headline1),
           ),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +41,9 @@ class AppSettingView extends StatelessWidget {
                 ),
                 child: Container(
                   decoration: BoxDecoration(
-                      color: ColorManager.CompareConatainer,
+                      color: AppSettingCubit.get(context).isDark
+                          ? ColorManager.DarkThemeBlackGround2
+                          : ColorManager.labelContainerIcon,
                       borderRadius: BorderRadius.circular(5)),
                   child: ListTile(
                     onTap: () {},
@@ -60,22 +52,17 @@ class AppSettingView extends StatelessWidget {
                     ),
                     title: Text(
                       "Change Language",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                      ),
+                      style: Theme.of(context).textTheme.headline2,
                     ),
                     trailing: Container(
                       width: sizeFromWidth(4.5),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "English",
-                          ),
+                          Text("English",
+                              style: Theme.of(context).textTheme.headline2),
                           Icon(
                             Icons.arrow_forward_ios,
-                            color: Colors.grey[800],
                           ),
                         ],
                       ),
@@ -92,7 +79,9 @@ class AppSettingView extends StatelessWidget {
                 ),
                 child: Container(
                   decoration: BoxDecoration(
-                      color: ColorManager.CompareConatainer,
+                      color: AppSettingCubit.get(context).isDark
+                          ? ColorManager.DarkThemeBlackGround2
+                          : ColorManager.labelContainerIcon,
                       borderRadius: BorderRadius.circular(5)),
                   child: ListTile(
                     onTap: () {
@@ -104,10 +93,7 @@ class AppSettingView extends StatelessWidget {
                     ),
                     title: Text(
                       "Dark Mode",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                      ),
+                      style: Theme.of(context).textTheme.headline2,
                     ),
                     trailing: Container(
                       width: sizeFromWidth(4.5),
@@ -119,12 +105,16 @@ class AppSettingView extends StatelessWidget {
                                 ? "Enable"
                                 : "Dissable",
                             style: TextStyle(
+                              color: AppSettingCubit.get(context).isDark
+                                  ? Colors.white
+                                  : ColorManager.blackFontStyle,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
                               decoration: TextDecoration.underline,
                             ),
                           ),
                           Icon(
                             Icons.arrow_forward_ios,
-                            color: Colors.grey[800],
                           ),
                         ],
                       ),
@@ -141,20 +131,17 @@ class AppSettingView extends StatelessWidget {
                 ),
                 child: Container(
                   decoration: BoxDecoration(
-                      color: ColorManager.CompareConatainer,
+                      color: AppSettingCubit.get(context).isDark
+                          ? ColorManager.DarkThemeBlackGround2
+                          : ColorManager.labelContainerIcon,
                       borderRadius: BorderRadius.circular(5)),
                   child: ListTile(
                     onTap: () {},
                     leading: Container(
                       child: SvgPicture.asset("assets/images/text.svg"),
                     ),
-                    title: Text(
-                      "Font Size",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                      ),
-                    ),
+                    title: Text("Font Size",
+                        style: Theme.of(context).textTheme.headline2),
                     trailing: Container(
                       width: sizeFromWidth(4.5),
                       child: Row(
@@ -162,10 +149,10 @@ class AppSettingView extends StatelessWidget {
                         children: [
                           Text(
                             "medium",
+                            style: Theme.of(context).textTheme.headline2,
                           ),
                           Icon(
                             Icons.arrow_forward_ios,
-                            color: Colors.grey[800],
                           ),
                         ],
                       ),

@@ -70,9 +70,11 @@ class DataDetected {
   int? numYears;
   int? price;
   String? paymentMethod;
-  int? countryId;
-  int? cityId;
-  int? areaId;
+  String? countryId;
+
+  String? cityId;
+
+  String? areaId;
   bool? available;
   String? availableDate;
   String? lat;

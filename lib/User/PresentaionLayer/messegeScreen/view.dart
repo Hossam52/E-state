@@ -14,6 +14,7 @@ class MessageView extends StatefulWidget {
 
 class _MessageViewState extends State<MessageView> {
   final _fireStore = FirebaseFirestore.instance;
+
   @override
   void initState() {
     super.initState();
@@ -26,10 +27,7 @@ class _MessageViewState extends State<MessageView> {
       child: ChatsBlocBuilder(
         builder: (context, state) {
           return Scaffold(
-            backgroundColor: ColorManager.WhiteScreen,
             appBar: AppBar(
-              elevation: 0,
-              backgroundColor: ColorManager.WhiteScreen,
               toolbarHeight: 80,
               leading: IconButton(
                 onPressed: () {
@@ -37,7 +35,6 @@ class _MessageViewState extends State<MessageView> {
                 },
                 icon: const Icon(
                   Icons.arrow_back,
-                  color: Colors.black54,
                   size: 28,
                 ),
               ),
@@ -46,14 +43,8 @@ class _MessageViewState extends State<MessageView> {
                     BorderRadius.vertical(bottom: Radius.circular(10)),
               ),
               centerTitle: true,
-              title: const Text(
-                "Messages",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black,
-                ),
-              ),
+              title: Text("Messages",
+                  style: Theme.of(context).textTheme.headline1),
             ),
             body: Column(
               children: [
@@ -177,40 +168,19 @@ class ChatData extends StatelessWidget {
           radius: 30,
           backgroundImage: NetworkImage(img),
         ),
-        title: Text(
-          companyName,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 16,
-          ),
-        ),
+        title: Text(companyName, style: Theme.of(context).textTheme.headline2),
         subtitle: SizedBox(
           width: double.infinity,
-          child: Text(
-            msg,
-            style: const TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w300,
-              fontSize: 14,
-            ),
-          ),
+          child: Text(msg, style: Theme.of(context).textTheme.headline3),
         ),
         trailing: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text.rich(TextSpan(children: [
               TextSpan(
-                text: time,
-                style: TextStyle(
-                  color: ColorManager.AppBarIconcolorGrey,
-                ),
-              ),
+                  text: time, style: Theme.of(context).textTheme.headline4),
               TextSpan(
-                text: "ساعه",
-                style: TextStyle(
-                  color: ColorManager.AppBarIconcolorGrey,
-                ),
-              ),
+                  text: "ساعه", style: Theme.of(context).textTheme.headline4),
             ])),
             // index == 0
             //     ? Container(
