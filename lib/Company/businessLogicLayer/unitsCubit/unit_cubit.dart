@@ -12,6 +12,7 @@ import 'package:osol/Company/dataLayer/dataModel/addUnit/addUnitModel.dart';
 import 'package:osol/Company/dataLayer/dataModel/features/featuresModel.dart';
 import 'package:osol/Company/dataLayer/dataModel/pobular/popularModel.dart';
 import 'package:osol/Shared/CustomToast.dart';
+import 'package:osol/User/BussinssLogic/commonCubit/common_cubit.dart';
 import 'package:osol/User/DataLayer/DataProvider/dioHelper.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/common_models/unit_model.dart';
@@ -34,7 +35,7 @@ class UnitCubit extends Cubit<UnitState> {
     "Medical"
   ];
   List<String> Views = ["front", "back"];
-  List<String> adsType = ["Feature", " Popular"];
+  List<String> adsType = ["Feature", "Popular"];
   List<String> purpose = ['Sale', 'Rent'];
   List<String> paymentMethod = ["Cash", "Installment"];
   List<String> finishType = [
@@ -58,7 +59,7 @@ class UnitCubit extends Cubit<UnitState> {
     "Penthouse",
     "Villa"
   ];
-  List<String> availableDate = ["available", "Not Available"];
+  List<String> availableDate = ["Available", "Not Available"];
   String? ViewsValue;
   String? adsTypeValue;
   String? dropDownStyleTypeValue;
@@ -68,6 +69,56 @@ class UnitCubit extends Cubit<UnitState> {
   String? descriptionValue;
   String? availabe;
   String? paymentMethodValue;
+
+  void initDropDownValues(CommonCubit commonCubit, UnitModel unit) {
+    ViewsValue = unit.view;
+    adsTypeValue = unit.addType;
+    dropDownStyleTypeValue = unit.type;
+    finishTypeValue = unit.finishedType;
+    purposeValue = unit.purpose;
+    requiredFieldsValue = unit.requiredFields;
+    descriptionValue = unit.description;
+    availabe = unit.available ?? false ? availableDate[0] : availableDate[1];
+    paymentMethodValue = unit.paymentMethod;
+
+    numRoom = unit.rooms ?? 0;
+    numBathRoom = unit.bathroom ?? 0;
+    numFloor = unit.floor ?? 0;
+    numBedRoom = unit.bedrooms ?? 0;
+
+    trainDistance = unit.train?.toString();
+    metroDistance = unit.metro?.toString();
+    BusDistance = unit.bus?.toString();
+    pharmacyDistance = unit.pharmacy?.toString();
+    coffeDistance = unit.coffe?.toString();
+    restDistance = unit.resturant?.toString();
+    BakaryDistance = unit.bakary?.toString();
+    beachDistance = unit.beach?.toString();
+
+    valueAirCondition = unit.gasLine?.contains('on') ?? false;
+    valueCableTV = unit.cableTv?.contains('on') ?? false;
+    valueComputer = unit.computer?.contains('on') ?? false;
+    valueGasline = unit.gasLine?.contains('on') ?? false;
+    valueDishwasher = unit.dishwasher?.contains('on') ?? false;
+    valueInternet = unit.internet?.contains('on') ?? false;
+    valueHeater = unit.heater?.contains('on') ?? false;
+    valueMicrowave = unit.microwave?.contains('on') ?? false;
+    valuebalcony = unit.balcony?.contains('on') ?? false;
+    valueLift = unit.lift?.contains('on') ?? false;
+    valueGrill = unit.grill?.contains('on') ?? false;
+    valuePool = unit.pool?.contains('on') ?? false;
+    valueParking = unit.parking?.contains('on') ?? false;
+    valueSecurity = unit.security?.contains('on') ?? false;
+
+    latitude = double.tryParse(unit.lat ?? '0') ?? 0;
+    longitude = double.tryParse(unit.long ?? '0') ?? 0;
+
+    commonCubit.changeSelectedLocationById(
+      countryId: unit.countryId!,
+      cityId: unit.cityId!,
+      areaId: unit.areaId!,
+    );
+  }
 
   changeAvailableValue(value) {
     availabe = value;
@@ -137,61 +188,18 @@ class UnitCubit extends Cubit<UnitState> {
 
   AddUnitModel? addUnitModel;
   Unit? unitData;
-
-  Future AddUnit(
-      {title,
-      type,
-      required_fields,
-      view,
-      description,
-      purpose,
-      down_payment,
-      monthly_payment,
-      deposite,
-      num_years,
-      price,
-      payment_method,
-      country_id,
-      city_id,
-      area_id,
-      available,
-      available_date,
-      lat,
-      long,
-      video,
-      rooms,
-      bathroom,
-      floor,
-      year_build,
-      area,
-      bedrooms,
-      finished_type,
-      metro,
-      train,
-      bus,
-      pharmacy,
-      beach,
-      bakary,
-      resturant,
-      coffe,
-      air_condition,
-      cable_tv,
-      computer,
-      gas_line,
-      dishwasher,
-      internet,
-      heater,
-      microwave,
-      balcony,
-      lift,
-      grill,
-      pool,
-      parking,
-      recption,
-      security,
-      add_type,
-      image,
-      context}) async {
+  Future addUnit({
+    required String title,
+    required String downPayment,
+    required String monthlyPayment,
+    required String deposite,
+    required String numYears,
+    required String area,
+    required String yearBuild,
+    required String price,
+    required String video,
+    required BuildContext context,
+  }) async {
     List<MultipartFile> myImage = [];
     for (var i = 0; i < imagesFile.length; i++) {
       log('For loop');
@@ -199,6 +207,7 @@ class UnitCubit extends Cubit<UnitState> {
         await DioHelper.uploadFile(imagesFile[i]),
       );
     }
+    UnitModel unit;
     log(myImage.length.toString());
 
     emit(LoadingAddUnitState());
@@ -207,62 +216,66 @@ class UnitCubit extends Cubit<UnitState> {
     debugPrint("print:${myImage.length.toString()}");
     final companyToken = await Shared.prefGetString(key: "CompanyTokenVerify");
     try {
+      await changeListData();
+      final cityId = CommonCubit.get(context).cityIndex.toString();
+      final countryId = CommonCubit.get(context).valueCountryId.toString();
+      final areaId = CommonCubit.get(context).areaIndex.toString();
       debugPrint("print beforeRes:${myImage.length.toString()}");
       response = await DioHelper.postDataWithAuth(
           token: companyToken,
           url: setUnitURL,
           data: {
             "title": title,
-            "type": type,
-            "required_fields": required_fields,
-            "view": view,
+            "type": dropDownStyleTypeValue,
+            "required_fields": requiredFields,
+            "view": ViewsValue,
             "description": description,
             "purpose": purpose,
-            "down_payment": down_payment,
-            "monthly_payment": monthly_payment,
+            "down_payment": downPayment,
+            "monthly_payment": monthlyPayment,
             "deposite": deposite,
-            "num_years": num_years,
+            "num_years": numYears,
             "price": price,
-            "payment_method": payment_method,
-            "country_id": country_id,
-            "city_id": city_id,
-            "area_id": area_id,
-            "available": available,
-            "available_date": available_date,
-            "lat": lat,
-            "long": long,
+            "payment_method": paymentMethodValue,
+            "country_id": countryId,
+            "city_id": cityId,
+            "area_id": areaId,
+            "available": availabe == "available" ? 1 : 0,
+            "available_date": null,
+            "lat": latitude,
+            "long": longitude,
             "video": video,
-            "rooms": rooms,
-            "bathroom": bathroom,
-            "floor": floor,
-            "year_build": year_build,
+            "rooms": numRoom,
+            "bathroom": numBathRoom,
+            "floor": numFloor,
+            "year_build": yearBuild,
             "area": area,
-            "bedrooms": bedrooms,
-            "finished_type": finished_type,
-            "metro": metro,
-            "train": train,
-            "bus": bus,
-            "pharmacy": pharmacy,
-            "beach": beach,
-            "bakary": bakary,
-            "resturant": resturant,
-            "coffe": coffe,
-            "air_condition": air_condition,
-            "cable_tv": cable_tv,
-            "computer": computer,
-            "gas_line": gas_line,
-            "dishwasher": dishwasher,
-            "internet": internet,
-            "heater": heater,
-            "microwave": microwave,
-            "balcony": balcony,
-            "lift": lift,
-            "grill": grill,
-            "pool": pool,
-            "parking": parking,
-            "recption": recption,
-            "security": security,
-            "add_type": add_type,
+            "bedrooms": numBedRoom,
+            "finished_type": finishTypeValue,
+            "metro": metroDistance,
+            "train": trainDistance,
+            "bus": BusDistance,
+            "pharmacy": pharmacyDistance,
+            "beach": beachDistance,
+            "bakary": BakaryDistance,
+            "resturant": restDistance,
+            "coffe": coffeDistance,
+            "air_condition": valueAirCondition ? "on" : null,
+            "cable_tv": valueCableTV ? "on" : null,
+            "computer": valueComputer ? "on" : null,
+            "gas_line": valueGasline ? "on" : null,
+            "dishwasher": valueDishwasher ? "on" : null,
+            "internet": valueInternet ? "on" : null,
+            "heater": valueHeater ? "on" : null,
+            "microwave": valueMicrowave ? "on" : null,
+            "balcony": valuebalcony ? "on" : null,
+            "lift": valueLift ? "on" : null,
+            "grill": valueGrill ? "on" : null,
+            "pool": valuePool ? "on" : null,
+            "parking": valueParking ? "on" : null,
+            "recption": null,
+            "security": valueSecurity ? "on" : null,
+            "add_type": adsTypeValue,
             "image[]": myImage,
           });
       print(imagesFile[0]);
@@ -619,6 +632,13 @@ class UnitCubit extends Cubit<UnitState> {
     emit(ChangePoolState());
   }
 
+  bool valueSecurity = false;
+
+  changeSecurityValue(bool val) {
+    valueSecurity = val;
+    emit(ChangePoolState());
+  }
+
   bool valueParking = false;
 
   changeParkingValue(bool val) {
@@ -636,61 +656,19 @@ class UnitCubit extends Cubit<UnitState> {
     emit(ChangeIdOfUnit());
   }
 
-  updateUnit(
-      {title,
-      type,
-      required_fields,
-      view,
-      description,
-      purpose,
-      down_payment,
-      monthly_payment,
-      deposite,
-      num_years,
-      price,
-      payment_method,
-      country_id,
-      city_id,
-      area_id,
-      available,
-      available_date,
-      lat,
-      long,
-      video,
-      rooms,
-      bathroom,
-      floor,
-      year_build,
-      area,
-      bedrooms,
-      finished_type,
-      metro,
-      train,
-      bus,
-      pharmacy,
-      beach,
-      bakary,
-      resturant,
-      coffe,
-      air_condition,
-      cable_tv,
-      computer,
-      gas_line,
-      dishwasher,
-      internet,
-      heater,
-      microwave,
-      balcony,
-      lift,
-      grill,
-      pool,
-      parking,
-      recption,
-      security,
-      add_type,
-      image,
-      id,
-      context}) async {
+  updateUnit({
+    required String title,
+    required String downPayment,
+    required String monthlyPayment,
+    required String deposite,
+    required String numYears,
+    required String area,
+    required String yearBuild,
+    required String price,
+    required String video,
+    required BuildContext context,
+    required String unitId,
+  }) async {
     emit(LoadingUpdateUnitState());
     Response response;
     List<MultipartFile> myImage = [];
@@ -702,62 +680,117 @@ class UnitCubit extends Cubit<UnitState> {
     debugPrint("print:${myImage.length.toString()}");
     final companyToken = await Shared.prefGetString(key: "CompanyTokenVerify");
     try {
+      final cityId = CommonCubit.get(context).cityIndex.toString();
+      final countryId = CommonCubit.get(context).valueCountryId.toString();
+      final areaId = CommonCubit.get(context).areaIndex.toString();
       response = await DioHelper.postDataWithAuth(
         url: companyUnitUpdateURL,
         data: {
+          // "title": title,
+          // "type": type,
+          // "required_fields": required_fields,
+          // "view": view,
+          // "description": description,
+          // "purpose": purpose,
+          // "down_payment": down_payment,
+          // "monthly_payment": monthly_payment,
+          // "deposite": deposite,
+          // "num_years": num_years,
+          // "price": price,
+          // "payment_method": payment_method,
+          // "country_id": country_id,
+          // "city_id": city_id,
+          // "area_id": area_id,
+          // "available": available,
+          // "available_date": available_date,
+          // "lat": lat,
+          // "long": long,
+          // "video": video,
+          // "rooms": rooms,
+          // "bathroom": bathroom,
+          // "floor": floor,
+          // "year_build": year_build,
+          // "area": area,
+          // "bedrooms": bedrooms,
+          // "finished_type": finished_type,
+          // "metro": metro,
+          // "train": train,
+          // "bus": bus,
+          // "pharmacy": pharmacy,
+          // "beach": beach,
+          // "bakary": bakary,
+          // "resturant": resturant,
+          // "coffe": coffe,
+          // "air_condition": air_condition,
+          // "cable_tv": cable_tv,
+          // "computer": computer,
+          // "gas_line": gas_line,
+          // "dishwasher": dishwasher,
+          // "internet": internet,
+          // "heater": heater,
+          // "microwave": microwave,
+          // "balcony": balcony,
+          // "lift": lift,
+          // "grill": grill,
+          // "pool": pool,
+          // "parking": parking,
+          // "recption": recption,
+          // "security": security,
+          // "add_type": add_type,
+          // "image[]": await myImage,
           "title": title,
-          "type": type,
-          "required_fields": required_fields,
-          "view": view,
+          "type": dropDownStyleTypeValue,
+          "required_fields": requiredFields,
+          "view": ViewsValue,
           "description": description,
           "purpose": purpose,
-          "down_payment": down_payment,
-          "monthly_payment": monthly_payment,
+          "down_payment": downPayment,
+          "monthly_payment": monthlyPayment,
           "deposite": deposite,
-          "num_years": num_years,
+          "num_years": numYears,
           "price": price,
-          "payment_method": payment_method,
-          "country_id": country_id,
-          "city_id": city_id,
-          "area_id": area_id,
-          "available": available,
-          "available_date": available_date,
-          "lat": lat,
-          "long": long,
+          "payment_method": paymentMethodValue,
+          "country_id": countryId,
+          "city_id": cityId,
+          "area_id": areaId,
+          "available": availabe == "available" ? 1 : 0,
+          "available_date": null,
+          "lat": latitude,
+          "long": longitude,
           "video": video,
-          "rooms": rooms,
-          "bathroom": bathroom,
-          "floor": floor,
-          "year_build": year_build,
+          "rooms": numRoom,
+          "bathroom": numBathRoom,
+          "floor": numFloor,
+          "year_build": yearBuild,
           "area": area,
-          "bedrooms": bedrooms,
-          "finished_type": finished_type,
-          "metro": metro,
-          "train": train,
-          "bus": bus,
-          "pharmacy": pharmacy,
-          "beach": beach,
-          "bakary": bakary,
-          "resturant": resturant,
-          "coffe": coffe,
-          "air_condition": air_condition,
-          "cable_tv": cable_tv,
-          "computer": computer,
-          "gas_line": gas_line,
-          "dishwasher": dishwasher,
-          "internet": internet,
-          "heater": heater,
-          "microwave": microwave,
-          "balcony": balcony,
-          "lift": lift,
-          "grill": grill,
-          "pool": pool,
-          "parking": parking,
-          "recption": recption,
-          "security": security,
-          "add_type": add_type,
-          "image[]": await myImage,
-          "unit_id": await newId,
+          "bedrooms": numBedRoom,
+          "finished_type": finishTypeValue,
+          "metro": metroDistance,
+          "train": trainDistance,
+          "bus": BusDistance,
+          "pharmacy": pharmacyDistance,
+          "beach": beachDistance,
+          "bakary": BakaryDistance,
+          "resturant": restDistance,
+          "coffe": coffeDistance,
+          "air_condition": valueAirCondition ? "on" : null,
+          "cable_tv": valueCableTV ? "on" : null,
+          "computer": valueComputer ? "on" : null,
+          "gas_line": valueGasline ? "on" : null,
+          "dishwasher": valueDishwasher ? "on" : null,
+          "internet": valueInternet ? "on" : null,
+          "heater": valueHeater ? "on" : null,
+          "microwave": valueMicrowave ? "on" : null,
+          "balcony": valuebalcony ? "on" : null,
+          "lift": valueLift ? "on" : null,
+          "grill": valueGrill ? "on" : null,
+          "pool": valuePool ? "on" : null,
+          "parking": valueParking ? "on" : null,
+          "recption": null,
+          "security": valueSecurity ? "on" : null,
+          "add_type": adsTypeValue,
+          "image[]": myImage,
+          "unit_id": unitId,
         },
         token: companyToken,
       );

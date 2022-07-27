@@ -35,6 +35,36 @@ class CommonCubit extends Cubit<CommonState> {
     emit(ChangeDropDownCountry());
   }
 
+  void changeSelectedLocationById(
+      {required String countryId,
+      required String cityId,
+      required String areaId}) {
+    dropDownCountryValue =
+        countryData.firstWhere((element) => element.id.toString() == countryId);
+
+    selectedCountry = dropDownCountryValue!.id;
+    city = dropDownCountryValue!.cities;
+    getCityData(dropDownCountryValue!.id);
+    valueCountryId = dropDownCountryValue!.id;
+
+    areasData.clear();
+    final selectedCity =
+        cityData.firstWhere((element) => element.id.toString() == cityId);
+    changeSelectedCites(selectedCity);
+    cityIndex = selectedCity.id;
+    selectedCity.areas?.forEach((element) {
+      changeSelectedAreas(element);
+      changeSelectedAreasId(element.id);
+      getAreaData(element.id).then((value) => print("${areasData}"));
+      print("id:${newAreasIdValue}");
+    });
+
+    final selectedArea =
+        areasData.firstWhere((element) => element.id.toString() == areaId);
+    changeSelectedAreas(selectedArea);
+    areaIndex = selectedArea.id;
+  }
+
   int? valueCountryId;
 
   getCityData(i) {
@@ -67,13 +97,14 @@ class CommonCubit extends Cubit<CommonState> {
     emit(ChangeAreasId());
   }
 
-  Future getAreaData(i) async{
+  Future getAreaData(i) async {
     areasData.clear();
-    newAreasIdValue!=null ?
-        cityData[newAreasIdValue!].areas?.forEach((element) {
-          areasData.add(element);
-          print("areas element${element.name}");
-        }):print("value equla null");
+    newAreasIdValue != null
+        ? cityData[newAreasIdValue!].areas?.forEach((element) {
+            areasData.add(element);
+            print("areas element${element.name}");
+          })
+        : print("value equla null");
     print(areasData.length);
     emit(GetAreasData());
   }

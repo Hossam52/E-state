@@ -59,7 +59,7 @@ class RC {
     image = json['image'];
     address = json['address'];
     about = json['about'];
-    branchesNum = json['branches_num'];
+    branchesNum = int.tryParse(json['branches_num']) ?? 0;
     type = json['type'];
     regestrationNum = json['regestration_num'];
     phone = json['phone'];

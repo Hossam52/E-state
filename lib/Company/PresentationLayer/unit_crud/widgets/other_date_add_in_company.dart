@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:osol/Company/PresentationLayer/addUnit/widgets/distance_list.dart';
-import 'package:osol/Company/PresentationLayer/addUnit/widgets/indoor_outdoor_list.dart';
 import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
 import 'package:osol/Shared/constants.dart';
+import 'package:osol/common_models/unit_model.dart';
+
+import '../unit_crud_widgets.dart';
 
 class CustomOtherDataAddInCompany extends StatelessWidget {
+  final UnitModel? unit;
+  CustomOtherDataAddInCompany({Key? key, this.unit}) : super(key: key);
   final PageController pageViewController = PageController();
-
-  List Screen = [DistanceList(), IndoorList(), OutdoorList()];
+  late final List Screen = [
+    DistanceList(unit: unit),
+    IndoorList(),
+    OutdoorList()
+  ];
 
   @override
   Widget build(BuildContext context) {

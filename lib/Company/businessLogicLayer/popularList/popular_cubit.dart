@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -54,32 +56,36 @@ class PopularCubit extends Cubit<PopularState> {
   List<UnitModel> detectedUnitList = [];
 
   Future getDetectedPopularList() async {
-    detectedUnitList.clear();
-    Response response;
-    emit(LoadingGetPopularListData());
-    final mainToken = await Shared.prefGetString(key: "CompanyTokenVerify");
-    response = await DioHelper.postDataWithAuth(
-        url: getAllUnitsdetails,
-        data: tappedContainer == "Sale" || tappedContainer == "Rent"
-            ? {
-                "add_type": "Popular",
-                "purpose": tappedContainer,
-              }
-            : {
-                "add_type": "Popular",
-                "type": "",
-              },
-        token: mainToken);
-    if (response.statusCode == 200) {
-      popularListModel = PopularListModel.fromJson(response.data);
+    try {
       detectedUnitList.clear();
-      popularListModel?.units?.data?.forEach((element) {
-        detectedUnitList.add(element);
-        print("${element}");
-      });
-      debugPrint("dettttt:${popularListModel?.units?.data}**********");
-      emit(SuccessGetPopularListData());
-      debugPrint("popular length${detectedUnitList.length}");
+      Response response;
+      emit(LoadingGetPopularListData());
+      final mainToken = await Shared.prefGetString(key: "CompanyTokenVerify");
+      response = await DioHelper.postDataWithAuth(
+          url: getFeatureAndPopularUnitURL,
+          data: tappedContainer == "Sale" || tappedContainer == "Rent"
+              ? {
+                  "add_type": "Popular",
+                  "purpose": tappedContainer,
+                }
+              : {
+                  "add_type": "Popular",
+                  "type": "",
+                },
+          token: mainToken);
+      if (response.statusCode == 200) {
+        popularListModel = PopularListModel.fromJson(response.data);
+        detectedUnitList.clear();
+        popularListModel?.units?.data?.forEach((element) {
+          detectedUnitList.add(element);
+          print("${element}");
+        });
+        debugPrint("dettttt:${popularListModel?.units?.data}**********");
+        emit(SuccessGetPopularListData());
+        debugPrint("popular length${detectedUnitList.length}");
+      }
+    } catch (e) {
+      emit(ErrorGetListOfData());
     }
   }
 }

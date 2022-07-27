@@ -61,8 +61,8 @@ class DataOfProjects {
   String? title;
   String? long;
   String? lat;
-  int? countryId;
-  int? cityId;
+  String? countryId;
+  String? cityId;
   String? country;
   String? city;
   String? deliveryDate;

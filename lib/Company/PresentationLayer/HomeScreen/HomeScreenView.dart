@@ -9,10 +9,12 @@ import 'package:osol/Company/PresentationLayer/HomeScreen/units.dart';
 import 'package:osol/Company/PresentationLayer/addBanner/view.dart';
 import 'package:osol/Company/PresentationLayer/addFeature/view.dart';
 import 'package:osol/Company/PresentationLayer/addScreen/addScreen.dart';
-import 'package:osol/Company/PresentationLayer/addUnit/view.dart';
+
 import 'package:osol/Company/PresentationLayer/moreCompanyScreen/view.dart';
+import 'package:osol/Company/PresentationLayer/unit_crud/unit_crud_view.dart';
 import 'package:osol/Company/PresentationLayer/walletScreen/view.dart';
 import 'package:osol/Company/businessLogicLayer/bannersCubit/banners_cubit.dart';
+import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/PresentaionLayer/DawerScreen/view.dart';
 import 'package:osol/User/PresentaionLayer/notification/view.dart';
@@ -284,10 +286,12 @@ class _buildOverlayState extends State<buildOverlay> {
                         width: sizeFromWidth(1.2),
                         child: ListTile(
                           onTap: () {
+                            final unit =
+                                UnitCubit.get(context).getDataFeature.first;
                             hideOverLay();
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (_) => AddUnitInCompanyScreen(),
+                                builder: (_) => const UnitCrudView(),
                               ),
                             );
                           },

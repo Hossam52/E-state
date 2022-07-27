@@ -33,17 +33,18 @@ class PopularScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back,
                 color: Colors.black54,
                 size: 28,
               ),
             ),
-            shape: ContinuousRectangleBorder(
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+            shape: const ContinuousRectangleBorder(
+              borderRadius:
+                  const BorderRadius.vertical(bottom: Radius.circular(10)),
             ),
             centerTitle: true,
-            title: Text(
+            title: const Text(
               "Popular Listing",
               style: TextStyle(
                 fontSize: 24,
@@ -53,7 +54,7 @@ class PopularScreen extends StatelessWidget {
             ),
           ),
           body: CustomScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             slivers: [
               SliverToBoxAdapter(
                 child: Padding(
@@ -77,7 +78,7 @@ class PopularScreen extends StatelessWidget {
                                 cursorColor: Colors.grey[500],
                                 cursorHeight: sizeFromHeight(17),
                                 decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.only(
+                                  contentPadding: const EdgeInsets.only(
                                     bottom: 15,
                                     left: 10,
                                   ),
@@ -90,7 +91,7 @@ class PopularScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           Expanded(
@@ -103,14 +104,15 @@ class PopularScreen extends StatelessWidget {
                                   builder: (context) => Container(
                                     height: sizeFromHeight(1.5),
                                     width: 42.w,
-                                    child: new Container(
-                                        decoration: new BoxDecoration(
+                                    child: Container(
+                                        decoration: BoxDecoration(
                                             color: ColorManager.WhiteScreen,
-                                            borderRadius: new BorderRadius.only(
-                                                topLeft:
-                                                    const Radius.circular(20.0),
-                                                topRight: const Radius.circular(
-                                                    20.0))),
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(20.0),
+                                                    topRight:
+                                                        Radius.circular(20.0))),
                                         child: SingleChildScrollView(
                                           child: Column(
                                             children: [
@@ -147,15 +149,15 @@ class PopularScreen extends StatelessWidget {
                                                             MainAxisAlignment
                                                                 .spaceBetween,
                                                         children: [
-                                                          Text(
+                                                          const Text(
                                                             "Filter",
-                                                            style: TextStyle(
+                                                            style: const TextStyle(
                                                                 color: Colors
                                                                     .black,
                                                                 fontSize: 18),
                                                           ),
                                                           Row(
-                                                            children: [
+                                                            children: const [
                                                               Text(
                                                                 "Clear all",
                                                                 style: TextStyle(
@@ -334,9 +336,9 @@ class PopularScreen extends StatelessWidget {
                                         )),
                                   ),
                                   context: context,
-                                  shape: RoundedRectangleBorder(
+                                  shape: const RoundedRectangleBorder(
                                     borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(20),
+                                      top: const Radius.circular(20),
                                     ),
                                   ),
                                 );
@@ -365,7 +367,7 @@ class PopularScreen extends StatelessWidget {
               ),
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 20,
                   ),
                   child: Container(
@@ -378,7 +380,7 @@ class PopularScreen extends StatelessWidget {
               ),
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Container(
                     height: sizeFromHeight(1.25),
                     child: DefaultTabController(
@@ -406,7 +408,7 @@ class PopularScreen extends StatelessWidget {
                                           color:
                                               ColorManager.onboardingColorDots,
                                           width: 3))),
-                              labelStyle: TextStyle(
+                              labelStyle: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w600),
                               labelColor: Colors.black,
@@ -415,7 +417,7 @@ class PopularScreen extends StatelessWidget {
                               onTap: (numOfTapped) {
                                 cubit.getTappedIndex(numOfTapped);
                               },
-                              tabs: [
+                              tabs: const [
                                 FittedBox(
                                   fit: BoxFit.scaleDown,
                                   child: Tab(
@@ -450,53 +452,8 @@ class PopularScreen extends StatelessWidget {
                             children: [
                               state is changeIndexOfTapped ||
                                       state is changeIndexOfTapped
-                                  ? Center(child: CircularProgressIndicator())
-                                  : GridView.builder(
-                                      gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        mainAxisSpacing: 20,
-                                        crossAxisSpacing: 4,
-                                        childAspectRatio: 2.5 / 2,
-                                      ),
-                                      itemCount:
-                                          cubit.detectedUnitList.length == null
-                                              ? 0
-                                              : cubit.detectedUnitList.length,
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 3.0, left: 3),
-                                          child: cubit.detectedUnitList
-                                                      .length ==
-                                                  null
-                                              ? null
-                                              : CardFreeListingData(
-                                                  type: cubit
-                                                      .detectedUnitList[index]
-                                                      .type
-                                                      .toString(),
-                                                  country: cubit
-                                                      .detectedUnitList[index]
-                                                      .country
-                                                      .toString(),
-                                                  city: cubit
-                                                      .detectedUnitList[index]
-                                                      .city
-                                                      .toString(),
-                                                  index: index,
-                                                  image: DecorationImage(
-                                                    image: NetworkImage(
-                                                        "${cubit.detectedUnitList[index].images?.first}"),
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                        );
-                                      },
-                                    ),
-                              state is changeIndexOfTapped ||
-                                      state is changeIndexOfTapped
-                                  ? Center(child: CircularProgressIndicator())
+                                  ? const Center(
+                                      child: const CircularProgressIndicator())
                                   : GridView.builder(
                                       gridDelegate:
                                           const SliverGridDelegateWithFixedCrossAxisCount(
@@ -542,10 +499,11 @@ class PopularScreen extends StatelessWidget {
                                     ),
                               state is changeIndexOfTapped ||
                                       state is changeIndexOfTapped
-                                  ? Center(child: CircularProgressIndicator())
+                                  ? const Center(
+                                      child: CircularProgressIndicator())
                                   : GridView.builder(
                                       gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2,
                                         mainAxisSpacing: 20,
                                         crossAxisSpacing: 4,
@@ -588,10 +546,58 @@ class PopularScreen extends StatelessWidget {
                                     ),
                               state is changeIndexOfTapped ||
                                       state is changeIndexOfTapped
-                                  ? Center(child: CircularProgressIndicator())
+                                  ? const Center(
+                                      child: CircularProgressIndicator())
                                   : GridView.builder(
                                       gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        mainAxisSpacing: 20,
+                                        crossAxisSpacing: 4,
+                                        childAspectRatio: 2.5 / 2,
+                                      ),
+                                      itemCount:
+                                          cubit.detectedUnitList.length == null
+                                              ? 0
+                                              : cubit.detectedUnitList.length,
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 3.0, left: 3),
+                                          child: cubit.detectedUnitList
+                                                      .length ==
+                                                  null
+                                              ? null
+                                              : CardFreeListingData(
+                                                  type: cubit
+                                                      .detectedUnitList[index]
+                                                      .type
+                                                      .toString(),
+                                                  country: cubit
+                                                      .detectedUnitList[index]
+                                                      .country
+                                                      .toString(),
+                                                  city: cubit
+                                                      .detectedUnitList[index]
+                                                      .city
+                                                      .toString(),
+                                                  index: index,
+                                                  image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        "${cubit.detectedUnitList[index].images?.first}"),
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                        );
+                                      },
+                                    ),
+                              state is changeIndexOfTapped ||
+                                      state is changeIndexOfTapped
+                                  ? const Center(
+                                      child: CircularProgressIndicator())
+                                  : GridView.builder(
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2,
                                         mainAxisSpacing: 20,
                                         crossAxisSpacing: 4,
@@ -694,14 +700,14 @@ class CardFreeListingData extends StatelessWidget {
                   flex: 4,
                   child: Container(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(6),
-                          topRight: Radius.circular(6),
+                        borderRadius: const BorderRadius.only(
+                          topLeft: const Radius.circular(6),
+                          topRight: const Radius.circular(6),
                         ),
                         image: image),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Expanded(
@@ -728,12 +734,12 @@ class CardFreeListingData extends StatelessWidget {
                           color: ColorManager.redHeartcolor,
                           size: 12,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 2,
                         ),
                         Text(
                           "$city , $country ",
-                          style: TextStyle(fontSize: 9),
+                          style: const TextStyle(fontSize: 9),
                         )
                       ],
                     ),
@@ -746,10 +752,10 @@ class CardFreeListingData extends StatelessWidget {
                     child: Row(
                       children: [
                         SvgPicture.asset("assets/images/eye.svg"),
-                        SizedBox(
+                        const SizedBox(
                           width: 2,
                         ),
-                        Text(
+                        const Text(
                           "18 Seen",
                           style: TextStyle(fontSize: 10),
                         )
@@ -757,7 +763,7 @@ class CardFreeListingData extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 )
               ],

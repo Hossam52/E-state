@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -506,27 +507,19 @@ class _HomeViewDataState extends State<HomeViewCompanyData> {
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                            child: CardHomeDetailsCompanyView(
-                              city: cubit.getDataPopular != null
-                                  ? cubit.getDataPopular[index].city.toString()
-                                  : "",
-                              index: index,
-                              image: cubit.getDataPopular != null
-                                  ? DecorationImage(
-                                      image: NetworkImage(cubit
-                                          .getDataPopular[index].images![0]),
-                                      fit: BoxFit.cover)
-                                  : DecorationImage(
-                                      image: AssetImage(
-                                          "${homeScreenSliderData[index].image}"),
-                                      fit: BoxFit.scaleDown),
-                              departType: cubit.getDataPopular != null
-                                  ? cubit.getDataPopular[index].type.toString()
-                                  : "",
-                              country: cubit.getDataPopular != null
-                                  ? cubit.getDataPopular[index].country
-                                      .toString()
-                                  : "",
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) =>
+                                            UnitDetailsCompanyScreen(
+                                              unit: cubit.getDataPopular[index],
+                                            )));
+                              },
+                              child: CardHomeDetailsCompanyView(
+                                unit: cubit.getDataPopular[index],
+                              ),
                             ),
                           );
                         }),
@@ -542,20 +535,8 @@ class _HomeViewDataState extends State<HomeViewCompanyData> {
 }
 
 class CardHomeDetailsCompanyView extends StatelessWidget {
-  int index;
-  DecorationImage image;
-  String city;
-  String country;
-  String departType;
-
-  CardHomeDetailsCompanyView({
-    required this.index,
-    required this.image,
-    required this.city,
-    required this.country,
-    required this.departType,
-  });
-
+  CardHomeDetailsCompanyView({required this.unit});
+  final UnitModel unit;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UnitCubit, UnitState>(
@@ -585,7 +566,10 @@ class CardHomeDetailsCompanyView extends StatelessWidget {
                           width: sizeFromWidth(1.6),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              image: image),
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: CachedNetworkImageProvider(
+                                      unit.images!.first))),
                         ),
                       ),
                     ),
@@ -601,7 +585,7 @@ class CardHomeDetailsCompanyView extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 8.0, vertical: 2),
                             child: Text(
-                              "${departType}",
+                              "${unit.title} (${unit.type})",
                               style: TextStyle(
                                 color: ColorManager.TextHomeColor,
                                 fontSize: 15,
@@ -625,7 +609,7 @@ class CardHomeDetailsCompanyView extends StatelessWidget {
                                   width: 5,
                                 ),
                                 Text(
-                                  "$city , $country",
+                                  "${unit.city} , ${unit.country}",
                                   style: TextStyle(fontSize: 14),
                                 )
                               ],
@@ -644,7 +628,7 @@ class CardHomeDetailsCompanyView extends StatelessWidget {
                                   width: 5,
                                 ),
                                 Text(
-                                  "12 total seen",
+                                  "${unit.watchNum} total seen",
                                   style: TextStyle(fontSize: 14),
                                 )
                               ],
@@ -696,24 +680,16 @@ class _FeaturedItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (_) => UnitDetailsCompanyScreen(
-                      unit: featured,
-                    )));
-      },
-      child: Padding(
-          padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-          child: CardHomeDetailsCompanyView(
-              city: featured.city.toString(),
-              departType: featured.type.toString(),
-              country: featured.country.toString(),
-              index: index,
-              image: DecorationImage(
-                  image: NetworkImage(featured.images![0]),
-                  fit: BoxFit.cover))),
-    );
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => UnitDetailsCompanyScreen(
+                        unit: featured,
+                      )));
+        },
+        child: Padding(
+            padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+            child: CardHomeDetailsCompanyView(unit: featured)));
   }
 }

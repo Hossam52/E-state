@@ -6,7 +6,8 @@ import 'package:osol/Shared/Customicon.dart';
 import 'package:osol/Shared/constants.dart';
 
 class DetailsOfContains extends StatelessWidget {
-  const DetailsOfContains({Key? key}) : super(key: key);
+  const DetailsOfContains({Key? key, this.area = '0'}) : super(key: key);
+  final String area;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,7 @@ class DetailsOfContains extends StatelessWidget {
                         size: 12,
                         color: Colors.grey,
                       ),
-                      Text("0 m²"),
+                      Text("$area m²"),
                     ],
                   ),
                 ),

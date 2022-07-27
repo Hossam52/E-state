@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Company/PresentationLayer/map/unit_map_location.dart';
-import 'package:osol/Company/PresentationLayer/updateUnit/updateUnit.dart';
+import 'package:osol/Company/PresentationLayer/unit_crud/unit_crud_view.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/Shared/custom_video_player.dart';
 import 'package:osol/Shared/unit_facilities.dart';
@@ -57,7 +57,7 @@ class UnitDetailsCompanyScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (_) => UpdateUnitInCompanyScreen(),
+                    builder: (_) => UnitCrudView(unit: unit),
                   ),
                 );
               },

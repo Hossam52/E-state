@@ -34,7 +34,7 @@ class _UpdateProjectScreenState extends State<UpdateProjectScreen> {
   GlobalKey<FormState> bannerFormKey = GlobalKey<FormState>();
 
   navigateFun(context) {
-    CompanyProjectCubit.get(context).getAllCompanyProjects();
+    // CompanyProjectCubit.get(context).getAllCompanyProjects();
     Navigator.pop(context);
   }
 
