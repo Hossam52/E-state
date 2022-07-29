@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
 import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
 import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
 import 'package:osol/User/DataLayer/DataProvider/dioHelper.dart';
@@ -40,13 +41,13 @@ class UnitClientCubit extends Cubit<UnitClientState> {
   UnitModel? getUnitByIdFirstModel;
   UnitModel? getUnitByIdSecondModel;
 
-  getUnitById() async {
+  getUnitById(int unitId) async {
     getUnitByIdList.clear();
     emit(LoadingGetUnitById());
     final clienToken = await Shared.prefGetString(key: "CompanyTokenVerify");
     Response response = await DioHelper.postData(
       url: getAllUnitByIdURL,
-      data: {"unit_id": await unitId},
+      data: {"unit_id": unitId},
       token: clienToken,
     );
     if (response.statusCode == 200) {
@@ -256,24 +257,20 @@ class UnitClientCubit extends Cubit<UnitClientState> {
     getUnitByIdSecondUnit();
   }
 
-  Future getAllUnitDetails() async {
+  Future getAllUnitDetails(BuildContext context) async {
+    final filterResults = FilterCubit.instance(context).getFilterResults;
     getAllDataList.clear();
     emit(LoadingGetAllUnitClientDetails());
     cToken = await Shared.prefGetString(key: "CompanyTokenVerify");
     Response response = await DioHelper.postDataWithAuth(
         url: getAllUnitsdetails,
         data: {
-          "purpose": indexOfTypeOfFilter == 0
-              ? "Sale"
-              : indexOfTypeOfFilter == 1
-                  ? "Rent"
-                  : "",
-          "type": typeFilter == "Any" ? "" : typeFilter,
-          "required_fields": requiredField == "Any" ? "" : requiredField,
-          "finished_type":
-              filterNewIndexFinishType == "Any" ? "" : filterNewIndexFinishType,
-          "price_to": end == null ? "" : end,
-          "price_from": start == null ? "" : start,
+          "purpose": filterResults.filterType,
+          "type": filterResults.propertyType,
+          "required_fields": filterResults.requiredFields,
+          "finished_type": filterResults.finishedType,
+          "price_from": filterResults.startPrice,
+          "price_to": filterResults.endPrice,
         },
         token: cToken);
     if (response.statusCode == 200) {

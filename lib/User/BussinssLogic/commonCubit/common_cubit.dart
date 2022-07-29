@@ -39,30 +39,37 @@ class CommonCubit extends Cubit<CommonState> {
       {required String countryId,
       required String cityId,
       required String areaId}) {
-    dropDownCountryValue =
-        countryData.firstWhere((element) => element.id.toString() == countryId);
+    if (countryData
+        .where((e) => e.id.toString() == countryId)
+        .toList()
+        .isNotEmpty) {
+      dropDownCountryValue = countryData
+          .firstWhere((element) => element.id.toString() == countryId);
 
-    selectedCountry = dropDownCountryValue!.id;
-    city = dropDownCountryValue!.cities;
-    getCityData(dropDownCountryValue!.id);
-    valueCountryId = dropDownCountryValue!.id;
-
+      selectedCountry = dropDownCountryValue!.id;
+      city = dropDownCountryValue!.cities;
+      getCityData(dropDownCountryValue!.id);
+      valueCountryId = dropDownCountryValue!.id;
+    }
     areasData.clear();
-    final selectedCity =
-        cityData.firstWhere((element) => element.id.toString() == cityId);
-    changeSelectedCites(selectedCity);
-    cityIndex = selectedCity.id;
-    selectedCity.areas?.forEach((element) {
-      changeSelectedAreas(element);
-      changeSelectedAreasId(element.id);
-      getAreaData(element.id).then((value) => print("${areasData}"));
-      print("id:${newAreasIdValue}");
-    });
-
-    final selectedArea =
-        areasData.firstWhere((element) => element.id.toString() == areaId);
-    changeSelectedAreas(selectedArea);
-    areaIndex = selectedArea.id;
+    if (cityData.where((e) => e.id.toString() == cityId).toList().isNotEmpty) {
+      final selectedCity =
+          cityData.firstWhere((element) => element.id.toString() == cityId);
+      changeSelectedCites(selectedCity);
+      cityIndex = selectedCity.id;
+      selectedCity.areas?.forEach((element) {
+        changeSelectedAreas(element);
+        changeSelectedAreasId(element.id);
+        getAreaData(element.id).then((value) => print("${areasData}"));
+        print("id:${newAreasIdValue}");
+      });
+    }
+    if (areasData.where((e) => e.id.toString() == areaId).toList().isNotEmpty) {
+      final selectedArea =
+          areasData.firstWhere((element) => element.id.toString() == areaId);
+      changeSelectedAreas(selectedArea);
+      areaIndex = selectedArea.id;
+    }
   }
 
   int? valueCountryId;

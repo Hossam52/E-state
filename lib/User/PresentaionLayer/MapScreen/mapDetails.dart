@@ -96,7 +96,7 @@ class MapScreenState extends State<MapScreen> {
                       child: Container(
                         height: sizeFromHeight(17),
                         width: sizeFromWidth(1),
-                        child: ListLabelInDetails(
+                        child: UserFilterLabelsWidget(
                           num: 400,
                         ),
                       ),

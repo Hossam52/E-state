@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
@@ -16,11 +17,13 @@ import 'package:osol/User/DataLayer/Model/modelOfData/BannerModel/bannerModel.da
 import 'package:osol/User/DataLayer/Model/modelOfData/featureModel/getFeatureModel.dart';
 import 'package:osol/User/DataLayer/Model/modelOfData/popularModel/PopularModel.dart';
 import 'package:osol/User/DataLayer/Model/modelOfData/onBoardingModel.dart';
+import 'package:osol/User/DataLayer/Model/modelOfData/popularModel/user_unit_category_filter.dart';
 import 'package:osol/User/PresentaionLayer/HomeScreen/units.dart';
 import 'package:osol/User/PresentaionLayer/MapScreen/mapDetails.dart';
 import 'package:osol/User/PresentaionLayer/compareScreen/view.dart';
 import 'package:osol/User/PresentaionLayer/compniesScreen/view.dart';
 import 'package:osol/User/PresentaionLayer/moreScreen/view.dart';
+import 'package:osol/common_models/filter_displayed_units_model.dart';
 import 'package:osol/common_models/unit_model.dart';
 
 import '../../DataLayer/localDataLayer/localData.dart';
@@ -75,26 +78,73 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   ///Label List
-  int currentLabelindex = 0;
+  // int currentLabelindex = 0;
+  late List<UserUnitCategory> allCateogires = [
+    UserAllUnitsCategory(onCategoryTapped: () async {
+      log('All tapped');
+      changeUnitCategoryIndex(0);
+    }),
+    UserSaleUnitsCategory(onCategoryTapped: () async {
+      log('sale tapped');
+      changeUnitCategoryIndex(1);
+    }),
+    UserRentUnitCategory(onCategoryTapped: () async {
+      log('rent tapped');
+      changeUnitCategoryIndex(2);
+    }),
+    UserCompoundUnitCategory(onCategoryTapped: () async {
+      log('compund tapped');
+      changeUnitCategoryIndex(3);
+    }),
+    UserEstateUnitCategory(onCategoryTapped: () async {
+      log('estate tapped');
+      changeUnitCategoryIndex(4);
+    }),
+  ];
 
-  changeLabel(index) {
-    currentLabelindex = index;
-    imagesFeature.clear();
-    dataFeature.clear();
-    imagesPopular.clear();
-    dataPopular.clear();
-    getFeatureOfClientHome();
-    getPopularOfClientHome();
-    emit(ChangeLabelIndex());
+  UserUnitCategory get selectedCategory =>
+      allCateogires[selectedUnitCategoryIndex];
+
+  UnitCategory get selectedUnitCategory =>
+      allCateogires[selectedUnitCategoryIndex] as UnitCategory;
+  bool get isFeaturedLoaded => selectedCategory.features != null;
+  List<UnitModel> get featuresUnits => selectedCategory.features ?? [];
+
+  bool get isPopularLoaded => selectedCategory.popular != null;
+  List<UnitModel> get popularUnits => selectedCategory.popular ?? [];
+  int selectedUnitCategoryIndex = 0;
+
+  void changeUnitCategoryIndex(int index) {
+    selectedUnitCategory.toggleIsSelected();
+    selectedUnitCategoryIndex = index;
+    selectedUnitCategory.toggleIsSelected();
+    if (selectedCategory.features == null) {
+      getFeatureOfClientHome();
+    }
+    if (selectedCategory.popular == null) {
+      getPopularOfClientHome();
+    }
+    emit(ChangeSelectedCategoryIndex());
   }
 
-  List<ListViewLabelModel> listData = [
-    ListViewLabelModel(icon: FontAwesomeIcons.ellipsisVertical, txt: "All"),
-    ListViewLabelModel(icon: FontAwesomeIcons.tag, txt: "Sale"),
-    ListViewLabelModel(icon: OsolIcon.calendar, txt: "Rent"),
-    ListViewLabelModel(icon: OsolIcon.home_3, txt: "Compound"),
-    ListViewLabelModel(icon: OsolIcon.estate, txt: "Estate"),
-  ];
+  // changeLabel(index) {
+  //   // currentLabelindex = index;
+  //   imagesFeature.clear();
+  //   dataFeature.clear();
+  //   imagesPopular.clear();
+  //   dataPopular.clear();
+  //   getFeatureOfClientHome();
+  //   getPopularOfClientHome();
+  //   emit(ChangeLabelIndex());
+  // }
+
+  // List<ListViewLabelModel> listData = [
+  //   ListViewLabelModel(icon: FontAwesomeIcons.ellipsisVertical, txt: "All"),
+  //   ListViewLabelModel(icon: FontAwesomeIcons.tag, txt: "Sale"),
+  //   ListViewLabelModel(icon: OsolIcon.calendar, txt: "Rent"),
+  //   ListViewLabelModel(icon: OsolIcon.home_3, txt: "Compound"),
+  //   ListViewLabelModel(icon: OsolIcon.estate, txt: "Estate"),
+  // ];
 
   /// Index Bottom Sheet
   int indexBottomSheet = 0;
@@ -282,58 +332,61 @@ class HomeCubit extends Cubit<HomeState> {
 
   ///get feature data of client
   ClientFeatureModel? clientFeatureModel;
-  List<UnitModel> dataFeature = [];
-  List<String> imagesFeature = [];
 
   Future<void> getFeatureOfClientHome() async {
-    dataFeature.clear();
     final cToken = await Shared.prefGetString(key: "CompanyTokenVerify");
     debugPrint("mmmmmmmm${cToken}");
     emit(LoadingGetFeatureState());
     Response response;
-
+    final Map<String, dynamic> data = {'add_type': 'Feature'};
+    if (selectedCategory is SaleUnitsCategory ||
+        selectedCategory is RentUnitCategory) {
+      data['purpose'] = selectedUnitCategory.type;
+    } else {
+      data['type'] = selectedUnitCategory.type;
+    }
     response = await DioHelper.postDataWithAuth(
       url: getFeatureURL,
-      data: currentLabelindex == 0
-          ? {
-              "add_type": "Feature",
-            }
-          : currentLabelindex == 1
-              ? {
-                  "purpose": "Sale",
-                  "add_type": "Feature",
-                }
-              : currentLabelindex == 2
-                  ? {
-                      "purpose": "Rent",
-                      "add_type": "Feature",
-                    }
-                  : currentLabelindex == 3
-                      ? {
-                          "type": "Compound",
-                          "add_type": "Feature",
-                        }
-                      : {
-                          "type": "Estate",
-                          "add_type": "Feature",
-                        },
+      // data: currentLabelindex == 0
+      //     ? {
+      //         "add_type": "Feature",
+      //       }
+      //     : currentLabelindex == 1
+      //         ? {
+      //             "purpose": "Sale",
+      //             "add_type": "Feature",
+      //           }
+      //         : currentLabelindex == 2
+      //             ? {
+      //                 "purpose": "Rent",
+      //                 "add_type": "Feature",
+      //               }
+      //             : currentLabelindex == 3
+      //                 ? {
+      //                     "type": "Compound",
+      //                     "add_type": "Feature",
+      //                   }
+      //                 : {
+      //                     "type": "Estate",
+      //                     "add_type": "Feature",
+      //                   },
+      data: data,
     );
-    dataFeature.clear();
     if (response.statusCode == 200) {
       clientFeatureModel = ClientFeatureModel.fromJson(response.data);
-      clientFeatureModel?.units?.data?.forEach((element) {
-        dataFeature.add(element);
-      });
+
+      selectedCategory.features =
+          List.from(clientFeatureModel?.units?.data ?? []);
       emit(SuccesGetFeatureState());
 
-      for (int i = 0; i < dataFeature.length; i++) {
-        dataFeature[i].images?.forEach((element) {
-          print("$i ${element}");
-          imagesFeature.add(element);
-        });
+      // for (int i = 0; i < dataFeature.length; i++) {
+      //   dataFeature[i].images?.forEach((element) {
+      //     print("$i ${element}");
+      //     imagesFeature.add(element);
+      //   });
 
-        emit(SuccessGetFeatureImage());
-      }
+      //   emit(SuccessGetFeatureImage());
+      // }
     }
     // } catch (e) {
     //   emit(ErrorGetFeatureState());
@@ -344,8 +397,8 @@ class HomeCubit extends Cubit<HomeState> {
   ///get popular data
 
   ClientPopularModel? clientPopularModel;
-  List<UnitModel> dataPopular = [];
-  List<String> imagesPopular = [];
+  // List<UnitModel> dataPopular = [];
+  // List<String> imagesPopular = [];
   Set<Marker> myMarker = Set();
 
   Future<Uint8List> getMarker() async {
@@ -355,45 +408,27 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> getPopularOfClientHome() async {
     Uint8List imageData = await getMarker();
-    dataPopular.clear();
     final cToken = await Shared.prefGetString(key: "CompanyTokenVerify");
     debugPrint("ed${cToken}");
 
     emit(LoadingGetPopularState());
     Response response;
-
-    response = await DioHelper.postDataWithAuth(
-      url: getFeatureURL,
-      data: currentLabelindex == 0
-          ? {
-              "add_type": "Popular",
-            }
-          : currentLabelindex == 1
-              ? {
-                  "purpose": "Sale",
-                  "add_type": "Popular",
-                }
-              : currentLabelindex == 2
-                  ? {
-                      "purpose": "Rent",
-                      "add_type": "Popular",
-                    }
-                  : currentLabelindex == 3
-                      ? {
-                          "type": "Compound",
-                          "add_type": "Popular",
-                        }
-                      : {
-                          "type": "Estate",
-                          "add_type": "Popular",
-                        },
-    );
+    final Map<String, dynamic> data = {'add_type': 'Popular'};
+    if (selectedCategory is SaleUnitsCategory ||
+        selectedCategory is RentUnitCategory) {
+      data['purpose'] = selectedUnitCategory.type;
+    } else {
+      data['type'] = selectedUnitCategory.type;
+    }
+    response = await DioHelper.postDataWithAuth(url: getFeatureURL, data: data);
     if (response.statusCode == 200) {
       clientPopularModel = ClientPopularModel.fromJson(response.data);
-      clientPopularModel?.units?.data?.forEach((element) {
-        dataPopular.add(element);
-        debugPrint("home Popular:${element.purpose}");
-      });
+      // clientPopularModel?.units?.data?.forEach((element) {
+      //   dataPopular.add(element);
+      //   debugPrint("home Popular:${element.purpose}");
+      // });
+      selectedCategory.popular =
+          List.from(clientPopularModel?.units?.data ?? []);
       myMarker = clientPopularModel!.units!.data!
           .map(
             (e) => Marker(
@@ -414,15 +449,15 @@ class HomeCubit extends Cubit<HomeState> {
           )
           .toSet();
       emit(SuccesGetPopularState());
-      if (dataPopular.length != null) {
-        for (int i = 0; i < dataPopular.length; i++) {
-          dataPopular[i].images?.forEach((element) {
-            imagesPopular.add(element);
-            debugPrint("fdfdaa${element}");
-          });
-        }
-        emit(SuccessGetPopularImage());
-      }
+      // if (dataPopular.length != null) {
+      //   for (int i = 0; i < dataPopular.length; i++) {
+      //     dataPopular[i].images?.forEach((element) {
+      //       imagesPopular.add(element);
+      //       debugPrint("fdfdaa${element}");
+      //     });
+      //   }
+      //   emit(SuccessGetPopularImage());
+      // }
     }
     emit(ErrorGetPopularState());
   }

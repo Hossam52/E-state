@@ -29,7 +29,7 @@ class _CompareViewState extends State<CompareView> {
     AuthCubit.get(context).userToken == null &&
             HomeCubit.get(context).token == null
         ? null
-        : UnitClientCubit.get(context).getAllUnitDetails();
+        : UnitClientCubit.get(context).getAllUnitDetails(context);
   }
 
   @override

@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:osol/Company/businessLogicLayer/authCompany/auth_company_cubit.dart';
 import 'package:osol/Company/businessLogicLayer/bannersCubit/banners_cubit.dart';
+import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
 import 'package:osol/Company/businessLogicLayer/popularList/popular_cubit.dart';
 import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
 import 'package:osol/Shared/constants.dart';
@@ -100,9 +101,7 @@ class MyApp extends StatelessWidget {
             create: (context) => CustomerServicesCubit(),
           ),
           BlocProvider(
-            create: (context) => UnitClientCubit()
-              ..getUnitById()
-              ..getAllUnitDetails(),
+            create: (context) => UnitClientCubit(),
           ),
           BlocProvider(
               create: (context) => AppSettingCubit()
@@ -120,6 +119,7 @@ class MyApp extends StatelessWidget {
               create: (context) =>
                   CompanyProjectCubit()..getAllCompanyProjects()),
           BlocProvider(create: (context) => AddNewProjectsCubit()),
+          BlocProvider(create: (context) => FilterCubit()),
         ],
         child: BlocBuilder<AppSettingCubit, AppSettingState>(
           builder: (context, state) {

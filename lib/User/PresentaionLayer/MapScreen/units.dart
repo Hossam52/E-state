@@ -26,13 +26,14 @@ class HorizontalScrollList extends StatelessWidget {
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
           var cubit = HomeCubit.get(context);
+          final populars = cubit.popularUnits;
           return Container(
             height: sizeFromHeight(5.6),
             alignment: Alignment.bottomCenter,
             child: ListView.builder(
                 controller: cubit.scrollController,
                 shrinkWrap: true,
-                itemCount: cubit.dataPopular.length,
+                itemCount: populars.length,
                 physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
@@ -41,11 +42,12 @@ class HorizontalScrollList extends StatelessWidget {
                         ? () {}
                         : () {
                             UnitClientCubit.get(context)
-                                .getUnitId(cubit.dataPopular[index].id);
-                            debugPrint("${cubit.dataPopular[index].view}");
+                                .getUnitId(populars[index].id);
+                            debugPrint("${populars[index].view}");
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (_) => UnitsDetailsScreen(),
+                                builder: (_) => UnitsDetailsScreen(
+                                    unitId: populars[index].id!),
                               ),
                             );
                           },
@@ -73,7 +75,7 @@ class HorizontalScrollList extends StatelessWidget {
                                         decoration: BoxDecoration(
                                           image: DecorationImage(
                                               image: NetworkImage(
-                                                  "${cubit.dataPopular[index].images![0]}"),
+                                                  "${populars[index].images![0]}"),
                                               fit: BoxFit.cover),
                                           borderRadius:
                                               BorderRadius.circular(5),
@@ -95,7 +97,7 @@ class HorizontalScrollList extends StatelessWidget {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "${cubit.dataPopular[index].type}",
+                                                "${populars[index].type}",
                                                 style: TextStyle(
                                                   color: ColorManager
                                                       .TextHomeColor,
@@ -113,7 +115,7 @@ class HorizontalScrollList extends StatelessWidget {
                                                   padding:
                                                       const EdgeInsets.all(5.0),
                                                   child: FaIcon(
-                                                    cubit.dataPopular[index]
+                                                    populars[index]
                                                                 .authFavourite ==
                                                             "true"
                                                         ? FontAwesomeIcons
@@ -142,7 +144,7 @@ class HorizontalScrollList extends StatelessWidget {
                                                 width: 2,
                                               ),
                                               Text(
-                                                "${cubit.dataPopular[index].city} , ${cubit.dataPopular[index].country}",
+                                                "${populars[index].city} , ${populars[index].country}",
                                                 style:
                                                     TextStyle(fontSize: 10.sp),
                                               )
@@ -155,7 +157,7 @@ class HorizontalScrollList extends StatelessWidget {
                                               Text.rich(TextSpan(children: [
                                                 TextSpan(
                                                   text:
-                                                      "\$ ${cubit.dataPopular[index].price == null ? 0 : cubit.dataPopular[index].price} ",
+                                                      "\$ ${populars[index].price == null ? 0 : populars[index].price} ",
                                                   style: TextStyle(
                                                       fontSize: 10,
                                                       color: ColorManager
@@ -199,7 +201,7 @@ class HorizontalScrollList extends StatelessWidget {
                                                   size: 10,
                                                 ),
                                                 Text(
-                                                  "${cubit.dataPopular[index].area} m²",
+                                                  "${populars[index].area} m²",
                                                   style: TextStyle(
                                                       color: ColorManager
                                                           .TextHomeColor,
@@ -214,7 +216,7 @@ class HorizontalScrollList extends StatelessWidget {
                                                   size: 10,
                                                 ),
                                                 Text(
-                                                  "${cubit.dataPopular[index].bathroom}",
+                                                  "${populars[index].bathroom}",
                                                   style: TextStyle(
                                                       color: ColorManager
                                                           .TextHomeColor,
@@ -229,7 +231,7 @@ class HorizontalScrollList extends StatelessWidget {
                                                   color: Colors.grey[400],
                                                 ),
                                                 Text(
-                                                  "${cubit.dataPopular[index].bedrooms}",
+                                                  "${populars[index].bedrooms}",
                                                   style: TextStyle(
                                                       color: ColorManager
                                                           .TextHomeColor,

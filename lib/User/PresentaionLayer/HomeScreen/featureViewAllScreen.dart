@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
 import 'package:osol/User/PresentaionLayer/HomeScreen/units.dart';
+import 'package:osol/common_models/unit_model.dart';
 
 import '../../../Shared/Customicon.dart';
 import '../../BussinssLogic/authCubit/auth_cubit.dart';
@@ -20,13 +22,11 @@ class FeatureViewAllScreen extends StatefulWidget {
 class _FeatureViewAllScreenState extends State<FeatureViewAllScreen> {
   @override
   Widget build(BuildContext context) {
-    var cubit = HomeCubit.get(context);
-    var cubit2 = ProfileCubit.get(context);
     var cubit3 = AuthCubit.get(context);
-    return BlocConsumer<HomeCubit, HomeState>(
-      listener: (context, state) {},
+    return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
+        final features = cubit.featuresUnits;
         return Scaffold(
           backgroundColor: ColorManager.WhiteScreen,
           appBar: AppBar(
@@ -67,7 +67,7 @@ class _FeatureViewAllScreenState extends State<FeatureViewAllScreen> {
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.only(right: 10.0, left: 10),
-                child: cubit.dataFeature.isEmpty
+                child: features.isEmpty
                     ? Center(
                         child: CircularProgressIndicator(),
                       )
@@ -75,21 +75,21 @@ class _FeatureViewAllScreenState extends State<FeatureViewAllScreen> {
                         onTap: cubit3.userToken == null && cubit.myToken == null
                             ? () {}
                             : () {
-                                UnitClientCubit.get(context)
-                                    .getUnitId(cubit.dataFeature[index].id);
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (_) => UnitsDetailsScreen(),
+                                    builder: (_) => UnitsDetailsScreen(
+                                      unitId: features[index].id!,
+                                    ),
                                   ),
                                 );
                               },
                         child: CardHomeFeatureView(
-                          index: index,
+                          unit: features[index],
                         ),
                       ),
               );
             },
-            itemCount: cubit.dataFeature.length,
+            itemCount: features.length,
           ),
         );
       },
@@ -98,10 +98,8 @@ class _FeatureViewAllScreenState extends State<FeatureViewAllScreen> {
 }
 
 class CardHomeFeatureView extends StatelessWidget {
-  int index;
-
-  CardHomeFeatureView({required this.index});
-
+  CardHomeFeatureView({required this.unit});
+  final UnitModel unit;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
@@ -129,8 +127,8 @@ class CardHomeFeatureView extends StatelessWidget {
                           topRight: Radius.circular(6),
                         ),
                         image: DecorationImage(
-                          image: NetworkImage(
-                            cubit.imagesFeature.first,
+                          image: CachedNetworkImageProvider(
+                            unit.images!.first,
                           ),
                           fit: BoxFit.cover,
                         ),
@@ -149,7 +147,7 @@ class CardHomeFeatureView extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0, top: 2),
                         child: Text(
-                          "${cubit.dataFeature[index].type}",
+                          unit.type!,
                           style: TextStyle(
                             color: ColorManager.TextHomeColor,
                             fontSize: 15,
@@ -167,7 +165,7 @@ class CardHomeFeatureView extends StatelessWidget {
                               Text.rich(TextSpan(children: [
                                 TextSpan(
                                   text:
-                                      "\$ ${cubit.dataFeature[index].price == null ? 0 : cubit.dataFeature[index].price.toString().length >= 6 ? cubit.dataFeature[index].price.toString().substring(0, 1) : cubit.dataFeature[index].price.toString()} ${cubit.dataFeature[index].price.toString().length > 3 && cubit.dataFeature[index].price.toString().length < 6 ? "K" : cubit.dataFeature[index].price.toString().length > 6 && cubit.dataFeature[index].price.toString().length < 9 ? "M" : "B"}",
+                                      "\$ ${unit.price == null ? 0 : unit.price.toString().length >= 6 ? unit.price.toString().substring(0, 1) : unit.price.toString()} ${unit.price.toString().length > 3 && unit.price.toString().length < 6 ? "K" : unit.price.toString().length > 6 && unit.price.toString().length < 9 ? "M" : "B"}",
                                   style: TextStyle(
                                       color: ColorManager.OnBoardingScreen),
                                 ),
@@ -194,7 +192,7 @@ class CardHomeFeatureView extends StatelessWidget {
                               width: 5,
                             ),
                             Text(
-                              "${cubit.dataFeature[index].city} , ${cubit.dataFeature[index].country}",
+                              "${unit.city} , ${unit.country}",
                               style: TextStyle(fontSize: 10),
                             )
                           ],
@@ -237,7 +235,7 @@ class CardHomeFeatureView extends StatelessWidget {
                               height: 3,
                             ),
                             Text(
-                              "${cubit.dataFeature[index].area} m²",
+                              "${unit.area} m²",
                               style:
                                   TextStyle(color: Colors.black, fontSize: 12),
                             ),
@@ -260,7 +258,7 @@ class CardHomeFeatureView extends StatelessWidget {
                               height: 3,
                             ),
                             Text(
-                              "${cubit.dataFeature[index].bathroom}",
+                              "${unit.bathroom}",
                               style:
                                   TextStyle(color: Colors.black, fontSize: 12),
                             ),
@@ -283,7 +281,7 @@ class CardHomeFeatureView extends StatelessWidget {
                               height: 3,
                             ),
                             Text(
-                              "${cubit.dataFeature[index].bedrooms}",
+                              "${unit.bedrooms}",
                               style:
                                   TextStyle(color: Colors.black, fontSize: 12),
                             ),

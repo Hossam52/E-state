@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
+import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_states.dart';
 import 'package:osol/Shared/Customicon.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
@@ -19,7 +21,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   void initState() {
-    UnitClientCubit.get(context).getAllUnitDetails();
+    UnitClientCubit.get(context).getAllUnitDetails(context);
     super.initState();
   }
 
@@ -48,11 +50,11 @@ class _SearchScreenState extends State<SearchScreen> {
                 },
               ),
               centerTitle: true,
-              shape: ContinuousRectangleBorder(
+              shape: const ContinuousRectangleBorder(
                 borderRadius:
-                    BorderRadius.vertical(bottom: Radius.circular(10)),
+                    const BorderRadius.vertical(bottom: Radius.circular(10)),
               ),
-              title: Text(
+              title: const Text(
                 "Results",
                 style: TextStyle(
                   fontSize: 24,
@@ -67,18 +69,18 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             body: state is ErrorGetUnitClientDetails
                 ? CupertinoAlertDialog(
-                    title: Text("Error On Data Loading"),
+                    title: const Text("Error On Data Loading"),
                     actions: [
                       TextButton(
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: Text("OK"),
+                        child: const Text("OK"),
                       )
                     ],
                   )
                 : cubit.getAllDataList.isEmpty
-                    ? Center(
+                    ? const Center(
                         child: Text(
                           "There Is No Data",
                           style: TextStyle(
@@ -90,7 +92,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       )
                     : ListView.builder(
                         scrollDirection: Axis.vertical,
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         itemCount: cubit.getAllDataList.length,
                         itemBuilder: (context, index) {
                           return Padding(
@@ -122,7 +124,8 @@ class HorizontalCard extends StatelessWidget {
         return InkWell(
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (_) => UnitsDetailsScreen(),
+              builder: (_) =>
+                  UnitsDetailsScreen(unitId: cubit.getAllDataList[index].id!),
             ),
           ),
           child: Material(
@@ -137,10 +140,10 @@ class HorizontalCard extends StatelessWidget {
                     Expanded(
                       flex: 3,
                       child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 5.0, vertical: 5),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 5.0, vertical: 5),
                         child: cubit.getAllDataList == null
-                            ? CircularProgressIndicator()
+                            ? const CircularProgressIndicator()
                             : Container(
                                 width: 80.w,
                                 decoration: BoxDecoration(
@@ -156,8 +159,8 @@ class HorizontalCard extends StatelessWidget {
                     Expanded(
                       flex: 5,
                       child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 12),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -172,13 +175,13 @@ class HorizontalCard extends StatelessWidget {
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
                                   child: Container(
                                     height: 20,
                                     width: 20,
                                     alignment: Alignment.center,
-                                    decoration: BoxDecoration(),
+                                    decoration: const BoxDecoration(),
                                     child: IconButton(
                                         onPressed: () {},
                                         icon: Container(
@@ -214,7 +217,7 @@ class HorizontalCard extends StatelessWidget {
                                   color: ColorManager.AppBarIconcolorGrey,
                                   size: 10.w,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 2,
                                 ),
                                 Text(
@@ -233,7 +236,7 @@ class HorizontalCard extends StatelessWidget {
                                     style: TextStyle(
                                         color: ColorManager.OnBoardingScreen),
                                   ),
-                                  TextSpan(
+                                  const TextSpan(
                                     text: "\\ Mnth",
                                     style: TextStyle(
                                         color: Colors.lightBlueAccent),
@@ -257,7 +260,7 @@ class HorizontalCard extends StatelessWidget {
                                         color: ColorManager.TextHomeColor,
                                         fontSize: 12),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   FaIcon(
@@ -271,7 +274,7 @@ class HorizontalCard extends StatelessWidget {
                                         color: ColorManager.TextHomeColor,
                                         fontSize: 12),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   FaIcon(
@@ -285,7 +288,7 @@ class HorizontalCard extends StatelessWidget {
                                         color: ColorManager.TextHomeColor,
                                         fontSize: 12),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   Text(
@@ -339,7 +342,7 @@ class gridCards extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: cubit.dataUnit == null
-                    ? CircularProgressIndicator()
+                    ? const CircularProgressIndicator()
                     : Container(
                         width: 160.w,
                         decoration: BoxDecoration(
@@ -347,7 +350,7 @@ class gridCards extends StatelessWidget {
                               image: NetworkImage(
                                   cubit.dataUnit[index].images!.first),
                               fit: BoxFit.cover),
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(6),
                             topRight: Radius.circular(6),
                           ),
@@ -378,12 +381,12 @@ class gridCards extends StatelessWidget {
                         color: ColorManager.AppBarIconcolorGrey,
                         size: 12,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 2,
                       ),
                       Text(
                         "${cubit.dataUnit[index].companyId} ,${cubit.dataUnit[index].cityId} ",
-                        style: TextStyle(fontSize: 10),
+                        style: const TextStyle(fontSize: 10),
                       )
                     ],
                   ),
@@ -398,7 +401,7 @@ class gridCards extends StatelessWidget {
                       text: "\$ 240 ",
                       style: TextStyle(color: ColorManager.OnBoardingScreen),
                     ),
-                    TextSpan(
+                    const TextSpan(
                       text: "\\ Mnth",
                       style: TextStyle(color: Colors.lightBlueAccent),
                     )
@@ -412,688 +415,687 @@ class gridCards extends StatelessWidget {
     );
   }
 }
+// class StackedCustomizeText extends StatelessWidget {
+//   List typePro = [
+//     "Any",
+//     "Apartment",
+//     "Duplex",
+//     "Office",
+//     "Store",
+//     "Studio",
+//     "Town House",
+//     "Twin House",
+//     "Penthouse",
+//     "Villa",
+//   ];
 
-class StackedCustomizeText extends StatelessWidget {
-  List typePro = [
-    "Any",
-    "Apartment",
-    "Duplex",
-    "Office",
-    "Store",
-    "Studio",
-    "Town House",
-    "Twin House",
-    "Penthouse",
-    "Villa",
-  ];
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocConsumer<UnitClientCubit, UnitClientState>(
+//       listener: (context, state) {
+//         // TODO: implement listener
+//       },
+//       builder: (context, state) {
+//         var cubit = UnitClientCubit.get(context);
+//         return Stack(
+//           children: [
+//             Padding(
+//                 padding: const EdgeInsets.all(20.0),
+//                 child: Container(
+//                   height: sizeFromHeight(9),
+//                   decoration: BoxDecoration(
+//                     borderRadius: BorderRadius.circular(10),
+//                     border: Border.all(color: Colors.black45, width: 1),
+//                   ),
+//                   child: Row(
+//                     children: [
+//                       Expanded(
+//                         child: Container(
+//                           child: ListView.builder(
+//                               itemCount: typePro.length,
+//                               scrollDirection: Axis.horizontal,
+//                               itemBuilder: (context, listIndex) {
+//                                 return InkWell(
+//                                   onTap: () {
+//                                     cubit.changePropType(typePro[listIndex]);
+//                                     debugPrint(typePro[listIndex]);
+//                                   },
+//                                   child: Padding(
+//                                     padding: const EdgeInsets.all(10.0),
+//                                     child: Container(
+//                                       decoration: typePro.indexOf(
+//                                                   "${cubit.typeFilter}") ==
+//                                               listIndex
+//                                           ? BoxDecoration(
+//                                               borderRadius:
+//                                                   BorderRadius.circular(5),
+//                                               border: Border.all(
+//                                                 color: ColorManager
+//                                                     .AppBarHomeColorIcon,
+//                                               ),
+//                                             )
+//                                           : null,
+//                                       child: Padding(
+//                                         padding: const EdgeInsets.symmetric(
+//                                             horizontal: 10.0),
+//                                         child: Align(
+//                                             alignment: Alignment.center,
+//                                             child: Text(
+//                                               "${typePro[listIndex]}",
+//                                               style: TextStyle(
+//                                                   fontWeight: typePro.indexOf(
+//                                                               "${cubit.typeFilter}") ==
+//                                                           listIndex
+//                                                       ? FontWeight.bold
+//                                                       : null),
+//                                             )),
+//                                       ),
+//                                     ),
+//                                   ),
+//                                 );
+//                               }),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 )),
+//             Positioned(
+//               top: 10,
+//               left: sizeFromWidth(11),
+//               child: Container(
+//                 color: ColorManager.WhiteScreen,
+//                 height: 20,
+//                 child: Row(
+//                   children: [
+//                     const SizedBox(
+//                       width: 5,
+//                     ),
+//                     SvgPicture.asset(
+//                       "assets/images/home.svg",
+//                     ),
+//                     const SizedBox(width: 5),
+//                     const Text(
+//                       "Property Type",
+//                       style: const TextStyle(color: Colors.black, fontSize: 18),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ],
+//         );
+//       },
+//     );
+//   }
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<UnitClientCubit, UnitClientState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
-      builder: (context, state) {
-        var cubit = UnitClientCubit.get(context);
-        return Stack(
-          children: [
-            Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                  height: sizeFromHeight(9),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.black45, width: 1),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          child: ListView.builder(
-                              itemCount: typePro.length,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, listIndex) {
-                                return InkWell(
-                                  onTap: () {
-                                    cubit.changePropType(typePro[listIndex]);
-                                    debugPrint(typePro[listIndex]);
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Container(
-                                      decoration: typePro.indexOf(
-                                                  "${cubit.typeFilter}") ==
-                                              listIndex
-                                          ? BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(5),
-                                              border: Border.all(
-                                                color: ColorManager
-                                                    .AppBarHomeColorIcon,
-                                              ),
-                                            )
-                                          : null,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10.0),
-                                        child: Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              "${typePro[listIndex]}",
-                                              style: TextStyle(
-                                                  fontWeight: typePro.indexOf(
-                                                              "${cubit.typeFilter}") ==
-                                                          listIndex
-                                                      ? FontWeight.bold
-                                                      : null),
-                                            )),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }),
-                        ),
-                      ),
-                    ],
-                  ),
-                )),
-            Positioned(
-              top: 10,
-              left: sizeFromWidth(11),
-              child: Container(
-                color: ColorManager.WhiteScreen,
-                height: 20,
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 5,
-                    ),
-                    SvgPicture.asset(
-                      "assets/images/home.svg",
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "Property Type",
-                      style: TextStyle(color: Colors.black, fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
+// class StackedCustomizeCardPrice extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocConsumer<UnitClientCubit, UnitClientState>(
+//       listener: (context, state) {
+//         // TODO: implement listener
+//       },
+//       builder: (context, state) {
+//         var cubit = UnitClientCubit.get(context);
+//         return Stack(
+//           children: [
+//             Padding(
+//                 padding: const EdgeInsets.all(20.0),
+//                 child: Container(
+//                   height: sizeFromHeight(9),
+//                   decoration: BoxDecoration(
+//                     borderRadius: BorderRadius.circular(10),
+//                     border: Border.all(color: Colors.black45, width: 1),
+//                   ),
+//                   child: Padding(
+//                     padding: const EdgeInsets.symmetric(vertical: 8.0),
+//                     child: Column(
+//                       children: [
+//                         Expanded(
+//                           flex: 1,
+//                           child: Padding(
+//                             padding: const EdgeInsets.all(5.0),
+//                             child: RangeSlider(
+//                               values: RangeValues(cubit.start, cubit.end),
+//                               labels: RangeLabels(
+//                                   cubit.start.toString(), cubit.end.toString()),
+//                               onChanged: (value) {
+//                                 cubit.changeRangeSlider(value);
+//                               },
+//                               min: 0,
+//                               max: 100000000,
+//                             ),
+//                           ),
+//                         ),
+//                         Expanded(
+//                           flex: 1,
+//                           child: Padding(
+//                             padding:
+//                                 const EdgeInsets.symmetric(horizontal: 15.0),
+//                             child: Row(
+//                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                               children: [
+//                                 Text("\$${cubit.start.toStringAsFixed(1)}"),
+//                                 Text("\$${cubit.end.toStringAsFixed(1)}")
+//                               ],
+//                             ),
+//                           ),
+//                         )
+//                       ],
+//                     ),
+//                   ),
+//                 )),
+//             Positioned(
+//               top: 10,
+//               left: sizeFromWidth(11),
+//               child: Container(
+//                 color: ColorManager.WhiteScreen,
+//                 height: 20,
+//                 child: Row(
+//                   children: [
+//                     const SizedBox(
+//                       width: 5,
+//                     ),
+//                     const FaIcon(FontAwesomeIcons.dollarSign),
+//                     const SizedBox(width: 5),
+//                     const Text(
+//                       "Price",
+//                       style: TextStyle(color: Colors.black, fontSize: 18),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ],
+//         );
+//       },
+//     );
+//   }
+// }
 
-class StackedCustomizeCardPrice extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<UnitClientCubit, UnitClientState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
-      builder: (context, state) {
-        var cubit = UnitClientCubit.get(context);
-        return Stack(
-          children: [
-            Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                  height: sizeFromHeight(9),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.black45, width: 1),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Column(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: RangeSlider(
-                              values: RangeValues(cubit.start, cubit.end),
-                              labels: RangeLabels(
-                                  cubit.start.toString(), cubit.end.toString()),
-                              onChanged: (value) {
-                                cubit.changeRangeSlider(value);
-                              },
-                              min: 0,
-                              max: 100000000,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 15.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("\$${cubit.start.toStringAsFixed(1)}"),
-                                Text("\$${cubit.end.toStringAsFixed(1)}")
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                )),
-            Positioned(
-              top: 10,
-              left: sizeFromWidth(11),
-              child: Container(
-                color: ColorManager.WhiteScreen,
-                height: 20,
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 5,
-                    ),
-                    FaIcon(FontAwesomeIcons.dollarSign),
-                    SizedBox(width: 5),
-                    Text(
-                      "Price",
-                      style: TextStyle(color: Colors.black, fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
+// class StackedCustomrequiredField extends StatelessWidget {
+//   List FinishType = [
+//     "Any",
+//     "without",
+//     "Half",
+//     "Full",
+//     "lux",
+//     "Super Lux",
+//     "Ultra Luxe",
+//     "Deluxe",
+//     "Super Deluxe"
+//   ];
 
-class StackedCustomrequiredField extends StatelessWidget {
-  List FinishType = [
-    "Any",
-    "without",
-    "Half",
-    "Full",
-    "lux",
-    "Super Lux",
-    "Ultra Luxe",
-    "Deluxe",
-    "Super Deluxe"
-  ];
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocConsumer<UnitClientCubit, UnitClientState>(
+//       listener: (context, state) {
+//         // TODO: implement listener
+//       },
+//       builder: (context, state) {
+//         var cubit = UnitClientCubit.get(context);
+//         return Stack(
+//           children: [
+//             Padding(
+//                 padding: const EdgeInsets.all(20.0),
+//                 child: Container(
+//                   height: sizeFromHeight(9),
+//                   decoration: BoxDecoration(
+//                     borderRadius: BorderRadius.circular(10),
+//                     border: Border.all(color: Colors.black45, width: 1),
+//                   ),
+//                   child: Row(
+//                     children: [
+//                       Expanded(
+//                         child: Container(
+//                           child: ListView.builder(
+//                               itemCount: FinishType.length,
+//                               scrollDirection: Axis.horizontal,
+//                               itemBuilder: (context, listIndex) {
+//                                 return InkWell(
+//                                   onTap: () {
+//                                     cubit.changeIndexInFilterFinishType(
+//                                         FinishType[listIndex]);
+//                                   },
+//                                   child: Padding(
+//                                     padding: const EdgeInsets.all(10.0),
+//                                     child: Container(
+//                                       decoration:
+//                                           cubit.filterNewIndexFinishType ==
+//                                                   FinishType[listIndex]
+//                                               ? BoxDecoration(
+//                                                   borderRadius:
+//                                                       BorderRadius.circular(5),
+//                                                   border: Border.all(
+//                                                     color: ColorManager
+//                                                         .AppBarHomeColorIcon,
+//                                                   ),
+//                                                 )
+//                                               : null,
+//                                       child: Padding(
+//                                         padding: const EdgeInsets.symmetric(
+//                                             horizontal: 10.0),
+//                                         child: Align(
+//                                             alignment: Alignment.center,
+//                                             child: Text(
+//                                               "${FinishType[listIndex]}",
+//                                               style: TextStyle(
+//                                                   fontWeight:
+//                                                       cubit.filterNewIndexFinishType ==
+//                                                               FinishType[
+//                                                                   listIndex]
+//                                                           ? FontWeight.bold
+//                                                           : null),
+//                                             )),
+//                                       ),
+//                                     ),
+//                                   ),
+//                                 );
+//                               }),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 )),
+//             Positioned(
+//               top: 10,
+//               left: sizeFromWidth(11),
+//               child: Container(
+//                 color: ColorManager.WhiteScreen,
+//                 height: 20,
+//                 child: Row(
+//                   children: [
+//                     const SizedBox(
+//                       width: 5,
+//                     ),
+//                     SvgPicture.asset(
+//                       "assets/images/home.svg",
+//                     ),
+//                     const SizedBox(width: 5),
+//                     const Text(
+//                       "Finish Types",
+//                       style: const TextStyle(color: Colors.black, fontSize: 18),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ],
+//         );
+//       },
+//     );
+//   }
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<UnitClientCubit, UnitClientState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
-      builder: (context, state) {
-        var cubit = UnitClientCubit.get(context);
-        return Stack(
-          children: [
-            Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                  height: sizeFromHeight(9),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.black45, width: 1),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          child: ListView.builder(
-                              itemCount: FinishType.length,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, listIndex) {
-                                return InkWell(
-                                  onTap: () {
-                                    cubit.changeIndexInFilterFinishType(
-                                        FinishType[listIndex]);
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Container(
-                                      decoration:
-                                          cubit.filterNewIndexFinishType ==
-                                                  FinishType[listIndex]
-                                              ? BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
-                                                  border: Border.all(
-                                                    color: ColorManager
-                                                        .AppBarHomeColorIcon,
-                                                  ),
-                                                )
-                                              : null,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10.0),
-                                        child: Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              "${FinishType[listIndex]}",
-                                              style: TextStyle(
-                                                  fontWeight:
-                                                      cubit.filterNewIndexFinishType ==
-                                                              FinishType[
-                                                                  listIndex]
-                                                          ? FontWeight.bold
-                                                          : null),
-                                            )),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }),
-                        ),
-                      ),
-                    ],
-                  ),
-                )),
-            Positioned(
-              top: 10,
-              left: sizeFromWidth(11),
-              child: Container(
-                color: ColorManager.WhiteScreen,
-                height: 20,
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 5,
-                    ),
-                    SvgPicture.asset(
-                      "assets/images/home.svg",
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "Finish Types",
-                      style: TextStyle(color: Colors.black, fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
+// class StackedFinishesAndPaints extends StatelessWidget {
+//   List requiredField = [
+//     "Any",
+//     "Vacation",
+//     "medical",
+//     "commercial",
+//     "Residential",
+//   ];
 
-class StackedFinishesAndPaints extends StatelessWidget {
-  List requiredField = [
-    "Any",
-    "Vacation",
-    "medical",
-    "commercial",
-    "Residential",
-  ];
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocConsumer<UnitClientCubit, UnitClientState>(
+//       listener: (context, state) {
+//         // TODO: implement listener
+//       },
+//       builder: (context, state) {
+//         var cubit = UnitClientCubit.get(context);
+//         return Stack(
+//           children: [
+//             Padding(
+//                 padding: const EdgeInsets.all(20.0),
+//                 child: Container(
+//                   height: sizeFromHeight(9),
+//                   decoration: BoxDecoration(
+//                     borderRadius: BorderRadius.circular(10),
+//                     border: Border.all(color: Colors.black45, width: 1),
+//                   ),
+//                   child: Row(
+//                     children: [
+//                       Expanded(
+//                         child: Container(
+//                           child: ListView.builder(
+//                               itemCount: requiredField.length,
+//                               scrollDirection: Axis.horizontal,
+//                               itemBuilder: (context, listIndex) {
+//                                 return InkWell(
+//                                   onTap: () {
+//                                     cubit.changeIndexInFilterrequiredField(
+//                                         requiredField[listIndex]);
+//                                     debugPrint(requiredField[listIndex]);
+//                                   },
+//                                   child: Padding(
+//                                     padding: const EdgeInsets.all(10.0),
+//                                     child: Container(
+//                                       decoration: cubit.requiredField ==
+//                                               requiredField[listIndex]
+//                                           ? BoxDecoration(
+//                                               borderRadius:
+//                                                   BorderRadius.circular(5),
+//                                               border: Border.all(
+//                                                 color: ColorManager
+//                                                     .AppBarHomeColorIcon,
+//                                               ),
+//                                             )
+//                                           : null,
+//                                       child: Padding(
+//                                         padding: const EdgeInsets.symmetric(
+//                                             horizontal: 10.0),
+//                                         child: Align(
+//                                             alignment: Alignment.center,
+//                                             child: Text(
+//                                               "${requiredField[listIndex]}",
+//                                               style: TextStyle(
+//                                                   fontWeight:
+//                                                       cubit.requiredField ==
+//                                                               requiredField[
+//                                                                   listIndex]
+//                                                           ? FontWeight.bold
+//                                                           : null),
+//                                             )),
+//                                       ),
+//                                     ),
+//                                   ),
+//                                 );
+//                               }),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 )),
+//             Positioned(
+//               top: 10,
+//               left: sizeFromWidth(11),
+//               child: Container(
+//                 color: ColorManager.WhiteScreen,
+//                 height: 20,
+//                 child: Row(
+//                   children: [
+//                     const SizedBox(
+//                       width: 5,
+//                     ),
+//                     SvgPicture.asset(
+//                       "assets/images/home.svg",
+//                     ),
+//                     const SizedBox(width: 5),
+//                     const Text(
+//                       "Required type",
+//                       style: TextStyle(color: Colors.black, fontSize: 18),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ],
+//         );
+//       },
+//     );
+//   }
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<UnitClientCubit, UnitClientState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
-      builder: (context, state) {
-        var cubit = UnitClientCubit.get(context);
-        return Stack(
-          children: [
-            Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                  height: sizeFromHeight(9),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.black45, width: 1),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          child: ListView.builder(
-                              itemCount: requiredField.length,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, listIndex) {
-                                return InkWell(
-                                  onTap: () {
-                                    cubit.changeIndexInFilterrequiredField(
-                                        requiredField[listIndex]);
-                                    debugPrint(requiredField[listIndex]);
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Container(
-                                      decoration: cubit.requiredField ==
-                                              requiredField[listIndex]
-                                          ? BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(5),
-                                              border: Border.all(
-                                                color: ColorManager
-                                                    .AppBarHomeColorIcon,
-                                              ),
-                                            )
-                                          : null,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10.0),
-                                        child: Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              "${requiredField[listIndex]}",
-                                              style: TextStyle(
-                                                  fontWeight:
-                                                      cubit.requiredField ==
-                                                              requiredField[
-                                                                  listIndex]
-                                                          ? FontWeight.bold
-                                                          : null),
-                                            )),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }),
-                        ),
-                      ),
-                    ],
-                  ),
-                )),
-            Positioned(
-              top: 10,
-              left: sizeFromWidth(11),
-              child: Container(
-                color: ColorManager.WhiteScreen,
-                height: 20,
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 5,
-                    ),
-                    SvgPicture.asset(
-                      "assets/images/home.svg",
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "Required type",
-                      style: TextStyle(color: Colors.black, fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
+// class PaymentType extends StatelessWidget {
+//   int index = 0;
+//   int newIndex = 0;
 
-class PaymentType extends StatelessWidget {
-  int index = 0;
-  int newIndex = 0;
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocConsumer<UnitClientCubit, UnitClientState>(
+//       listener: (context, state) {
+//         // TODO: implement listener
+//       },
+//       builder: (context, state) {
+//         var cubit = UnitClientCubit.get(context);
+//         return Stack(
+//           children: [
+//             Padding(
+//                 padding: const EdgeInsets.all(20.0),
+//                 child: Container(
+//                   height: sizeFromHeight(9),
+//                   decoration: BoxDecoration(
+//                     borderRadius: BorderRadius.circular(10),
+//                     border: Border.all(color: Colors.black45, width: 1),
+//                   ),
+//                   child: Row(
+//                     children: [
+//                       Expanded(
+//                         flex: 1,
+//                         child: Padding(
+//                           padding: const EdgeInsets.symmetric(
+//                               horizontal: 10.0, vertical: 10),
+//                           child: InkWell(
+//                             onTap: () {
+//                               cubit.changeIndexInFilter(1);
+//                               debugPrint("any");
+//                             },
+//                             child: Container(
+//                               height: sizeFromWidth(9),
+//                               width: sizeFromWidth(9),
+//                               decoration: cubit.filterNewIndex == 1
+//                                   ? BoxDecoration(
+//                                       borderRadius: BorderRadius.circular(5),
+//                                       border: Border.all(
+//                                           color:
+//                                               ColorManager.AppBarHomeColorIcon),
+//                                     )
+//                                   : null,
+//                               child: Align(
+//                                 alignment: Alignment.center,
+//                                 child: Text(
+//                                   "Any",
+//                                   style: TextStyle(
+//                                       fontWeight: cubit.filterNewIndex == 1
+//                                           ? FontWeight.bold
+//                                           : null),
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+//                         ),
+//                       ),
+//                       Expanded(
+//                         flex: 1,
+//                         child: Padding(
+//                           padding: const EdgeInsets.symmetric(
+//                               horizontal: 10.0, vertical: 10),
+//                           child: InkWell(
+//                             onTap: () {
+//                               cubit.changeIndexInFilter(2);
+//                               debugPrint("Cash");
+//                             },
+//                             child: Container(
+//                               height: sizeFromWidth(9),
+//                               width: sizeFromWidth(9),
+//                               decoration: cubit.filterNewIndex == 2
+//                                   ? BoxDecoration(
+//                                       borderRadius: BorderRadius.circular(5),
+//                                       border: Border.all(
+//                                         color: ColorManager.AppBarHomeColorIcon,
+//                                       ),
+//                                     )
+//                                   : null,
+//                               child: Align(
+//                                 alignment: Alignment.center,
+//                                 child: Text(
+//                                   "Cash",
+//                                   style: TextStyle(
+//                                       fontWeight: cubit.filterNewIndex == 2
+//                                           ? FontWeight.bold
+//                                           : null),
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+//                         ),
+//                       ),
+//                       Expanded(
+//                         flex: 1,
+//                         child: Padding(
+//                           padding: const EdgeInsets.symmetric(
+//                               horizontal: 10.0, vertical: 10),
+//                           child: InkWell(
+//                             onTap: () {
+//                               cubit.changeIndexInFilter(3);
+//                               print("Installment");
+//                             },
+//                             child: Container(
+//                               height: sizeFromWidth(9),
+//                               width: sizeFromWidth(9),
+//                               decoration: cubit.filterNewIndex == 3
+//                                   ? BoxDecoration(
+//                                       borderRadius: BorderRadius.circular(5),
+//                                       border: Border.all(
+//                                         color: ColorManager.AppBarHomeColorIcon,
+//                                       ),
+//                                     )
+//                                   : null,
+//                               child: Align(
+//                                   alignment: Alignment.center,
+//                                   child: Text(
+//                                     "Installment",
+//                                     style: TextStyle(
+//                                         fontWeight: cubit.filterNewIndex == 3
+//                                             ? FontWeight.bold
+//                                             : null),
+//                                   )),
+//                             ),
+//                           ),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 )),
+//             Positioned(
+//               top: 10,
+//               left: sizeFromWidth(11),
+//               child: Container(
+//                 color: ColorManager.WhiteScreen,
+//                 height: 20,
+//                 child: Row(
+//                   children: [
+//                     const SizedBox(
+//                       width: 5,
+//                     ),
+//                     const FaIcon(
+//                       FontAwesomeIcons.wallet,
+//                       size: 14,
+//                       color: Colors.black54,
+//                     ),
+//                     const SizedBox(width: 5),
+//                     const Text(
+//                       "Payment gateway",
+//                       style: const TextStyle(color: Colors.black, fontSize: 18),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ],
+//         );
+//       },
+//     );
+//   }
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<UnitClientCubit, UnitClientState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
-      builder: (context, state) {
-        var cubit = UnitClientCubit.get(context);
-        return Stack(
-          children: [
-            Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                  height: sizeFromHeight(9),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.black45, width: 1),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 10),
-                          child: InkWell(
-                            onTap: () {
-                              cubit.changeIndexInFilter(1);
-                              debugPrint("any");
-                            },
-                            child: Container(
-                              height: sizeFromWidth(9),
-                              width: sizeFromWidth(9),
-                              decoration: cubit.filterNewIndex == 1
-                                  ? BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                          color:
-                                              ColorManager.AppBarHomeColorIcon),
-                                    )
-                                  : null,
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Any",
-                                  style: TextStyle(
-                                      fontWeight: cubit.filterNewIndex == 1
-                                          ? FontWeight.bold
-                                          : null),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 10),
-                          child: InkWell(
-                            onTap: () {
-                              cubit.changeIndexInFilter(2);
-                              debugPrint("Cash");
-                            },
-                            child: Container(
-                              height: sizeFromWidth(9),
-                              width: sizeFromWidth(9),
-                              decoration: cubit.filterNewIndex == 2
-                                  ? BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                        color: ColorManager.AppBarHomeColorIcon,
-                                      ),
-                                    )
-                                  : null,
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Cash",
-                                  style: TextStyle(
-                                      fontWeight: cubit.filterNewIndex == 2
-                                          ? FontWeight.bold
-                                          : null),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 10),
-                          child: InkWell(
-                            onTap: () {
-                              cubit.changeIndexInFilter(3);
-                              print("Installment");
-                            },
-                            child: Container(
-                              height: sizeFromWidth(9),
-                              width: sizeFromWidth(9),
-                              decoration: cubit.filterNewIndex == 3
-                                  ? BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                        color: ColorManager.AppBarHomeColorIcon,
-                                      ),
-                                    )
-                                  : null,
-                              child: Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "Installment",
-                                    style: TextStyle(
-                                        fontWeight: cubit.filterNewIndex == 3
-                                            ? FontWeight.bold
-                                            : null),
-                                  )),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )),
-            Positioned(
-              top: 10,
-              left: sizeFromWidth(11),
-              child: Container(
-                color: ColorManager.WhiteScreen,
-                height: 20,
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 5,
-                    ),
-                    FaIcon(
-                      FontAwesomeIcons.wallet,
-                      size: 14,
-                      color: Colors.black54,
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "Payment gateway",
-                      style: TextStyle(color: Colors.black, fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
+// class StackedAdvertisor extends StatelessWidget {
+//   List advistor = ["Any", "Owner", "Company"];
 
-class StackedAdvertisor extends StatelessWidget {
-  List advistor = ["Any", "Owner", "Company"];
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit, HomeState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
-      builder: (context, state) {
-        var cubit = HomeCubit.get(context);
-        return Stack(
-          children: [
-            Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                  height: sizeFromHeight(9),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.black45, width: 1),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          child: ListView.builder(
-                              itemCount: advistor.length,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, listIndex) {
-                                return InkWell(
-                                  onTap: () {
-                                    cubit.changeIndexInAdvistor(listIndex);
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Container(
-                                      decoration: cubit.advistor == listIndex
-                                          ? BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(5),
-                                              border: Border.all(
-                                                color: ColorManager
-                                                    .AppBarHomeColorIcon,
-                                              ),
-                                            )
-                                          : null,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10.0),
-                                        child: Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              "${advistor[listIndex]}",
-                                              style: TextStyle(
-                                                  fontWeight: cubit.advistor ==
-                                                          listIndex
-                                                      ? FontWeight.bold
-                                                      : null),
-                                            )),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }),
-                        ),
-                      ),
-                    ],
-                  ),
-                )),
-            Positioned(
-              top: 10,
-              left: sizeFromWidth(11),
-              child: Container(
-                color: ColorManager.WhiteScreen,
-                height: 20,
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 5,
-                    ),
-                    SvgPicture.asset(
-                      "assets/images/home.svg",
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "Advertisor",
-                      style: TextStyle(color: Colors.black, fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocConsumer<HomeCubit, HomeState>(
+//       listener: (context, state) {
+//         // TODO: implement listener
+//       },
+//       builder: (context, state) {
+//         var cubit = HomeCubit.get(context);
+//         return Stack(
+//           children: [
+//             Padding(
+//                 padding: const EdgeInsets.all(20.0),
+//                 child: Container(
+//                   height: sizeFromHeight(9),
+//                   decoration: BoxDecoration(
+//                     borderRadius: BorderRadius.circular(10),
+//                     border: Border.all(color: Colors.black45, width: 1),
+//                   ),
+//                   child: Row(
+//                     children: [
+//                       Expanded(
+//                         child: Container(
+//                           child: ListView.builder(
+//                               itemCount: advistor.length,
+//                               scrollDirection: Axis.horizontal,
+//                               itemBuilder: (context, listIndex) {
+//                                 return InkWell(
+//                                   onTap: () {
+//                                     cubit.changeIndexInAdvistor(listIndex);
+//                                   },
+//                                   child: Padding(
+//                                     padding: const EdgeInsets.all(10.0),
+//                                     child: Container(
+//                                       decoration: cubit.advistor == listIndex
+//                                           ? BoxDecoration(
+//                                               borderRadius:
+//                                                   BorderRadius.circular(5),
+//                                               border: Border.all(
+//                                                 color: ColorManager
+//                                                     .AppBarHomeColorIcon,
+//                                               ),
+//                                             )
+//                                           : null,
+//                                       child: Padding(
+//                                         padding: const EdgeInsets.symmetric(
+//                                             horizontal: 10.0),
+//                                         child: Align(
+//                                             alignment: Alignment.center,
+//                                             child: Text(
+//                                               "${advistor[listIndex]}",
+//                                               style: TextStyle(
+//                                                   fontWeight: cubit.advistor ==
+//                                                           listIndex
+//                                                       ? FontWeight.bold
+//                                                       : null),
+//                                             )),
+//                                       ),
+//                                     ),
+//                                   ),
+//                                 );
+//                               }),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 )),
+//             Positioned(
+//               top: 10,
+//               left: sizeFromWidth(11),
+//               child: Container(
+//                 color: ColorManager.WhiteScreen,
+//                 height: 20,
+//                 child: Row(
+//                   children: [
+//                     const SizedBox(
+//                       width: 5,
+//                     ),
+//                     SvgPicture.asset(
+//                       "assets/images/home.svg",
+//                     ),
+//                     const SizedBox(width: 5),
+//                     const Text(
+//                       "Advertisor",
+//                       style: TextStyle(color: Colors.black, fontSize: 18),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ],
+//         );
+//       },
+//     );
+//   }
+// }

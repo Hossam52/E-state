@@ -13,6 +13,7 @@ import 'package:osol/User/BussinssLogic/unitCubit/unit_cubit.dart';
 import 'package:osol/User/DataLayer/Model/modelOfData/onBoardingModel.dart';
 import 'package:osol/User/PresentaionLayer/HomeScreen/featureViewAllScreen.dart';
 import 'package:osol/User/PresentaionLayer/UnitsScreenDetails/view.dart';
+import 'package:osol/common_models/unit_model.dart';
 import 'package:osol/shared/Customicon.dart';
 import 'package:osol/shared/constants.dart';
 
@@ -127,29 +128,9 @@ class ListViewCmpanyDetails extends StatelessWidget {
 }
 
 class pageViewDetails extends StatelessWidget {
-  String image;
-  String txt;
-  String city;
-  String country;
-  String area;
-  String bathroom;
-  String bedroom;
-  String strnum;
-  String price;
-  int index;
+  final UnitModel unit;
 
-  pageViewDetails({
-    required this.index,
-    required this.image,
-    required this.txt,
-    required this.bathroom,
-    required this.country,
-    required this.city,
-    required this.area,
-    required this.bedroom,
-    required this.strnum,
-    required this.price,
-  });
+  pageViewDetails({required this.unit});
 
   @override
   Widget build(BuildContext context) {
@@ -163,12 +144,11 @@ class pageViewDetails extends StatelessWidget {
           onTap: cubit3.userToken == null && cubit.myToken == null
               ? () {}
               : () {
-                  UnitClientCubit.get(context)
-                      .getUnitId(cubit.dataFeature[index].id);
-                  debugPrint("${cubit.dataFeature[index].view}");
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (_) => UnitsDetailsScreen(),
+                      builder: (_) => UnitsDetailsScreen(
+                        unitId: unit.id!,
+                      ),
                     ),
                   );
                 },
@@ -191,7 +171,8 @@ class pageViewDetails extends StatelessWidget {
                       width: 80.w,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: NetworkImage(image), fit: BoxFit.cover),
+                            image: NetworkImage(unit.images!.first),
+                            fit: BoxFit.cover),
                         borderRadius: BorderRadius.circular(5),
                       ),
                     ),
@@ -208,7 +189,7 @@ class pageViewDetails extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "$txt",
+                              unit.type!,
                               style: Theme.of(context).textTheme.headline3,
                             ),
                           ],
@@ -225,7 +206,7 @@ class pageViewDetails extends StatelessWidget {
                               width: 2,
                             ),
                             Text(
-                              "$city , $country",
+                              "${unit.city} , ${unit.country}",
                               style: Theme.of(context).textTheme.headline4,
                             )
                           ],
@@ -235,7 +216,7 @@ class pageViewDetails extends StatelessWidget {
                           children: [
                             Text.rich(TextSpan(children: [
                               TextSpan(
-                                text: "\$ $price ",
+                                text: "\$ ${unit.price} ",
                                 style: TextStyle(
                                     color: ColorManager.OnBoardingScreen),
                               ),
@@ -256,7 +237,7 @@ class pageViewDetails extends StatelessWidget {
                                 size: 12,
                               ),
                               Text(
-                                "$area m²",
+                                "${unit.area} m²",
                                 style: Theme.of(context).textTheme.headline4,
                               ),
                               SizedBox(
@@ -268,7 +249,7 @@ class pageViewDetails extends StatelessWidget {
                                 size: 12,
                               ),
                               Text(
-                                "$bathroom",
+                                "${unit.bathroom}",
                                 style: Theme.of(context).textTheme.headline4,
                               ),
                               SizedBox(
@@ -280,14 +261,14 @@ class pageViewDetails extends StatelessWidget {
                                 color: Colors.grey[400],
                               ),
                               Text(
-                                "$bedroom",
+                                "${unit.bedrooms}",
                                 style: Theme.of(context).textTheme.headline4,
                               ),
                               SizedBox(
                                 width: 10,
                               ),
                               Text(
-                                "$strnum",
+                                "4",
                                 style: Theme.of(context).textTheme.headline4,
                               ),
                               FaIcon(
@@ -312,9 +293,8 @@ class pageViewDetails extends StatelessWidget {
 }
 
 class CardHomeRecentlyWatchedView extends StatelessWidget {
-  int index;
-
-  CardHomeRecentlyWatchedView({required this.index});
+  final UnitModel unit;
+  CardHomeRecentlyWatchedView({required this.unit});
 
   @override
   Widget build(BuildContext context) {
@@ -347,7 +327,7 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
                         ),
                         image: DecorationImage(
                           image: NetworkImage(
-                            cubit.imagesPopular.first,
+                            unit.images!.first,
                           ),
                           fit: BoxFit.cover,
                         ),
@@ -366,7 +346,7 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0, top: 2),
                         child: Text(
-                          "${cubit.dataPopular[index].type}",
+                          "${unit.type}",
                           style: Theme.of(context).textTheme.headline3,
                         ),
                       ),
@@ -381,7 +361,7 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
                               Text.rich(TextSpan(children: [
                                 TextSpan(
                                   text:
-                                      "\$ ${cubit.dataPopular[index].price == null ? 0 : cubit.dataPopular[index].price.toString().length > 6 ? cubit.dataPopular[index].price.toString().substring(0, 1) : cubit.dataPopular[index].price.toString()} ${cubit.dataPopular[index].price.toString().length > 3 && cubit.dataPopular[index].price.toString().length < 6 ? "K" : cubit.dataPopular[index].price.toString().length > 6 && cubit.dataPopular[index].price.toString().length < 9 ? "M" : "B"}",
+                                      "\$ ${unit.price == null ? 0 : unit.price.toString().length > 6 ? unit.price.toString().substring(0, 1) : unit.price.toString()} ${unit.price.toString().length > 3 && unit.price.toString().length < 6 ? "K" : unit.price.toString().length > 6 && unit.price.toString().length < 9 ? "M" : "B"}",
                                   style: TextStyle(
                                       color: ColorManager.OnBoardingScreen),
                                 ),
@@ -408,7 +388,7 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
                               width: 5,
                             ),
                             Text(
-                              "${cubit.dataPopular[index].city} , ${cubit.dataPopular[index].country}",
+                              "${unit.city} , ${unit.country}",
                               style: Theme.of(context).textTheme.headline4,
                             )
                           ],
@@ -451,7 +431,7 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
                               height: 3,
                             ),
                             Text(
-                              "${cubit.dataPopular[index].area} m²",
+                              "${unit.area} m²",
                               style:
                                   TextStyle(color: Colors.black, fontSize: 12),
                             ),
@@ -474,7 +454,7 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
                               height: 3,
                             ),
                             Text(
-                              "${cubit.dataPopular[index].bathroom}",
+                              "${unit.bathroom}",
                               style:
                                   TextStyle(color: Colors.black, fontSize: 12),
                             ),
@@ -497,7 +477,7 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
                               height: 3,
                             ),
                             Text(
-                              "${cubit.dataPopular[index].bedrooms}",
+                              "${unit.bedrooms}",
                               style:
                                   TextStyle(color: Colors.black, fontSize: 12),
                             ),
@@ -585,16 +565,14 @@ class HomeViewData extends StatelessWidget {
     var cubit = HomeCubit.get(context);
     var cubit2 = ProfileCubit.get(context);
     var cubit3 = AuthCubit.get(context);
-    HomeCubit.get(context).myToken == null &&
-            AuthCubit.get(context).userToken == null
-        ? null
-        : UnitClientCubit.get(context).getUnitById;
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return cubit.dataFeature.isEmpty &&
+        final features = cubit.featuresUnits;
+        final populars = cubit.popularUnits;
+        return features.isEmpty &&
                 cubit.dataBanner.isEmpty &&
-                cubit.dataPopular.isEmpty
+                cubit.popularUnits.isEmpty
             ? Center(
                 child: CupertinoActivityIndicator(),
               )
@@ -691,7 +669,7 @@ class HomeViewData extends StatelessWidget {
                             top: 10, start: 20.0, bottom: 10),
                         child: Container(
                           height: sizeFromHeight(18),
-                          child: ListLabelInDetails(
+                          child: UserFilterLabelsWidget(
                             num: 200,
                           ),
                         ),
@@ -738,7 +716,7 @@ class HomeViewData extends StatelessWidget {
                         ),
                       ),
                     )),
-                    cubit.imagesFeature.isNotEmpty
+                    features.isNotEmpty
                         ? SliverToBoxAdapter(
                             child: Padding(
                               padding: const EdgeInsets.only(
@@ -747,7 +725,7 @@ class HomeViewData extends StatelessWidget {
                               child: Container(
                                 height: sizeFromHeight(2.8),
                                 child: ListView.builder(
-                                    itemCount: cubit.dataFeature.length,
+                                    itemCount: features.length,
                                     scrollDirection: Axis.horizontal,
                                     physics: BouncingScrollPhysics(),
                                     itemBuilder: (context, index) {
@@ -758,13 +736,18 @@ class HomeViewData extends StatelessWidget {
                                             : () {
                                                 UnitClientCubit.get(context)
                                                     .getUnitId(cubit
-                                                        .dataFeature[index].id);
+                                                        .featuresUnits[index]
+                                                        .id);
                                                 debugPrint(
-                                                    "${cubit.dataFeature[index].view}");
+                                                    "${features[index].view}");
                                                 Navigator.of(context).push(
                                                   MaterialPageRoute(
                                                     builder: (_) =>
-                                                        UnitsDetailsScreen(),
+                                                        UnitsDetailsScreen(
+                                                      unitId: cubit
+                                                          .featuresUnits[index]
+                                                          .id!,
+                                                    ),
                                                   ),
                                                 );
                                               },
@@ -772,7 +755,7 @@ class HomeViewData extends StatelessWidget {
                                           padding: const EdgeInsets.only(
                                               top: 8.0, bottom: 8),
                                           child: CardHomeDetailsUserView(
-                                            index: index,
+                                            unit: cubit.featuresUnits[index],
                                           ),
                                         ),
                                       );
@@ -825,32 +808,14 @@ class HomeViewData extends StatelessWidget {
                           child: PageView.builder(
                               scrollDirection: Axis.horizontal,
                               physics: BouncingScrollPhysics(),
-                              itemCount: cubit.dataFeature.length,
+                              itemCount: features.length,
                               itemBuilder: (context, index) {
+                                final unit = features[index];
                                 return Padding(
                                   padding: const EdgeInsets.only(
                                       top: 8.0, bottom: 8),
                                   child: pageViewDetails(
-                                    index: index,
-                                    country: cubit.dataFeature[index].country
-                                        .toString(),
-                                    city: cubit.dataFeature[index].city
-                                        .toString(),
-                                    price:
-                                        cubit.dataFeature[index].price == null
-                                            ? "0"
-                                            : cubit.dataFeature[index].price
-                                                .toString(),
-                                    area: cubit.dataFeature[index].area
-                                        .toString(),
-                                    bathroom: cubit.dataFeature[index].bathroom
-                                        .toString(),
-                                    bedroom: cubit.dataFeature[index].bedrooms
-                                        .toString(),
-                                    strnum: "4",
-                                    image: cubit.imagesFeature[0],
-                                    txt: cubit.dataFeature[index].type
-                                        .toString(),
+                                    unit: unit,
                                   ),
                                 );
                               }),
@@ -873,7 +838,7 @@ class HomeViewData extends StatelessWidget {
                         ),
                       ),
                     )),
-                    cubit.imagesPopular.isNotEmpty
+                    populars.isNotEmpty
                         ? SliverGrid(
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
@@ -887,7 +852,7 @@ class HomeViewData extends StatelessWidget {
                                 return Padding(
                                   padding: const EdgeInsets.only(
                                       right: 20.0, left: 3),
-                                  child: cubit.dataPopular.isEmpty
+                                  child: populars.isEmpty
                                       ? Center(
                                           child: CircularProgressIndicator(),
                                         )
@@ -896,24 +861,23 @@ class HomeViewData extends StatelessWidget {
                                                   cubit.myToken == null
                                               ? () {}
                                               : () {
-                                                  UnitClientCubit.get(context)
-                                                      .getUnitId(cubit
-                                                          .dataPopular[index]
-                                                          .id);
                                                   Navigator.of(context).push(
                                                     MaterialPageRoute(
                                                       builder: (_) =>
-                                                          UnitsDetailsScreen(),
+                                                          UnitsDetailsScreen(
+                                                              unitId: populars[
+                                                                      index]
+                                                                  .id!),
                                                     ),
                                                   );
                                                 },
                                           child: CardHomeRecentlyWatchedView(
-                                            index: index,
+                                            unit: populars[index],
                                           ),
                                         ),
                                 );
                               },
-                              childCount: cubit.dataPopular.length,
+                              childCount: populars.length,
                             ),
                           )
                         : SliverToBoxAdapter()

@@ -76,3 +76,5 @@ class ErrorGetPopularState extends HomeState {}
 class LoadingGetProfileStatus extends HomeState {}
 
 class SuccessGetProfileStatus extends HomeState {}
+
+class ChangeSelectedCategoryIndex extends HomeState {}

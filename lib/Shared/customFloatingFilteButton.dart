@@ -28,7 +28,7 @@ class CustomFloatingFilterButton extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 cubit.getAllDataList.clear();
-                cubit.getAllUnitDetails();
+                cubit.getAllUnitDetails(context);
                 Navigator.pop(context);
               },
               child: Padding(

@@ -10,6 +10,9 @@ import 'package:osol/User/PresentaionLayer/HomeScreen/units.dart';
 import 'package:osol/User/PresentaionLayer/UnitsScreenDetails/units.dart';
 
 class UnitsDetailsScreen extends StatefulWidget {
+  final int unitId;
+
+  const UnitsDetailsScreen({Key? key, required this.unitId}) : super(key: key);
   @override
   State<UnitsDetailsScreen> createState() => _UnitsDetailsScreenState();
 }
@@ -22,7 +25,7 @@ class _UnitsDetailsScreenState extends State<UnitsDetailsScreen> {
     UnitClientCubit.get(context).unitAllReviewList.clear();
     UnitClientCubit.get(context).zeroId();
     super.initState();
-    UnitClientCubit.get(context).getUnitById.call();
+    UnitClientCubit.get(context).getUnitById(widget.unitId);
     UnitClientCubit.get(context).getAllUnitReview();
   }
 

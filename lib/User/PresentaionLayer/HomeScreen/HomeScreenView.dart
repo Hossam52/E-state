@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +8,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
+import 'package:osol/Shared/component/filter_dialog.dart';
 import 'package:osol/Shared/customBottomAppBar.dart';
 import 'package:osol/User/BussinssLogic/AppSettingCubit/app_setting_cubit.dart';
 import 'package:osol/User/BussinssLogic/authCubit/auth_cubit.dart';
@@ -14,10 +17,12 @@ import 'package:osol/User/BussinssLogic/commonCubit/profieCubit/profile_cubit.da
 import 'package:osol/User/BussinssLogic/companyCubit/company_cubit.dart';
 import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
 import 'package:osol/User/BussinssLogic/savedCubit/saved_cubit.dart';
+import 'package:osol/User/BussinssLogic/unitCubit/unit_cubit.dart';
 import 'package:osol/User/PresentaionLayer/DawerScreen/view.dart';
 import 'package:osol/User/PresentaionLayer/RegisterScreen/signIn/view.dart';
 import 'package:osol/User/PresentaionLayer/notification/view.dart';
 import 'package:osol/User/PresentaionLayer/searchScreen/view.dart';
+import 'package:osol/common_models/unit_model.dart';
 import 'package:osol/shared/Customicon.dart';
 import 'package:osol/shared/constants.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -179,9 +184,9 @@ class _HomeScreenUserViewState extends State<HomeScreenUserView> {
 }
 
 class CardHomeDetailsUserView extends StatelessWidget {
-  int index;
+  final UnitModel unit;
 
-  CardHomeDetailsUserView({required this.index});
+  CardHomeDetailsUserView({required this.unit});
 
   final controllerHome = PageController(viewportFraction: 0.8, keepPage: true);
 
@@ -190,6 +195,7 @@ class CardHomeDetailsUserView extends StatelessWidget {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
+        final features = cubit.featuresUnits;
         return Padding(
           padding: const EdgeInsets.only(right: 15.0),
           child: InkWell(
@@ -219,13 +225,13 @@ class CardHomeDetailsUserView extends StatelessWidget {
                                   controller: controllerHome,
                                   scrollDirection: Axis.horizontal,
                                   physics: BouncingScrollPhysics(),
-                                  itemCount: cubit.imagesFeature.length,
+                                  itemCount: features.length,
                                   itemBuilder: (context, index) {
                                     cubit.currentHomeBoardIndex = index;
                                     return Padding(
                                       padding:
                                           const EdgeInsets.only(right: 8.0),
-                                      child: cubit.imagesFeature.isEmpty
+                                      child: features.isEmpty
                                           ? Container(
                                               width: sizeFromWidth(1.5),
                                               child: Center(
@@ -238,8 +244,9 @@ class CardHomeDetailsUserView extends StatelessWidget {
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                                 image: DecorationImage(
-                                                  image: NetworkImage(cubit
-                                                      .imagesFeature[index]),
+                                                  image:
+                                                      CachedNetworkImageProvider(
+                                                          unit.images!.first),
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
@@ -253,8 +260,8 @@ class CardHomeDetailsUserView extends StatelessWidget {
                               left: sizeFromWidth(1.8),
                               child: IconButton(
                                   onPressed: () {
-                                    SavedCubit.get(context).setSave(
-                                        unitId: cubit.dataFeature[index].id);
+                                    SavedCubit.get(context)
+                                        .setSave(unitId: unit.id);
 
                                     cubit.getFeatureOfClientHome();
                                   },
@@ -264,9 +271,7 @@ class CardHomeDetailsUserView extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(5)),
                                     child: Padding(
                                       padding: const EdgeInsets.all(5.0),
-                                      child: cubit.dataFeature[index]
-                                                  .authFavourite ==
-                                              true
+                                      child: unit.authFavourite == true
                                           // ||
                                           //     cubit.color == true
                                           ? InkWell(
@@ -327,7 +332,7 @@ class CardHomeDetailsUserView extends StatelessWidget {
                                 horizontal: 8.0,
                               ),
                               child: Text(
-                                "${cubit.dataFeature[index].type}",
+                                "${unit.type}",
                                 style: Theme.of(context).textTheme.headline4,
                               ),
                             ),
@@ -345,7 +350,7 @@ class CardHomeDetailsUserView extends StatelessWidget {
                                     width: 5,
                                   ),
                                   Text(
-                                    "${cubit.dataFeature[index].city} , ${cubit.dataFeature[index].country}",
+                                    "${unit.city} , ${unit.country}",
                                     style:
                                         Theme.of(context).textTheme.headline4,
                                   )
@@ -363,7 +368,7 @@ class CardHomeDetailsUserView extends StatelessWidget {
                                     Text.rich(TextSpan(children: [
                                       TextSpan(
                                         text:
-                                            "\$ ${cubit.dataFeature[index].price == null ? 0 : cubit.dataFeature[index].price} ",
+                                            "\$ ${unit.price == null ? 0 : unit.price} ",
                                         style: TextStyle(
                                             color:
                                                 ColorManager.OnBoardingScreen),
@@ -394,7 +399,7 @@ class CardHomeDetailsUserView extends StatelessWidget {
                                       size: 12,
                                     ),
                                     Text(
-                                      "${cubit.dataFeature[index].area} m²",
+                                      "${unit.area} m²",
                                       style:
                                           Theme.of(context).textTheme.headline4,
                                     ),
@@ -407,7 +412,7 @@ class CardHomeDetailsUserView extends StatelessWidget {
                                       size: 12,
                                     ),
                                     Text(
-                                      "${cubit.dataFeature[index].bathroom}",
+                                      "${unit.bathroom}",
                                       style:
                                           Theme.of(context).textTheme.headline4,
                                     ),
@@ -420,7 +425,7 @@ class CardHomeDetailsUserView extends StatelessWidget {
                                       color: Colors.grey[400],
                                     ),
                                     Text(
-                                      "${cubit.dataFeature[index].bedrooms}",
+                                      "${unit.bedrooms}",
                                       style:
                                           Theme.of(context).textTheme.headline4,
                                     ),
@@ -468,7 +473,6 @@ class CustomTxtFieldWithSearch extends StatelessWidget {
         // TODO: implement listener
       },
       builder: (context, state) {
-        var cubit = HomeCubit.get(context);
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Container(
@@ -515,7 +519,15 @@ class CustomTxtFieldWithSearch extends StatelessWidget {
                         onTap: () {
                           showMaterialModalBottomSheet(
                             enableDrag: true,
-                            builder: (context) => CustomModelSheet(),
+                            builder: (_) => FilterDialog(
+                              onConfirmFilter: () {
+                                UnitClientCubit.get(context)
+                                    .getAllDataList
+                                    .clear();
+                                UnitClientCubit.get(context)
+                                    .getAllUnitDetails(context);
+                              },
+                            ),
                             context: context,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.vertical(
