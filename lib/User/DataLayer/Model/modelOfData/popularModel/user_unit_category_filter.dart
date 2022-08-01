@@ -9,6 +9,12 @@ abstract class UserUnitCategory {
   String get apiCall => '';
 }
 
+class UserCustomUnitsCategory extends CustomUnitsCategory
+    with UserUnitCategory {
+  UserCustomUnitsCategory({required Future<void> Function() onCategoryTapped})
+      : super(onCategoryTapped: onCategoryTapped);
+}
+
 class UserAllUnitsCategory extends AllUnitsCategory with UserUnitCategory {
   UserAllUnitsCategory({required Future<void> Function() onCategoryTapped})
       : super(onCategoryTapped: onCategoryTapped);

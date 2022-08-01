@@ -155,7 +155,12 @@ class PopularCubit extends Cubit<PopularState> {
   }
 
   Future getCustomPopularList() async {
-    final filterResults = FilterCubit.instance(context!).getFilterResults;
+    final filterResultsMap =
+        FilterCubit.instance(context!).getFilterResults.toMap();
+    filterResultsMap.addAll({
+      "add_type": "Popular",
+      "status": selectedCategory.selecteddStatus.status,
+    });
     try {
       detectedUnitList.clear();
       Response response;
@@ -163,16 +168,7 @@ class PopularCubit extends Cubit<PopularState> {
       final mainToken = await Shared.prefGetString(key: "CompanyTokenVerify");
       response = await DioHelper.postDataWithAuth(
           url: getFeatureAndPopularUnitURL,
-          data: {
-            "add_type": "Popular",
-            "status": selectedCategory.selecteddStatus.status,
-            "purpose": filterResults.filterType,
-            "type": filterResults.propertyType,
-            "required_fields": filterResults.requiredFields,
-            "finished_type": filterResults.finishedType,
-            "price_from": filterResults.startPrice,
-            "price_to": filterResults.endPrice,
-          },
+          data: filterResultsMap,
           token: mainToken);
       if (response.statusCode == 200) {
         popularListModel = PopularListModel.fromJson(response.data);

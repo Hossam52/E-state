@@ -6,8 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:osol/Shared/component/filter_dialog.dart';
 
 import '../../../Company/PresentationLayer/HomeScreen/mapGetLocation.dart';
 import '../../../Shared/constants.dart';
@@ -28,6 +31,7 @@ class MapScreenState extends State<MapScreen> {
 
   @override
   void initState() {
+    HomeCubit.get(context).loadMarker();
     HomeCubit.get(context).myToken == null &&
             AuthCubit.get(context).userToken == null
         ? null
@@ -76,16 +80,16 @@ class MapScreenState extends State<MapScreen> {
                   onMapCreated: (GoogleMapController controller) async {
                     _controller.complete(controller);
                   },
-                  markers: Set.from(cubit.myMarker),
+                  markers: Set.from(cubit.getMapMarkers),
                 ),
               ),
             ),
             Positioned(
-              child: Container(
+              child: SizedBox(
                 height: sizeFromHeight(5),
                 child: Column(
                   children: [
-                    CustomBottomAppBar(
+                    _FilterSearch(
                       color: Colors.grey.withOpacity(0.5),
                     ),
                     SizedBox(
@@ -93,7 +97,7 @@ class MapScreenState extends State<MapScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 25.0, right: 5),
-                      child: Container(
+                      child: SizedBox(
                         height: sizeFromHeight(17),
                         width: sizeFromWidth(1),
                         child: UserFilterLabelsWidget(
@@ -109,7 +113,7 @@ class MapScreenState extends State<MapScreen> {
               left: 0.0,
               right: 0.0,
               bottom: sizeFromHeight(15),
-              child: Container(
+              child: SizedBox(
                 height: sizeFromHeight(5.5),
                 child: HorizontalScrollList(),
               ),
@@ -117,6 +121,93 @@ class MapScreenState extends State<MapScreen> {
           ],
         );
       },
+    );
+  }
+}
+
+class _FilterSearch extends StatelessWidget {
+  Color color;
+
+  _FilterSearch({required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: sizeFromHeight(9),
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: 25.0,
+          right: 10,
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 7,
+              child: Container(
+                height: sizeFromHeight(14),
+                decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.circular(
+                      10,
+                    )),
+                child: TextFormField(
+                  cursorColor: Colors.grey[500],
+                  cursorHeight: sizeFromHeight(17),
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.only(
+                      bottom: 15,
+                      left: 10,
+                    ),
+                    border: InputBorder.none,
+                    suffixIcon: Icon(
+                      Icons.search,
+                      color: Colors.grey[500],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            Expanded(
+              flex: 1,
+              child: InkWell(
+                onTap: () {
+                  showMaterialModalBottomSheet(
+                    enableDrag: true,
+                    builder: (context) => FilterDialog(
+                      onConfirmFilter: () {
+                        HomeCubit.get(context).showFilterResults();
+                      },
+                    ),
+                    context: context,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(20),
+                      ),
+                    ),
+                  );
+                },
+                child: Container(
+                  height: sizeFromHeight(14),
+                  width: sizeFromWidth(8),
+                  decoration: BoxDecoration(
+                    color: ColorManager.AppBarHomeColorIcon,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SvgPicture.asset(
+                      "assets/images/slider.svg",
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -670,6 +670,7 @@ class HomeViewData extends StatelessWidget {
                         child: Container(
                           height: sizeFromHeight(18),
                           child: UserFilterLabelsWidget(
+                            displayCustomFilter: false,
                             num: 200,
                           ),
                         ),

@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:meta/meta.dart';
+import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
 import 'package:osol/Shared/Customicon.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/DataLayer/DataProvider/dioHelper.dart';
@@ -33,8 +34,9 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   String? accessType;
   String? token;
-
-  HomeCubit({this.accessType, this.token}) : super(HomeInitial());
+  final BuildContext context;
+  HomeCubit({required this.context, this.accessType, this.token})
+      : super(HomeInitial());
 
   static HomeCubit get(context) => BlocProvider.of(context);
 
@@ -79,52 +81,72 @@ class HomeCubit extends Cubit<HomeState> {
 
   ///Label List
   // int currentLabelindex = 0;
-  late List<UserUnitCategory> allCateogires = [
+  late final List<UserUnitCategory> _allCategories = [
+    UserCustomUnitsCategory(onCategoryTapped: () async {
+      log('Custom tapped');
+      changeUnitCategoryIndex(0);
+    }),
     UserAllUnitsCategory(onCategoryTapped: () async {
       log('All tapped');
-      changeUnitCategoryIndex(0);
+      changeUnitCategoryIndex(1);
     }),
     UserSaleUnitsCategory(onCategoryTapped: () async {
       log('sale tapped');
-      changeUnitCategoryIndex(1);
+      changeUnitCategoryIndex(2);
     }),
     UserRentUnitCategory(onCategoryTapped: () async {
       log('rent tapped');
-      changeUnitCategoryIndex(2);
+      changeUnitCategoryIndex(3);
     }),
     UserCompoundUnitCategory(onCategoryTapped: () async {
       log('compund tapped');
-      changeUnitCategoryIndex(3);
+      changeUnitCategoryIndex(4);
     }),
     UserEstateUnitCategory(onCategoryTapped: () async {
       log('estate tapped');
-      changeUnitCategoryIndex(4);
+      changeUnitCategoryIndex(5);
     }),
   ];
+  List<UserUnitCategory> allCategories(bool displayCustomFilter) {
+    if (displayCustomFilter) {
+      return _allCategories;
+    } else {
+      return _allCategories.getRange(1, _allCategories.length).toList();
+    }
+  }
 
   UserUnitCategory get selectedCategory =>
-      allCateogires[selectedUnitCategoryIndex];
+      _allCategories[selectedUnitCategoryIndex];
 
   UnitCategory get selectedUnitCategory =>
-      allCateogires[selectedUnitCategoryIndex] as UnitCategory;
+      _allCategories[selectedUnitCategoryIndex] as UnitCategory;
   bool get isFeaturedLoaded => selectedCategory.features != null;
   List<UnitModel> get featuresUnits => selectedCategory.features ?? [];
 
   bool get isPopularLoaded => selectedCategory.popular != null;
   List<UnitModel> get popularUnits => selectedCategory.popular ?? [];
-  int selectedUnitCategoryIndex = 0;
+  int selectedUnitCategoryIndex = 1;
 
   void changeUnitCategoryIndex(int index) {
     selectedUnitCategory.toggleIsSelected();
     selectedUnitCategoryIndex = index;
     selectedUnitCategory.toggleIsSelected();
-    if (selectedCategory.features == null) {
-      getFeatureOfClientHome();
-    }
-    if (selectedCategory.popular == null) {
-      getPopularOfClientHome();
+    if (selectedUnitCategory is CustomUnitsCategory) {
+      getCustomFilterFeatureOfClientHome();
+      getCustomFilterPopularOfClientHome();
+    } else {
+      if (selectedCategory.features == null) {
+        getFeatureOfClientHome();
+      }
+      if (selectedCategory.popular == null) {
+        getPopularOfClientHome();
+      }
     }
     emit(ChangeSelectedCategoryIndex());
+  }
+
+  void showFilterResults() {
+    changeUnitCategoryIndex(0);
   }
 
   // changeLabel(index) {
@@ -394,20 +416,79 @@ class HomeCubit extends Cubit<HomeState> {
     // }
   }
 
+  Future<void> getCustomFilterFeatureOfClientHome() async {
+    final filterResultsMap =
+        FilterCubit.instance(context).getFilterResults.toMap();
+    filterResultsMap.addAll({
+      "add_type": "Feature",
+    });
+    try {
+      final cToken = await Shared.prefGetString(key: "CompanyTokenVerify");
+      emit(LoadingGetFeatureState());
+      Response response;
+
+      response = await DioHelper.postDataWithAuth(
+        url: getFeatureURL,
+        data: filterResultsMap,
+      );
+      if (response.statusCode == 200) {
+        clientFeatureModel = ClientFeatureModel.fromJson(response.data);
+
+        selectedCategory.features =
+            List.from(clientFeatureModel?.units?.data ?? []);
+        emit(SuccesGetFeatureState());
+      }
+    } catch (e) {
+      emit(ErrorGetFeatureState());
+    }
+  }
+
   ///get popular data
 
   ClientPopularModel? clientPopularModel;
   // List<UnitModel> dataPopular = [];
   // List<String> imagesPopular = [];
-  Set<Marker> myMarker = Set();
 
-  Future<Uint8List> getMarker() async {
+  Set<Marker> _convertUnitsToMarker(List<UnitModel> units) {
+    return units
+        .map((e) => Marker(
+              markerId: MarkerId(e.id.toString()),
+              position: LatLng(double.parse(e.lat!.toString()),
+                  double.parse(e.long!.toString())),
+              draggable: false,
+              icon: markerLabel != null
+                  ? BitmapDescriptor.fromBytes(markerLabel!)
+                  : BitmapDescriptor.defaultMarker,
+              zIndex: 2,
+              anchor: Offset(0.5, 0.5),
+              flat: false,
+              onTap: () {
+                scrollToIndex(
+                  e.id,
+                );
+              },
+            ))
+        .toSet();
+  }
+
+  Set<Marker> get getMapMarkers {
+    final Set<Marker> markers = {};
+    if (selectedCategory.popular != null) {
+      markers.addAll(_convertUnitsToMarker(selectedCategory.popular!).toSet());
+    }
+    if (selectedCategory.features != null) {
+      markers.addAll(_convertUnitsToMarker(selectedCategory.features!).toSet());
+    }
+    return markers;
+  }
+
+  Uint8List? markerLabel;
+  Future<void> loadMarker() async {
     ByteData byteData = await rootBundle.load("assets/images/maplabel.png");
-    return byteData.buffer.asUint8List();
+    markerLabel = byteData.buffer.asUint8List();
   }
 
   Future<void> getPopularOfClientHome() async {
-    Uint8List imageData = await getMarker();
     final cToken = await Shared.prefGetString(key: "CompanyTokenVerify");
     debugPrint("ed${cToken}");
 
@@ -429,25 +510,7 @@ class HomeCubit extends Cubit<HomeState> {
       // });
       selectedCategory.popular =
           List.from(clientPopularModel?.units?.data ?? []);
-      myMarker = clientPopularModel!.units!.data!
-          .map(
-            (e) => Marker(
-              markerId: MarkerId(e.id.toString()),
-              position: LatLng(double.parse(e.lat!.toString()),
-                  double.parse(e.long!.toString())),
-              draggable: false,
-              icon: BitmapDescriptor.fromBytes(imageData),
-              zIndex: 2,
-              anchor: Offset(0.5, 0.5),
-              flat: false,
-              onTap: () {
-                scrollToIndex(
-                  e.id,
-                );
-              },
-            ),
-          )
-          .toSet();
+
       emit(SuccesGetPopularState());
       // if (dataPopular.length != null) {
       //   for (int i = 0; i < dataPopular.length; i++) {
@@ -460,6 +523,31 @@ class HomeCubit extends Cubit<HomeState> {
       // }
     }
     emit(ErrorGetPopularState());
+  }
+
+  Future<void> getCustomFilterPopularOfClientHome() async {
+    final filterResultsMap =
+        FilterCubit.instance(context).getFilterResults.toMap();
+    filterResultsMap.addAll({
+      "add_type": "Popular",
+    });
+    final cToken = await Shared.prefGetString(key: "CompanyTokenVerify");
+
+    emit(LoadingGetPopularState());
+    Response response;
+
+    response = await DioHelper.postDataWithAuth(
+        url: getFeatureURL, data: filterResultsMap);
+    if (response.statusCode == 200) {
+      clientPopularModel = ClientPopularModel.fromJson(response.data);
+
+      selectedCategory.popular =
+          List.from(clientPopularModel?.units?.data ?? []);
+
+      emit(SuccesGetPopularState());
+    } else {
+      emit(ErrorGetPopularState());
+    }
   }
 
   getDataOfHome() async {

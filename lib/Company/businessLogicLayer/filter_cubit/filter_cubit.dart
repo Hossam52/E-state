@@ -108,6 +108,16 @@ class FilterResults {
       required this.advertisor,
       required this.startPrice,
       required this.endPrice});
+  Map<String, dynamic> toMap() {
+    return {
+      "purpose": filterType,
+      "type": propertyType,
+      "required_fields": requiredFields,
+      "finished_type": finishedType,
+      "price_from": startPrice,
+      "price_to": endPrice,
+    };
+  }
 }
 
 abstract class _FilterContentAbstract {

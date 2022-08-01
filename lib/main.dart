@@ -73,168 +73,176 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider(
-              create: (context) =>
-                  HomeCubit(accessType: accessType, token: token)
+    return BlocProvider(
+      create: (context) => FilterCubit(),
+      child: Builder(builder: (context) {
+        return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                  create: (context) => HomeCubit(
+                      context: context, accessType: accessType, token: token)
                     ..getDataOfHome()),
-          BlocProvider(
-              create: (context) =>
-                  CommonCubit(accessType: accessType, token: token)
-                    ..getCountry()),
-          BlocProvider(
-              create: (context) =>
-                  AuthCubit(accessType: accessType, token: token)),
-          BlocProvider(
-            create: (context) =>
-                ProfileCubit(accessType: accessType, token: token)
-                  ..getProfileData(),
-          ),
-          BlocProvider(
-            create: (context) => CompanyCubit(),
-          ),
-          BlocProvider(
-            create: (context) => SavedCubit(),
-          ),
-          BlocProvider(
-            create: (context) => CustomerServicesCubit(),
-          ),
-          BlocProvider(
-            create: (context) => UnitClientCubit(),
-          ),
-          BlocProvider(
-              create: (context) => AppSettingCubit()
-                ..chandeDarkMode(darkMode != null ? darkMode : false)),
-
-          ///company
-          BlocProvider(create: (context) => AuthCompanyCubit()),
-          BlocProvider(create: (context) => BannersCubit()..getAllBanners()),
-          BlocProvider(create: (context) => UnitCubit()..getAllFunction()),
-          BlocProvider(
-              create: (context) => PopularCubit()..getDetectedPopularList()),
-          BlocProvider(
-              create: (context) => ProfileCompanyCubit()..getProfileCompany()),
-          BlocProvider(
-              create: (context) =>
-                  CompanyProjectCubit()..getAllCompanyProjects()),
-          BlocProvider(create: (context) => AddNewProjectsCubit()),
-          BlocProvider(create: (context) => FilterCubit()),
-        ],
-        child: BlocBuilder<AppSettingCubit, AppSettingState>(
-          builder: (context, state) {
-            return ScreenUtilInit(
-              designSize: Size(375, 812),
-              builder: (BuildContext context, child) => MaterialApp(
-                navigatorKey: navigatorKey,
-                onGenerateRoute: onGenerateRoute,
-                debugShowCheckedModeBanner: false,
-                theme: ThemeData(
-                    appBarTheme: AppBarTheme(
-                      backgroundColor: Colors.white,
-                      backwardsCompatibility: false,
-                      systemOverlayStyle: SystemUiOverlayStyle(
-                        statusBarBrightness: Brightness.light,
-                        statusBarColor: Colors.white,
-                        statusBarIconBrightness: Brightness.dark,
-                      ),
-                      elevation: 0,
-                    ),
-                    textTheme: TextTheme(
-                        headline1: TextStyle(
-                          color: ColorManager.TextHomeColor,
-                          fontSize: 32,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        headline5: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w600,
-                          color: ColorManager.TextHomeColor,
-                        ),
-                        headline2: TextStyle(
-                          color: ColorManager.blackFontStyle,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        headline3: TextStyle(
-                          color: ColorManager.blackFontStyle,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        headline4: TextStyle(
-                            color: ColorManager.firsthomemainicon,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12),
-                        headline6: TextStyle(
-                            color: ColorManager.firsthomemainicon,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 6)),
-                    iconTheme: IconThemeData(color: Colors.black),
-                    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-                      backgroundColor: Colors.white,
-                    ),
-                    scaffoldBackgroundColor: Colors.white),
-                darkTheme: ThemeData(
-                    appBarTheme: AppBarTheme(
-                      backgroundColor: ColorManager.DarkThemeBackGround,
-                      backwardsCompatibility: false,
-                      systemOverlayStyle: SystemUiOverlayStyle(
-                        statusBarBrightness: Brightness.dark,
-                        statusBarColor: ColorManager.DarkThemeBackGround,
-                        statusBarIconBrightness: Brightness.light,
-                      ),
-                      elevation: 0,
-                    ),
-                    primaryColor: ColorManager.DarkThemeBackGround,
-                    textTheme: TextTheme(
-                        headline1: TextStyle(
-                          color: Colors.white,
-                          fontSize: 32,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        headline5: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
-                        headline2: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        headline3: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        headline4: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12),
-                        headline6: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 6)),
-                    backgroundColor: ColorManager.DarkThemeBackGround,
-                    iconTheme: IconThemeData(color: Colors.white),
-                    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-                      backgroundColor: ColorManager.DarkThemeBackGround,
-                    ),
-                    scaffoldBackgroundColor: ColorManager.DarkThemeBackGround),
-                themeMode: AppSettingCubit.get(context).isDark
-                    ? ThemeMode.dark
-                    : ThemeMode.light,
-                initialRoute: '/',
-                routes: {
-                  '/': (context) => accessType == null
-                      ? SplashScreen()
-                      : accessType == "company"
-                          ? NavigationDrawerCompany()
-                          : NavigationDrawer(token: token.toString()),
-                },
+              BlocProvider(
+                  create: (context) =>
+                      CommonCubit(accessType: accessType, token: token)
+                        ..getCountry()),
+              BlocProvider(
+                  create: (context) =>
+                      AuthCubit(accessType: accessType, token: token)),
+              BlocProvider(
+                create: (context) =>
+                    ProfileCubit(accessType: accessType, token: token)
+                      ..getProfileData(),
               ),
-            );
-          },
-        ));
+              BlocProvider(
+                create: (context) => CompanyCubit(),
+              ),
+              BlocProvider(
+                create: (context) => SavedCubit(),
+              ),
+              BlocProvider(
+                create: (context) => CustomerServicesCubit(),
+              ),
+              BlocProvider(
+                create: (context) => UnitClientCubit(),
+              ),
+              BlocProvider(
+                  create: (context) => AppSettingCubit()
+                    ..chandeDarkMode(darkMode != null ? darkMode : false)),
+
+              ///company
+              BlocProvider(create: (context) => AuthCompanyCubit()),
+              BlocProvider(
+                  create: (context) => BannersCubit()..getAllBanners()),
+              BlocProvider(create: (context) => UnitCubit()..getAllFunction()),
+              BlocProvider(
+                  create: (context) =>
+                      PopularCubit()..getDetectedPopularList()),
+              BlocProvider(
+                  create: (context) =>
+                      ProfileCompanyCubit()..getProfileCompany()),
+              BlocProvider(
+                  create: (context) =>
+                      CompanyProjectCubit()..getAllCompanyProjects()),
+              BlocProvider(create: (context) => AddNewProjectsCubit()),
+            ],
+            child: BlocBuilder<AppSettingCubit, AppSettingState>(
+              builder: (context, state) {
+                return ScreenUtilInit(
+                  designSize: Size(375, 812),
+                  builder: (BuildContext context, child) => MaterialApp(
+                    navigatorKey: navigatorKey,
+                    onGenerateRoute: onGenerateRoute,
+                    debugShowCheckedModeBanner: false,
+                    theme: ThemeData(
+                        appBarTheme: AppBarTheme(
+                          backgroundColor: Colors.white,
+                          backwardsCompatibility: false,
+                          systemOverlayStyle: SystemUiOverlayStyle(
+                            statusBarBrightness: Brightness.light,
+                            statusBarColor: Colors.white,
+                            statusBarIconBrightness: Brightness.dark,
+                          ),
+                          elevation: 0,
+                        ),
+                        textTheme: TextTheme(
+                            headline1: TextStyle(
+                              color: ColorManager.TextHomeColor,
+                              fontSize: 32,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            headline5: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600,
+                              color: ColorManager.TextHomeColor,
+                            ),
+                            headline2: TextStyle(
+                              color: ColorManager.blackFontStyle,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            headline3: TextStyle(
+                              color: ColorManager.blackFontStyle,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            headline4: TextStyle(
+                                color: ColorManager.firsthomemainicon,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12),
+                            headline6: TextStyle(
+                                color: ColorManager.firsthomemainicon,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 6)),
+                        iconTheme: IconThemeData(color: Colors.black),
+                        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                          backgroundColor: Colors.white,
+                        ),
+                        scaffoldBackgroundColor: Colors.white),
+                    darkTheme: ThemeData(
+                        appBarTheme: AppBarTheme(
+                          backgroundColor: ColorManager.DarkThemeBackGround,
+                          backwardsCompatibility: false,
+                          systemOverlayStyle: SystemUiOverlayStyle(
+                            statusBarBrightness: Brightness.dark,
+                            statusBarColor: ColorManager.DarkThemeBackGround,
+                            statusBarIconBrightness: Brightness.light,
+                          ),
+                          elevation: 0,
+                        ),
+                        primaryColor: ColorManager.DarkThemeBackGround,
+                        textTheme: TextTheme(
+                            headline1: TextStyle(
+                              color: Colors.white,
+                              fontSize: 32,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            headline5: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                            headline2: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            headline3: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            headline4: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12),
+                            headline6: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 6)),
+                        backgroundColor: ColorManager.DarkThemeBackGround,
+                        iconTheme: IconThemeData(color: Colors.white),
+                        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                          backgroundColor: ColorManager.DarkThemeBackGround,
+                        ),
+                        scaffoldBackgroundColor:
+                            ColorManager.DarkThemeBackGround),
+                    themeMode: AppSettingCubit.get(context).isDark
+                        ? ThemeMode.dark
+                        : ThemeMode.light,
+                    initialRoute: '/',
+                    routes: {
+                      '/': (context) => accessType == null
+                          ? SplashScreen()
+                          : accessType == "company"
+                              ? NavigationDrawerCompany()
+                              : NavigationDrawer(token: token.toString()),
+                    },
+                  ),
+                );
+              },
+            ));
+      }),
+    );
   }
 }

@@ -362,8 +362,10 @@ class CompanyFilterLabelsWidget extends StatelessWidget {
 
 class UserFilterLabelsWidget extends StatelessWidget {
   final int num;
-
-  const UserFilterLabelsWidget({Key? key, required this.num}) : super(key: key);
+  final bool displayCustomFilter;
+  const UserFilterLabelsWidget(
+      {Key? key, required this.num, this.displayCustomFilter = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -372,7 +374,7 @@ class UserFilterLabelsWidget extends StatelessWidget {
         return ListView(
           scrollDirection: Axis.horizontal,
           children: [
-            ...HomeCubit.get(context).allCateogires.map(
+            ...HomeCubit.get(context).allCategories(displayCustomFilter).map(
               (e) {
                 final cat = e as UnitCategory;
                 return Padding(
