@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:osol/Company/PresentationLayer/DawerScreen/view.dart';
 import 'package:osol/Company/PresentationLayer/companyProfile/view.dart';
 import 'package:osol/Company/PresentationLayer/unit_crud/widgets/custom_drop_down.dart';
+import 'package:osol/Company/PresentationLayer/unit_crud/widgets/select_images.dart';
 import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/BussinssLogic/commonCubit/common_cubit.dart';
@@ -25,8 +26,8 @@ import './unit_crud_widgets.dart';
 
 class UnitCrudView extends StatefulWidget {
   final UnitModel? unit; //If null that means add unit else means update unit
-
-  const UnitCrudView({Key? key, this.unit}) : super(key: key);
+  final String? adsType;
+  const UnitCrudView({Key? key, this.unit, this.adsType}) : super(key: key);
 
   @override
   State<UnitCrudView> createState() => _UnitCrudViewState();
@@ -111,9 +112,9 @@ class _UnitCrudViewState extends State<UnitCrudView> {
         return BlocProvider(
           create: (context) {
             if (widget.unit == null) {
-              return UnitCubit();
+              return UnitCubit(context)..initAdsType(widget.adsType);
             } else {
-              return UnitCubit()
+              return UnitCubit(context)
                 ..initDropDownValues(CommonCubit.get(context), widget.unit!);
             }
           },
@@ -166,7 +167,7 @@ class _UnitCrudViewState extends State<UnitCrudView> {
                         child: Padding(
                             padding: const EdgeInsets.only(
                                 top: 15.0, bottom: 15, left: 20, right: 20),
-                            child: _UnitImages()),
+                            child: SelectUnitImages()),
                       ),
                       SliverToBoxAdapter(
                         child: DetailsOfContains(
@@ -225,7 +226,9 @@ class _UnitCrudViewState extends State<UnitCrudView> {
                           child: CustomDropDownList(
                               title: "Ads Type",
                               list: cubit.adsType,
-                              onChange: cubit.changeadsTypeValue,
+                              onChange: widget.adsType != null
+                                  ? null
+                                  : cubit.changeadsTypeValue,
                               selectedItem: cubit.adsTypeValue),
                         ),
                       ),
@@ -765,90 +768,6 @@ class _UnitCrudViewState extends State<UnitCrudView> {
 
 ///
 
-class _UnitImages extends StatefulWidget {
-  _UnitImages({Key? key}) : super(key: key);
-
-  @override
-  State<_UnitImages> createState() => _UnitImagesState();
-}
-
-class _UnitImagesState extends State<_UnitImages> {
-  List<XFile>? imageFileList = [];
-
-  void ImagePick() async {
-    imageFileList!.clear();
-    try {
-      final List<XFile>? imagePick = await ImagePicker().pickMultiImage();
-      if (imagePick!.isNotEmpty) {
-        imageFileList!.addAll(imagePick);
-      }
-      debugPrint("ImageLength: ${imageFileList!.length}");
-      setState(() {});
-      changeImageData();
-    } on PlatformException catch (e) {
-      Fluttertoast.showToast(
-          msg: "${e.toString()}",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
-    }
-  }
-
-  changeImageData() {
-    imageFileList!.isNotEmpty
-        ? UnitCubit.get(this.context).changeImageData(imageFile: imageFileList)
-        : null;
-
-    UnitCubit.get(this.context).imageData!.isNotEmpty
-        ? UnitCubit.get(this.context).changeListData()
-        : null;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => ImagePick(),
-      child: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10), color: Colors.grey[300]),
-        height: sizeFromHeight(2),
-        child: Stack(
-          children: [
-            Align(
-                alignment: Alignment.center,
-                child: imageFileList!.isNotEmpty
-                    ? CarouselSlider.builder(
-                        itemCount: imageFileList?.length ?? 0,
-                        itemBuilder: (_, index, __) => Image.file(
-                          File(imageFileList![index].path),
-                          fit: BoxFit.fill,
-                        ),
-                        options: CarouselOptions(
-                            autoPlay: true,
-                            autoPlayAnimationDuration:
-                                const Duration(seconds: 1),
-                            viewportFraction: 1,
-                            enableInfiniteScroll: false,
-                            height: double.infinity),
-                      )
-                    : SvgPicture.asset("assets/images/imageunit.svg")),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.add,
-                size: 40,
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-    ;
-  }
-}
 /*
   images
   mainTitle

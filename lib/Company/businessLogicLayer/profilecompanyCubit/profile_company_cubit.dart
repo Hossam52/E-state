@@ -19,51 +19,27 @@ class ProfileCompanyCubit extends Cubit<ProfileCompanyState> {
   static ProfileCompanyCubit get(context) => BlocProvider.of(context);
 
   ///Get Profile Company
-  GetProfileDataModel? _companyGetProfileData;
-  List<Company> companyGetProfileData = [];
-  int? id;
-  String? name;
-  String? email;
-  String? country;
-  String? city;
-  String? motherCompany;
-  String? image;
-  String? address;
-  String? about;
-  int? branchesNum;
-  String? type;
-  String? regestrationNum;
-  String? phone;
-
-  List<GetProfileDataModel> companyAllProfileData = [];
+  GetProfileDataModel? _profileResponse;
+  CompanyProfile? get companyProfile => _profileResponse?.companyProfile;
 
   getProfileCompany() async {
-    emit(LoadingGetProfileDataStatus());
-    companyAllProfileData.clear();
-    final coToken = await Shared.prefGetString(key: "CompanyTokenVerify");
-    Response response;
-    response = await DioHelper.getData(
-      url: getProfileCompanyURL,
-      token: coToken,
-    );
-    if (response.statusCode == 200) {
-      _companyGetProfileData = GetProfileDataModel.fromJson(response.data);
-      companyAllProfileData.add(_companyGetProfileData!);
-      id = _companyGetProfileData?.rC?.id;
-      name = _companyGetProfileData?.rC?.name;
-      email = _companyGetProfileData?.rC?.email;
-      country = _companyGetProfileData?.rC?.country;
-      city = _companyGetProfileData?.rC?.city;
-      motherCompany = _companyGetProfileData?.rC?.motherCompany;
-      image = _companyGetProfileData?.rC?.image;
-      address = _companyGetProfileData?.rC?.address;
-      about = _companyGetProfileData?.rC?.about;
-      branchesNum = _companyGetProfileData?.rC?.branchesNum;
-      type = _companyGetProfileData?.rC?.type;
-      regestrationNum = _companyGetProfileData?.rC?.regestrationNum;
-      phone = _companyGetProfileData?.rC?.phone;
-      print("mostafa profile${email}");
-      emit(SuccessGetProfileDataStatus());
+    try {
+      emit(LoadingGetProfileDataStatus());
+      final coToken = await Shared.prefGetString(key: "CompanyTokenVerify");
+      Response response;
+      response = await DioHelper.getData(
+        url: getProfileCompanyURL,
+        token: coToken,
+      );
+      _profileResponse = GetProfileDataModel.fromJson(response.data);
+      if (_profileResponse?.status ?? false) {
+        emit(SuccessGetProfileDataStatus());
+      } else {
+        throw 'Error happened when get profile';
+      }
+    } catch (e) {
+      _profileResponse = null;
+      emit(ErrorGetProfileDataStatus());
     }
   }
 
@@ -102,11 +78,13 @@ class ProfileCompanyCubit extends Cubit<ProfileCompanyState> {
           "city_id": cityId,
           "image": await DioHelper.uploadFile(imageData!),
           "type": type,
-          "phone": phone,
-          "about": about,
+          if (companyProfile!.phone! != phone) "phone": phone,
+          if (companyProfile!.about! != about) "about": about,
           "address": address,
-          "regestration_num": registerNum,
-          "branches_num": branchNum,
+          if (companyProfile!.regestrationNum! != registerNum)
+            "regestration_num": registerNum,
+          if (companyProfile!.branchesNum!.toString() != branchNum)
+            "branches_num": branchNum,
         },
         token: coToken);
     if (response.statusCode == 200 && response.data["status"] == true) {

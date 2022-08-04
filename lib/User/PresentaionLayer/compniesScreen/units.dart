@@ -7,7 +7,9 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:osol/Shared/component/search_and_filter_widget.dart';
 import 'package:osol/User/BussinssLogic/AppSettingCubit/app_setting_cubit.dart';
+import 'package:osol/User/DataLayer/Model/modelOfData/companyModel/CompanyModel.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import 'package:osol/Shared/Customicon.dart';
 import 'package:osol/Shared/constants.dart';
@@ -17,141 +19,23 @@ import '../../DataLayer/Model/modelOfData/messageModel/messageModel.dart';
 import '../messegeScreen/chatView.dart';
 import 'companiesDetails.dart';
 
-AppBar companyAppBar(cubit) {
-  return AppBar(
-    bottom: PreferredSize(
-      preferredSize: Size(50, 10),
-      child: Container(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    flex: 9,
-                    child: Container(
-                      height: sizeFromHeight(16),
-                      decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(
-                            5,
-                          )),
-                      child: TextFormField(
-                        cursorColor: Colors.grey[500],
-                        cursorHeight: sizeFromHeight(17),
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(
-                            left: 10,
-                          ),
-                          border: InputBorder.none,
-                          suffixIcon: Icon(
-                            Icons.search,
-                            color: Colors.grey[500],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Expanded(
-                    flex: 4,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: sizeFromHeight(16),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: ColorManager.AppBarIconcolorGrey,
-                              width: 1),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                cubit.changeTogleIconsState(0);
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Container(
-                                  height: sizeFromHeight(14.5),
-                                  child: cubit.indexTogleIcons == 0
-                                      ? SvgPicture.asset(
-                                          "assets/images/viewstream.svg",
-                                        )
-                                      : SvgPicture.asset(
-                                          "assets/images/viewstreamgray.svg",
-                                        ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Container(
-                                height: sizeFromHeight(14.5),
-                                width: 1,
-                                color: ColorManager.AppBarIconcolorGrey,
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                cubit.changeTogleIconsState(1);
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Container(
-                                  height: sizeFromHeight(14.5),
-                                  child: cubit.indexTogleIcons == 0
-                                      ? SvgPicture.asset(
-                                          "assets/images/menutogle.svg",
-                                        )
-                                      : SvgPicture.asset(
-                                          "assets/images/coloredgridview.svg",
-                                        ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    ),
-  );
-}
-
-///End Custom Company AppBar
-
 class CompaniesListView extends StatelessWidget {
-  int index;
-
-  CompaniesListView({required this.index});
+  final CompanyData company;
+  CompaniesListView({Key? key, required this.company}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CompanyCubit, CompanyState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+    return BlocBuilder<CompanyCubit, CompanyState>(
       builder: (context, state) {
         var cubit = CompanyCubit.get(context);
         return InkWell(
           onTap: () {
-            cubit
-                .changeCurrentCompanyId(cubit.companyData[index].id.toString());
+            cubit.changeCurrentCompanyId(company.id.toString());
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (_) => CompanyDetailsScreen(),
+                builder: (_) => CompanyDetailsScreen(
+                  companyId: company.id!.toString(),
+                ),
               ),
             );
           },
@@ -174,7 +58,7 @@ class CompaniesListView extends StatelessWidget {
                       height: sizeFromHeight(6),
                       width: sizeFromHeight(6),
                       child: cubit.companyData.length == null
-                          ? CircleAvatar(
+                          ? const CircleAvatar(
                               radius: 50,
                               backgroundImage: AssetImage(
                                 "assets/images/pic3.png",
@@ -182,8 +66,8 @@ class CompaniesListView extends StatelessWidget {
                             )
                           : CircleAvatar(
                               radius: 50,
-                              backgroundImage: NetworkImage(
-                                  cubit.companyData[index].image.toString()),
+                              backgroundImage:
+                                  NetworkImage(company.image.toString()),
                             ),
                     ),
                   ),
@@ -200,7 +84,7 @@ class CompaniesListView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "${cubit.companyData[index].name}",
+                              "${company.name}",
                               style: Theme.of(context).textTheme.headline2,
                             ),
                             // Padding(
@@ -221,7 +105,7 @@ class CompaniesListView extends StatelessWidget {
                             // ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Row(
@@ -231,16 +115,16 @@ class CompaniesListView extends StatelessWidget {
                               color: ColorManager.redHeartcolor,
                               size: 16,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
                             Text(
-                              "${cubit.companyData[index].city} , ${cubit.companyData[index].country}",
+                              "${company.city} , ${company.country}",
                               style: Theme.of(context).textTheme.headline4,
                             )
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Container(
@@ -252,17 +136,17 @@ class CompaniesListView extends StatelessWidget {
                                 color: Colors.grey[400],
                                 size: 14,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Text(
-                                "${cubit.companyData[index].branchesNum}",
+                                "${company.branchesNum}",
                                 style: Theme.of(context).textTheme.headline4,
                               ),
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Container(
@@ -274,17 +158,17 @@ class CompaniesListView extends StatelessWidget {
                                 color: Colors.grey[400],
                                 size: 14,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Text(
-                                "register number ${cubit.companyData[index].regestrationNum} ",
+                                "register number ${company.regestrationNum} ",
                                 style: Theme.of(context).textTheme.headline4,
                               ),
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         )
                       ],
@@ -302,9 +186,8 @@ class CompaniesListView extends StatelessWidget {
 
 ///End Custom Company AppBar
 class GridCompanies extends StatelessWidget {
-  int index;
-
-  GridCompanies({required this.index});
+  final CompanyData company;
+  GridCompanies({required this.company});
 
   @override
   Widget build(BuildContext context) {
@@ -316,11 +199,12 @@ class GridCompanies extends StatelessWidget {
         var cubit = CompanyCubit.get(context);
         return InkWell(
           onTap: () {
-            cubit
-                .changeCurrentCompanyId(cubit.companyData[index].id.toString());
+            cubit.changeCurrentCompanyId(company.id.toString());
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (_) => CompanyDetailsScreen(),
+                builder: (_) => CompanyDetailsScreen(
+                  companyId: company.id!.toString(),
+                ),
               ),
             );
           },
@@ -338,7 +222,7 @@ class GridCompanies extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: cubit.companyData.length == null
-                          ? CircleAvatar(
+                          ? const CircleAvatar(
                               radius: 30,
                               backgroundImage: AssetImage(
                                 "assets/images/pic3.png",
@@ -346,8 +230,8 @@ class GridCompanies extends StatelessWidget {
                             )
                           : CircleAvatar(
                               radius: 30,
-                              backgroundImage: NetworkImage(
-                                  cubit.companyData[index].image.toString()),
+                              backgroundImage:
+                                  NetworkImage(company.image.toString()),
                             ),
                     ),
                   ],
@@ -362,7 +246,7 @@ class GridCompanies extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "${cubit.companyData[index].name}",
+                            "${company.name}",
                             style: TextStyle(
                               color: ColorManager.TextHomeColor,
                               fontWeight: FontWeight.w500,
@@ -371,7 +255,7 @@ class GridCompanies extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 4,
                       ),
                       Row(
@@ -381,16 +265,16 @@ class GridCompanies extends StatelessWidget {
                             color: ColorManager.redHeartcolor,
                             size: 12,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           Text(
-                            "${cubit.companyData[index].city} , ${cubit.companyData[index].country}",
-                            style: TextStyle(fontSize: 9),
+                            "${company.city} , ${company.country}",
+                            style: const TextStyle(fontSize: 9),
                           )
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 4,
                       ),
                       Container(
@@ -402,11 +286,11 @@ class GridCompanies extends StatelessWidget {
                               color: Colors.grey[400],
                               size: 12,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
                             Text(
-                              "${cubit.companyData[index].branchesNum}",
+                              "${company.branchesNum}",
                               style: TextStyle(
                                   color: ColorManager.TextHomeColor,
                                   fontSize: 10),
@@ -414,7 +298,7 @@ class GridCompanies extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 4,
                       ),
                       Container(
@@ -426,11 +310,11 @@ class GridCompanies extends StatelessWidget {
                               color: Colors.grey[400],
                               size: 12,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
                             Text(
-                              " ${cubit.companyData[index].regestrationNum}",
+                              " ${company.regestrationNum}",
                               style: TextStyle(
                                   color: ColorManager.TextHomeColor,
                                   fontSize: 10),
@@ -482,9 +366,9 @@ class _CustomWriteReviewCompaniesState
               children: [
                 Flexible(
                   flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Text(
+                  child: const Padding(
+                    padding: EdgeInsets.only(bottom: 8.0),
+                    child: const Text(
                       "Write A review",
                       style: TextStyle(
                           color: Colors.black87,
@@ -529,7 +413,7 @@ class _CustomWriteReviewCompaniesState
                                           return "You Must Enter Your Review";
                                         }
                                       },
-                                      decoration: InputDecoration(
+                                      decoration: const InputDecoration(
                                         contentPadding: EdgeInsets.only(
                                           bottom: 15,
                                           left: 10,
@@ -544,9 +428,9 @@ class _CustomWriteReviewCompaniesState
                                       direction: Axis.horizontal,
                                       allowHalfRating: true,
                                       itemCount: 5,
-                                      itemPadding:
-                                          EdgeInsets.symmetric(horizontal: 4.0),
-                                      itemBuilder: (context, _) => Icon(
+                                      itemPadding: const EdgeInsets.symmetric(
+                                          horizontal: 4.0),
+                                      itemBuilder: (context, _) => const Icon(
                                         Icons.star,
                                         color: Colors.amber,
                                       ),
@@ -560,7 +444,7 @@ class _CustomWriteReviewCompaniesState
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Expanded(
@@ -612,10 +496,9 @@ class CustomReviewCompanies extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
-                child: Text(
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
+                child: const Text(
                   "Reviews",
                   style: TextStyle(
                       color: Colors.black87,
@@ -626,120 +509,133 @@ class CustomReviewCompanies extends StatelessWidget {
               Container(
                 height: sizeFromHeight(3),
                 width: sizeFromWidth(1),
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: cubit.dataOfCompanyReview.length,
-                    itemBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Row(
-                            children: [
-                              Container(
-                                height: sizeFromHeight(3),
-                                width: sizeFromWidth(1.2),
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.black87),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
+                child: cubit.isReviewsLoading
+                    ? const Center(child: const CircularProgressIndicator())
+                    : ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: cubit.dataOfCompanyReview.length,
+                        itemBuilder: (context, index) => Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    height: sizeFromHeight(3),
+                                    width: sizeFromWidth(1.2),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.black87),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
+                                        Row(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Container(
+                                                height: sizeFromHeight(12),
+                                                width: sizeFromWidth(8),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            sizeFromHeight(
+                                                                20))),
+                                                child: Image.network(
+                                                  "${cubit.dataOfCompanyReview[index].client?.image}",
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              height: sizeFromHeight(13),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    "${cubit.dataOfCompanyReview[index].client?.userName}",
+                                                    style: const TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 16,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    "${cubit.dataOfCompanyReview[index].date?.substring(0, 10)}",
+                                                    style: const TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 16,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            const Spacer(),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                  "${index + 1}/${cubit.dataOfCompanyReview.length}"),
+                                            ),
+                                          ],
+                                        ),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Container(
-                                            height: sizeFromHeight(12),
-                                            width: sizeFromWidth(8),
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        sizeFromHeight(20))),
-                                            child: Image.network(
-                                              "${cubit.dataOfCompanyReview[index].client?.image}",
-                                              fit: BoxFit.cover,
+                                            height: sizeFromHeight(7),
+                                            child: Text(
+                                              "${cubit.dataOfCompanyReview[index].body}",
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                        Container(
-                                          height: sizeFromHeight(13),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "${cubit.dataOfCompanyReview[index].client?.userName}",
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                              Text(
-                                                "${cubit.dataOfCompanyReview[index].date?.substring(0, 10)}",
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 16,
-                                                ),
-                                              )
-                                            ],
+                                        RatingBarIndicator(
+                                          itemSize: 20,
+                                          rating: cubit
+                                                  .dataOfCompanyReview[index]
+                                                  .strNum ??
+                                              0,
+                                          direction: Axis.horizontal,
+                                          itemCount: 5,
+                                          itemPadding:
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 4.0),
+                                          itemBuilder: (context, _) =>
+                                              const Icon(
+                                            Icons.star,
+                                            color: Colors.amber,
                                           ),
-                                        ),
-                                        Spacer(),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                              "${index + 1}/${cubit.totalReview}"),
-                                        ),
+                                        )
                                       ],
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        height: sizeFromHeight(7),
-                                        child: Text(
-                                          "${cubit.dataOfCompanyReview[index].body}",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    RatingBarIndicator(
-                                      itemSize: 20,
-                                      rating: cubit.dataOfCompanyReview[index]
-                                              .strNum ??
-                                          0,
-                                      direction: Axis.horizontal,
-                                      itemCount: 5,
-                                      itemPadding:
-                                          EdgeInsets.symmetric(horizontal: 4.0),
-                                      itemBuilder: (context, _) => Icon(
-                                        Icons.star,
-                                        color: Colors.amber,
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                  ),
+                                  index + 1 == cubit.dataOfCompanyReview.length
+                                      ? InkWell(
+                                          onTap: cubit.currentReview != null
+                                              ? () async {
+                                                  await cubit.changeId();
+                                                  cubit
+                                                      .getReviewsForDetectedCompany();
+                                                }
+                                              : () {},
+                                          child: cubit.currentReview != null
+                                              ? const Icon(
+                                                  Icons.arrow_forward_ios)
+                                              : const Icon(
+                                                  Icons.arrow_forward_ios,
+                                                  color: Colors.grey),
+                                        )
+                                      : const SizedBox()
+                                ],
                               ),
-                              index + 1 == cubit.dataOfCompanyReview.length
-                                  ? InkWell(
-                                      onTap: cubit.currentReview != null
-                                          ? () async {
-                                              await cubit.changeId();
-                                              cubit
-                                                  .getReviewsForDetectedCompany();
-                                            }
-                                          : () {},
-                                      child: cubit.currentReview != null
-                                          ? Icon(Icons.arrow_forward_ios)
-                                          : Icon(Icons.arrow_forward_ios,
-                                              color: Colors.grey),
-                                    )
-                                  : SizedBox()
-                            ],
-                          ),
-                        )),
+                            )),
               )
             ],
           ),
@@ -766,17 +662,17 @@ class CustomAboutDeveloperCompanies extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 8.0),
           child: Row(
             children: [
-              Text(
+              const Text(
                 "Branches",
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.black87,
                     fontSize: 20,
                     fontWeight: FontWeight.w600),
               ),
-              Spacer(),
+              const Spacer(),
               Text(
                 "$branches branches",
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.black87,
                     fontSize: 16,
                     fontWeight: FontWeight.w400),
@@ -848,18 +744,12 @@ class CustomDescriptionCompanies extends StatelessWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => ChatView(
-                        image: CompanyCubit.get(context)
-                            .companyDetectedData[0]
-                            .image
-                            .toString(),
-                        email: CompanyCubit.get(context)
-                            .companyDetectedData[0]
-                            .email
-                            .toString(),
-                        name: CompanyCubit.get(context)
-                            .companyDetectedData[0]
-                            .name
-                            .toString(),
+                        image:
+                            CompanyCubit.get(context).company!.image.toString(),
+                        email:
+                            CompanyCubit.get(context).company!.email.toString(),
+                        name:
+                            CompanyCubit.get(context).company!.name.toString(),
                       ),
                     ),
                   );
@@ -870,7 +760,7 @@ class CustomDescriptionCompanies extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: ColorManager.onboardingColorDots,
                       borderRadius: BorderRadius.circular(80)),
-                  child: Icon(
+                  child: const Icon(
                     Icons.chat_bubble,
                     color: Colors.white,
                     size: 30,
@@ -889,7 +779,7 @@ class CustomDescriptionCompanies extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: ColorManager.onboardingColorDots,
                       borderRadius: BorderRadius.circular(80)),
-                  child: FaIcon(
+                  child: const FaIcon(
                     FontAwesomeIcons.whatsapp,
                     color: Colors.white,
                     size: 40,
@@ -906,7 +796,7 @@ class CustomDescriptionCompanies extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: ColorManager.onboardingColorDots,
                       borderRadius: BorderRadius.circular(80)),
-                  child: Icon(
+                  child: const Icon(
                     Icons.phone,
                     color: Colors.white,
                     size: 30,
@@ -994,7 +884,7 @@ class CustomdetailsOfCompanies extends StatelessWidget {
                   width: sizeFromWidth(2.5),
                   child: Text(
                     "$about",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 14,
                     ),
@@ -1002,28 +892,28 @@ class CustomdetailsOfCompanies extends StatelessWidget {
                 ),
                 Text(
                   "$companyType",
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 14,
                   ),
                 ),
                 Text(
                   "$email",
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 14,
                   ),
                 ),
                 Text(
                   "$phone",
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 14,
                   ),
                 ),
                 Text(
                   "$regiserNum",
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 14,
                   ),
@@ -1076,7 +966,7 @@ class CustomIInformationCompanies extends StatelessWidget {
               children: [
                 Text(
                   "$companyName",
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -1084,7 +974,7 @@ class CustomIInformationCompanies extends StatelessWidget {
                 ),
                 Text(
                   "$creationDate",
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 16,
                   ),
@@ -1092,7 +982,7 @@ class CustomIInformationCompanies extends StatelessWidget {
               ],
             ),
           ),
-          Spacer(),
+          const Spacer(),
           // IconButton(
           //     onPressed: () {
           //       Navigator.of(context).push(

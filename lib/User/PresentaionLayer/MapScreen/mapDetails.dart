@@ -10,7 +10,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
 import 'package:osol/Shared/component/filter_dialog.dart';
+import 'package:osol/Shared/component/search_and_filter_widget.dart';
 
 import '../../../Company/PresentationLayer/HomeScreen/mapGetLocation.dart';
 import '../../../Shared/constants.dart';
@@ -31,6 +33,7 @@ class MapScreenState extends State<MapScreen> {
 
   @override
   void initState() {
+    FilterCubit.instance(context).resetSearchText();
     HomeCubit.get(context).loadMarker();
     HomeCubit.get(context).myToken == null &&
             AuthCubit.get(context).userToken == null
@@ -89,8 +92,24 @@ class MapScreenState extends State<MapScreen> {
                 height: sizeFromHeight(5),
                 child: Column(
                   children: [
-                    _FilterSearch(
-                      color: Colors.grey.withOpacity(0.5),
+                    SizedBox(
+                      height: sizeFromHeight(9),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          top: 15,
+                          left: 25.0,
+                          right: 10,
+                        ),
+                        child: SearchAndFilterWidget(
+                          onSearch: () {
+                            HomeCubit.get(context).showFilterResults();
+                          },
+                          onConfirmFilter: () {
+                            HomeCubit.get(context).showFilterResults();
+                          },
+                          textFieldColor: Colors.grey.withOpacity(0.5),
+                        ),
+                      ),
                     ),
                     SizedBox(
                       height: 10.h,

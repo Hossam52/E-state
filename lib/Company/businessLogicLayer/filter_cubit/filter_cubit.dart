@@ -11,7 +11,7 @@ class FilterCubit extends Cubit<FilterStates> {
   FilterCubit() : super(IntitalFilterState());
   static FilterCubit instance(BuildContext context) =>
       BlocProvider.of<FilterCubit>(context);
-
+  String _title = ''; //For search with text
   FilterType filterType = FilterType();
   PropertyTypeFilter propertyTypeFilter = PropertyTypeFilter();
   RequiredFieldsFilter requiredFieldsFilter = RequiredFieldsFilter();
@@ -75,8 +75,12 @@ class FilterCubit extends Cubit<FilterStates> {
     emit(ResetFilters());
   }
 
+  String get searchText => _title;
+  void onChangeSearchText(String text) => _title = text;
+  void resetSearchText() => _title = '';
   FilterResults get getFilterResults {
     return FilterResults(
+      title: _title,
       filterType: filterType.getSelectedItem,
       propertyType: propertyTypeFilter.getSelectedItem,
       requiredFields: requiredFieldsFilter.getSelectedItem,
@@ -90,6 +94,7 @@ class FilterCubit extends Cubit<FilterStates> {
 }
 
 class FilterResults {
+  final String title;
   final String filterType;
   final String propertyType;
   final String requiredFields;
@@ -100,7 +105,8 @@ class FilterResults {
   final double endPrice;
 
   FilterResults(
-      {required this.filterType,
+      {required this.title,
+      required this.filterType,
       required this.propertyType,
       required this.requiredFields,
       required this.payment,
@@ -110,11 +116,12 @@ class FilterResults {
       required this.endPrice});
   Map<String, dynamic> toMap() {
     return {
-      "purpose": filterType,
-      "type": propertyType,
-      "required_fields": requiredFields,
-      "finished_type": finishedType,
-      "price_from": startPrice,
+      if (title.isNotEmpty) "title": title,
+      if (filterType.isNotEmpty) "purpose": filterType,
+      if (propertyType.isNotEmpty) "type": propertyType,
+      if (requiredFields.isNotEmpty) "required_fields": requiredFields,
+      if (finishedType.isNotEmpty) "finished_type": finishedType,
+      if (startPrice != 0) "price_from": startPrice,
       "price_to": endPrice,
     };
   }

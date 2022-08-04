@@ -7,18 +7,28 @@ import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:osol/Company/PresentationLayer/UnitsScreenDetailsCompany/view.dart';
+import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
 import 'package:osol/Company/businessLogicLayer/popularList/popular_cubit.dart';
 import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
 import 'package:osol/Shared/Customicon.dart';
+import 'package:osol/Shared/component/custom_search_bar.dart';
 import 'package:osol/Shared/component/filter_dialog.dart';
+import 'package:osol/Shared/component/search_and_filter_widget.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/Shared/customListLabel.dart';
+import 'package:osol/Shared/search_field.dart';
 import 'package:osol/User/PresentaionLayer/HomeScreen/units.dart';
 import 'package:osol/User/PresentaionLayer/UnitsScreenDetails/view.dart';
 import 'package:osol/User/PresentaionLayer/searchScreen/view.dart';
 import 'package:osol/common_models/unit_model.dart';
 
-class PopularScreen extends StatelessWidget {
+class PopularScreen extends StatefulWidget {
+  @override
+  State<PopularScreen> createState() => _PopularScreenState();
+}
+
+class _PopularScreenState extends State<PopularScreen> {
+  final searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -64,84 +74,11 @@ class PopularScreen extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               slivers: [
                 SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: SizedBox(
-                      height: sizeFromHeight(15),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 6,
-                              child: Container(
-                                height: sizeFromHeight(12),
-                                decoration: BoxDecoration(
-                                    color: Colors.grey[200]?.withOpacity(0.5),
-                                    borderRadius: BorderRadius.circular(
-                                      10,
-                                    )),
-                                child: TextFormField(
-                                  cursorColor: Colors.grey[500],
-                                  cursorHeight: sizeFromHeight(17),
-                                  decoration: InputDecoration(
-                                    contentPadding: const EdgeInsets.only(
-                                      bottom: 15,
-                                      left: 10,
-                                    ),
-                                    border: InputBorder.none,
-                                    suffixIcon: Icon(
-                                      Icons.search,
-                                      color: Colors.grey[500],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Expanded(
-                              child: InkWell(
-                                onTap: () {
-                                  showMaterialModalBottomSheet(
-                                    isDismissible: true,
-                                    animationCurve: Curves.bounceInOut,
-                                    enableDrag: true,
-                                    builder: (_) =>
-                                        FilterDialog(onConfirmFilter: () {
-                                      PopularCubit.get(context)
-                                          .showResFromFilter();
-                                    }),
-                                    context: context,
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(20),
-                                      ),
-                                    ),
-                                  );
-                                },
-                                child: Container(
-                                  height: sizeFromHeight(12),
-                                  width: sizeFromWidth(8),
-                                  decoration: BoxDecoration(
-                                    color: ColorManager.AppBarHomeColorIcon,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: SvgPicture.asset(
-                                      "assets/images/slider.svg",
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                  child: SearchAndFilterWidget(
+                      onConfirmFilter:
+                          PopularCubit.get(context).showResFromFilter,
+                      onSearch: () =>
+                          cubit.selectedUnitCategory.onTapped(forceTap: true)),
                 ),
                 SliverToBoxAdapter(
                   child: Padding(
@@ -296,107 +233,103 @@ class CardFreeListingData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PopularCubit, PopularState>(
-      builder: (context, state) {
-        return InkWell(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return UnitDetailsCompanyScreen(
-                    unit: unit,
-                  );
-                },
-              ),
-            );
-          },
-          child: Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.lightBlueAccent, width: 0.5),
-                borderRadius: BorderRadius.circular(6)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  flex: 4,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(6),
-                        topRight: Radius.circular(6),
-                      ),
-                      image: DecorationImage(
-                        image: NetworkImage(unit.images!.first),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 3.0),
-                    child: Text(
-                      "${unit.type}",
-                      style: TextStyle(
-                        color: ColorManager.TextHomeColor,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 3.0),
-                    child: Row(
-                      children: [
-                        Icon(
-                          OsolIcon.location,
-                          color: ColorManager.redHeartcolor,
-                          size: 12,
-                        ),
-                        const SizedBox(
-                          width: 2,
-                        ),
-                        Text(
-                          "${unit.city} , ${unit.country} ",
-                          style: const TextStyle(fontSize: 9),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 3.0),
-                    child: Row(
-                      children: [
-                        SvgPicture.asset("assets/images/eye.svg"),
-                        const SizedBox(
-                          width: 2,
-                        ),
-                        Text(
-                          "${unit.watchNum} Seen",
-                          style: TextStyle(fontSize: 10),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                )
-              ],
-            ),
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext context) {
+              return UnitDetailsCompanyScreen(
+                unit: unit,
+              );
+            },
           ),
         );
       },
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.lightBlueAccent, width: 0.5),
+            borderRadius: BorderRadius.circular(6)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              flex: 4,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(6),
+                    topRight: Radius.circular(6),
+                  ),
+                  image: DecorationImage(
+                    image: NetworkImage(unit.images!.first),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 3.0),
+                child: Text(
+                  "${unit.type}",
+                  style: TextStyle(
+                    color: ColorManager.TextHomeColor,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 3.0),
+                child: Row(
+                  children: [
+                    Icon(
+                      OsolIcon.location,
+                      color: ColorManager.redHeartcolor,
+                      size: 12,
+                    ),
+                    const SizedBox(
+                      width: 2,
+                    ),
+                    Text(
+                      "${unit.city} , ${unit.country} ",
+                      style: const TextStyle(fontSize: 9),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 3.0),
+                child: Row(
+                  children: [
+                    SvgPicture.asset("assets/images/eye.svg"),
+                    const SizedBox(
+                      width: 2,
+                    ),
+                    Text(
+                      "${unit.watchNum} Seen",
+                      style: TextStyle(fontSize: 10),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            )
+          ],
+        ),
+      ),
     );
   }
 }

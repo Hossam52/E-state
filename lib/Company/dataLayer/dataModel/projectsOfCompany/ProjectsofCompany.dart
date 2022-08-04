@@ -3,14 +3,14 @@ import 'package:osol/common_models/pagination/meta.dart';
 
 class AllProjectsModel {
   bool? status;
-  Project? project;
+  Projects? project;
 
   AllProjectsModel({this.status, this.project});
 
   AllProjectsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     project =
-        json['project'] != null ? new Project.fromJson(json['project']) : null;
+        json['project'] != null ? new Projects.fromJson(json['project']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -23,14 +23,14 @@ class AllProjectsModel {
   }
 }
 
-class Project {
+class Projects {
   List<DataOfProjects>? data;
   Links? links;
   Meta? meta;
 
-  Project({this.data, this.links, this.meta});
+  Projects({this.data, this.links, this.meta});
 
-  Project.fromJson(Map<String, dynamic> json) {
+  Projects.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
       data = <DataOfProjects>[];
       json['data'].forEach((v) {

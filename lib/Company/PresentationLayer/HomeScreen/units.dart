@@ -9,6 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:osol/Company/PresentationLayer/UnitsScreenDetailsCompany/view.dart';
+import 'package:osol/Company/PresentationLayer/company_search/company_search_screen.dart';
 import 'package:osol/Company/businessLogicLayer/bannersCubit/banners_cubit.dart';
 import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
 import 'package:osol/Company/dataLayer/dataModel/features/featuresModel.dart';
@@ -51,80 +52,21 @@ class _HomeViewDataState extends State<HomeViewCompanyData> {
         physics: BouncingScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(
-            child: Container(
-              height: sizeFromHeight(15),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 6,
-                      child: Container(
-                        height: sizeFromHeight(12),
-                        decoration: BoxDecoration(
-                            color: Colors.grey[200]?.withOpacity(0.5),
-                            borderRadius: BorderRadius.circular(
-                              10,
-                            )),
-                        child: TextFormField(
-                          cursorColor: Colors.grey[500],
-                          cursorHeight: sizeFromHeight(17),
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(
-                              bottom: 15,
-                              left: 10,
-                            ),
-                            border: InputBorder.none,
-                            suffixIcon: Icon(
-                              Icons.search,
-                              color: Colors.grey[500],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: InkWell(
-                          onTap: () {
-                            showMaterialModalBottomSheet(
-                              isDismissible: true,
-                              animationCurve: Curves.bounceInOut,
-                              enableDrag: true,
-                              builder: (context) =>
-                                  FilterDialog(onConfirmFilter: () {}),
-                              context: context,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(20),
-                                ),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            height: sizeFromHeight(12),
-                            width: sizeFromWidth(8),
-                            decoration: BoxDecoration(
-                              color: ColorManager.AppBarHomeColorIcon,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: SvgPicture.asset(
-                                "assets/images/slider.svg",
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Hello ...',
+                    style: TextStyle(
+                        fontSize: 24.sp, fontWeight: FontWeight.w700)),
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) => const CompanySearchScreen()));
+                  },
+                  icon: Icon(Icons.search),
+                  color: Colors.grey[500],
                 ),
-              ),
+              ],
             ),
           ),
           SliverToBoxAdapter(

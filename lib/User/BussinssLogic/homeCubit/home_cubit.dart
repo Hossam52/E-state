@@ -13,6 +13,7 @@ import 'package:meta/meta.dart';
 import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
 import 'package:osol/Shared/Customicon.dart';
 import 'package:osol/Shared/constants.dart';
+import 'package:osol/User/BussinssLogic/savedCubit/saved_cubit.dart';
 import 'package:osol/User/DataLayer/DataProvider/dioHelper.dart';
 import 'package:osol/User/DataLayer/Model/modelOfData/BannerModel/bannerModel.dart';
 import 'package:osol/User/DataLayer/Model/modelOfData/featureModel/getFeatureModel.dart';
@@ -67,8 +68,10 @@ class HomeCubit extends Cubit<HomeState> {
   ///change color of unit save
   bool color = false;
 
-  changeColor() {
-    color = !color;
+  void toggleFavorite(BuildContext context, UnitModel unit) {
+    SavedCubit.get(context).setSave(unitId: unit.id);
+    // getFeatureOfClientHome();
+    unit.toggleFavorite();
     emit(ChangeColorSave());
   }
 
@@ -82,27 +85,27 @@ class HomeCubit extends Cubit<HomeState> {
   ///Label List
   // int currentLabelindex = 0;
   late final List<UserUnitCategory> _allCategories = [
-    UserCustomUnitsCategory(onCategoryTapped: () async {
+    UserCustomUnitsCategory(onCategoryTapped: ({bool forceTap = false}) async {
       log('Custom tapped');
       changeUnitCategoryIndex(0);
     }),
-    UserAllUnitsCategory(onCategoryTapped: () async {
+    UserAllUnitsCategory(onCategoryTapped: ({bool forceTap = false}) async {
       log('All tapped');
       changeUnitCategoryIndex(1);
     }),
-    UserSaleUnitsCategory(onCategoryTapped: () async {
+    UserSaleUnitsCategory(onCategoryTapped: ({bool forceTap = false}) async {
       log('sale tapped');
       changeUnitCategoryIndex(2);
     }),
-    UserRentUnitCategory(onCategoryTapped: () async {
+    UserRentUnitCategory(onCategoryTapped: ({bool forceTap = false}) async {
       log('rent tapped');
       changeUnitCategoryIndex(3);
     }),
-    UserCompoundUnitCategory(onCategoryTapped: () async {
+    UserCompoundUnitCategory(onCategoryTapped: ({bool forceTap = false}) async {
       log('compund tapped');
       changeUnitCategoryIndex(4);
     }),
-    UserEstateUnitCategory(onCategoryTapped: () async {
+    UserEstateUnitCategory(onCategoryTapped: ({bool forceTap = false}) async {
       log('estate tapped');
       changeUnitCategoryIndex(5);
     }),
@@ -125,6 +128,11 @@ class HomeCubit extends Cubit<HomeState> {
 
   bool get isPopularLoaded => selectedCategory.popular != null;
   List<UnitModel> get popularUnits => selectedCategory.popular ?? [];
+  List<UnitModel> get featuredAndPopularUnits => [
+        ...popularUnits,
+        ...featuresUnits,
+      ];
+
   int selectedUnitCategoryIndex = 1;
 
   void changeUnitCategoryIndex(int index) {
@@ -419,9 +427,8 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> getCustomFilterFeatureOfClientHome() async {
     final filterResultsMap =
         FilterCubit.instance(context).getFilterResults.toMap();
-    filterResultsMap.addAll({
-      "add_type": "Feature",
-    });
+    final searchText = FilterCubit.instance(context).searchText;
+    filterResultsMap.addAll({"add_type": "Feature", 'text': searchText});
     try {
       final cToken = await Shared.prefGetString(key: "CompanyTokenVerify");
       emit(LoadingGetFeatureState());
@@ -528,9 +535,8 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> getCustomFilterPopularOfClientHome() async {
     final filterResultsMap =
         FilterCubit.instance(context).getFilterResults.toMap();
-    filterResultsMap.addAll({
-      "add_type": "Popular",
-    });
+    final searchText = FilterCubit.instance(context).searchText;
+    filterResultsMap.addAll({"add_type": "Popular", 'text': searchText});
     final cToken = await Shared.prefGetString(key: "CompanyTokenVerify");
 
     emit(LoadingGetPopularState());

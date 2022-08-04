@@ -11,12 +11,12 @@ abstract class UnitCategory {
   bool _isSelected = false;
   bool get isSelected;
   void toggleIsSelected() => _isSelected = !_isSelected;
-  Future<void> onTapped();
+  Future<void> onTapped({bool forceTap = false});
 }
 
 abstract class CustomUnitsCategory extends UnitCategory {
   CustomUnitsCategory({required this.onCategoryTapped});
-  Future<void> Function() onCategoryTapped;
+  Future<void> Function({bool forceTap}) onCategoryTapped;
 
   @override
   String get type => '';
@@ -30,14 +30,15 @@ abstract class CustomUnitsCategory extends UnitCategory {
   String get title => 'Custom';
 
   @override
-  Future<void> onTapped() => onCategoryTapped();
+  Future<void> onTapped({bool forceTap = false}) =>
+      onCategoryTapped(forceTap: forceTap);
 }
 
 abstract class AllUnitsCategory extends UnitCategory {
   AllUnitsCategory({required this.onCategoryTapped}) {
     _isSelected = true;
   }
-  Future<void> Function() onCategoryTapped;
+  Future<void> Function({bool forceTap}) onCategoryTapped;
 
   @override
   String get type => '';
@@ -51,12 +52,13 @@ abstract class AllUnitsCategory extends UnitCategory {
   String get title => 'All';
 
   @override
-  Future<void> onTapped() => onCategoryTapped();
+  Future<void> onTapped({bool forceTap = false}) =>
+      onCategoryTapped(forceTap: forceTap);
 }
 
 abstract class SaleUnitsCategory extends UnitCategory {
   SaleUnitsCategory({required this.onCategoryTapped});
-  Future<void> Function() onCategoryTapped;
+  Future<void> Function({bool forceTap}) onCategoryTapped;
 
   @override
   String get type => 'Sale';
@@ -70,12 +72,13 @@ abstract class SaleUnitsCategory extends UnitCategory {
   String get title => 'Sale';
 
   @override
-  Future<void> onTapped() => onCategoryTapped();
+  Future<void> onTapped({bool forceTap = false}) =>
+      onCategoryTapped(forceTap: forceTap);
 }
 
 abstract class RentUnitCategory extends UnitCategory {
   RentUnitCategory({required this.onCategoryTapped});
-  Future<void> Function() onCategoryTapped;
+  Future<void> Function({bool forceTap}) onCategoryTapped;
 
   @override
   String get type => 'Rent';
@@ -89,12 +92,13 @@ abstract class RentUnitCategory extends UnitCategory {
   String get title => 'Rent';
 
   @override
-  Future<void> onTapped() => onCategoryTapped();
+  Future<void> onTapped({bool forceTap = false}) =>
+      onCategoryTapped(forceTap: forceTap);
 }
 
 abstract class CompoundUnitCategory extends UnitCategory {
   CompoundUnitCategory({required this.onCategoryTapped});
-  Future<void> Function() onCategoryTapped;
+  Future<void> Function({bool forceTap}) onCategoryTapped;
 
   @override
   String get type => 'Compound';
@@ -108,12 +112,13 @@ abstract class CompoundUnitCategory extends UnitCategory {
   String get title => 'Compound';
 
   @override
-  Future<void> onTapped() => onCategoryTapped();
+  Future<void> onTapped({bool forceTap = false}) =>
+      onCategoryTapped(forceTap: forceTap);
 }
 
 abstract class EstateUnitCategory extends UnitCategory {
   EstateUnitCategory({required this.onCategoryTapped});
-  Future<void> Function() onCategoryTapped;
+  Future<void> Function({bool forceTap}) onCategoryTapped;
 
   @override
   String get type => 'Estate';
@@ -127,5 +132,6 @@ abstract class EstateUnitCategory extends UnitCategory {
   String get title => 'Estate';
 
   @override
-  Future<void> onTapped() => onCategoryTapped();
+  Future<void> onTapped({bool forceTap = false}) =>
+      onCategoryTapped(forceTap: forceTap);
 }

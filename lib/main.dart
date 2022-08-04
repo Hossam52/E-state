@@ -98,7 +98,7 @@ class MyApp extends StatelessWidget {
                 create: (context) => CompanyCubit(),
               ),
               BlocProvider(
-                create: (context) => SavedCubit(),
+                create: (context) => SavedCubit(context),
               ),
               BlocProvider(
                 create: (context) => CustomerServicesCubit(),
@@ -114,7 +114,8 @@ class MyApp extends StatelessWidget {
               BlocProvider(create: (context) => AuthCompanyCubit()),
               BlocProvider(
                   create: (context) => BannersCubit()..getAllBanners()),
-              BlocProvider(create: (context) => UnitCubit()..getAllFunction()),
+              BlocProvider(
+                  create: (context) => UnitCubit(context)..getAllFunction()),
               BlocProvider(
                   create: (context) =>
                       PopularCubit()..getDetectedPopularList()),

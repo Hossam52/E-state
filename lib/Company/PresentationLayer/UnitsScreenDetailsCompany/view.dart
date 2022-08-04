@@ -2,11 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Company/PresentationLayer/map/unit_map_location.dart';
 import 'package:osol/Company/PresentationLayer/unit_crud/unit_crud_view.dart';
+import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/Shared/custom_video_player.dart';
 import 'package:osol/Shared/unit_facilities.dart';
@@ -22,94 +24,116 @@ class UnitDetailsCompanyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorManager.WhiteScreen,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: ColorManager.WhiteScreen,
-        toolbarHeight: 80,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black54,
-            size: 28,
-          ),
-        ),
-        shape: const ContinuousRectangleBorder(
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
-        ),
-        centerTitle: true,
-        title: const Text(
-          "Unit details",
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: IconButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => UnitCrudView(unit: unit),
+    return BlocProvider(
+      create: (context) => UnitCubit(context)..getUnitById(unit.id!.toString()),
+      child: BlocBuilder<UnitCubit, UnitState>(
+        builder: (unitDetailsContext, state) {
+          final unitById = UnitCubit.get(unitDetailsContext).unit;
+          return Scaffold(
+            backgroundColor: ColorManager.WhiteScreen,
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: ColorManager.WhiteScreen,
+              toolbarHeight: 80,
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.black54,
+                  size: 28,
+                ),
+              ),
+              shape: const ContinuousRectangleBorder(
+                borderRadius:
+                    BorderRadius.vertical(bottom: Radius.circular(10)),
+              ),
+              centerTitle: true,
+              title: const Text(
+                "Unit details",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: IconButton(
+                    onPressed: () async {
+                      final reloadUnit = await Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => UnitCrudView(unit: unitById),
+                        ),
+                      );
+                      if (reloadUnit != null && reloadUnit) {
+                        Navigator.pop(context);
+                        UnitCubit.get(context).removeUnitById(unit.id);
+                        // UnitCubit.get(unitDetailsContext)
+                        //     .getUnitById(unit.id.toString());
+                      }
+                    },
+                    icon: FaIcon(
+                      FontAwesomeIcons.pen,
+                      size: 20,
+                      color: ColorManager.onboardingColorDots,
+                    ),
                   ),
-                );
-              },
-              icon: FaIcon(
-                FontAwesomeIcons.pen,
-                size: 20,
-                color: ColorManager.onboardingColorDots,
-              ),
+                )
+              ],
             ),
-          )
-        ],
-      ),
-      body: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        slivers: [
-          SliverToBoxAdapter(
-            child: _UnitStatistics(
-              unit: unit,
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: _UnitImages(unit: unit),
-          ),
-          SliverToBoxAdapter(
-            child: _DetailsLocatioAndNameUnit(
-              unit: unit,
-            ),
-          ),
-          // SliverToBoxAdapter(
-          //   child: Padding(
-          //     padding: const EdgeInsets.symmetric(
-          //       vertical: 15.0,
-          //       horizontal: 20,
-          //     ),
-          //     child: CustomUnitdetailsOfUnits(),
-          //   ),
-          // ),
-          // SliverToBoxAdapter(
-          //   child: CustomDescription(),
-          // ),
-          SliverToBoxAdapter(
-            child: _CustomOtherDataCompany(unit: unit),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-              child: CustomVideoPlayer(
-                videoUrl: unit.video!,
-              ),
-            ),
-          ),
-        ],
+            body: state is GetUnitLoadingState
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : unitById == null
+                    ? Center(child: Text('No Unit found'))
+                    : CustomScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        slivers: [
+                          SliverToBoxAdapter(
+                            child: _UnitStatistics(
+                              unit: unitById,
+                            ),
+                          ),
+                          SliverToBoxAdapter(
+                            child: _UnitImages(unit: unit),
+                          ),
+                          SliverToBoxAdapter(
+                            child: _DetailsLocatioAndNameUnit(
+                              unit: unit,
+                            ),
+                          ),
+                          // SliverToBoxAdapter(
+                          //   child: Padding(
+                          //     padding: const EdgeInsets.symmetric(
+                          //       vertical: 15.0,
+                          //       horizontal: 20,
+                          //     ),
+                          //     child: CustomUnitdetailsOfUnits(),
+                          //   ),
+                          // ),
+                          // SliverToBoxAdapter(
+                          //   child: CustomDescription(),
+                          // ),
+                          SliverToBoxAdapter(
+                            child: _CustomOtherDataCompany(unit: unit),
+                          ),
+                          SliverToBoxAdapter(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20.0, vertical: 20),
+                              child: CustomVideoPlayer(
+                                videoUrl: unit.video!,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+          );
+        },
       ),
     );
   }
@@ -156,20 +180,6 @@ class _UnitStatistics extends StatelessWidget {
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: Container(
         height: sizeFromHeight(3),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              ColorManager.startgraidentCompany,
-              ColorManager.endgraidentCompany,
-              Colors.lightBlueAccent,
-            ],
-            begin: const FractionalOffset(0.0, 0.0),
-            end: const FractionalOffset(0.7, 0.0),
-          ),
-          borderRadius: BorderRadius.circular(
-            10,
-          ),
-        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -199,7 +209,8 @@ class _UnitStatistics extends StatelessWidget {
     return ListTile(
       leading: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5), color: Colors.grey),
+            borderRadius: BorderRadius.circular(5),
+            color: ColorManager.OnBoardingScreen),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: svgPath != null
@@ -207,6 +218,7 @@ class _UnitStatistics extends StatelessWidget {
                   svgPath,
                   height: 25,
                   width: 25,
+                  color: Colors.white,
                 )
               : icon != null
                   ? Icon(
@@ -231,8 +243,8 @@ class _UnitStatistics extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: Text(
           value,
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: ColorManager.OnBoardingScreen,
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),

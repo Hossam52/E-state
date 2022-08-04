@@ -35,7 +35,8 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
         // TODO: implement listener
       },
       builder: (context, state) {
-        var cubit = ProfileCompanyCubit.get(context);
+        // var cubit = ProfileCompanyCubit.get(context);
+        final company = ProfileCompanyCubit.get(context).companyProfile;
         return Scaffold(
           backgroundColor: ColorManager.WhiteScreen,
           appBar: AppBar(
@@ -83,7 +84,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                           vertical: 10,
                         ),
                         child: CustomLabelCompanyProfile(
-                          text: "${cubit.type}",
+                          text: "${company?.type}",
                           width: 0,
                           hint: "Change Type",
                           title: "Company type",
@@ -97,7 +98,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                           vertical: 10,
                         ),
                         child: CustomLabelCompanyProfile(
-                          text: "${cubit.name}",
+                          text: "${company?.name}",
                           hint: "Change Name",
                           title: "Company Name",
                           width: 0,
@@ -114,7 +115,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                           hint: "Change Email",
                           title: "Email",
                           width: 0,
-                          text: "${cubit.email}",
+                          text: "${company?.email}",
                         ),
                       ),
                     ),
@@ -128,13 +129,13 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CustomLabelCompanyProfile(
-                              text: "${cubit.branchesNum}",
+                              text: "${company?.branchesNum}",
                               hint: "Number",
                               title: "Number of branches",
                               width: sizeFromWidth(2.4),
                             ),
                             CustomLabelCompanyProfile(
-                              text: "${cubit.regestrationNum}",
+                              text: "${company?.regestrationNum}",
                               hint: "Number",
                               title: "Registration Number",
                               width: sizeFromWidth(2.4),
@@ -150,7 +151,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                           vertical: 10,
                         ),
                         child: CustomLabelCompanyProfile(
-                          text: "${cubit.country} / ${cubit.city}",
+                          text: "${company?.country} / ${company?.city}",
                           hint: "Number",
                           title: "Country / Region",
                           width: 0,
@@ -167,7 +168,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                           width: 0,
                           hint: "Change Address",
                           title: "Address",
-                          text: "${cubit.address}",
+                          text: "${company?.address}",
                         ),
                       ),
                     ),
@@ -178,7 +179,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                           vertical: 10,
                         ),
                         child: CustomLabelCompanyProfile(
-                          text: "${cubit.phone}",
+                          text: "${company?.phone}",
                           hint: "Phone Number",
                           title: "Phone Number",
                           width: 0,
@@ -206,7 +207,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                           vertical: 10,
                         ),
                         child: CustomTxtFieldAboutCompany(
-                          text: "${cubit.about}",
+                          text: "${company?.about}",
                           hint: "some details about company",
                           title: "About Company",
                         ),
@@ -231,6 +232,7 @@ class CustomIInformationCompanies extends StatelessWidget {
       },
       builder: (context, state) {
         var cubit = ProfileCompanyCubit.get(context);
+        final company = cubit.companyProfile;
         return Container(
           height: sizeFromHeight(8),
           width: 327.w,
@@ -247,7 +249,7 @@ class CustomIInformationCompanies extends StatelessWidget {
                   radius: sizeFromWidth(12),
                   backgroundColor: Colors.transparent,
                   backgroundImage: NetworkImage(
-                    "${cubit.image}",
+                    "${company?.image}",
                   ),
                 ),
               ),
@@ -259,7 +261,7 @@ class CustomIInformationCompanies extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${cubit.name}",
+                      "${company?.name}",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 15,
@@ -267,7 +269,7 @@ class CustomIInformationCompanies extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "${cubit.regestrationNum}",
+                      "${company?.regestrationNum}",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 15,

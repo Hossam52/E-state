@@ -23,33 +23,38 @@ import '../../../User/DataLayer/localDataLayer/localData.dart';
 part 'popular_state.dart';
 
 class PopularCubit extends Cubit<PopularState> {
-  PopularCubit({this.context}) : super(PopularInitial());
+  PopularCubit({this.context}) : super(PopularInitial()) {
+    FilterCubit.instance(context!).resetSearchText();
+  }
   final BuildContext? context;
   static PopularCubit get(context) => BlocProvider.of(context);
   late List<CompanyUnitCategory> allCateogires = [
-    CompanyCustomCategoryFilter(onCategoryTapped: () async {
+    CompanyCustomCategoryFilter(
+        onCategoryTapped: ({bool forceTap = false}) async {
       log('Custom tapped');
-      changeUnitCategoryIndex(0);
+      changeUnitCategoryIndex(0, forceTap);
     }),
-    CompanyAllUnitsCategory(onCategoryTapped: () async {
+    CompanyAllUnitsCategory(onCategoryTapped: ({bool forceTap = false}) async {
       log('All tapped');
-      changeUnitCategoryIndex(1);
+      changeUnitCategoryIndex(1, forceTap);
     }),
-    CompanySaleUnitsCategory(onCategoryTapped: () async {
+    CompanySaleUnitsCategory(onCategoryTapped: ({bool forceTap = false}) async {
       log('sale tapped');
-      changeUnitCategoryIndex(2);
+      changeUnitCategoryIndex(2, forceTap);
     }),
-    CompanyRentUnitCategory(onCategoryTapped: () async {
+    CompanyRentUnitCategory(onCategoryTapped: ({bool forceTap = false}) async {
       log('rent tapped');
-      changeUnitCategoryIndex(3);
+      changeUnitCategoryIndex(3, forceTap);
     }),
-    CompanyCompoundUnitCategory(onCategoryTapped: () async {
+    CompanyCompoundUnitCategory(
+        onCategoryTapped: ({bool forceTap = false}) async {
       log('compund tapped');
-      changeUnitCategoryIndex(4);
+      changeUnitCategoryIndex(4, forceTap);
     }),
-    CompanyEstateUnitCategory(onCategoryTapped: () async {
+    CompanyEstateUnitCategory(
+        onCategoryTapped: ({bool forceTap = false}) async {
       log('estate tapped');
-      changeUnitCategoryIndex(5);
+      changeUnitCategoryIndex(5, forceTap);
     }),
   ];
   CompanyUnitCategory get selectedCategory =>
@@ -60,16 +65,20 @@ class PopularCubit extends Cubit<PopularState> {
   bool get isCategoryLoadedData => selectedCategory.units != null;
   List<UnitModel> get displayedUnits => selectedCategory.units ?? [];
   int selectedUnitCategoryIndex = 1;
-  void changeUnitCategoryIndex(int index) {
+  void changeUnitCategoryIndex(int index, bool isForceTapped) {
     selectedUnitCategory.toggleIsSelected();
     selectedUnitCategoryIndex = index;
     selectedUnitCategory.toggleIsSelected();
 
     emit(changeIndexOfTapped());
-    if (index == 0) {
+    fetchData(isForceTapped: isForceTapped);
+  }
+
+  void fetchData({bool isForceTapped = false}) {
+    if (selectedUnitCategoryIndex == 0) {
       getCustomPopularList();
     } else {
-      getDetectedPopularList();
+      getDetectedPopularList(isForceTapped: isForceTapped);
     }
   }
 
@@ -96,7 +105,7 @@ class PopularCubit extends Cubit<PopularState> {
     // debugPrint("${tappedIndex}");
     // getDetectedPopularList();
     emit(changeIndexOfTapped());
-    getDetectedPopularList();
+    fetchData();
   }
 
   String? tappedContainer;
@@ -112,8 +121,26 @@ class PopularCubit extends Cubit<PopularState> {
   PopularListModel? popularListModel;
   List<UnitModel> detectedUnitList = [];
 
-  Future getDetectedPopularList() async {
-    if (selectedCategory.units != null) return;
+  Future getDetectedPopularList({bool isForceTapped = false}) async {
+    log(isForceTapped.toString());
+
+    if (!isForceTapped && selectedCategory.units != null) return;
+    final filterCubit = FilterCubit.instance(context!);
+    Map<String, dynamic> data = {
+      "add_type": "Popular",
+      "status": selectedCategory.selecteddStatus.status,
+      "title": filterCubit.searchText
+    };
+    if (selectedCategory is SaleUnitsCategory ||
+        selectedCategory is RentUnitCategory) {
+      data.addAll({
+        "purpose": selectedUnitCategory.type,
+      });
+    } else if (selectedCategory is! AllUnitsCategory) {
+      data.addAll({
+        "type": selectedUnitCategory.type,
+      });
+    }
     try {
       detectedUnitList.clear();
       Response response;
@@ -121,24 +148,25 @@ class PopularCubit extends Cubit<PopularState> {
       final mainToken = await Shared.prefGetString(key: "CompanyTokenVerify");
       response = await DioHelper.postDataWithAuth(
           url: getFeatureAndPopularUnitURL,
-          data: selectedCategory is SaleUnitsCategory ||
-                  selectedCategory is RentUnitCategory
-              ? {
-                  "add_type": "Popular",
-                  "purpose": selectedUnitCategory.type,
-                  "status": selectedCategory.selecteddStatus.status,
-                }
-              : selectedCategory is AllUnitsCategory
-                  ? {
-                      "add_type": "Popular",
-                      "type": "",
-                      "status": selectedCategory.selecteddStatus.status,
-                    }
-                  : {
-                      "add_type": "Popular",
-                      "type": selectedUnitCategory.type,
-                      "status": selectedCategory.selecteddStatus.status,
-                    },
+          data: data,
+          // selectedCategory is SaleUnitsCategory ||
+          //         selectedCategory is RentUnitCategory
+          //     ? {
+          //         "add_type": "Popular",
+          //         "purpose": selectedUnitCategory.type,
+          //         "status": selectedCategory.selecteddStatus.status,
+          //       }
+          //     : selectedCategory is AllUnitsCategory
+          //         ? {
+          //             "add_type": "Popular",
+          //             "type": "",
+          //             "status": selectedCategory.selecteddStatus.status,
+          //           }
+          //         : {
+          //             "add_type": "Popular",
+          //             "type": selectedUnitCategory.type,
+          //             "status": selectedCategory.selecteddStatus.status,
+          //           },
           token: mainToken);
       if (response.statusCode == 200) {
         popularListModel = PopularListModel.fromJson(response.data);
@@ -155,10 +183,13 @@ class PopularCubit extends Cubit<PopularState> {
   }
 
   Future getCustomPopularList() async {
-    final filterResultsMap =
-        FilterCubit.instance(context!).getFilterResults.toMap();
+    final filterCubit = FilterCubit.instance(context!);
+
+    final filterResultsMap = filterCubit.getFilterResults.toMap();
     filterResultsMap.addAll({
-      "add_type": "Popular",
+      //TODO: Add addType parameter
+      // "add_type": "Popular",
+      "title": filterCubit.searchText,
       "status": selectedCategory.selecteddStatus.status,
     });
     try {

@@ -11,10 +11,7 @@ import '../../businessLogicLayer/profilecompanyCubit/profile_company_cubit.dart'
 import 'chatCompanyView.dart';
 
 class MessageCompanyView extends StatelessWidget {
-
-
   final _fireStore = FirebaseFirestore.instance;
-
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +50,7 @@ class MessageCompanyView extends StatelessWidget {
             ),
           ),
           body: state is SuccessGetProfileDataStatus
-              ? ProfileCompanyCubit.get(context).email != null
+              ? ProfileCompanyCubit.get(context).companyProfile?.email != null
                   ? Column(
                       children: [
                         Expanded(
@@ -81,13 +78,13 @@ class MessageCompanyView extends StatelessWidget {
                                     final companyName = item.get("name");
                                     final companyEmail = item.get("email");
                                     if (ProfileCompanyCubit.get(context)
-                                            .email !=
+                                            .companyProfile
+                                            ?.email !=
                                         null) {
                                       final messageWidget = companyEmail ==
                                               ProfileCompanyCubit.get(context)
-                                                  .companyAllProfileData[0]
-                                                  .rC!
-                                                  .email
+                                                  .companyProfile
+                                                  ?.email
                                           ? ChatData(
                                               time: '2',
                                               img: '$userImage',

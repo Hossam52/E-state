@@ -6,13 +6,15 @@ class CustomTxtFieldAddUnit extends StatelessWidget {
   String title;
   TextEditingController controller;
   TextInputType keyboardType;
+  String? Function(String?)? validator;
   final int? maxLength;
 
   CustomTxtFieldAddUnit(
       {required this.title,
       required this.hint,
       required this.controller,
-      required this.keyboardType,
+      this.keyboardType = TextInputType.text,
+      this.validator,
       this.maxLength});
 
   @override
@@ -52,6 +54,7 @@ class CustomTxtFieldAddUnit extends StatelessWidget {
               controller: controller,
               keyboardType: keyboardType,
               maxLength: maxLength,
+              validator: validator,
               decoration: InputDecoration(
                   hintText: "${hint}",
                   border: OutlineInputBorder(

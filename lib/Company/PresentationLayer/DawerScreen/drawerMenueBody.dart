@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -9,9 +12,12 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Company/PresentationLayer/registerition/registeration/view.dart';
 import 'package:osol/Company/businessLogicLayer/authCompany/auth_company_cubit.dart';
+import 'package:osol/Company/businessLogicLayer/profilecompanyCubit/profile_company_cubit.dart';
+import 'package:osol/Company/dataLayer/dataModel/companyProfile/getProfileDataModel.dart';
 import 'package:osol/Shared/Customicon.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/BussinssLogic/authCubit/auth_cubit.dart';
+import 'package:osol/User/BussinssLogic/commonCubit/profieCubit/profile_cubit.dart';
 import 'package:osol/User/PresentaionLayer/RegisterScreen/signIn/view.dart';
 import 'package:osol/User/PresentaionLayer/aboutScreen/view.dart';
 import 'package:osol/User/PresentaionLayer/appsettingScreen/view.dart';
@@ -21,14 +27,20 @@ import 'package:osol/User/PresentaionLayer/messegeScreen/view.dart';
 class DrawerMenuBodyCompany extends StatelessWidget {
   bool isSwitched = false;
 
+  ImageProvider profileImage(CompanyProfile? profile) {
+    if (profile != null && profile.image != null) {
+      return CachedNetworkImageProvider(profile.image!);
+    } else {
+      return const AssetImage("assets/images/avatar.png");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthCompanyCubit, AuthCompanyState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+    return BlocBuilder<ProfileCompanyCubit, ProfileCompanyState>(
       builder: (context, state) {
-        var cubit = AuthCompanyCubit.get(context);
+        final profile = ProfileCompanyCubit.get(context).companyProfile;
+
         return Scaffold(
           backgroundColor: ColorManager.onboardingColorDots,
           body: Padding(
@@ -47,15 +59,14 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 35,
-                          backgroundImage:
-                              AssetImage("assets/images/avatar.png"),
+                          backgroundImage: profileImage(profile),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Text(
-                          "Amr Mohamed",
-                          style: TextStyle(
+                          profile?.name ?? '',
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
                             color: Colors.white,
@@ -88,10 +99,10 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                                     color: ColorManager.WhiteScreen,
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
-                                Text(
+                                const Text(
                                   "Saved",
                                   style: TextStyle(
                                     color: Colors.white,
@@ -102,7 +113,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Container(
@@ -115,7 +126,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                                     color: ColorManager.WhiteScreen,
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 InkWell(
@@ -123,9 +134,9 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                                       .push(MaterialPageRoute(
                                     builder: (_) => MessageView(),
                                   )),
-                                  child: Text(
+                                  child: const Text(
                                     "Messages",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
@@ -135,7 +146,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Container(
@@ -146,7 +157,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                                   FontAwesomeIcons.gear,
                                   color: ColorManager.WhiteScreen,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 InkWell(
@@ -154,9 +165,9 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                                       .push(MaterialPageRoute(
                                     builder: (_) => AppSettingView(),
                                   )),
-                                  child: Text(
+                                  child: const Text(
                                     "Settings",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
@@ -166,7 +177,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Container(
@@ -177,7 +188,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                                   FontAwesomeIcons.phone,
                                   color: ColorManager.WhiteScreen,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 InkWell(
@@ -185,9 +196,9 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                                       .push(MaterialPageRoute(
                                     builder: (_) => CustomerServicesView(),
                                   )),
-                                  child: Text(
+                                  child: const Text(
                                     "Contact Us",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
@@ -197,7 +208,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Container(
@@ -208,7 +219,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                                   child: SvgPicture.asset(
                                       "assets/images/examilation.svg"),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 15,
                                 ),
                                 InkWell(
@@ -216,9 +227,9 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                                       .push(MaterialPageRoute(
                                     builder: (_) => AboutView(),
                                   )),
-                                  child: Text(
+                                  child: const Text(
                                     "About App",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
@@ -228,7 +239,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Container(
@@ -248,9 +259,9 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                                   flex: 2,
                                   child: InkWell(
                                     onTap: () {},
-                                    child: Text(
+                                    child: const Text(
                                       "Dark mode",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500,
@@ -269,7 +280,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Container(
@@ -284,7 +295,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                                     color: ColorManager.WhiteScreen,
                                   ),
                                 ),
-                                Expanded(
+                                const Expanded(
                                   flex: 2,
                                   child: Text(
                                     "Languages",
@@ -299,7 +310,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                                   flex: 1,
                                   child: IconButton(
                                       onPressed: () {},
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.arrow_forward_ios,
                                         color: Colors.white,
                                       )),
@@ -329,7 +340,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                                   FontAwesomeIcons.arrowRightFromBracket,
                                   color: ColorManager.WhiteScreen,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 InkWell(
@@ -342,9 +353,9 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                                       ),
                                     );
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     "LogOut",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,

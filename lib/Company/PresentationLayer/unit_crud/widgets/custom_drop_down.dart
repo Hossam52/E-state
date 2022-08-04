@@ -5,7 +5,7 @@ import 'package:osol/Shared/constants.dart';
 
 class CustomDropDownList extends StatelessWidget {
   final String title;
-  final void Function(String? val) onChange;
+  final void Function(String? val)? onChange;
   final List<String> list;
   final String? selectedItem;
 

@@ -27,38 +27,42 @@ abstract class CompanyUnitCategory {
 class CompanyCustomCategoryFilter extends CustomUnitsCategory
     with CompanyUnitCategory {
   CompanyCustomCategoryFilter(
-      {required Future<void> Function() onCategoryTapped})
+      {required Future<void> Function({bool forceTap}) onCategoryTapped})
       : super(onCategoryTapped: onCategoryTapped);
 }
 
 class CompanyAllUnitsCategory extends AllUnitsCategory
     with CompanyUnitCategory {
-  CompanyAllUnitsCategory({required Future<void> Function() onCategoryTapped})
+  CompanyAllUnitsCategory(
+      {required Future<void> Function({bool forceTap}) onCategoryTapped})
       : super(onCategoryTapped: onCategoryTapped);
 }
 
 class CompanySaleUnitsCategory extends SaleUnitsCategory
     with CompanyUnitCategory {
-  CompanySaleUnitsCategory({required Future<void> Function() onCategoryTapped})
+  CompanySaleUnitsCategory(
+      {required Future<void> Function({bool forceTap}) onCategoryTapped})
       : super(onCategoryTapped: onCategoryTapped);
 }
 
 class CompanyRentUnitCategory extends RentUnitCategory
     with CompanyUnitCategory {
-  CompanyRentUnitCategory({required Future<void> Function() onCategoryTapped})
+  CompanyRentUnitCategory(
+      {required Future<void> Function({bool forceTap}) onCategoryTapped})
       : super(onCategoryTapped: onCategoryTapped);
 }
 
 class CompanyCompoundUnitCategory extends CompoundUnitCategory
     with CompanyUnitCategory {
   CompanyCompoundUnitCategory(
-      {required Future<void> Function() onCategoryTapped})
+      {required Future<void> Function({bool forceTap}) onCategoryTapped})
       : super(onCategoryTapped: onCategoryTapped);
 }
 
 class CompanyEstateUnitCategory extends EstateUnitCategory
     with CompanyUnitCategory {
-  CompanyEstateUnitCategory({required Future<void> Function() onCategoryTapped})
+  CompanyEstateUnitCategory(
+      {required Future<void> Function({bool forceTap}) onCategoryTapped})
       : super(onCategoryTapped: onCategoryTapped);
 }
 

@@ -119,7 +119,7 @@ class MyBranches {
   String? image;
   String? address;
   String? about;
-  int? branchesNum;
+  String? branchesNum;
   String? type;
   String? regestrationNum;
   String? phone;
@@ -157,7 +157,7 @@ class MyBranches {
     image = json['image'];
     address = json['address'];
     about = json['about'];
-    branchesNum = json['branches_num'];
+    branchesNum = json['branches_num']?.toString();
     type = json['type'];
     regestrationNum = json['regestration_num'];
     phone = json['phone'];

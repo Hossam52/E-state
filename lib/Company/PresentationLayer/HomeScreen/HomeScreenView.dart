@@ -327,7 +327,9 @@ class _buildOverlayState extends State<buildOverlay> {
                           hideOverLay();
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => AddFeatureInCompanyScreen(),
+                              builder: (_) => UnitCrudView(
+                                adsType: 'Feature',
+                              ),
                             ),
                           );
                         },

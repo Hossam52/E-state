@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/src/size_extension.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Company/PresentationLayer/companyProjects/updateProject.dart';
 import 'package:osol/Company/businessLogicLayer/compayProject/company_project_cubit.dart';
+import 'package:osol/Company/dataLayer/dataModel/projectsOfCompany/ProjectsofCompany.dart';
 import 'package:osol/Shared/Customicon.dart';
 import 'package:osol/Shared/constants.dart';
 
@@ -41,19 +42,20 @@ class _CompanyProjectScreenState extends State<CompanyProjectScreen> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back,
                 color: Colors.black54,
                 size: 28,
               ),
             ),
-            shape: ContinuousRectangleBorder(
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+            shape: const ContinuousRectangleBorder(
+              borderRadius:
+                  const BorderRadius.vertical(bottom: Radius.circular(10)),
             ),
             centerTitle: true,
-            title: Text(
+            title: const Text(
               "Company Projects",
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: Colors.black87,
@@ -61,193 +63,12 @@ class _CompanyProjectScreenState extends State<CompanyProjectScreen> {
             ),
           ),
           body: state is LoadingGetAllProjects
-              ? Center(child: CircularProgressIndicator())
+              ? const Center(child: const CircularProgressIndicator())
               : ListView.builder(
                   itemCount: cubit.dataOfProjects.length,
                   itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Material(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        elevation: 5,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                              10,
-                            ),
-                            color: Colors.white,
-                          ),
-                          height: sizeFromHeight(3),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 5,
-                                child: Container(
-                                  color: Colors.white,
-                                  child: Column(
-                                    children: [
-                                      Expanded(
-                                        flex: 6,
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              flex: 3,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(3.0),
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    image: DecorationImage(
-                                                        image: NetworkImage(
-                                                            cubit
-                                                                .dataOfProjects[
-                                                                    index]
-                                                                .image
-                                                                .toString()),
-                                                        fit: BoxFit.cover),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              flex: 5,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Container(
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        "${cubit.dataOfProjects[index].title}",
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontSize: 14,
-                                                        ),
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          FaIcon(
-                                                            OsolIcon.location,
-                                                            color: Colors.red,
-                                                            size: 14,
-                                                          ),
-                                                          SizedBox(
-                                                            width: 5,
-                                                          ),
-                                                          Text(
-                                                            "${cubit.dataOfProjects[index].city} ,${cubit.dataOfProjects[index].country}",
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                fontSize:
-                                                                    10.sp),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          FaIcon(
-                                                            FontAwesomeIcons
-                                                                .bagShopping,
-                                                            size: 14,
-                                                          ),
-                                                          SizedBox(
-                                                            width: 5,
-                                                          ),
-                                                          Text(
-                                                            "${cubit.dataOfProjects[index].deliveryDate}",
-                                                            style: TextStyle(
-                                                                fontSize:
-                                                                    10.sp),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          FaIcon(
-                                                            OsolIcon.home_3,
-                                                            color: Colors.black,
-                                                            size: 14,
-                                                          ),
-                                                          SizedBox(
-                                                            width: 5,
-                                                          ),
-                                                          Container(
-                                                            width:
-                                                                sizeFromWidth(
-                                                                    3),
-                                                            child: Text(
-                                                              "${cubit.dataOfProjects[index].description}",
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      10.sp),
-                                                              maxLines: 1,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 4,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Container(
-                                            child: Text(
-                                              "${cubit.dataOfProjects[index].description}",
-                                              maxLines: 5,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                              textAlign: TextAlign.start,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: InkWell(
-                                  onTap: () {
-                                    cubit.changeId(
-                                        newId: cubit.dataOfProjects[index].id);
-                                    print(
-                                        "id vall:${cubit.dataOfProjects[index].id}");
-                                  },
-                                  child: CustomBottomSheet(
-                                    index: index,
-                                    cubit: cubit,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
+                    return _ProjectItem(
+                      project: cubit.dataOfProjects[index],
                     );
                   }),
           floatingActionButton: FloatingActionButton(
@@ -258,7 +79,7 @@ class _CompanyProjectScreenState extends State<CompanyProjectScreen> {
                 ),
               );
             },
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add),
           ),
         );
       },
@@ -266,16 +87,162 @@ class _CompanyProjectScreenState extends State<CompanyProjectScreen> {
   }
 }
 
+class _ProjectItem extends StatelessWidget {
+  const _ProjectItem({Key? key, required this.project}) : super(key: key);
+  final DataOfProjects project;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Material(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        elevation: 5,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(
+              10,
+            ),
+            color: Colors.white,
+          ),
+          height: sizeFromHeight(3),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 5,
+                child: Container(
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      Expanded(
+                        flex: 6,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 3,
+                              child: _projectImage(),
+                            ),
+                            Expanded(
+                              flex: 5,
+                              child: _projectData(),
+                            )
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 4,
+                        child: _projectDesc(),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: InkWell(
+                  onTap: () {
+                    CompanyProjectCubit.get(context)
+                        .changeId(newId: project.id);
+                    print("id vall:${project.id}");
+                  },
+                  child: CustomBottomSheet(
+                    project: project,
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Padding _projectDesc() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        "${project.description}",
+        maxLines: 5,
+        style: const TextStyle(
+          fontWeight: FontWeight.w400,
+        ),
+        textAlign: TextAlign.start,
+        overflow: TextOverflow.ellipsis,
+      ),
+    );
+  }
+
+  Padding _projectData() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "${project.title}",
+            style: const TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+              fontSize: 14,
+            ),
+          ),
+          _details(
+              icon: OsolIcon.location,
+              iconColor: Colors.red,
+              title: '${project.city} , ${project.country}'),
+          _details(
+              icon: FontAwesomeIcons.bagShopping,
+              title: '${project.deliveryDate}'),
+          _details(icon: OsolIcon.home_3, title: '${project.description}'),
+        ],
+      ),
+    );
+  }
+
+  Row _details({
+    required IconData icon,
+    required String title,
+    Color iconColor = Colors.black,
+  }) {
+    return Row(
+      children: [
+        FaIcon(
+          icon,
+          color: iconColor,
+          size: 14,
+        ),
+        const SizedBox(
+          width: 5,
+        ),
+        Text(
+          title,
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 10.sp),
+        ),
+      ],
+    );
+  }
+
+  Padding _projectImage() {
+    return Padding(
+      padding: const EdgeInsets.all(3.0),
+      child: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: NetworkImage(project.image.toString()), fit: BoxFit.cover),
+          borderRadius: BorderRadius.circular(5),
+        ),
+      ),
+    );
+  }
+}
+
 ///Show Model Bottom Sheet
 
 class CustomBottomSheet extends StatefulWidget {
-  CompanyProjectCubit cubit;
-  int index;
-
-  CustomBottomSheet({
-    required this.cubit,
-    required this.index,
-  });
+  final DataOfProjects project;
+  CustomBottomSheet({required this.project});
 
   @override
   _CustomBottomSheetState createState() => _CustomBottomSheetState();
@@ -287,8 +254,6 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
     int indexBottomSheet = 0;
     return InkWell(
       onTap: () {
-        widget.cubit
-            .changeId(newId: widget.cubit.dataOfProjects[widget.index].id);
         showModalBottomSheet(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25.0),
@@ -299,7 +264,9 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
           builder: (BuildContext context) => Container(
             height: sizeFromHeight(1.1),
             width: 42.w,
-            child: UpdateProjectScreen(),
+            child: UpdateProjectScreen(
+              project: widget.project,
+            ),
           ),
         );
       },
@@ -338,7 +305,7 @@ class CustomTxtFieldCompanyProject extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
           ),
           Container(
@@ -351,7 +318,7 @@ class CustomTxtFieldCompanyProject extends StatelessWidget {
               child: TextFormField(
                 decoration: InputDecoration(
                     hintText: "${hint}",
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                       borderSide: BorderSide.none,
                     )),
               ),
@@ -379,7 +346,7 @@ class CustomTxtFieldDescription extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
           ),
           Container(
@@ -391,7 +358,7 @@ class CustomTxtFieldDescription extends StatelessWidget {
             child: TextFormField(
               decoration: InputDecoration(
                 hintText: "$hint",
-                border: OutlineInputBorder(
+                border: const OutlineInputBorder(
                   borderSide: BorderSide.none,
                 ),
               ),

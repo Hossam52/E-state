@@ -26,7 +26,7 @@ class HorizontalScrollList extends StatelessWidget {
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
           var cubit = HomeCubit.get(context);
-          final populars = cubit.popularUnits;
+          final populars = cubit.featuredAndPopularUnits;
           return Container(
             height: sizeFromHeight(5.6),
             alignment: Alignment.bottomCenter,

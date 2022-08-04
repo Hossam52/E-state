@@ -10,9 +10,11 @@ import 'package:osol/User/BussinssLogic/unitCubit/unit_cubit.dart';
 import 'package:osol/shared/constants.dart';
 
 class FilterDialog extends StatelessWidget {
-  const FilterDialog({Key? key, required this.onConfirmFilter})
+  const FilterDialog(
+      {Key? key, required this.onConfirmFilter, this.displayAdvertisor = true})
       : super(key: key);
   final VoidCallback onConfirmFilter;
+  final bool displayAdvertisor;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FilterCubit, FilterStates>(
@@ -178,13 +180,14 @@ class FilterDialog extends StatelessWidget {
                           title: 'Finished Type',
                           svgPath: 'assets/images/home.svg',
                         ),
-                        FilterSection(
-                          list: advisorFilter.list ?? [],
-                          selectedIndex: advisorFilter.selectedIndex,
-                          onChangeIndex: filterCubit.changeAdvisorIndex,
-                          title: 'Advertisor',
-                          svgPath: 'assets/images/home.svg',
-                        ),
+                        if (displayAdvertisor)
+                          FilterSection(
+                            list: advisorFilter.list ?? [],
+                            selectedIndex: advisorFilter.selectedIndex,
+                            onChangeIndex: filterCubit.changeAdvisorIndex,
+                            title: 'Advertisor',
+                            svgPath: 'assets/images/home.svg',
+                          ),
                       ],
                     ),
                   ),

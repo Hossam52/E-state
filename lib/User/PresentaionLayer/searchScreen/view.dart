@@ -7,12 +7,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
 import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_states.dart';
 import 'package:osol/Shared/Customicon.dart';
+import 'package:osol/Shared/component/search_and_filter_widget.dart';
 import 'package:osol/Shared/constants.dart';
+import 'package:osol/Shared/unit_bookmark.dart';
 import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
 import 'package:osol/User/BussinssLogic/savedCubit/saved_cubit.dart';
 import 'package:osol/User/BussinssLogic/unitCubit/unit_cubit.dart';
 import 'package:osol/User/PresentaionLayer/HomeScreen/HomeScreenView.dart';
 import 'package:osol/User/PresentaionLayer/UnitsScreenDetails/view.dart';
+import 'package:osol/common_models/unit_model.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -21,19 +24,18 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   void initState() {
-    UnitClientCubit.get(context).getAllUnitDetails(context);
     super.initState();
+    FilterCubit.instance(context).resetSearchText();
   }
 
   @override
   Widget build(BuildContext context) {
-    var cubit = UnitClientCubit.get(context);
-    return BlocConsumer<UnitClientCubit, UnitClientState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
-      builder: (context, state) {
-        return Scaffold(
+    return BlocProvider(
+      create: (context) => UnitClientCubit()..getAllUnitDetails(context),
+      child: BlocBuilder<UnitClientCubit, UnitClientState>(
+        builder: (context, state) {
+          var cubit = UnitClientCubit.get(context);
+          return Scaffold(
             backgroundColor: ColorManager.WhiteScreen,
             appBar: AppBar(
               elevation: 0,
@@ -52,7 +54,7 @@ class _SearchScreenState extends State<SearchScreen> {
               centerTitle: true,
               shape: const ContinuousRectangleBorder(
                 borderRadius:
-                    const BorderRadius.vertical(bottom: Radius.circular(10)),
+                    BorderRadius.vertical(bottom: Radius.circular(10)),
               ),
               title: const Text(
                 "Results",
@@ -64,7 +66,17 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               bottom: PreferredSize(
                 preferredSize: Size(60, sizeFromHeight(10)),
-                child: CustomTxtFieldWithSearch(),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: SearchAndFilterWidget(
+                    onConfirmFilter: () {
+                      cubit.getAllUnitDetails(context);
+                    },
+                    onSearch: () {
+                      cubit.getAllUnitDetails(context);
+                    },
+                  ),
+                ),
               ),
             ),
             body: state is ErrorGetUnitClientDetails
@@ -79,38 +91,43 @@ class _SearchScreenState extends State<SearchScreen> {
                       )
                     ],
                   )
-                : cubit.getAllDataList.isEmpty
-                    ? const Center(
-                        child: Text(
-                          "There Is No Data",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                : state is LoadingGetAllUnitClientDetails
+                    ? const Center(child: CircularProgressIndicator())
+                    : cubit.getAllDataList.isEmpty
+                        ? const Center(
+                            child: Text(
+                              "There Is No Data",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            ),
+                          )
+                        : ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: cubit.getAllDataList.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 20, left: 20, right: 20),
+                                  child: HorizontalCard(
+                                    unit: cubit.getAllDataList[index],
+                                  ));
+                            },
                           ),
-                        ),
-                      )
-                    : ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        physics: const BouncingScrollPhysics(),
-                        itemCount: cubit.getAllDataList.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 20, left: 20, right: 20),
-                              child: HorizontalCard(
-                                index: index,
-                              ));
-                        }));
-      },
+          );
+        },
+      ),
     );
   }
 }
 
 class HorizontalCard extends StatelessWidget {
-  int index;
+  final UnitModel unit;
 
-  HorizontalCard({required this.index});
+  HorizontalCard({required this.unit});
 
   @override
   Widget build(BuildContext context) {
@@ -120,12 +137,10 @@ class HorizontalCard extends StatelessWidget {
       },
       builder: (context, state) {
         var cubit = UnitClientCubit.get(context);
-        print("${cubit.getAllDataList[index].images!.first}");
         return InkWell(
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (_) =>
-                  UnitsDetailsScreen(unitId: cubit.getAllDataList[index].id!),
+              builder: (_) => UnitsDetailsScreen(unitId: unit.id!),
             ),
           ),
           child: Material(
@@ -142,18 +157,15 @@ class HorizontalCard extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 5.0, vertical: 5),
-                        child: cubit.getAllDataList == null
-                            ? const CircularProgressIndicator()
-                            : Container(
-                                width: 80.w,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: NetworkImage(cubit
-                                          .getAllDataList[index].images!.first),
-                                      fit: BoxFit.cover),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                              ),
+                        child: Container(
+                          width: 80.w,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: NetworkImage(unit.images!.first),
+                                fit: BoxFit.cover),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                        ),
                       ),
                     ),
                     Expanded(
@@ -168,43 +180,17 @@ class HorizontalCard extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "${cubit.getAllDataList[index].type}",
+                                  "${unit.type}",
                                   style: TextStyle(
                                     color: ColorManager.TextHomeColor,
                                     fontSize: 14.sp,
                                   ),
                                 ),
-                                Padding(
+                                Container(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 8.0),
-                                  child: Container(
-                                    height: 20,
-                                    width: 20,
-                                    alignment: Alignment.center,
-                                    decoration: const BoxDecoration(),
-                                    child: IconButton(
-                                        onPressed: () {},
-                                        icon: Container(
-                                          decoration: BoxDecoration(
-                                              color:
-                                                  Colors.white.withOpacity(0.6),
-                                              borderRadius:
-                                                  BorderRadius.circular(5)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: FaIcon(
-                                              cubit.getAllDataList[index]
-                                                          .authFavourite ==
-                                                      true
-                                                  ? FontAwesomeIcons
-                                                      .solidBookmark
-                                                  : FontAwesomeIcons.bookmark,
-                                              color:
-                                                  ColorManager.OnBoardingScreen,
-                                              size: 16,
-                                            ),
-                                          ),
-                                        )),
+                                  child: UnitBookmark(
+                                    unit: unit,
                                   ),
                                 ),
                               ],
@@ -221,7 +207,7 @@ class HorizontalCard extends StatelessWidget {
                                   width: 2,
                                 ),
                                 Text(
-                                  "${cubit.getAllDataList[index].city} , ${cubit.getAllDataList[index].country}",
+                                  "${unit.city} , ${unit.country}",
                                   style: TextStyle(fontSize: 10.sp),
                                 )
                               ],
@@ -231,8 +217,7 @@ class HorizontalCard extends StatelessWidget {
                               children: [
                                 Text.rich(TextSpan(children: [
                                   TextSpan(
-                                    text:
-                                        "\$ ${cubit.getAllDataList[index].price} ",
+                                    text: "\$ ${unit.price} ",
                                     style: TextStyle(
                                         color: ColorManager.OnBoardingScreen),
                                   ),
@@ -255,7 +240,7 @@ class HorizontalCard extends StatelessWidget {
                                     size: 12,
                                   ),
                                   Text(
-                                    "${cubit.getAllDataList[index].area} m²",
+                                    "${unit.area} m²",
                                     style: TextStyle(
                                         color: ColorManager.TextHomeColor,
                                         fontSize: 12),
@@ -269,7 +254,7 @@ class HorizontalCard extends StatelessWidget {
                                     size: 12,
                                   ),
                                   Text(
-                                    "${cubit.getAllDataList[index].bathroom}",
+                                    "${unit.bathroom}",
                                     style: TextStyle(
                                         color: ColorManager.TextHomeColor,
                                         fontSize: 12),
@@ -283,7 +268,7 @@ class HorizontalCard extends StatelessWidget {
                                     color: Colors.grey[400],
                                   ),
                                   Text(
-                                    "${cubit.getAllDataList[index].bedrooms}",
+                                    "${unit.bedrooms}",
                                     style: TextStyle(
                                         color: ColorManager.TextHomeColor,
                                         fontSize: 12),

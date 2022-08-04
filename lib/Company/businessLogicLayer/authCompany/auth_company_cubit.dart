@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -50,7 +51,7 @@ class AuthCompanyCubit extends Cubit<AuthCompanyState> {
       Response response =
           await DioHelper.postData(url: authRegisterCompanyURL, data: {
         "name": "$name",
-        "image":await DioHelper.uploadFile(imageData!),
+        "image": await DioHelper.uploadFile(imageData!),
         "email": "$email",
         "password": "$password",
         "password_confirmation": "$confirmPassword",
@@ -148,6 +149,7 @@ class AuthCompanyCubit extends Cubit<AuthCompanyState> {
       if (response.statusCode == 200 && response.data["status"] == true) {
         debugPrint("OTP Responce:${response}");
         emit(SuccessSendOTP());
+        log(response.data.toString());
         Fluttertoast.showToast(
             msg: "${response.data["message"]}",
             toastLength: Toast.LENGTH_SHORT,

@@ -6,9 +6,12 @@ class CustomTxtFieldYoutubeAddUnit extends StatelessWidget {
   String hint;
   String title;
   TextEditingController controller;
-
+  String? Function(String?)? validator;
   CustomTxtFieldYoutubeAddUnit(
-      {required this.title, required this.hint, required this.controller});
+      {required this.title,
+      required this.hint,
+      required this.controller,
+      this.validator});
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +34,7 @@ class CustomTxtFieldYoutubeAddUnit extends StatelessWidget {
             ),
             child: Center(
               child: TextFormField(
+                validator: validator,
                 toolbarOptions: ToolbarOptions(
                   copy: true,
                   cut: true,

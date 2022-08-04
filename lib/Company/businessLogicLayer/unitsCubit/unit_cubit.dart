@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
 import 'package:open_location_picker/open_location_picker.dart';
+import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
 import 'package:osol/Company/dataLayer/dataModel/addUnit/addUnitModel.dart';
 import 'package:osol/Company/dataLayer/dataModel/features/featuresModel.dart';
 import 'package:osol/Company/dataLayer/dataModel/pobular/popularModel.dart';
@@ -21,9 +22,14 @@ import '../../../User/DataLayer/localDataLayer/localData.dart';
 
 part 'unit_state.dart';
 
-class UnitCubit extends Cubit<UnitState> {
-  UnitCubit() : super(UnitInitial());
+enum SearchInEnum {
+  feature,
+  popular,
+}
 
+class UnitCubit extends Cubit<UnitState> {
+  UnitCubit(this.context) : super(UnitInitial());
+  final BuildContext context;
   static UnitCubit get(context) => BlocProvider.of(context);
 
   ///ListIn addUnit
@@ -34,6 +40,7 @@ class UnitCubit extends Cubit<UnitState> {
     "Commercial",
     "Medical"
   ];
+
   List<String> Views = ["front", "back"];
   List<String> adsType = ["Feature", "Popular"];
   List<String> purpose = ['Sale', 'Rent'];
@@ -69,6 +76,10 @@ class UnitCubit extends Cubit<UnitState> {
   String? descriptionValue;
   String? availabe;
   String? paymentMethodValue;
+
+  void initAdsType(String? val) {
+    adsTypeValue = val;
+  }
 
   void initDropDownValues(CommonCubit commonCubit, UnitModel unit) {
     ViewsValue = unit.view;
@@ -308,6 +319,12 @@ class UnitCubit extends Cubit<UnitState> {
     }
   }
 
+  void removeUnitById(int? unitId) {
+    getDataFeature.removeWhere((element) => element.id == unitId);
+    getDataPopular.removeWhere((element) => element.id == unitId);
+    emit(RemoveUnitByIdState());
+  }
+
   ///Get Features
   GetAllFeaturesCompanyModel? getAllFeaturesCompanyModel;
   List<UnitModel> getDataFeature = [];
@@ -323,19 +340,31 @@ class UnitCubit extends Cubit<UnitState> {
     emit(ChangeCurrentPageInUnit());
   }
 
-  Future getAllFeatures() async {
-    emit(LoadingGetFeaturesData());
+  Future getAllFeatures({bool useFilters = false}) async {
     final companyToken = await Shared.prefGetString(key: "CompanyTokenVerify");
     Response response;
     try {
+      emit(LoadingGetFeaturesData());
+      final Map<String, dynamic> data = {
+        'add_type': 'Feature',
+        'status': 'Accepted'
+      };
+      if (useFilters) {
+        final filters = FilterCubit.instance(context).getFilterResults.toMap();
+        final searchText = FilterCubit.instance(context).searchText;
+        data.addAll(filters);
+        data.addAll({'text': searchText});
+      }
       response = await DioHelper.postDataWithAuth(
           url: getFeatureAndPopularUnitURL,
-          data: {
-            "add_type": "Feature",
-            "status": "Accepted",
-          },
+          data: data,
+          // {
+          //   "add_type": "Feature",
+          //   "status": "Accepted",
+          // },
           token: companyToken);
       if (response.statusCode == 200) {
+        getDataFeature.clear();
         getAllFeaturesCompanyModel =
             GetAllFeaturesCompanyModel.fromJson(response.data);
         getAllFeaturesCompanyModel?.units?.data!.forEach((element) {
@@ -359,6 +388,7 @@ class UnitCubit extends Cubit<UnitState> {
       }
     } catch (e) {
       debugPrint("${e.toString()}");
+      emit(ErrorGetFeaturesData());
     }
   }
 
@@ -367,33 +397,49 @@ class UnitCubit extends Cubit<UnitState> {
   List<UnitModel> getDataPopular = [];
   List<String> imagesPobular = [];
 
-  Future getAllPobular() async {
-    emit(LoadingGetPopularData());
-    final companyToken = await Shared.prefGetString(key: "CompanyTokenVerify");
-    Response response;
-    response = await DioHelper.postDataWithAuth(
-        url: getFeatureAndPopularUnitURL,
-        data: {
-          "add_type": "Popular",
-          "status": "Accepted",
-        },
-        token: companyToken);
-    if (response.statusCode == 200) {
-      getAllPobularCompanyModel = PopularModel.fromJson(response.data);
-      getDataPopular.clear();
-      getAllPobularCompanyModel?.units?.data!.forEach((element) {
-        getDataPopular.add(element);
-      });
-      if (state is SuccessGetPopularData) images.clear();
-      getDataPopular.forEach((element) {
-        element.images?.forEach((element) {
-          images.add(element);
+  Future getAllPobular({bool useFilters = false}) async {
+    try {
+      emit(LoadingGetPopularData());
+      final companyToken =
+          await Shared.prefGetString(key: "CompanyTokenVerify");
+      Response response;
+      final Map<String, dynamic> data = {
+        'add_type': 'Popular',
+        'status': 'Accepted'
+      };
+      if (useFilters) {
+        final filters = FilterCubit.instance(context).getFilterResults.toMap();
+        final searchText = FilterCubit.instance(context).searchText;
+        data.addAll(filters);
+        data.addAll({'text': searchText});
+      }
+      response = await DioHelper.postDataWithAuth(
+          url: getFeatureAndPopularUnitURL,
+          data: data,
+          // {
+          //   "add_type": "Popular",
+          //   "status": "Accepted",
+          // },
+          token: companyToken);
+      if (response.statusCode == 200) {
+        getAllPobularCompanyModel = PopularModel.fromJson(response.data);
+        getDataPopular.clear();
+        getAllPobularCompanyModel?.units?.data!.forEach((element) {
+          getDataPopular.add(element);
         });
-      });
-      emit(SuccessGetPopularImageData());
+        if (state is SuccessGetPopularData) images.clear();
+        getDataPopular.forEach((element) {
+          element.images?.forEach((element) {
+            images.add(element);
+          });
+        });
+        emit(SuccessGetPopularImageData());
+      }
+      log("${getDataPopular}");
+      emit(SuccessGetPopularData());
+    } catch (e) {
+      emit(ErrorGetPopularData());
     }
-    log("${getDataPopular}");
-    emit(SuccessGetPopularData());
   }
 
   Future getAllFunction() async {
@@ -809,7 +855,7 @@ class UnitCubit extends Cubit<UnitState> {
             color: Colors.green,
             msg: "تم التعديل بنجاح",
           );
-          Navigator.of(context).pop();
+          Navigator.of(context).pop(true);
           print(unitData);
         }
       }
@@ -838,6 +884,58 @@ class UnitCubit extends Cubit<UnitState> {
       emit(SuccessDeleteUnitState());
     } else {
       emit(ErrorDeleteUnitState());
+    }
+  }
+
+  //For displaying unit
+  UnitModel? unit;
+  Future<void> getUnitById(String unitId) async {
+    try {
+      emit(GetUnitLoadingState());
+      final companyToken =
+          await Shared.prefGetString(key: "CompanyTokenVerify");
+
+      Response response = await DioHelper.postDataWithAuth(
+        url: companyGetUnitById,
+        data: {"unit_id": unitId},
+        token: companyToken,
+      );
+      log(response.data.toString());
+      if (response.statusCode == 200) {
+        unit = UnitModel.fromJson(response.data["units"]);
+      }
+      emit(GetUnitSuccessState());
+    } catch (e) {
+      emit(GetUnitErrorState(error: e.toString()));
+    }
+  }
+
+//For searching in units [Featured,populars]
+  SearchInEnum selectedSearchIn = SearchInEnum.feature;
+  void changeSelectedSearchType(SearchInEnum type) async {
+    selectedSearchIn = type;
+    emit(ChangeSelectedSearchType());
+    await searchInUnits();
+  }
+
+  Future<void> searchInUnits() async {
+    switch (selectedSearchIn) {
+      case SearchInEnum.feature:
+        await getAllFeatures(useFilters: true);
+        break;
+      case SearchInEnum.popular:
+        await getAllPobular(useFilters: true);
+        break;
+      default:
+    }
+  }
+
+  List<UnitModel> get getUnitsBySearchType {
+    switch (selectedSearchIn) {
+      case SearchInEnum.feature:
+        return getDataFeature;
+      case SearchInEnum.popular:
+        return getDataPopular;
     }
   }
 }

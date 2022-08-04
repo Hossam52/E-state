@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -30,12 +32,14 @@ class AuthCubit extends Cubit<AuthState> {
   AuthCubit({this.token, this.accessType}) : super(AuthInitial());
 
   static AuthCubit get(context) => BlocProvider.of(context);
-/// change suffix icon
-  bool suffix=true;
-  changeSuffixIcon(){
-    suffix=!suffix;
+
+  /// change suffix icon
+  bool suffix = true;
+  changeSuffixIcon() {
+    suffix = !suffix;
     emit(ChangeInSuffixIcon());
   }
+
   ///RegisterCubit
   String? email;
   String? name;
@@ -261,6 +265,7 @@ class AuthCubit extends Cubit<AuthState> {
             fontSize: 16.0);
       }
       if (response.data["status"] == true && response.data["type"] == 0) {
+        log(response.data.toString());
         debugPrint(response.data["message"]);
         emit(ErrorVerifyBeforeSignIn());
         Fluttertoast.showToast(

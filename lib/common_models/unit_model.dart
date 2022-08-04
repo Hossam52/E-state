@@ -278,4 +278,8 @@ class UnitModel {
     data['auth_Favourite'] = authFavourite;
     return data;
   }
+
+  void toggleFavorite() {
+    authFavourite = !authFavourite!;
+  }
 }

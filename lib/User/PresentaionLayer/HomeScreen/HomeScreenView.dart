@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +13,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
 import 'package:osol/Shared/component/filter_dialog.dart';
 import 'package:osol/Shared/customBottomAppBar.dart';
+import 'package:osol/Shared/unit_bookmark.dart';
 import 'package:osol/User/BussinssLogic/AppSettingCubit/app_setting_cubit.dart';
 import 'package:osol/User/BussinssLogic/authCubit/auth_cubit.dart';
 import 'package:osol/User/BussinssLogic/commonCubit/profieCubit/profile_cubit.dart';
@@ -103,9 +106,7 @@ class _HomeScreenUserViewState extends State<HomeScreenUserView> {
   Widget build(BuildContext context) {
     var cubit = HomeCubit.get(context);
     var cubit2 = ProfileCubit.get(context);
-    ProfileCubit.get(context).profileDate.isEmpty
-        ? ProfileCubit.get(context).getProfileData()
-        : null;
+
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -259,41 +260,11 @@ class CardHomeDetailsUserView extends StatelessWidget {
                             Positioned(
                               left: sizeFromWidth(1.8),
                               child: IconButton(
-                                  onPressed: () {
-                                    SavedCubit.get(context)
-                                        .setSave(unitId: unit.id);
-
-                                    cubit.getFeatureOfClientHome();
-                                  },
-                                  icon: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.white.withOpacity(0.6),
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: unit.authFavourite == true
-                                          // ||
-                                          //     cubit.color == true
-                                          ? InkWell(
-                                              onTap: () => cubit.changeColor(),
-                                              child: FaIcon(
-                                                FontAwesomeIcons.solidBookmark,
-                                                color: ColorManager
-                                                    .OnBoardingScreen,
-                                                size: 16,
-                                              ),
-                                            )
-                                          : InkWell(
-                                              onTap: () => cubit.changeColor(),
-                                              child: FaIcon(
-                                                FontAwesomeIcons.bookmark,
-                                                color: ColorManager
-                                                    .OnBoardingScreen,
-                                                size: 16,
-                                              ),
-                                            ),
-                                    ),
-                                  )),
+                                onPressed: () {
+                                  cubit.toggleFavorite(context, unit);
+                                },
+                                icon: UnitBookmark(unit: unit),
+                              ),
                             ),
                             Positioned(
                               height: sizeFromHeight(2.8),

@@ -13,6 +13,8 @@ class LoadingGetProfileDataStatus extends ProfileCompanyState {}
 
 class SuccessGetProfileDataStatus extends ProfileCompanyState {}
 
+class ErrorGetProfileDataStatus extends ProfileCompanyState {}
+
 class ChangeImageUpdateState extends ProfileCompanyState {}
 
 class ErrorUpdateData extends ProfileCompanyState {}

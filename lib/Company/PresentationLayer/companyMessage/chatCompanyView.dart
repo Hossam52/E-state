@@ -75,7 +75,9 @@ class ChatCompanyView extends StatelessWidget {
                                 .collection("users")
                                 .doc(email)
                                 .collection("userCompany")
-                                .doc(ProfileCompanyCubit.get(context).email)
+                                .doc(ProfileCompanyCubit.get(context)
+                                    .companyProfile
+                                    ?.email)
                                 .collection("message")
                                 .orderBy("time")
                                 .snapshots(),
@@ -95,7 +97,9 @@ class ChatCompanyView extends StatelessWidget {
                                 final txt = item.get("text");
                                 final messageWidget = ChatWidget(
                                   email: email ==
-                                      ProfileCompanyCubit.get(context).email,
+                                      ProfileCompanyCubit.get(context)
+                                          .companyProfile
+                                          ?.email,
                                   time: '33',
                                   txt: '$txt',
                                   img: '$imgSnder',
@@ -152,16 +156,19 @@ class ChatCompanyView extends StatelessWidget {
                                           .doc(email)
                                           .collection("userCompany")
                                           .doc(ProfileCompanyCubit.get(context)
-                                              .email)
+                                              .companyProfile
+                                              ?.email)
                                           .collection("message")
                                           .add({
                                           "text": messageText.toString(),
                                           "email":
                                               ProfileCompanyCubit.get(context)
-                                                  .email,
+                                                  .companyProfile
+                                                  ?.email,
                                           "image":
                                               ProfileCompanyCubit.get(context)
-                                                  .image,
+                                                  .companyProfile
+                                                  ?.image,
                                           "time": FieldValue.serverTimestamp(),
                                           "timenow":
                                               "${_now.hour}:${_now.minute}"
@@ -224,7 +231,7 @@ class ChatWidget extends StatelessWidget {
                         )),
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
-                      child:Text(
+                      child: Text(
                         "$txt",
                         textAlign: TextAlign.end,
                         maxLines: 4,

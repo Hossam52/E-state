@@ -279,7 +279,7 @@ class CustomWriteReview extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
-                        flex:5,
+                        flex: 5,
                         child: Container(
                           height: sizeFromHeight(12),
                           width: sizeFromWidth(1.37),

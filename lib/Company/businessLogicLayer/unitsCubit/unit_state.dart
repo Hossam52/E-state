@@ -122,3 +122,18 @@ class LoadingDeleteUnitState extends UnitState {}
 class SuccessDeleteUnitState extends UnitState {}
 
 class ErrorDeleteUnitState extends UnitState {}
+
+//GetUnit online fetch data
+class GetUnitLoadingState extends UnitState {}
+
+class GetUnitSuccessState extends UnitState {}
+
+class GetUnitErrorState extends UnitState {
+  final String error;
+  GetUnitErrorState({required this.error});
+}
+
+class RemoveUnitByIdState extends UnitState {}
+
+//For searching
+class ChangeSelectedSearchType extends UnitState {}

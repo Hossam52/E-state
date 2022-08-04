@@ -1,7 +1,8 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:osol/Company/businessLogicLayer/profilecompanyCubit/profile_company_cubit.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart';
+import 'package:path/path.dart' as path;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -43,6 +44,21 @@ class _UpdateCompanyScreenState extends State<UpdateCompanyScreen> {
   GlobalKey<FormState> myForm = GlobalKey();
 
   @override
+  void initState() {
+    super.initState();
+    final companyProfile = ProfileCompanyCubit.get(context).companyProfile;
+    companyNameController.text = companyProfile?.name ?? '';
+    companyEmailController.text = companyProfile?.email ?? '';
+    companyPhoneController.text = companyProfile?.phone ?? '';
+    companyBranchNumController.text =
+        companyProfile?.branchesNum?.toString() ?? '';
+    companyAboutController.text = companyProfile?.about ?? '';
+    companyAddressController.text = companyProfile?.address ?? '';
+    companyTypeController.text = companyProfile?.type ?? '';
+    companyRegisterNumController.text = companyProfile?.regestrationNum ?? '';
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocListener<ProfileCompanyCubit, ProfileCompanyState>(
       listener: (context, state) {
@@ -62,8 +78,8 @@ class _UpdateCompanyScreenState extends State<UpdateCompanyScreen> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Padding(
-              padding: const EdgeInsets.only(left: 8.0),
+            icon: const Padding(
+              padding: EdgeInsets.only(left: 8.0),
               child: Icon(
                 Icons.arrow_back_ios,
                 color: Colors.black54,
@@ -71,11 +87,11 @@ class _UpdateCompanyScreenState extends State<UpdateCompanyScreen> {
               ),
             ),
           ),
-          shape: ContinuousRectangleBorder(
+          shape: const ContinuousRectangleBorder(
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
           ),
           centerTitle: false,
-          title: Text(
+          title: const Text(
             "Edit Company Profile",
             style: TextStyle(
               fontSize: 24,
@@ -87,7 +103,7 @@ class _UpdateCompanyScreenState extends State<UpdateCompanyScreen> {
         body: Form(
           key: myForm,
           child: CustomScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             slivers: [
               SliverToBoxAdapter(
                 child: Padding(
@@ -171,14 +187,12 @@ class _UpdateCompanyScreenState extends State<UpdateCompanyScreen> {
                               padding:
                                   const EdgeInsets.symmetric(vertical: 8.0),
                               child: CustomSelectListRegister(
-                                myList: cubit.countryData == null
-                                    ? []
-                                    : cubit.countryData,
+                                myList: cubit.countryData,
                                 title: "Country",
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 8,
                           ),
                           Expanded(
@@ -186,9 +200,7 @@ class _UpdateCompanyScreenState extends State<UpdateCompanyScreen> {
                               padding:
                                   const EdgeInsets.symmetric(vertical: 8.0),
                               child: CustomSelectListCities(
-                                myList: cubit.cityData == null
-                                    ? []
-                                    : cubit.cityData,
+                                myList: cubit.cityData,
                                 title: "City",
                               ),
                             ),
@@ -294,7 +306,7 @@ class _UpdateCompanyScreenState extends State<UpdateCompanyScreen> {
                         builder: (context, state) {
                           var cubit = ProfileCompanyCubit.get(context);
                           return state is LoadingpdateCompanyProfile
-                              ? Center(
+                              ? const Center(
                                   child: CircularProgressIndicator(),
                                 )
                               : InkWell(
@@ -331,7 +343,7 @@ class _UpdateCompanyScreenState extends State<UpdateCompanyScreen> {
                                               ColorManager.AppBarIconcolorGrey
                                                   .withOpacity(0.08),
                                         )),
-                                    child: Center(
+                                    child: const Center(
                                       child: Text(
                                         "Save",
                                         style: TextStyle(
@@ -376,7 +388,7 @@ class _CustomIAddLogoCompaniesState extends State<CustomIAddLogoCompanies> {
       });
     } on PlatformException catch (e) {
       Fluttertoast.showToast(
-          msg: "${e.toString()}",
+          msg: e.toString(),
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
@@ -388,7 +400,7 @@ class _CustomIAddLogoCompaniesState extends State<CustomIAddLogoCompanies> {
 
   Future<File> saveImagePermanently(String imagePath) async {
     final directory = await getApplicationDocumentsDirectory();
-    final name = basename(imagePath);
+    final name = path.basename(imagePath);
     final image = File("${directory.path}/$name");
     return File(imagePath).copy(image.path);
   }
@@ -398,6 +410,7 @@ class _CustomIAddLogoCompaniesState extends State<CustomIAddLogoCompanies> {
     return BlocBuilder<ProfileCompanyCubit, ProfileCompanyState>(
       builder: (context, state) {
         var cubit = ProfileCompanyCubit.get(context);
+        final company = cubit.companyProfile;
 
         return InkWell(
           onTap: () => ImagePick().then((value) {
@@ -420,30 +433,47 @@ class _CustomIAddLogoCompaniesState extends State<CustomIAddLogoCompanies> {
                           : Border.all(
                               color: ColorManager.onboardingColorDots)),
                   child: image != null
-                      ? CircleAvatar(
-                          radius: sizeFromWidth(12),
-                          backgroundColor: ColorManager.WhiteScreen,
+                      ? Container(
+                          width: 2 * sizeFromWidth(12),
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            shape: BoxShape.circle,
+                          ),
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
                           child: Image.file(
                             image!,
                             fit: BoxFit.cover,
                           ))
-                      : CircleAvatar(
-                          radius: sizeFromWidth(12),
-                          backgroundColor: ColorManager.WhiteScreen,
-                          child: image != null
-                              ? Image.file(
-                                  image!,
-                                  fit: BoxFit.cover,
-                                )
-                              : SvgPicture.asset(
-                                  "assets/images/upimage.svg",
-                                )),
+                      : (company?.image) != null
+                          ? CircleAvatar(
+                              radius: sizeFromWidth(12),
+                              backgroundColor: ColorManager.WhiteScreen,
+                              backgroundImage:
+                                  CachedNetworkImageProvider(company!.image!
+
+                                      // ,  fit: BoxFit.cover,
+                                      ),
+                              // child: Image.file(
+                              //   company!.image!,
+                              // ),
+                            )
+                          : CircleAvatar(
+                              radius: sizeFromWidth(12),
+                              backgroundColor: ColorManager.WhiteScreen,
+                              child: image != null
+                                  ? Image.file(
+                                      image!,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : SvgPicture.asset(
+                                      "assets/images/upimage.svg",
+                                    )),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.0),
                   child: Icon(Icons.add),
                 ),
-                Text(
+                const Text(
                   "Upload Company Logo",
                   style: TextStyle(
                     color: Colors.black,
@@ -491,7 +521,7 @@ class CustomTxtFieldCompanyProfile extends StatelessWidget {
               child: Container(
                 child: Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w600,
                       fontSize: 16),
@@ -513,8 +543,8 @@ class CustomTxtFieldCompanyProfile extends StatelessWidget {
                 controller: controller,
                 validator: validator,
                 decoration: InputDecoration(
-                    hintText: "${hint}",
-                    border: OutlineInputBorder(
+                    hintText: hint,
+                    border: const OutlineInputBorder(
                       borderSide: BorderSide.none,
                     )),
               ),
@@ -542,7 +572,7 @@ class CustomTxtFieldSuffixIcon extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
           ),
           Container(
@@ -554,12 +584,12 @@ class CustomTxtFieldSuffixIcon extends StatelessWidget {
             child: Center(
               child: TextFormField(
                 decoration: InputDecoration(
-                    hintText: "${hint}",
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
+                    hintText: hint,
+                    suffixIcon: const Padding(
+                      padding: EdgeInsets.only(top: 8.0),
                       child: FaIcon(FontAwesomeIcons.link),
                     ),
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                       borderSide: BorderSide.none,
                     )),
               ),
@@ -593,7 +623,7 @@ class CustomSelectListProfile extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w600,
                     fontSize: 16),
@@ -615,8 +645,8 @@ class CustomSelectListProfile extends StatelessWidget {
               ),
               child: DropdownButton<String>(
                 isExpanded: true,
-                underline: SizedBox(),
-                hint: Text("Select"),
+                underline: const SizedBox(),
+                hint: const Text("Select"),
                 items: <String>['1', '2', '3'].map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
@@ -649,7 +679,7 @@ class CustomTxtFieldSocialCompany extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
           ),
           Container(
@@ -662,12 +692,12 @@ class CustomTxtFieldSocialCompany extends StatelessWidget {
             child: Center(
               child: TextFormField(
                 decoration: InputDecoration(
-                    hintText: "${hint}",
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
+                    hintText: hint,
+                    suffixIcon: const Padding(
+                      padding: EdgeInsets.only(top: 8.0),
                       child: FaIcon(FontAwesomeIcons.link),
                     ),
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                       borderSide: BorderSide.none,
                     )),
               ),
@@ -702,7 +732,7 @@ class CustomTxtFieldAboutCompany extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
           ),
           Container(
@@ -717,8 +747,8 @@ class CustomTxtFieldAboutCompany extends StatelessWidget {
               controller: controller,
               validator: validator,
               decoration: InputDecoration(
-                hintText: "$hint",
-                border: OutlineInputBorder(
+                hintText: hint,
+                border: const OutlineInputBorder(
                   borderSide: BorderSide.none,
                 ),
               ),
@@ -753,7 +783,7 @@ class CustomTxtFieldComplexNumber extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
           ),
           Container(
@@ -772,9 +802,9 @@ class CustomTxtFieldComplexNumber extends StatelessWidget {
                         color: Colors.blue.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(5)),
                     child: Padding(
-                      padding: EdgeInsets.only(top: 15),
+                      padding: const EdgeInsets.only(top: 15),
                       child: TextFormField(
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             hintText: "+20",
                             border: OutlineInputBorder(
                               borderSide: BorderSide.none,
@@ -787,13 +817,13 @@ class CustomTxtFieldComplexNumber extends StatelessWidget {
                   flex: 10,
                   child: Container(
                     child: Padding(
-                      padding: EdgeInsets.only(top: 15),
+                      padding: const EdgeInsets.only(top: 15),
                       child: TextFormField(
                         validator: validator,
                         controller: controller,
                         decoration: InputDecoration(
-                            hintText: "${hint}",
-                            border: OutlineInputBorder(
+                            hintText: hint,
+                            border: const OutlineInputBorder(
                               borderSide: BorderSide.none,
                             )),
                       ),

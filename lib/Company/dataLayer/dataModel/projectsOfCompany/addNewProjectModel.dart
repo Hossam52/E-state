@@ -25,6 +25,10 @@ class Project {
   String? title;
   String? long;
   String? lat;
+  String? country_id;
+  String? city_id;
+  String? country;
+  String? city;
   String? deliveryDate;
   String? description;
   String? company;
@@ -37,6 +41,10 @@ class Project {
       this.title,
       this.long,
       this.lat,
+      this.country_id,
+      this.city_id,
+      this.country,
+      this.city,
       this.deliveryDate,
       this.description,
       this.company,
@@ -49,6 +57,10 @@ class Project {
     title = json['title'];
     long = json['long'];
     lat = json['lat'];
+    country_id = json['country_id'];
+    city_id = json['city_id'];
+    country = json['country'];
+    city = json['city'];
     deliveryDate = json['delivery_date'];
     description = json['description'];
     company = json['company'];

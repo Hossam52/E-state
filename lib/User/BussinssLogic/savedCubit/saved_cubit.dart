@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
 import 'package:osol/Shared/component/getShared.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
@@ -15,8 +16,8 @@ import '../../DataLayer/localDataLayer/localData.dart';
 part 'saved_state.dart';
 
 class SavedCubit extends Cubit<SavedState> {
-  SavedCubit() : super(SavedInitial());
-
+  SavedCubit(this.context) : super(SavedInitial());
+  final BuildContext context;
   static SavedCubit get(context) => BlocProvider.of(context);
   final token = Shared.prefGetString(key: "CompanyTokenVerify");
 
@@ -46,24 +47,33 @@ class SavedCubit extends Cubit<SavedState> {
   List<UnitModel> dataUnit = [];
 
   getMySavedData() async {
-    dataUnit.clear();
-    emit(LoadingGetSavedData());
-    Response response;
-    response = await DioHelper.getData(
-      url: getMyFavoriteDataURL,
-      token: token,
-    );
-    if (response.statusCode == 200) {
-      savedGetModel = SavedModel.fromJson(response.data);
-      savedGetModel?.units?.data?.forEach((element) {
-        dataUnit.add(element);
-        debugPrint("Saved unit ${dataUnit}");
-        emit(SuccessGetSavedData());
-      });
-    } else {
-      print("error");
+    try {
+      //  final filterResultsMap =
+      //     FilterCubit.instance(context).getFilterResults.toMap();
+      // final searchText = FilterCubit.instance(context).searchText;
+      // filterResultsMap.addAll({'text': searchText});
+      dataUnit.clear();
+      emit(LoadingGetSavedData());
+      Response response;
+      response = await DioHelper.getData(
+        url: getMyFavoriteDataURL,
+        token: token,
+      );
+      if (response.statusCode == 200) {
+        savedGetModel = SavedModel.fromJson(response.data);
+        savedGetModel?.units?.data?.forEach((element) {
+          dataUnit.add(element);
+          debugPrint("Saved unit ${dataUnit}");
+          emit(SuccessGetSavedData());
+        });
+      } else {
+        print("error");
+      }
+      print("data unit:$dataUnit");
+    } catch (e) {
+      emit(ErrorGetSavedData());
+      // TODO
     }
-    print("data unit:$dataUnit");
   }
 
   ///Filter Screen

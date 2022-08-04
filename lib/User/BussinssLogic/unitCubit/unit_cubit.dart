@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +8,7 @@ import 'package:meta/meta.dart';
 import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
 import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
 import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
+import 'package:osol/User/BussinssLogic/savedCubit/saved_cubit.dart';
 import 'package:osol/User/DataLayer/DataProvider/dioHelper.dart';
 import 'package:osol/common_models/unit_model.dart';
 
@@ -24,7 +27,7 @@ class UnitClientCubit extends Cubit<UnitClientState> {
   static UnitClientCubit get(context) => BlocProvider.of(context);
 
   UnitModel? getUnitByIdModel;
-  List<UnitModel> getUnitByIdList = [];
+  UnitModel? unitById;
   List imagesData = [];
   String? image;
   var unitId;
@@ -42,25 +45,32 @@ class UnitClientCubit extends Cubit<UnitClientState> {
   UnitModel? getUnitByIdSecondModel;
 
   getUnitById(int unitId) async {
-    getUnitByIdList.clear();
-    emit(LoadingGetUnitById());
-    final clienToken = await Shared.prefGetString(key: "CompanyTokenVerify");
-    Response response = await DioHelper.postData(
-      url: getAllUnitByIdURL,
-      data: {"unit_id": unitId},
-      token: clienToken,
-    );
-    if (response.statusCode == 200) {
-      getUnitByIdModel = UnitModel.fromJson(response.data["units"]);
-      getUnitByIdList.add(getUnitByIdModel!);
-      getUnitByIdModel?.images?.forEach((element) {
-        imagesData.add(element);
-        print("dd${element}");
-      });
-      print("print body ${unitAllReviewList}");
-      emit(SuccessGetUnitById());
-    } else {
-      debugPrint("Error Get Unit By Id1");
+    try {
+      unitById = null;
+      emit(LoadingGetUnitById());
+      final clienToken = await Shared.prefGetString(key: "CompanyTokenVerify");
+      log(clienToken.toString());
+
+      Response response = await DioHelper.postData(
+        url: getAllUnitByIdURL,
+        data: {"unit_id": unitId},
+        token: clienToken,
+      );
+      log(response.data.toString());
+      if (response.statusCode == 200) {
+        getUnitByIdModel = UnitModel.fromJson(response.data["units"]);
+        unitById = (getUnitByIdModel!);
+        getUnitByIdModel?.images?.forEach((element) {
+          imagesData.add(element);
+          print("dd${element}");
+        });
+        print("print body ${unitAllReviewList}");
+        emit(SuccessGetUnitById());
+      } else {
+        debugPrint("Error Get Unit By Id1");
+        emit(ErrorGetUnitById());
+      }
+    } catch (e) {
       emit(ErrorGetUnitById());
     }
   }
@@ -137,30 +147,34 @@ class UnitClientCubit extends Cubit<UnitClientState> {
   }
 
   Future getAllUnitReview() async {
-    debugPrint("my id  page$id}");
-    emit(LoadingGetAllReviewState());
-    final String clienToken =
-        await Shared.prefGetString(key: "CompanyTokenVerify");
-    Response response = await DioHelper.postDataWithAuth(
-      url: getAllReviewByUnitIdURL,
-      query: {"page": id},
-      data: {
-        "unit_id": await unitId,
-      },
-      token: clienToken,
-    );
-    if (response.statusCode == 200) {
-      unitAllReviewModel = AllReviews.fromJson(response.data["reviews"]);
-      unitAllReviewModel?.data?.forEach((element) {
-        unitAllReviewList.add(element);
-      });
-      metaUnitReviewLastPage = unitAllReviewModel?.meta?.lastPage;
-      nextPage = unitAllReviewModel?.links?.next;
-      totalUnitReview = unitAllReviewModel?.meta?.total;
-      debugPrint("all unit review${unitAllReviewList}");
-      emit(SuccessGetAllReviewState());
-    } else {
-      debugPrint("Error On Add Review");
+    try {
+      debugPrint("my id  page$id}");
+      emit(LoadingGetAllReviewState());
+      final String clienToken =
+          await Shared.prefGetString(key: "CompanyTokenVerify");
+      Response response = await DioHelper.postDataWithAuth(
+        url: getAllReviewByUnitIdURL,
+        query: {"page": id},
+        data: {
+          "unit_id": await unitId,
+        },
+        token: clienToken,
+      );
+      if (response.statusCode == 200) {
+        unitAllReviewModel = AllReviews.fromJson(response.data["reviews"]);
+        unitAllReviewModel?.data?.forEach((element) {
+          unitAllReviewList.add(element);
+        });
+        metaUnitReviewLastPage = unitAllReviewModel?.meta?.lastPage;
+        nextPage = unitAllReviewModel?.links?.next;
+        totalUnitReview = unitAllReviewModel?.meta?.total;
+        debugPrint("all unit review${unitAllReviewList}");
+        emit(SuccessGetAllReviewState());
+      } else {
+        debugPrint("Error On Add Review");
+        emit(ErrorGetAllReviewState());
+      }
+    } catch (e) {
       emit(ErrorGetAllReviewState());
     }
   }
@@ -258,30 +272,33 @@ class UnitClientCubit extends Cubit<UnitClientState> {
   }
 
   Future getAllUnitDetails(BuildContext context) async {
-    final filterResults = FilterCubit.instance(context).getFilterResults;
-    getAllDataList.clear();
-    emit(LoadingGetAllUnitClientDetails());
-    cToken = await Shared.prefGetString(key: "CompanyTokenVerify");
-    Response response = await DioHelper.postDataWithAuth(
-        url: getAllUnitsdetails,
-        data: {
-          "purpose": filterResults.filterType,
-          "type": filterResults.propertyType,
-          "required_fields": filterResults.requiredFields,
-          "finished_type": filterResults.finishedType,
-          "price_from": filterResults.startPrice,
-          "price_to": filterResults.endPrice,
-        },
-        token: cToken);
-    if (response.statusCode == 200) {
-      debugPrint("get All unit Details data${response.data}");
-      getAllUnitsDetailsModel = GetAllUnitsDetailsModel.fromJson(response.data);
-      getAllUnitsDetailsModel?.units?.data?.forEach((element) {
-        getAllDataList.add(element);
-      });
-      emit(SuccessGetAllUnitClientDetails());
-    } else {
-      debugPrint("Error On Add Review 3--");
+    try {
+      final filterResultsMap =
+          FilterCubit.instance(context).getFilterResults.toMap();
+      final searchText = FilterCubit.instance(context).searchText;
+      filterResultsMap.addAll({'text': searchText});
+      getAllDataList.clear();
+      emit(LoadingGetAllUnitClientDetails());
+      cToken = await Shared.prefGetString(key: "CompanyTokenVerify");
+      Response response = await DioHelper.postDataWithAuth(
+          url: getAllUnitsdetails, data: filterResultsMap, token: cToken);
+      if (response.statusCode == 200) {
+        debugPrint("get All unit Details data${response.data}");
+        getAllUnitsDetailsModel =
+            GetAllUnitsDetailsModel.fromJson(response.data);
+        getAllUnitsDetailsModel?.units?.data?.forEach((element) {
+          if (comparedUnits.indexWhere(
+                  (comparedUnit) => element.id == comparedUnit.id) ==
+              -1) {
+            getAllDataList.add(element);
+          }
+        });
+        emit(SuccessGetAllUnitClientDetails());
+      } else {
+        debugPrint("Error On Add Review 3--");
+        emit(ErrorGetUnitClientDetails());
+      }
+    } catch (e) {
       emit(ErrorGetUnitClientDetails());
     }
   }
@@ -311,32 +328,56 @@ class UnitClientCubit extends Cubit<UnitClientState> {
   }
 
   ///compare Screen
-  int newIndex = 0;
-
-  int index = 0;
-  List<Widget> compareList = [];
-  List compareUnitId = [];
-
-  addCompareToList(Widget widget, {id}) {
-    compareList.add(widget);
-    compareUnitId.add(id);
-    newIndex++;
+  List<UnitModel> comparedUnits = [];
+  void addUnitToCompare(UnitModel unit) {
+    if (comparedUnits.length == 2) return;
+    if (getAllDataList.indexWhere((element) => unit.id == element.id) == -1) {
+      return;
+    }
+    getAllDataList.removeWhere((element) => element.id == unit.id);
+    comparedUnits.add(unit);
     emit(changeInCompareList());
   }
 
-  removeIndexFromCompareList(index, indexnum) {
-    compareList.removeAt(index);
-    unitDetectedId.removeAt(index);
-    compareUnitId.removeAt(index);
-    newIndex = indexnum;
-    emit(RemoveIndexFromCompareList());
+  void toggleCompareItem(UnitModel unit) {
+    log(isUnitAddedToCompare(unit).toString());
+    if (isUnitAddedToCompare(unit)) {
+      removeUnitFromCompare(unit);
+    } else {
+      addUnitToCompare(unit);
+    }
   }
 
-  clearCompareList() {
-    unitDetectedId.length = 0;
-    compareList.length = 0;
-    compareUnitId.length = 0;
-    emit(ClearCompareList());
+  bool isUnitAddedToCompare(UnitModel unit) {
+    return comparedUnits.isEmpty
+        ? false
+        : comparedUnits.indexWhere((element) => unit.id == element.id) != -1;
+  }
+
+  // addCompareToList(Widget widget, {id}) {
+  //   compareList.add(widget);
+  //   compareUnitId.add(id);
+  //   newIndex++;
+  //   emit(changeInCompareList());
+  // }
+  void removeUnitFromCompare(UnitModel unit) {
+    comparedUnits.removeWhere((element) => element.id == unit.id);
+    getAllDataList.add(unit);
+    emit(RemoveIndexFromCompareList());
+  }
+  // removeIndexFromCompareList(index, indexnum) {
+  //   compareList.removeAt(index);
+  //   unitDetectedId.removeAt(index);
+  //   compareUnitId.removeAt(index);
+  //   newIndex = indexnum;
+  //   emit(RemoveIndexFromCompareList());
+  // }
+
+  void toggleFavorite(BuildContext context, UnitModel unit) {
+    SavedCubit.get(context).setSave(unitId: unit.id);
+    // getFeatureOfClientHome();
+    unit.toggleFavorite();
+    emit(ToggleFavorite());
   }
 
   /// map Screen

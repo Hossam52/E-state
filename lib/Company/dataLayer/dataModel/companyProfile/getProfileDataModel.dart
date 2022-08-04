@@ -1,25 +1,26 @@
 class GetProfileDataModel {
   bool? status;
-  RC? rC;
+  CompanyProfile? companyProfile;
 
-  GetProfileDataModel({this.status, this.rC});
+  GetProfileDataModel({this.status, this.companyProfile});
 
   GetProfileDataModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    rC = json['RC'] != null ? new RC.fromJson(json['RC']) : null;
+    companyProfile =
+        json['RC'] != null ? new CompanyProfile.fromJson(json['RC']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = this.status;
-    if (this.rC != null) {
-      data['RC'] = this.rC!.toJson();
+    if (this.companyProfile != null) {
+      data['RC'] = this.companyProfile!.toJson();
     }
     return data;
   }
 }
 
-class RC {
+class CompanyProfile {
   int? id;
   String? name;
   String? email;
@@ -34,7 +35,7 @@ class RC {
   String? regestrationNum;
   String? phone;
 
-  RC(
+  CompanyProfile(
       {this.id,
       this.name,
       this.email,
@@ -49,7 +50,7 @@ class RC {
       this.regestrationNum,
       this.phone});
 
-  RC.fromJson(Map<String, dynamic> json) {
+  CompanyProfile.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     email = json['email'];

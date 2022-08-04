@@ -54,10 +54,10 @@ class CompanyProjectCubit extends Cubit<CompanyProjectState> {
 
   ///add new Project
 
-  String title = "";
+  String date = "";
 
   changeDate(val) async {
-    title = val;
+    date = val;
     emit(ChangeDateState());
   }
 
@@ -82,7 +82,8 @@ class CompanyProjectCubit extends Cubit<CompanyProjectState> {
           "lat": "1225452.25112",
           "delivery_date": deliveryDate,
           "description": descrip,
-          "image": await DioHelper.uploadFile(imageUploadedData!),
+          if (imageUploadedData != null)
+            "image": await DioHelper.uploadFile(imageUploadedData!),
           "num_of_units": numOfUnit,
           "project_id": id,
         },
@@ -105,7 +106,7 @@ class CompanyProjectCubit extends Cubit<CompanyProjectState> {
     response = await DioHelper.postData(
         url: deleteProjectURl,
         data: {
-        "project_id": projectId,
+          "project_id": projectId,
         },
         token: coToken);
     if (response.statusCode == 200 && response.data["status"] == true) {

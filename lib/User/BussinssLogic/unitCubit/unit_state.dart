@@ -27,8 +27,9 @@ class ErrorGetSecondUnitById extends UnitClientState {}
 
 class LoadingGetAllReviewState extends UnitClientState {}
 
-class ChangeIdOfPage extends UnitClientState{}
-class ChangeZeroIdOfPage extends UnitClientState{}
+class ChangeIdOfPage extends UnitClientState {}
+
+class ChangeZeroIdOfPage extends UnitClientState {}
 
 class SuccessGetAllReviewState extends UnitClientState {}
 
@@ -65,3 +66,5 @@ class ChangePropTypeState extends UnitClientState {}
 class ChangeValueOfSlider extends UnitClientState {}
 
 class ChangeTypeOfFilter extends UnitClientState {}
+
+class ToggleFavorite extends UnitClientState {}

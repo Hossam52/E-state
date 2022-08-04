@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:osol/Shared/component/filter_dialog.dart';
+import 'package:osol/Shared/component/search_and_filter_widget.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/Shared/customBottomAppBar.dart';
 import 'package:osol/Shared/custom_mini_appBar.dart';
@@ -49,7 +50,7 @@ class _SavedScreenState extends State<SavedScreen> {
               ),
             ),
             backgroundColor: ColorManager.WhiteScreen,
-            toolbarHeight: 70,
+            // toolbarHeight: 70,
             centerTitle: true,
             title: Text(
               "Saved",
@@ -59,9 +60,10 @@ class _SavedScreenState extends State<SavedScreen> {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            bottom: PreferredSize(
-              preferredSize: Size(70, 70),
-              child: Container(
+          ),
+          body: Column(
+            children: [
+              Container(
                 child: Padding(
                   padding: const EdgeInsets.only(
                     left: 20.0,
@@ -69,82 +71,88 @@ class _SavedScreenState extends State<SavedScreen> {
                   ),
                   child: Column(
                     children: [
-                      Container(
-                        height: sizeFromHeight(14),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 7,
-                                  child: Container(
-                                    height: sizeFromHeight(15),
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        borderRadius: BorderRadius.circular(
-                                          10,
-                                        )),
-                                    child: TextFormField(
-                                      cursorColor: Colors.grey[500],
-                                      cursorHeight: sizeFromHeight(17),
-                                      decoration: InputDecoration(
-                                        contentPadding: EdgeInsets.only(
-                                          bottom: 15,
-                                          left: 10,
-                                        ),
-                                        border: InputBorder.none,
-                                        suffixIcon: Icon(
-                                          Icons.search,
-                                          color: Colors.grey[500],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: InkWell(
-                                    onTap: () {
-                                      showMaterialModalBottomSheet(
-                                        enableDrag: true,
-                                        builder: (context) => FilterDialog(
-                                          onConfirmFilter: () {
-                                            cubit.dataUnit.clear();
-                                            cubit.getMySavedData();
-                                          },
-                                        ),
-                                        context: context,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(20),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Container(
-                                      height: sizeFromHeight(15),
-                                      width: sizeFromWidth(8),
-                                      decoration: BoxDecoration(
-                                        color: ColorManager.AppBarHomeColorIcon,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: SvgPicture.asset(
-                                          "assets/images/slider.svg",
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                      // SearchAndFilterWidget(
+                      //   onConfirmFilter: () {
+                      //     cubit.getMySavedData();
+                      //   },
+                      //   onSearch: () {},
+                      // ),
+                      // Container(
+                      //   height: sizeFromHeight(14),
+                      //   child: Column(
+                      //     children: [
+                      //       Row(
+                      //         children: [
+                      //           Expanded(
+                      //             flex: 7,
+                      //             child: Container(
+                      //               height: sizeFromHeight(15),
+                      //               decoration: BoxDecoration(
+                      //                   color: Colors.grey[200],
+                      //                   borderRadius: BorderRadius.circular(
+                      //                     10,
+                      //                   )),
+                      //               child: TextFormField(
+                      //                 cursorColor: Colors.grey[500],
+                      //                 cursorHeight: sizeFromHeight(17),
+                      //                 decoration: InputDecoration(
+                      //                   contentPadding: EdgeInsets.only(
+                      //                     bottom: 15,
+                      //                     left: 10,
+                      //                   ),
+                      //                   border: InputBorder.none,
+                      //                   suffixIcon: Icon(
+                      //                     Icons.search,
+                      //                     color: Colors.grey[500],
+                      //                   ),
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ),
+                      //           SizedBox(
+                      //             width: 5,
+                      //           ),
+                      //           Expanded(
+                      //             flex: 1,
+                      //             child: InkWell(
+                      //               onTap: () {
+                      //                 showMaterialModalBottomSheet(
+                      //                   enableDrag: true,
+                      //                   builder: (context) => FilterDialog(
+                      //                     onConfirmFilter: () {
+                      //                       cubit.dataUnit.clear();
+                      //                       cubit.getMySavedData();
+                      //                     },
+                      //                   ),
+                      //                   context: context,
+                      //                   shape: RoundedRectangleBorder(
+                      //                     borderRadius: BorderRadius.vertical(
+                      //                       top: Radius.circular(20),
+                      //                     ),
+                      //                   ),
+                      //                 );
+                      //               },
+                      //               child: Container(
+                      //                 height: sizeFromHeight(15),
+                      //                 width: sizeFromWidth(8),
+                      //                 decoration: BoxDecoration(
+                      //                   color: ColorManager.AppBarHomeColorIcon,
+                      //                   borderRadius: BorderRadius.circular(10),
+                      //                 ),
+                      //                 child: Padding(
+                      //                   padding: const EdgeInsets.all(8.0),
+                      //                   child: SvgPicture.asset(
+                      //                     "assets/images/slider.svg",
+                      //                   ),
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -225,42 +233,46 @@ class _SavedScreenState extends State<SavedScreen> {
                   ),
                 ),
               ),
-            ),
+              Expanded(
+                child: cubit.toggleSaved == 0
+                    ? ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        physics: BouncingScrollPhysics(),
+                        itemCount: cubit.dataUnit.length != null
+                            ? cubit.dataUnit.length
+                            : 3,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 20, left: 20, right: 20),
+                              child: HorizontalCard(
+                                unit: cubit.dataUnit[index],
+                              ));
+                        })
+                    : Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: GridView.builder(
+                          itemCount: cubit.dataUnit.length != null
+                              ? cubit.dataUnit.length
+                              : 3,
+                          physics: BouncingScrollPhysics(),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 20,
+                            crossAxisSpacing: 20,
+                            childAspectRatio: 2.5 / 2,
+                          ),
+                          itemBuilder: (BuildContext context, int index) {
+                            return gridCards(
+                              index: index,
+                            );
+                          },
+                        ),
+                      ),
+              ),
+            ],
           ),
-          body: cubit.toggleSaved == 0
-              ? ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  physics: BouncingScrollPhysics(),
-                  itemCount:
-                      cubit.dataUnit.length != null ? cubit.dataUnit.length : 3,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                        padding:
-                            const EdgeInsets.only(top: 20, left: 20, right: 20),
-                        child: HorizontalCard(
-                          index: index,
-                        ));
-                  })
-              : Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: GridView.builder(
-                    itemCount: cubit.dataUnit.length != null
-                        ? cubit.dataUnit.length
-                        : 3,
-                    physics: BouncingScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 20,
-                      crossAxisSpacing: 20,
-                      childAspectRatio: 2.5 / 2,
-                    ),
-                    itemBuilder: (BuildContext context, int index) {
-                      return gridCards(
-                        index: index,
-                      );
-                    },
-                  ),
-                ),
         );
       },
     );

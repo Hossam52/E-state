@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
@@ -6,8 +8,12 @@ import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
 import 'package:osol/User/BussinssLogic/unitCubit/unit_cubit.dart';
 import 'package:osol/User/PresentaionLayer/DawerScreen/view.dart';
+import 'package:osol/common_models/unit_model.dart';
 
 class ComparingScreen extends StatefulWidget {
+  const ComparingScreen({
+    Key? key,
+  }) : super(key: key);
   @override
   State<ComparingScreen> createState() => _ComparingScreenState();
 }
@@ -16,15 +22,6 @@ class _ComparingScreenState extends State<ComparingScreen> {
   @override
   void initState() {
     super.initState();
-    UnitClientCubit.get(context).secondUnit.isEmpty ||
-            UnitClientCubit.get(context).firstUnit.isEmpty
-        ? UnitClientCubit.get(context).getAllData.call()
-        : print("${UnitClientCubit.get(context).unitDetectedId[1]}");
-  }
-
-  onWillPopFunction(context) {
-    UnitClientCubit.get(context).secondUnit.clear();
-    UnitClientCubit.get(context).firstUnit.clear();
   }
 
   @override
@@ -34,22 +31,20 @@ class _ComparingScreenState extends State<ComparingScreen> {
       builder: (context, state) {
         var cubit = UnitClientCubit.get(context);
         return WillPopScope(
-          onWillPop: () => onWillPopFunction(context),
+          onWillPop: () async {
+            return true;
+          },
           child: Scaffold(
             appBar: AppBar(
               toolbarHeight: 80,
               leading: IconButton(
                 onPressed: () async {
-                  await cubit.newIndex == 0;
-                  cubit.compareList == 0;
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => NavigationDrawer(token: "")));
+                  Navigator.pop(context);
                 },
                 icon: const Icon(
                   Icons.arrow_back,
                   size: 28,
+                  color: Colors.black,
                 ),
               ),
               centerTitle: true,
@@ -58,775 +53,880 @@ class _ComparingScreenState extends State<ComparingScreen> {
                 style: Theme.of(context).textTheme.headline1,
               ),
             ),
-            body: cubit.secondUnit.isEmpty || cubit.firstUnit.isEmpty
+            body: cubit.comparedUnits.isEmpty
                 ? Center(
-                    child: CircularProgressIndicator(),
+                    child: Text(
+                      'No compared units selected',
+                      style: TextStyle(fontSize: 18.sp),
+                    ),
                   )
-                : ListView(
-                    children: [
-                      Container(
-                        height: 110.h,
-                        color: ColorManager.onboardingColorDots,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                : cubit.comparedUnits.length == 1
+                    ? Center(
+                        child: Text(
+                          'Compared units must be exactly 1',
+                          style: TextStyle(fontSize: 18.sp),
+                        ),
+                      )
+                    : Builder(builder: (context) {
+                        final firstUnit = cubit.comparedUnits[0];
+                        final secondUnit = cubit.comparedUnits[1];
+                        return ListView(
                           children: [
-                            Text(
-                              "Feature",
-                              style: TextStyle(
-                                color: ColorManager.WhiteScreen,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Text(
-                                    "${cubit.secondUnit[0].companyName == null ? "Owner" : cubit.firstUnit[0].companyName}",
+                            Container(
+                              height: 110.h,
+                              color: ColorManager.onboardingColorDots,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    "Feature",
                                     style: TextStyle(
                                       color: ColorManager.WhiteScreen,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.normal,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                ),
-                                Container(
-                                    height: sizeFromHeight(10),
-                                    width: sizeFromWidth(7),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            sizeFromHeight(20))),
-                                    child: CircleAvatar(
-                                      radius: 25,
-                                      backgroundImage: NetworkImage(
-                                        "${cubit.secondUnit[0].companyLogo == null ? "https://royalmazad.com/public/estate_gps/public/uploads/logo.png" : cubit.firstUnit[0].companyLogo}",
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Text(
+                                          "${secondUnit.companyName == null ? "Owner" : firstUnit.companyName}",
+                                          style: TextStyle(
+                                            color: ColorManager.WhiteScreen,
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
                                       ),
-                                    ))
-                              ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  "${cubit.firstUnit[0].companyName == null ? "Owner" : cubit.secondUnit[0].companyName}",
-                                  style: TextStyle(
-                                    color: ColorManager.WhiteScreen,
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.normal,
+                                      Container(
+                                          height: sizeFromHeight(10),
+                                          width: sizeFromWidth(7),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      sizeFromHeight(20))),
+                                          child: CircleAvatar(
+                                            radius: 25,
+                                            backgroundImage: NetworkImage(
+                                              "${secondUnit.companyLogo == null ? "https://royalmazad.com/public/estate_gps/public/uploads/logo.png" : firstUnit.companyLogo}",
+                                            ),
+                                          ))
+                                    ],
                                   ),
-                                ),
-                                Container(
-                                    height: sizeFromHeight(10),
-                                    width: sizeFromWidth(7),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            sizeFromHeight(20))),
-                                    child: CircleAvatar(
-                                      radius: 25,
-                                      backgroundImage: NetworkImage(
-                                        "${cubit.firstUnit[0].companyLogo == null ? "https://royalmazad.com/public/estate_gps/public/uploads/logo.png" : cubit.secondUnit[0].companyLogo}}",
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text(
+                                        "${firstUnit.companyName == null ? "Owner" : secondUnit.companyName}",
+                                        style: TextStyle(
+                                          color: ColorManager.WhiteScreen,
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.normal,
+                                        ),
                                       ),
-                                    ))
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 110.h,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20.0),
-                                  child: Text(
-                                    "Location",
-                                    style:
-                                        Theme.of(context).textTheme.headline2,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: cubit.secondUnit[0] == "true"
-                                      ? const FaIcon(
-                                          FontAwesomeIcons.solidCheckCircle,
-                                          color: Colors.lightGreen,
-                                        )
-                                      : cubit.secondUnit[0] == "false"
-                                          ? FaIcon(
-                                              FontAwesomeIcons.solidTimesCircle,
-                                              color: ColorManager.redHeartcolor,
-                                            )
-                                          : Text(
-                                              "${cubit.secondUnit[0].city},${cubit.secondUnit[0].country}"
-                                                          .toString() ==
-                                                      "true"
-                                                  ? "mostafa"
-                                                  : cubit.secondUnit[0]
-                                                              .toString() ==
-                                                          "false"
-                                                      ? "mo"
-                                                      : "${cubit.secondUnit[0].city},${cubit.secondUnit[0].country}",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline3,
-                                              textAlign: TextAlign.center,
+                                      Container(
+                                          height: sizeFromHeight(10),
+                                          width: sizeFromWidth(7),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      sizeFromHeight(20))),
+                                          child: CircleAvatar(
+                                            radius: 25,
+                                            backgroundImage: NetworkImage(
+                                              "${firstUnit.companyLogo == null ? "https://royalmazad.com/public/estate_gps/public/uploads/logo.png" : secondUnit.companyLogo}}",
                                             ),
-                                ),
+                                          ))
+                                    ],
+                                  )
+                                ],
                               ),
                             ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: cubit.firstUnit[0] == "true"
-                                      ? const FaIcon(
-                                          FontAwesomeIcons.solidCheckCircle,
-                                          color: Colors.lightGreen,
-                                        )
-                                      : cubit.firstUnit[0] == "false"
-                                          ? FaIcon(
-                                              FontAwesomeIcons.solidTimesCircle,
-                                              color: ColorManager.redHeartcolor,
-                                            )
-                                          : Text(
-                                              "${cubit.firstUnit[0].city},${cubit.secondUnit[0].country}",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline3,
-                                              textAlign: TextAlign.center,
-                                            ),
-                                ),
+                            Container(
+                              height: 110.h,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: Text(
+                                          "Location",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline2,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: secondUnit == "true"
+                                            ? const FaIcon(
+                                                FontAwesomeIcons
+                                                    .solidCheckCircle,
+                                                color: Colors.lightGreen,
+                                              )
+                                            : secondUnit == "false"
+                                                ? FaIcon(
+                                                    FontAwesomeIcons
+                                                        .solidTimesCircle,
+                                                    color: ColorManager
+                                                        .redHeartcolor,
+                                                  )
+                                                : Text(
+                                                    "${secondUnit.city},${secondUnit.country}"
+                                                                .toString() ==
+                                                            "true"
+                                                        ? "mostafa"
+                                                        : secondUnit.toString() ==
+                                                                "false"
+                                                            ? "mo"
+                                                            : "${secondUnit.city},${secondUnit.country}",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headline3,
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20.0),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: firstUnit == "true"
+                                            ? const FaIcon(
+                                                FontAwesomeIcons
+                                                    .solidCheckCircle,
+                                                color: Colors.lightGreen,
+                                              )
+                                            : firstUnit == "false"
+                                                ? FaIcon(
+                                                    FontAwesomeIcons
+                                                        .solidTimesCircle,
+                                                    color: ColorManager
+                                                        .redHeartcolor,
+                                                  )
+                                                : Text(
+                                                    "${firstUnit.city},${secondUnit.country}",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headline3,
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: 110.h,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 20.0),
+                                        child: Text(
+                                          "Price (EGP)",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline2,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "${secondUnit.price == null ? 0 : secondUnit.price}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20.0),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "${firstUnit.price == null ? 0 : firstUnit.price}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: 110.h,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: Text(
+                                          "Area",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline2,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "${secondUnit.area == null ? 0 : secondUnit.area} m2",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "${firstUnit.area == null ? 0 : firstUnit.area} m2",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: 110.h,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: Text(
+                                          "Rooms",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline2,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "${secondUnit.rooms == null ? 0 : secondUnit.rooms} ",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "${firstUnit.rooms == null ? 0 : firstUnit.rooms} ",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: 110.h,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: Text(
+                                          "Floor",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline2,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "${secondUnit.floor == null ? 0 : secondUnit.floor} ",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "${firstUnit.floor == null ? 0 : firstUnit.floor} ",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: 110.h,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: Text(
+                                          "Bathrooms",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline2,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "${secondUnit.bathroom == null ? 0 : secondUnit.bathroom}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "${firstUnit.bathroom == null ? 0 : firstUnit.bathroom} ",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: 110.h,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: Text(
+                                          "Finishes",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline2,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "${secondUnit.finishedType == null ? "Ignore" : secondUnit.finishedType} ",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline2,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "${firstUnit.finishedType == null ? "Ignore" : secondUnit.finishedType} ",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: 110.h,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: Text(
+                                          "Build Year",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline2,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "${secondUnit.yearBuild == null ? 0 : secondUnit.yearBuild} ",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "${firstUnit.yearBuild == null ? 0 : firstUnit.yearBuild} ",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: 110.h,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: Text(
+                                          "View",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline2,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "${secondUnit.view == null ? "Not Detected" : secondUnit.view}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "${firstUnit.view == null ? "Not Detected" : firstUnit.view} ",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: 110.h,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: Text(
+                                          "Parking",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline2,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: Container(
+                                          alignment: Alignment.center,
+                                          child: secondUnit.parking == "on"
+                                              ? const FaIcon(
+                                                  FontAwesomeIcons
+                                                      .solidCheckCircle,
+                                                  color: Colors.lightGreen,
+                                                )
+                                              : FaIcon(
+                                                  FontAwesomeIcons
+                                                      .solidTimesCircle,
+                                                  color: ColorManager
+                                                      .redHeartcolor,
+                                                )),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: Container(
+                                          alignment: Alignment.center,
+                                          child: firstUnit.parking == "on"
+                                              ? const FaIcon(
+                                                  FontAwesomeIcons
+                                                      .solidCheckCircle,
+                                                  color: Colors.lightGreen,
+                                                )
+                                              : FaIcon(
+                                                  FontAwesomeIcons
+                                                      .solidTimesCircle,
+                                                  color: ColorManager
+                                                      .redHeartcolor,
+                                                )),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: 110.h,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: Text(
+                                          "Reception",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline2,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: Container(
+                                          alignment: Alignment.center,
+                                          child: secondUnit.recption == "on"
+                                              ? const FaIcon(
+                                                  FontAwesomeIcons
+                                                      .solidCheckCircle,
+                                                  color: Colors.lightGreen,
+                                                )
+                                              : FaIcon(
+                                                  FontAwesomeIcons
+                                                      .solidTimesCircle,
+                                                  color: ColorManager
+                                                      .redHeartcolor,
+                                                )),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: Container(
+                                          alignment: Alignment.center,
+                                          child: firstUnit.recption == "on"
+                                              ? const FaIcon(
+                                                  FontAwesomeIcons
+                                                      .solidCheckCircle,
+                                                  color: Colors.lightGreen,
+                                                )
+                                              : FaIcon(
+                                                  FontAwesomeIcons
+                                                      .solidTimesCircle,
+                                                  color: ColorManager
+                                                      .redHeartcolor,
+                                                )),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: 110.h,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: Text(
+                                          "Security",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline2,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: Container(
+                                          alignment: Alignment.center,
+                                          child: secondUnit.security == "on"
+                                              ? const FaIcon(
+                                                  FontAwesomeIcons
+                                                      .solidCheckCircle,
+                                                  color: Colors.lightGreen,
+                                                )
+                                              : FaIcon(
+                                                  FontAwesomeIcons
+                                                      .solidTimesCircle,
+                                                  color: ColorManager
+                                                      .redHeartcolor,
+                                                )),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: Container(
+                                          alignment: Alignment.center,
+                                          child: firstUnit.security == "on"
+                                              ? const FaIcon(
+                                                  FontAwesomeIcons
+                                                      .solidCheckCircle,
+                                                  color: Colors.lightGreen,
+                                                )
+                                              : FaIcon(
+                                                  FontAwesomeIcons
+                                                      .solidTimesCircle,
+                                                  color: ColorManager
+                                                      .redHeartcolor,
+                                                )),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
-                        ),
-                      ),
-                      Container(
-                        height: 110.h,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  child: Text(
-                                    "Price (EGP)",
-                                    style:
-                                        Theme.of(context).textTheme.headline2,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "${cubit.secondUnit[0].price == null ? 0 : cubit.secondUnit[0].price}",
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "${cubit.firstUnit[0].price == null ? 0 : cubit.firstUnit[0].price}",
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 110.h,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20.0),
-                                  child: Text(
-                                    "Area",
-                                    style:
-                                        Theme.of(context).textTheme.headline2,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "${cubit.secondUnit[0].area == null ? 0 : cubit.secondUnit[0].area} m2",
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "${cubit.firstUnit[0].area == null ? 0 : cubit.firstUnit[0].area} m2",
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 110.h,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20.0),
-                                  child: Text(
-                                    "Rooms",
-                                    style:
-                                        Theme.of(context).textTheme.headline2,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "${cubit.secondUnit[0].rooms == null ? 0 : cubit.secondUnit[0].rooms} ",
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "${cubit.firstUnit[0].rooms == null ? 0 : cubit.firstUnit[0].rooms} ",
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 110.h,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20.0),
-                                  child: Text(
-                                    "Floor",
-                                    style:
-                                        Theme.of(context).textTheme.headline2,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "${cubit.secondUnit[0].floor == null ? 0 : cubit.secondUnit[0].floor} ",
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "${cubit.firstUnit[0].floor == null ? 0 : cubit.firstUnit[0].floor} ",
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 110.h,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20.0),
-                                  child: Text(
-                                    "Bathrooms",
-                                    style:
-                                        Theme.of(context).textTheme.headline2,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "${cubit.secondUnit[0].bathroom == null ? 0 : cubit.secondUnit[0].bathroom}",
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "${cubit.firstUnit[0].bathroom == null ? 0 : cubit.firstUnit[0].bathroom} ",
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 110.h,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20.0),
-                                  child: Text(
-                                    "Finishes",
-                                    style:
-                                        Theme.of(context).textTheme.headline2,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "${cubit.secondUnit[0].finishedType == null ? "Ignore" : cubit.secondUnit[0].finishedType} ",
-                                    style:
-                                        Theme.of(context).textTheme.headline2,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "${cubit.firstUnit[0].finishedType == null ? "Ignore" : cubit.secondUnit[0].finishedType} ",
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 110.h,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20.0),
-                                  child: Text(
-                                    "Build Year",
-                                    style:
-                                        Theme.of(context).textTheme.headline2,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "${cubit.secondUnit[0].yearBuild == null ? 0 : cubit.secondUnit[0].yearBuild} ",
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "${cubit.firstUnit[0].yearBuild == null ? 0 : cubit.firstUnit[0].yearBuild} ",
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 110.h,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20.0),
-                                  child: Text(
-                                    "View",
-                                    style:
-                                    Theme.of(context).textTheme.headline2,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "${cubit.secondUnit[0].view == null ? "Not Detected" : cubit.secondUnit[0].view}",
-                                    style:
-                                    Theme.of(context).textTheme.headline3,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "${cubit.firstUnit[0].view == null ? "Not Detected" : cubit.firstUnit[0].view} ",
-                                    style:
-                                    Theme.of(context).textTheme.headline3,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 110.h,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20.0),
-                                  child: Text(
-                                    "Parking",
-                                    style:
-                                    Theme.of(context).textTheme.headline2,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Container(
-                                    alignment: Alignment.center,
-                                    child: cubit.secondUnit[0].parking == "on"
-                                        ? const FaIcon(
-                                            FontAwesomeIcons.solidCheckCircle,
-                                            color: Colors.lightGreen,
-                                          )
-                                        : FaIcon(
-                                            FontAwesomeIcons.solidTimesCircle,
-                                            color: ColorManager.redHeartcolor,
-                                          )),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Container(
-                                    alignment: Alignment.center,
-                                    child: cubit.firstUnit[0].parking == "on"
-                                        ? const FaIcon(
-                                            FontAwesomeIcons.solidCheckCircle,
-                                            color: Colors.lightGreen,
-                                          )
-                                        : FaIcon(
-                                            FontAwesomeIcons.solidTimesCircle,
-                                            color: ColorManager.redHeartcolor,
-                                          )),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 110.h,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20.0),
-                                  child: Text(
-                                    "Reception",
-                                    style:
-                                    Theme.of(context).textTheme.headline2,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Container(
-                                    alignment: Alignment.center,
-                                    child: cubit.secondUnit[0].recption == "on"
-                                        ? const FaIcon(
-                                            FontAwesomeIcons.solidCheckCircle,
-                                            color: Colors.lightGreen,
-                                          )
-                                        : FaIcon(
-                                            FontAwesomeIcons.solidTimesCircle,
-                                            color: ColorManager.redHeartcolor,
-                                          )),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Container(
-                                    alignment: Alignment.center,
-                                    child: cubit.firstUnit[0].recption == "on"
-                                        ? const FaIcon(
-                                            FontAwesomeIcons.solidCheckCircle,
-                                            color: Colors.lightGreen,
-                                          )
-                                        : FaIcon(
-                                            FontAwesomeIcons.solidTimesCircle,
-                                            color: ColorManager.redHeartcolor,
-                                          )),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 110.h,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20.0),
-                                  child: Text(
-                                    "Security",
-                                    style:
-                                    Theme.of(context).textTheme.headline2,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Container(
-                                    alignment: Alignment.center,
-                                    child: cubit.secondUnit[0].security == "on"
-                                        ? const FaIcon(
-                                            FontAwesomeIcons.solidCheckCircle,
-                                            color: Colors.lightGreen,
-                                          )
-                                        : FaIcon(
-                                            FontAwesomeIcons.solidTimesCircle,
-                                            color: ColorManager.redHeartcolor,
-                                          )),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Container(
-                                    alignment: Alignment.center,
-                                    child: cubit.firstUnit[0].security == "on"
-                                        ? const FaIcon(
-                                            FontAwesomeIcons.solidCheckCircle,
-                                            color: Colors.lightGreen,
-                                          )
-                                        : FaIcon(
-                                            FontAwesomeIcons.solidTimesCircle,
-                                            color: ColorManager.redHeartcolor,
-                                          )),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                        );
+                      }),
           ),
         );
       },

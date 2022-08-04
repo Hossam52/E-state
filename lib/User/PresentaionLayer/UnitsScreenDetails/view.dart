@@ -1,13 +1,22 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
+import 'package:osol/Shared/Customicon.dart';
 
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/Shared/custom_mini_appBar.dart';
+import 'package:osol/Shared/unit_bookmark.dart';
 import 'package:osol/User/BussinssLogic/unitCubit/unit_cubit.dart';
 import 'package:osol/User/DataLayer/Model/modelOfData/onBoardingModel.dart';
 import 'package:osol/User/PresentaionLayer/HomeScreen/units.dart';
 import 'package:osol/User/PresentaionLayer/UnitsScreenDetails/units.dart';
+import 'package:osol/User/PresentaionLayer/compareScreen/view.dart';
+import 'package:osol/User/PresentaionLayer/searchScreen/view.dart';
 
 class UnitsDetailsScreen extends StatefulWidget {
   final int unitId;
@@ -35,20 +44,18 @@ class _UnitsDetailsScreenState extends State<UnitsDetailsScreen> {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = UnitClientCubit.get(context);
-        cubit.getUnitByIdList.isEmpty ? cubit.getUnitById : print("All Data ");
         return Scaffold(
           backgroundColor: ColorManager.WhiteScreen,
-          appBar: CustomAppBar(
+          appBar: _CustomAppBar(
               context,
-              "${cubit.getUnitByIdList.isEmpty || state is LoadingGetAllReviewState ? "Waiting" : cubit.getUnitByIdList[0].title}",
+              "${cubit.unitById == null ? "Waiting" : cubit.unitById!.title}",
               cubit),
-          body: cubit.getUnitByIdList.isEmpty ||
-                  state is LoadingGetAllReviewState
-              ? Center(
-                  child: CircularProgressIndicator(),
+          body: cubit.unitById == null
+              ? const Center(
+                  child: const CircularProgressIndicator(),
                 )
               : CustomScrollView(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   slivers: [
                     SliverToBoxAdapter(
                       child: Padding(
@@ -59,18 +66,16 @@ class _UnitsDetailsScreenState extends State<UnitsDetailsScreen> {
                           width: sizeFromWidth(1.5),
                           child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              physics: BouncingScrollPhysics(),
-                              itemCount:
-                                  cubit.getUnitByIdList[0].images?.length,
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: cubit.unitById!.images?.length,
                               itemBuilder: (context, index) {
                                 return ListViewDetails(
                                   image: DecorationImage(
                                       image: NetworkImage(
-                                        "${cubit.getUnitByIdList[0].images![index]}",
+                                        cubit.unitById!.images![index],
                                       ),
                                       fit: BoxFit.cover),
-                                  txt:
-                                      cubit.getUnitByIdList[0].price.toString(),
+                                  txt: cubit.unitById!.price.toString(),
                                 );
                               }),
                         ),
@@ -80,31 +85,28 @@ class _UnitsDetailsScreenState extends State<UnitsDetailsScreen> {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 20, right: 5),
                         child: CustomUnitIInformation(
-                          backgroundImage: cubit
-                                      .getUnitByIdList[0].companyLogo !=
-                                  null
-                              ? NetworkImage(
-                                  "${cubit.getUnitByIdList[0].companyLogo}")
-                              : NetworkImage(
+                          backgroundImage: cubit.unitById!.companyLogo != null
+                              ? NetworkImage("${cubit.unitById!.companyLogo}")
+                              : const NetworkImage(
                                   "https://royalmazad.com/public/estate_gps/public/uploads/logo.png"),
-                          date: '${cubit.getUnitByIdList[0].availableDate}',
-                          unitName: cubit.getUnitByIdList[0].companyName != null
-                              ? '${cubit.getUnitByIdList[0].companyName}'
+                          date: '${cubit.unitById!.availableDate}',
+                          unitName: cubit.unitById!.companyName != null
+                              ? '${cubit.unitById!.companyName}'
                               : "Owner",
                         ),
                       ),
                     ),
                     SliverToBoxAdapter(
                       child: DetailsLocatioAndNameUnits(
-                        lat: "${cubit.getUnitByIdList[0].lat}",
-                        long: "${cubit.getUnitByIdList[0].long}",
-                        area: "${cubit.getUnitByIdList[0].area}",
-                        bathRoom: "${cubit.getUnitByIdList[0].bathroom}",
-                        bedRoom: "${cubit.getUnitByIdList[0].bedrooms}",
-                        city: "${cubit.getUnitByIdList[0].city}",
-                        country: "${cubit.getUnitByIdList[0].country}",
-                        location: "${cubit.getUnitByIdList[0].type}",
-                        price: "${cubit.getUnitByIdList[0].price}",
+                        lat: "${cubit.unitById!.lat}",
+                        long: "${cubit.unitById!.long}",
+                        area: "${cubit.unitById!.area}",
+                        bathRoom: "${cubit.unitById!.bathroom}",
+                        bedRoom: "${cubit.unitById!.bedrooms}",
+                        city: "${cubit.unitById!.city}",
+                        country: "${cubit.unitById!.country}",
+                        location: "${cubit.unitById!.type}",
+                        price: "${cubit.unitById!.price}",
                       ),
                     ),
                     SliverToBoxAdapter(
@@ -114,38 +116,35 @@ class _UnitsDetailsScreenState extends State<UnitsDetailsScreen> {
                           horizontal: 20,
                         ),
                         child: CustomUnitdetailsOfUnits(
-                          area: "${cubit.getUnitByIdList[0].area}",
-                          bathRooms: "${cubit.getUnitByIdList[0].bedrooms}",
-                          finishType:
-                              "${cubit.getUnitByIdList[0].finishedType}",
-                          floor: "${cubit.getUnitByIdList[0].floor}",
-                          paymentMethod:
-                              "${cubit.getUnitByIdList[0].paymentMethod}",
-                          rooms: "${cubit.getUnitByIdList[0].rooms}",
-                          seller: "${cubit.getUnitByIdList[0].companyName}",
-                          status: "${cubit.getUnitByIdList[0].status}",
-                          view: "${cubit.getUnitByIdList[0].view}",
-                          yearBuild: "${cubit.getUnitByIdList[0].yearBuild}",
+                          area: "${cubit.unitById!.area}",
+                          bathRooms: "${cubit.unitById!.bedrooms}",
+                          finishType: "${cubit.unitById!.finishedType}",
+                          floor: "${cubit.unitById!.floor}",
+                          paymentMethod: "${cubit.unitById!.paymentMethod}",
+                          rooms: "${cubit.unitById!.rooms}",
+                          seller: "${cubit.unitById!.companyName}",
+                          status: "${cubit.unitById!.status}",
+                          view: "${cubit.unitById!.view}",
+                          yearBuild: "${cubit.unitById!.yearBuild}",
                         ),
                       ),
                     ),
                     SliverToBoxAdapter(
                       child: CustomDescription(
-                        description: "${cubit.getUnitByIdList[0].description}",
+                        description: "${cubit.unitById!.description}",
                       ),
                     ),
                     SliverToBoxAdapter(
                       child: CustomFloatingIcon(
-                        phone: cubit.getUnitByIdList[0].lat,
+                        phone: cubit.unitById!.lat,
                       ),
                     ),
                     SliverToBoxAdapter(
-                      child:
-                          CustomAboutDeveloper(unit: cubit.getUnitByIdList[0]),
+                      child: CustomAboutDeveloper(unit: cubit.unitById!),
                     ),
                     SliverToBoxAdapter(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 20),
                         child: CustomVideo(),
                       ),
@@ -210,4 +209,80 @@ class _UnitsDetailsScreenState extends State<UnitsDetailsScreen> {
       },
     );
   }
+}
+
+AppBar _CustomAppBar(BuildContext context, String txt, UnitClientCubit cubit) {
+  return AppBar(
+    elevation: 0,
+    backgroundColor: ColorManager.WhiteScreen,
+    toolbarHeight: 80,
+    leading: IconButton(
+      onPressed: () {
+        Navigator.pop(context);
+      },
+      icon: const Icon(
+        Icons.arrow_back,
+        color: Colors.black54,
+        size: 28,
+      ),
+    ),
+    shape: const ContinuousRectangleBorder(
+      borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+    ),
+    centerTitle: true,
+    title: Text(
+      txt,
+      style: const TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+      ),
+    ),
+    actions: [
+      IconButton(
+        onPressed: () {
+          cubit.toggleCompareItem(cubit.unitById!);
+          if (cubit.isUnitAddedToCompare(cubit.unitById!)) {
+            Fluttertoast.showToast(
+              msg: "this unit added to compare List",
+              backgroundColor: Colors.green,
+            );
+          } else {
+            Fluttertoast.showToast(
+              msg: "This unit removed from compare List",
+              backgroundColor: Colors.red,
+            );
+          }
+        },
+        icon: cubit.unitById == null
+            ? Container()
+            : Icon(
+                OsolIcon.images,
+                color: cubit.isUnitAddedToCompare(cubit.unitById!)
+                    ? ColorManager.OnBoardingScreen
+                    : ColorManager.AppBarIconcolorGrey,
+                size: 20,
+              ),
+      ),
+      IconButton(
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (_) => SearchScreen()));
+        },
+        icon: FaIcon(
+          FontAwesomeIcons.shareNodes,
+          color: ColorManager.AppBarIconcolorGrey,
+        ),
+      ),
+      cubit.unitById == null
+          ? Container()
+          : IconButton(
+              onPressed: () {
+                cubit.toggleFavorite(context, cubit.unitById!);
+              },
+              icon: UnitBookmark(
+                unit: cubit.unitById!,
+              ))
+    ],
+  );
 }

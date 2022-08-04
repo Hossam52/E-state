@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -44,6 +45,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       url: getProfileDataURL,
       token: coToken,
     );
+    log(response.data.toString());
     if (response.statusCode == 200) {
       profileModel = ProfileModel.fromJson(response.data);
       profileDate.add(profileModel!);

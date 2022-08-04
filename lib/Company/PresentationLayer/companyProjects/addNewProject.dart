@@ -11,6 +11,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:osol/Company/PresentationLayer/DawerScreen/view.dart';
 import 'package:osol/Company/PresentationLayer/registerition/registeration/view.dart';
+import 'package:osol/Company/PresentationLayer/unit_crud/unit_crud_widgets.dart';
+import 'package:osol/Company/PresentationLayer/unit_crud/widgets/add_custom_date.dart';
 import 'package:osol/Company/businessLogicLayer/addNewProjectCubit/add_new_projects_cubit.dart';
 import 'package:osol/Company/businessLogicLayer/bannersCubit/banners_cubit.dart';
 import 'package:osol/Shared/CustomToast.dart';
@@ -156,9 +158,12 @@ class _AddNewProjectScreenState extends State<AddNewProjectScreen> {
                             horizontal: 20.0,
                             vertical: 10,
                           ),
-                          child: CustomAddDateToBanner(
+                          child: SelectCustomDate(
+                            onDateChange: cubit.changeDate,
+                            selectedDate: cubit.title,
+                            initialDate: cubit.title,
                             hint: '',
-                            title: 'Pick The Delivery Date',
+                            title: 'Pick The Date',
                           ),
                         ),
                       ),
@@ -224,200 +229,6 @@ class _AddNewProjectScreenState extends State<AddNewProjectScreen> {
               ),
             );
           },
-        );
-      },
-    );
-  }
-}
-
-class CustomTxtFieldAddUnit extends StatelessWidget {
-  String hint;
-  String title;
-  TextEditingController controller;
-  String? Function(String?)? validator;
-
-  CustomTxtFieldAddUnit(
-      {required this.title,
-      required this.hint,
-      required this.controller,
-      required this.validator});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: sizeFromHeight(6.5),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16),
-              ),
-            ],
-          ),
-          Container(
-            height: sizeFromHeight(10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: ColorManager.CompareConatainer,
-            ),
-            child: TextFormField(
-              validator: validator,
-              controller: controller,
-              decoration: InputDecoration(
-                  hintText: "${hint}",
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                  )),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class CustomTxtFieldYoutubeAddUnit extends StatelessWidget {
-  String hint;
-  String title;
-  TextEditingController controller;
-  String? Function(String?)? validator;
-
-  CustomTxtFieldYoutubeAddUnit({
-    required this.title,
-    required this.hint,
-    required this.controller,
-    required this.validator,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: sizeFromHeight(6.5),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-                color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
-          ),
-          Container(
-            height: sizeFromHeight(10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: ColorManager.CompareConatainer,
-            ),
-            child: Center(
-              child: TextFormField(
-                validator: validator,
-                controller: controller,
-                decoration: InputDecoration(
-                    hintText: "${hint}",
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: FaIcon(FontAwesomeIcons.link),
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                    )),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class CustomAddDateToBanner extends StatefulWidget {
-  String hint;
-  String title;
-
-  CustomAddDateToBanner({required this.title, required this.hint});
-
-  @override
-  State<CustomAddDateToBanner> createState() => _CustomAddDateToBannerState();
-}
-
-class _CustomAddDateToBannerState extends State<CustomAddDateToBanner> {
-  DateTime date = DateTime(2022, 12, 24);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<AddNewProjectsCubit, AddNewProjectsState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
-      builder: (context, state) {
-        var cubit = AddNewProjectsCubit.get(context);
-        return Container(
-          height: sizeFromHeight(6.5),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                widget.title,
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16),
-              ),
-              Container(
-                height: sizeFromHeight(10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: ColorManager.CompareConatainer,
-                ),
-                child: Center(
-                  child: InkWell(
-                    onTap: () async {
-                      DateTime? newDate = await showDatePicker(
-                          context: context,
-                          initialDate: date,
-                          firstDate: DateTime(1990),
-                          lastDate: DateTime(2100));
-                      if (newDate == null) return;
-                      setState(() {
-                        date = newDate;
-                        widget.title = DateFormat('yyyy-MM-dd').format(newDate);
-                      });
-                      cubit
-                          .changeDate(DateFormat('yyyy-MM-dd').format(newDate));
-                    },
-                    child: Container(
-                      height: sizeFromHeight(15),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: ColorManager.CompareConatainer,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                        ),
-                        child: Center(
-                          child: Text(
-                            "${widget.title}",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
         );
       },
     );
