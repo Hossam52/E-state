@@ -78,11 +78,7 @@ class _SignInViewState extends State<SignInView> {
                 ),
                 title: Text(
                   "",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
+               
                 ),
                 actions: [],
               ),

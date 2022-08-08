@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:osol/Shared/constants.dart';
 
 import '../../DataLayer/localDataLayer/localData.dart';
 
@@ -14,7 +16,7 @@ class AppSettingCubit extends Cubit<AppSettingState> {
   ///change mode
   bool isDark = false;
 
-  chandeDarkMode( value) async {
+  chandeDarkMode(value) async {
     isDark = value;
     await Shared.prefSetBoolen(key: "isDark", value: value);
 

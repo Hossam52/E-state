@@ -11,7 +11,6 @@ class ListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.WhiteScreen,
       body: Column(
         children: [
           Padding(

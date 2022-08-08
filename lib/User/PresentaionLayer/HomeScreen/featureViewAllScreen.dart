@@ -28,7 +28,6 @@ class _FeatureViewAllScreenState extends State<FeatureViewAllScreen> {
         var cubit = HomeCubit.get(context);
         final features = cubit.featuresUnits;
         return Scaffold(
-          backgroundColor: ColorManager.WhiteScreen,
           appBar: AppBar(
             elevation: 0,
             backgroundColor: ColorManager.WhiteScreen,
@@ -39,8 +38,6 @@ class _FeatureViewAllScreenState extends State<FeatureViewAllScreen> {
               },
               icon: Icon(
                 Icons.arrow_back,
-                color: Colors.black54,
-                size: 28,
               ),
             ),
             shape: ContinuousRectangleBorder(
@@ -49,11 +46,6 @@ class _FeatureViewAllScreenState extends State<FeatureViewAllScreen> {
             centerTitle: true,
             title: Text(
               "All Features",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
             ),
             actions: [],
           ),

@@ -144,6 +144,12 @@ class MyApp extends StatelessWidget {
                             statusBarColor: Colors.white,
                             statusBarIconBrightness: Brightness.dark,
                           ),
+                          titleTextStyle: Theme.of(context)
+                              .textTheme
+                              .headline5!
+                              .copyWith(fontWeight: FontWeight.bold),
+                          iconTheme: IconThemeData(
+                              color: ColorManager.onboardingColorDots),
                           elevation: 0,
                         ),
                         textTheme: TextTheme(
@@ -182,15 +188,21 @@ class MyApp extends StatelessWidget {
                         scaffoldBackgroundColor: Colors.white),
                     darkTheme: ThemeData(
                         appBarTheme: AppBarTheme(
-                          backgroundColor: ColorManager.DarkThemeBackGround,
-                          backwardsCompatibility: false,
-                          systemOverlayStyle: SystemUiOverlayStyle(
-                            statusBarBrightness: Brightness.dark,
-                            statusBarColor: ColorManager.DarkThemeBackGround,
-                            statusBarIconBrightness: Brightness.light,
-                          ),
-                          elevation: 0,
-                        ),
+                            backgroundColor: ColorManager.DarkThemeBackGround,
+                            backwardsCompatibility: false,
+                            systemOverlayStyle: SystemUiOverlayStyle(
+                              statusBarBrightness: Brightness.dark,
+                              statusBarColor: ColorManager.DarkThemeBackGround,
+                              statusBarIconBrightness: Brightness.light,
+                            ),
+                            elevation: 0,
+                            iconTheme: IconThemeData(color: Colors.white),
+                            titleTextStyle: Theme.of(context)
+                                .textTheme
+                                .headline5!
+                                .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white)),
                         primaryColor: ColorManager.DarkThemeBackGround,
                         textTheme: TextTheme(
                             headline1: TextStyle(

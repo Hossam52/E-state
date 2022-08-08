@@ -28,7 +28,6 @@ class _MessageViewState extends State<MessageView> {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              toolbarHeight: 80,
               leading: IconButton(
                 onPressed: () {
                   Navigator.pop(context);
@@ -43,8 +42,9 @@ class _MessageViewState extends State<MessageView> {
                     BorderRadius.vertical(bottom: Radius.circular(10)),
               ),
               centerTitle: true,
-              title: Text("Messages",
-                  style: Theme.of(context).textTheme.headline1),
+              title: Text(
+                "Messages",
+              ),
             ),
             body: Column(
               children: [

@@ -21,10 +21,8 @@ class MessageCompanyView extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: ColorManager.WhiteScreen,
           appBar: AppBar(
             elevation: 0,
-            backgroundColor: ColorManager.WhiteScreen,
             toolbarHeight: 80,
             leading: IconButton(
               onPressed: () {
@@ -32,8 +30,6 @@ class MessageCompanyView extends StatelessWidget {
               },
               icon: Icon(
                 Icons.arrow_back,
-                color: Colors.black54,
-                size: 28,
               ),
             ),
             shape: ContinuousRectangleBorder(
@@ -42,11 +38,6 @@ class MessageCompanyView extends StatelessWidget {
             centerTitle: true,
             title: Text(
               "Messages",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-                color: Colors.black,
-              ),
             ),
           ),
           body: state is SuccessGetProfileDataStatus

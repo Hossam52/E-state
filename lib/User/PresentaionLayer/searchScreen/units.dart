@@ -6,7 +6,7 @@ import 'package:osol/Shared/constants.dart';
 // AppBar searchAppBar(context){
 //   return AppBar(
 //     elevation: 0,
-//     backgroundColor: ColorManager.WhiteScreen,
+//      
 //     toolbarHeight: 80,
 //     leading: IconButton(
 //       icon: Icon(

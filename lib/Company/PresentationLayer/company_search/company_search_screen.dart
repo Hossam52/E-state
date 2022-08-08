@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:osol/Company/PresentationLayer/freeListing/freeListing.dart';
 import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
 import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
+import 'package:osol/Shared/component/methods..dart';
 import 'package:osol/Shared/component/search_and_filter_widget.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/common_models/unit_model.dart';
@@ -21,11 +22,8 @@ class CompanySearchScreen extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           title: const Text('Search units'),
-          titleTextStyle: TextStyle(
-              fontSize: 18.sp,
-              color: Colors.black,
-              fontWeight: FontWeight.w700),
-          iconTheme: IconTheme.of(context).copyWith(color: Colors.black),
+          iconTheme: IconTheme.of(context)
+              .copyWith(color: getInvertDarkmoodColor(context)),
           centerTitle: true,
           backgroundColor: Colors.transparent,
         ),
@@ -44,6 +42,7 @@ class CompanySearchScreen extends StatelessWidget {
                       cubit.searchInUnits();
                     },
                   ),
+                  SizedBox(height: sizeFromHeight(25)),
                   _SearchInWidget(
                     selectedSearch: UnitCubit.get(context).selectedSearchIn,
                   ),
@@ -108,6 +107,7 @@ class _SearchInWidget extends StatelessWidget {
                   searchIn: SearchInEnum.feature,
                   title: 'Features'),
             ),
+            SizedBox(width: 20.w),
             Expanded(
               child: _buildItem(
                   isSelected: selectedSearch == SearchInEnum.popular,
@@ -136,7 +136,7 @@ class _SearchInWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             color: isSelected
                 ? ColorManager.AppBarHomeColorIcon
-                : ColorManager.WhiteScreen,
+                : Colors.transparent,
           ),
           child: Align(
             alignment: Alignment.center,

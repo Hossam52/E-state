@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:osol/Shared/component/methods..dart';
 import 'package:osol/Shared/constants.dart';
 
 class FeaturedScreen extends StatelessWidget {
@@ -9,11 +10,9 @@ class FeaturedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.WhiteScreen,
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
         leading: null,
         actions: [
           IconButton(
@@ -22,7 +21,7 @@ class FeaturedScreen extends StatelessWidget {
             },
             icon: FaIcon(
               FontAwesomeIcons.close,
-              color: Colors.black,
+              color: getInvertDarkmoodColor(context),
             ),
           )
         ],
@@ -38,14 +37,8 @@ class FeaturedScreen extends StatelessWidget {
                       child: SvgPicture.asset("assets/images/featured.svg"))),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Upgrade Your Account",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                child: Text("Upgrade Your Account",
+                    style: Theme.of(context).textTheme.headline2),
               )
             ],
           ),

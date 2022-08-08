@@ -29,8 +29,9 @@ class AppSettingView extends StatelessWidget {
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
             ),
             centerTitle: true,
-            title: Text("App Setting",
-                style: Theme.of(context).textTheme.headline1),
+            title: Text(
+              "App Setting",
+            ),
           ),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

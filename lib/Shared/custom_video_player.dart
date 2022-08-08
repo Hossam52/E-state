@@ -51,7 +51,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
     final noVideoWidget = Center(
       child: Text(
         'No video available',
-        style: TextStyle(fontSize: 18.sp),
+        style: Theme.of(context).textTheme.headline2,
       ),
     );
     if (widget.videoUrl.contains('youtube.com/') ||
@@ -59,14 +59,14 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(top: 20),
             child: Text(
               "Video demo",
-              style: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w600),
+              style: Theme.of(context)
+                  .textTheme
+                  .headline1!
+                  .copyWith(fontSize: 22.sp),
             ),
           ),
           SizedBox(height: 20.h),

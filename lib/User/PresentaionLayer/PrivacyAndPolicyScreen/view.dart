@@ -25,13 +25,6 @@ class PrivacyAndPolicyView extends StatelessWidget {
         centerTitle: true,
         title: Text(
           "Privacy and Policy",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: AppSettingCubit.get(context).isDark
-                ? Colors.white
-                : Colors.black,
-          ),
         ),
       ),
       body: Padding(

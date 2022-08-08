@@ -49,7 +49,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
             centerTitle: true,
             title: Text(
               "Update Profile",
-              style: Theme.of(context).textTheme.headline1,
+             
             ),
           ),
           body: cubit.profileDate.isEmpty
@@ -266,14 +266,12 @@ class _UploadNewImageState extends State<UploadNewImage> {
                   child: image != null
                       ? CircleAvatar(
                           radius: sizeFromWidth(12),
-                          backgroundColor: ColorManager.WhiteScreen,
                           child: Image.file(
                             image!,
                             fit: BoxFit.cover,
                           ))
                       : CircleAvatar(
                           radius: sizeFromWidth(12),
-                          backgroundColor: ColorManager.WhiteScreen,
                           child: image != null
                               ? Image.file(
                                   image!,

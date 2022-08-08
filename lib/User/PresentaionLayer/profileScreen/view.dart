@@ -17,7 +17,6 @@ class ProfileView extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            toolbarHeight: 80,
             leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
@@ -33,7 +32,6 @@ class ProfileView extends StatelessWidget {
             centerTitle: true,
             title: Text(
               "Profile",
-              style: Theme.of(context).textTheme.headline1,
             ),
           ),
           body: Column(

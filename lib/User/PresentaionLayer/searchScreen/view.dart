@@ -36,10 +36,8 @@ class _SearchScreenState extends State<SearchScreen> {
         builder: (context, state) {
           var cubit = UnitClientCubit.get(context);
           return Scaffold(
-            backgroundColor: ColorManager.WhiteScreen,
             appBar: AppBar(
               elevation: 0,
-              backgroundColor: ColorManager.WhiteScreen,
               toolbarHeight: 80,
               leading: IconButton(
                 icon: Icon(
@@ -58,11 +56,6 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               title: const Text(
                 "Results",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black,
-                ),
               ),
               bottom: PreferredSize(
                 preferredSize: Size(60, sizeFromHeight(10)),

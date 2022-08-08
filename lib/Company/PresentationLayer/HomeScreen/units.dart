@@ -15,6 +15,7 @@ import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
 import 'package:osol/Company/dataLayer/dataModel/features/featuresModel.dart';
 import 'package:osol/Shared/Customicon.dart';
 import 'package:osol/Shared/component/filter_dialog.dart';
+import 'package:osol/Shared/component/methods..dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/DataLayer/Model/modelOfData/onBoardingModel.dart';
 import 'package:osol/User/PresentaionLayer/HomeScreen/units.dart';
@@ -55,9 +56,11 @@ class _HomeViewDataState extends State<HomeViewCompanyData> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Hello ...',
+                Text('Hello',
                     style: TextStyle(
-                        fontSize: 24.sp, fontWeight: FontWeight.w700)),
+                        color: getInvertDarkmoodColor(context),
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.w700)),
                 IconButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -120,20 +123,24 @@ class _HomeViewDataState extends State<HomeViewCompanyData> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(top: 25.0),
-                    child: Text(
-                      "Your Featured Ads",
-                      style: TextStyle(
-                          color: ColorManager.blackFontStyle,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500),
-                    ),
+                    child: Text("Your Featured Ads",
+                        style: Theme.of(context).textTheme.headline2
+                        // TextStyle(
+                        //     color: ColorManager.blackFontStyle,
+                        //     fontSize: 16,
+                        //     fontWeight: FontWeight.w500),
+                        ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 25.0),
                     child: InkWell(
                       onTap: () {},
                       child: Container(
-                        child: Icon(Icons.arrow_forward_ios, size: 18),
+                        child: Icon(
+                          Icons.arrow_forward_ios,
+                          size: 18,
+                          color: getInvertDarkmoodColor(context),
+                        ),
                       ),
                     ),
                   ),
@@ -183,10 +190,7 @@ class _HomeViewDataState extends State<HomeViewCompanyData> {
                     padding: const EdgeInsets.only(top: 25.0),
                     child: Text(
                       "Company Project",
-                      style: TextStyle(
-                          color: ColorManager.blackFontStyle,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500),
+                      style: Theme.of(context).textTheme.headline2,
                     ),
                   ),
                   Padding(
@@ -194,7 +198,11 @@ class _HomeViewDataState extends State<HomeViewCompanyData> {
                     child: InkWell(
                       onTap: () {},
                       child: Container(
-                        child: Icon(Icons.arrow_forward_ios, size: 18),
+                        child: Icon(
+                          Icons.arrow_forward_ios,
+                          size: 18,
+                          color: getInvertDarkmoodColor(context),
+                        ),
                       ),
                     ),
                   ),
@@ -266,6 +274,7 @@ class CardHomeDetailsCompanyView extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.only(right: 15.0),
           child: Card(
+            color: getDarkmoodColor(context),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.0),
             ),
@@ -302,13 +311,8 @@ class CardHomeDetailsCompanyView extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 8.0, vertical: 2),
-                            child: Text(
-                              "${unit.title} (${unit.type})",
-                              style: TextStyle(
-                                color: ColorManager.TextHomeColor,
-                                fontSize: 15,
-                              ),
-                            ),
+                            child: Text("${unit.title} (${unit.type})",
+                                style: Theme.of(context).textTheme.headline3),
                           ),
                           SizedBox(
                             height: 5,
@@ -328,7 +332,7 @@ class CardHomeDetailsCompanyView extends StatelessWidget {
                                 ),
                                 Text(
                                   "${unit.city} , ${unit.country}",
-                                  style: TextStyle(fontSize: 14),
+                                  style: Theme.of(context).textTheme.headline4,
                                 )
                               ],
                             ),
@@ -347,7 +351,7 @@ class CardHomeDetailsCompanyView extends StatelessWidget {
                                 ),
                                 Text(
                                   "${unit.watchNum} total seen",
-                                  style: TextStyle(fontSize: 14),
+                                  style: Theme.of(context).textTheme.headline4,
                                 )
                               ],
                             ),

@@ -84,143 +84,146 @@ class _UpdateProjectScreenState extends State<UpdateProjectScreen> {
                 },
                 child: Container(
                   decoration: new BoxDecoration(
-                      color: Colors.white,
                       borderRadius: new BorderRadius.only(
                           topLeft: const Radius.circular(20.0),
                           topRight: const Radius.circular(20.0))),
-                  child: Form(
-                    key: bannerFormKey,
-                    child: CustomScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      slivers: [
-                        SliverToBoxAdapter(
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              top: 15.0,
-                              bottom: 15,
-                            ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
+                  clipBehavior: Clip.hardEdge,
+                  child: Scaffold(
+                    body: Form(
+                      key: bannerFormKey,
+                      child: CustomScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        slivers: [
+                          SliverToBoxAdapter(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                top: 15.0,
+                                bottom: 15,
                               ),
-                              height: sizeFromHeight(6),
-                              child: CustomIAddBannerImageCompanies(
-                                  project: widget.project),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                height: sizeFromHeight(6),
+                                child: CustomIAddBannerImageCompanies(
+                                    project: widget.project),
+                              ),
                             ),
                           ),
-                        ),
-                        SliverToBoxAdapter(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20.0,
-                              vertical: 10,
-                            ),
-                            child: CustomTxtFieldAddUnit(
-                              validator: (String? v) {
-                                if (v!.isEmpty) {
-                                  return "You Must Enter The Field";
-                                }
-                                return null;
-                              },
-                              controller: titleController,
-                              hint: 'change name',
-                              title: "Main Title",
-                            ),
-                          ),
-                        ),
-                        SliverToBoxAdapter(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20.0,
-                              vertical: 10,
-                            ),
-                            child: CustomTxtFieldAddUnit(
-                              validator: (String? v) {
-                                if (v!.isEmpty) {
-                                  return "You Must Enter The Field";
-                                }
-                                return null;
-                              },
-                              hint: 'change name',
-                              title: "Description",
-                              controller: descripController,
+                          SliverToBoxAdapter(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20.0,
+                                vertical: 10,
+                              ),
+                              child: CustomTxtFieldAddUnit(
+                                validator: (String? v) {
+                                  if (v!.isEmpty) {
+                                    return "You Must Enter The Field";
+                                  }
+                                  return null;
+                                },
+                                controller: titleController,
+                                hint: 'change name',
+                                title: "Main Title",
+                              ),
                             ),
                           ),
-                        ),
-                        SliverToBoxAdapter(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20.0,
-                              vertical: 10,
-                            ),
-                            child: SelectCustomDate(
-                              onDateChange: cubit.changeDate,
-                              selectedDate: cubit.date,
-                              initialDate: cubit.date,
-                              hint: '',
-                              title: 'Pick The Date',
-                            ),
-                          ),
-                        ),
-                        SliverToBoxAdapter(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20.0,
-                              vertical: 10,
-                            ),
-                            child: CustomTxtFieldAddUnit(
-                              validator: (String? v) {
-                                if (v!.isEmpty) {
-                                  return "You Must Enter The Field";
-                                }
-                                return null;
-                              },
-                              hint: 'Number of unit',
-                              title: "Units",
-                              controller: numberOfUnitController,
+                          SliverToBoxAdapter(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20.0,
+                                vertical: 10,
+                              ),
+                              child: CustomTxtFieldAddUnit(
+                                validator: (String? v) {
+                                  if (v!.isEmpty) {
+                                    return "You Must Enter The Field";
+                                  }
+                                  return null;
+                                },
+                                hint: 'change name',
+                                title: "Description",
+                                controller: descripController,
+                              ),
                             ),
                           ),
-                        ),
-                        SliverToBoxAdapter(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20.0, vertical: 20),
-                            child: SizedBox(
-                              height: sizeFromHeight(10),
-                              child: state is LoadingUpdateProjectstate
-                                  ? const Center(
-                                      child: const CircularProgressIndicator())
-                                  : ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          maximumSize:
-                                              const Size(double.infinity, 50)),
-                                      onPressed: () async {
-                                        if (bannerFormKey.currentState!
-                                            .validate()) {
-                                          await cubit.UpdateProjectsOfCampany(
-                                            deliveryDate: cubit.date,
-                                            descrip: descripController.text,
-                                            numOfUnit:
-                                                numberOfUnitController.text,
-                                            title: titleController.text,
-                                            id: widget.project.id,
-                                          );
-                                        } else {
-                                          print("You Enter Valid Date");
-                                        }
-                                      },
-                                      child: const Text(
-                                        "Save Changes",
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold),
+                          SliverToBoxAdapter(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20.0,
+                                vertical: 10,
+                              ),
+                              child: SelectCustomDate(
+                                onDateChange: cubit.changeDate,
+                                selectedDate: cubit.date,
+                                initialDate: cubit.date,
+                                hint: '',
+                                title: 'Pick The Date',
+                              ),
+                            ),
+                          ),
+                          SliverToBoxAdapter(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20.0,
+                                vertical: 10,
+                              ),
+                              child: CustomTxtFieldAddUnit(
+                                validator: (String? v) {
+                                  if (v!.isEmpty) {
+                                    return "You Must Enter The Field";
+                                  }
+                                  return null;
+                                },
+                                hint: 'Number of unit',
+                                title: "Units",
+                                controller: numberOfUnitController,
+                              ),
+                            ),
+                          ),
+                          SliverToBoxAdapter(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20.0, vertical: 20),
+                              child: SizedBox(
+                                height: sizeFromHeight(10),
+                                child: state is LoadingUpdateProjectstate
+                                    ? const Center(
+                                        child:
+                                            const CircularProgressIndicator())
+                                    : ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            maximumSize: const Size(
+                                                double.infinity, 50)),
+                                        onPressed: () async {
+                                          if (bannerFormKey.currentState!
+                                              .validate()) {
+                                            await cubit.UpdateProjectsOfCampany(
+                                              deliveryDate: cubit.date,
+                                              descrip: descripController.text,
+                                              numOfUnit:
+                                                  numberOfUnitController.text,
+                                              title: titleController.text,
+                                              id: widget.project.id,
+                                            );
+                                          } else {
+                                            print("You Enter Valid Date");
+                                          }
+                                        },
+                                        child: const Text(
+                                          "Save Changes",
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
-                                    ),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -318,16 +321,14 @@ class _CustomIAddBannerImageCompaniesState
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
+                              children: [
                                 Padding(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: Text(
-                                    "Edit Current image",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                    ),
-                                  ),
+                                  child: Text("Edit Current image",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline4),
                                 )
                               ],
                             ),
@@ -394,16 +395,14 @@ class _CustomIAddBannerImageCompaniesState
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
+                              children: [
                                 Padding(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: Text(
-                                    "Edit Current image",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                    ),
-                                  ),
+                                  child: Text("Edit Current image",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline4),
                                 )
                               ],
                             ),

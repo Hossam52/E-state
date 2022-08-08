@@ -9,6 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Company/PresentationLayer/map/unit_map_location.dart';
 import 'package:osol/Company/PresentationLayer/unit_crud/unit_crud_view.dart';
 import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
+import 'package:osol/Shared/component/methods..dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/Shared/custom_video_player.dart';
 import 'package:osol/Shared/unit_facilities.dart';
@@ -30,10 +31,8 @@ class UnitDetailsCompanyScreen extends StatelessWidget {
         builder: (unitDetailsContext, state) {
           final unitById = UnitCubit.get(unitDetailsContext).unit;
           return Scaffold(
-            backgroundColor: ColorManager.WhiteScreen,
             appBar: AppBar(
               elevation: 0,
-              backgroundColor: ColorManager.WhiteScreen,
               toolbarHeight: 80,
               leading: IconButton(
                 onPressed: () {
@@ -41,8 +40,6 @@ class UnitDetailsCompanyScreen extends StatelessWidget {
                 },
                 icon: const Icon(
                   Icons.arrow_back,
-                  color: Colors.black54,
-                  size: 28,
                 ),
               ),
               shape: const ContinuousRectangleBorder(
@@ -52,11 +49,6 @@ class UnitDetailsCompanyScreen extends StatelessWidget {
               centerTitle: true,
               title: const Text(
                 "Unit details",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
               ),
               actions: [
                 Padding(
@@ -78,7 +70,6 @@ class UnitDetailsCompanyScreen extends StatelessWidget {
                     icon: FaIcon(
                       FontAwesomeIcons.pen,
                       size: 20,
-                      color: ColorManager.onboardingColorDots,
                     ),
                   ),
                 )
@@ -89,7 +80,12 @@ class UnitDetailsCompanyScreen extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   )
                 : unitById == null
-                    ? Center(child: Text('No Unit found'))
+                    ? Center(
+                        child: Text(
+                          'No Unit found',
+                          style: Theme.of(context).textTheme.headline1,
+                        ),
+                      )
                     : CustomScrollView(
                         physics: const BouncingScrollPhysics(),
                         slivers: [
@@ -230,14 +226,9 @@ class _UnitStatistics extends StatelessWidget {
       ),
       title: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: Text(
-          title,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        child: Builder(builder: (context) {
+          return Text(title, style: Theme.of(context).textTheme.headline2);
+        }),
       ),
       trailing: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -300,15 +291,13 @@ class _CustomOtherDataCompany extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 20),
-              child: Text(
-                "Other Data",
-                style: TextStyle(
-                    color: Colors.black87,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600),
-              ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Text("Other Data",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1!
+                      .copyWith(fontSize: 24.sp)),
             ),
             UnitFacilities(
               unit: unit,
@@ -340,41 +329,40 @@ class _DetailsLocatioAndNameUnit extends StatelessWidget {
               children: [
                 Text(
                   unit.title!,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: Theme.of(context).textTheme.headline2,
                 ),
                 Container(
                   width: sizeFromWidth(3.5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const FaIcon(
-                        FontAwesomeIcons.bath,
-                        color: Colors.grey,
-                        size: 12,
+                      _unitIcon(FontAwesomeIcons.bath),
+                      Text(
+                        getText(unit.bathroom),
+                        style: Theme.of(context).textTheme.headline4,
                       ),
-                      Text(getText(unit.bathroom)),
                       const SizedBox(
                         width: 5,
                       ),
-                      const FaIcon(
-                        FontAwesomeIcons.bed,
-                        size: 12,
-                        color: Colors.grey,
+                      _unitIcon(FontAwesomeIcons.bed),
+
+                      Text(
+                        getText(unit.bedrooms),
+                        style: Theme.of(context).textTheme.headline4,
                       ),
-                      Text(getText(unit.bedrooms)),
                       const SizedBox(
                         width: 5,
                       ),
-                      const Icon(
-                        OsolIcon.square_,
-                        size: 12,
-                        color: Colors.grey,
+                      _unitIcon(FontAwesomeIcons.square),
+                      // const Icon(
+                      //   OsolIcon.square_,
+                      //   size: 12,
+                      //   color: Colors.grey,
+                      // ),
+                      Text(
+                        "${unit.area} m²",
+                        style: Theme.of(context).textTheme.headline4,
                       ),
-                      Text("${unit.area} m²"),
                     ],
                   ),
                 ),
@@ -385,12 +373,8 @@ class _DetailsLocatioAndNameUnit extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    Text(
-                      "${getText(unit.price)} EGP",
-                      style: const TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
+                    Text("${getText(unit.price)} EGP",
+                        style: Theme.of(context).textTheme.headline2),
                     SizedBox(
                       height: sizeFromHeight(30),
                     ),
@@ -429,6 +413,16 @@ class _DetailsLocatioAndNameUnit extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _unitIcon(IconData icon) {
+    return Builder(builder: (context) {
+      return FaIcon(
+        icon,
+        color: getInvertDarkmoodColor(context),
+        size: 12,
+      );
+    });
   }
 
   String getText(dynamic text) {

@@ -65,10 +65,8 @@ class _AddNewProjectScreenState extends State<AddNewProjectScreen> {
                 return navigateFun(context);
               },
               child: Scaffold(
-                backgroundColor: ColorManager.WhiteScreen,
                 appBar: AppBar(
                   elevation: 0,
-                  backgroundColor: ColorManager.WhiteScreen,
                   toolbarHeight: 80,
                   leading: IconButton(
                     onPressed: () {
@@ -78,8 +76,6 @@ class _AddNewProjectScreenState extends State<AddNewProjectScreen> {
                     },
                     icon: Icon(
                       Icons.arrow_back,
-                      color: Colors.black54,
-                      size: 28,
                     ),
                   ),
                   shape: ContinuousRectangleBorder(
@@ -89,11 +85,6 @@ class _AddNewProjectScreenState extends State<AddNewProjectScreen> {
                   centerTitle: true,
                   title: Text(
                     "Add New Project",
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
                   ),
                 ),
                 body: Form(

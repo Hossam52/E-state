@@ -61,11 +61,8 @@ class _AddBannerInCompanyScreenState extends State<AddBannerInCompanyScreen> {
               return navigateFun(context);
             },
             child: Scaffold(
-              backgroundColor: ColorManager.WhiteScreen,
               appBar: AppBar(
                 elevation: 0,
-                backgroundColor: ColorManager.WhiteScreen,
-                toolbarHeight: 80,
                 leading: IconButton(
                   onPressed: () {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -74,7 +71,6 @@ class _AddBannerInCompanyScreenState extends State<AddBannerInCompanyScreen> {
                   },
                   icon: Icon(
                     Icons.arrow_back,
-                    color: Colors.black54,
                     size: 28,
                   ),
                 ),
@@ -85,11 +81,6 @@ class _AddBannerInCompanyScreenState extends State<AddBannerInCompanyScreen> {
                 centerTitle: true,
                 title: Text(
                   "Add Banner",
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
                 ),
               ),
               body: Form(

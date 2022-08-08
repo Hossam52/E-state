@@ -7,6 +7,7 @@ import 'package:osol/Company/PresentationLayer/companyProjects/updateProject.dar
 import 'package:osol/Company/businessLogicLayer/compayProject/company_project_cubit.dart';
 import 'package:osol/Company/dataLayer/dataModel/projectsOfCompany/ProjectsofCompany.dart';
 import 'package:osol/Shared/Customicon.dart';
+import 'package:osol/Shared/component/methods..dart';
 import 'package:osol/Shared/constants.dart';
 
 import 'addNewProject.dart';
@@ -33,10 +34,8 @@ class _CompanyProjectScreenState extends State<CompanyProjectScreen> {
       builder: (context, state) {
         var cubit = CompanyProjectCubit.get(context);
         return Scaffold(
-          backgroundColor: ColorManager.WhiteScreen,
           appBar: AppBar(
             elevation: 0,
-            backgroundColor: ColorManager.WhiteScreen,
             toolbarHeight: 80,
             leading: IconButton(
               onPressed: () {
@@ -44,8 +43,6 @@ class _CompanyProjectScreenState extends State<CompanyProjectScreen> {
               },
               icon: const Icon(
                 Icons.arrow_back,
-                color: Colors.black54,
-                size: 28,
               ),
             ),
             shape: const ContinuousRectangleBorder(
@@ -55,11 +52,6 @@ class _CompanyProjectScreenState extends State<CompanyProjectScreen> {
             centerTitle: true,
             title: const Text(
               "Company Projects",
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-              ),
             ),
           ),
           body: state is LoadingGetAllProjects
@@ -101,18 +93,18 @@ class _ProjectItem extends StatelessWidget {
         elevation: 5,
         child: Container(
           decoration: BoxDecoration(
+            color: getDarkmoodColor(context).withOpacity(0.54),
             borderRadius: BorderRadius.circular(
-              10,
+              15,
             ),
-            color: Colors.white,
           ),
+          clipBehavior: Clip.hardEdge,
           height: sizeFromHeight(3),
           child: Row(
             children: [
               Expanded(
                 flex: 5,
                 child: Container(
-                  color: Colors.white,
                   child: Column(
                     children: [
                       Expanded(
@@ -158,70 +150,68 @@ class _ProjectItem extends StatelessWidget {
     );
   }
 
-  Padding _projectDesc() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Text(
-        "${project.description}",
-        maxLines: 5,
-        style: const TextStyle(
-          fontWeight: FontWeight.w400,
+  Widget _projectDesc() {
+    return Builder(builder: (context) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          "${project.description}",
+          maxLines: 5,
+          style: Theme.of(context).textTheme.headline4,
+          textAlign: TextAlign.start,
+          overflow: TextOverflow.ellipsis,
         ),
-        textAlign: TextAlign.start,
-        overflow: TextOverflow.ellipsis,
-      ),
-    );
+      );
+    });
   }
 
-  Padding _projectData() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "${project.title}",
-            style: const TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
-            ),
-          ),
-          _details(
-              icon: OsolIcon.location,
-              iconColor: Colors.red,
-              title: '${project.city} , ${project.country}'),
-          _details(
-              icon: FontAwesomeIcons.bagShopping,
-              title: '${project.deliveryDate}'),
-          _details(icon: OsolIcon.home_3, title: '${project.description}'),
-        ],
-      ),
-    );
+  Widget _projectData() {
+    return Builder(builder: (context) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("${project.title}",
+                style: Theme.of(context).textTheme.headline2),
+            _details(
+                icon: OsolIcon.location,
+                iconColor: Colors.red,
+                title: '${project.city} , ${project.country}'),
+            _details(
+                icon: FontAwesomeIcons.bagShopping,
+                title: '${project.deliveryDate}'),
+            _details(icon: OsolIcon.home_3, title: '${project.description}'),
+          ],
+        ),
+      );
+    });
   }
 
-  Row _details({
+  Widget _details({
     required IconData icon,
     required String title,
     Color iconColor = Colors.black,
   }) {
-    return Row(
-      children: [
-        FaIcon(
-          icon,
-          color: iconColor,
-          size: 14,
-        ),
-        const SizedBox(
-          width: 5,
-        ),
-        Text(
-          title,
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 10.sp),
-        ),
-      ],
-    );
+    return Builder(builder: (context) {
+      return Row(
+        children: [
+          FaIcon(
+            icon,
+            color: iconColor,
+            size: 14,
+          ),
+          const SizedBox(
+            width: 5,
+          ),
+          Text(
+            title,
+            style: Theme.of(context).textTheme.headline4,
+          ),
+        ],
+      );
+    });
   }
 
   Padding _projectImage() {
@@ -271,12 +261,11 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
         );
       },
       child: Container(
-        color: Colors.white,
         alignment: Alignment.center,
         child: Icon(
           Icons.arrow_forward_ios_outlined,
           size: 28,
-          color: ColorManager.OnBoardingScreen,
+          color: getInvertDarkmoodColor(context),
         ),
       ),
     );

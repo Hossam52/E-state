@@ -38,8 +38,7 @@ class _SelectCustomDateState extends State<SelectCustomDate> {
         children: [
           Text(
             widget.title,
-            style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
+            style: Theme.of(context).textTheme.headline2!,
           ),
           Container(
             height: sizeFromHeight(13),

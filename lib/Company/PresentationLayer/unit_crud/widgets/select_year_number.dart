@@ -28,13 +28,8 @@ class _CustomSelectNumberOfYearState extends State<CustomSelectNumberOfYear> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    widget.title,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16),
-                  ),
+                  Text(widget.title,
+                      style: Theme.of(context).textTheme.headline3!),
                 ],
               ),
               Container(

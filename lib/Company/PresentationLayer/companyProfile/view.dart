@@ -38,10 +38,8 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
         // var cubit = ProfileCompanyCubit.get(context);
         final company = ProfileCompanyCubit.get(context).companyProfile;
         return Scaffold(
-          backgroundColor: ColorManager.WhiteScreen,
           appBar: AppBar(
             elevation: 0,
-            backgroundColor: ColorManager.WhiteScreen,
             toolbarHeight: 80,
             leading: IconButton(
               onPressed: () {
@@ -49,8 +47,6 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
               },
               icon: Icon(
                 Icons.arrow_back,
-                color: Colors.black54,
-                size: 28,
               ),
             ),
             shape: ContinuousRectangleBorder(
@@ -59,11 +55,6 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
             centerTitle: true,
             title: Text(
               "Profile",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
             ),
           ),
           body: state is LoadingGetProfileDataStatus
@@ -262,19 +253,13 @@ class CustomIInformationCompanies extends StatelessWidget {
                   children: [
                     Text(
                       "${company?.name}",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.headline4,
                     ),
-                    Text(
-                      "${company?.regestrationNum}",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                      ),
-                    )
+                    Text("${company?.regestrationNum}",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline4
+                            ?.copyWith(fontWeight: FontWeight.w400))
                   ],
                 ),
               ),
@@ -677,10 +662,7 @@ class CustomLabelCompanyProfile extends StatelessWidget {
               child: Container(
                 child: Text(
                   title,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16),
+                  style: Theme.of(context).textTheme.headline2,
                 ),
               ),
             ),
@@ -696,12 +678,11 @@ class CustomLabelCompanyProfile extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.only(top: 18.0, left: 10, right: 10),
-              child: Text(
-                "$text",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text("$text",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline4
+                      ?.copyWith(fontWeight: FontWeight.w400)),
             ),
           )
         ],

@@ -96,10 +96,8 @@ class _ChatViewState extends State<ChatView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.WhiteScreen,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: ColorManager.WhiteScreen,
         toolbarHeight: 80,
         leading: IconButton(
           onPressed: () {
@@ -107,7 +105,6 @@ class _ChatViewState extends State<ChatView> {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: Colors.black54,
             size: 28,
           ),
         ),
@@ -117,11 +114,6 @@ class _ChatViewState extends State<ChatView> {
         centerTitle: true,
         title: Text(
           "${widget.name}",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
         ),
       ),
       body: chatDocId == null

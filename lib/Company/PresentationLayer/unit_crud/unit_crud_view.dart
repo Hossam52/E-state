@@ -95,15 +95,15 @@ class _UnitCrudViewState extends State<UnitCrudView> {
                 children: [
                   Text(
                     'Error happened try again',
-                    style:
-                        TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.headline3!,
                   ),
                   SizedBox(height: 20.h),
                   TextButton(
                       onPressed: () {
                         CommonCubit.get(context).getCountry();
                       },
-                      child: const Text('Retry'))
+                      child: Text('Retry',
+                          style: Theme.of(context).textTheme.headline3))
                 ],
               ),
             ),
@@ -131,10 +131,8 @@ class _UnitCrudViewState extends State<UnitCrudView> {
                   return navigateFun(context);
                 },
                 child: Scaffold(
-                  backgroundColor: ColorManager.WhiteScreen,
                   appBar: AppBar(
                     elevation: 0,
-                    backgroundColor: ColorManager.WhiteScreen,
                     toolbarHeight: 80,
                     leading: IconButton(
                       onPressed: () {
@@ -142,7 +140,6 @@ class _UnitCrudViewState extends State<UnitCrudView> {
                       },
                       icon: const Icon(
                         Icons.arrow_back,
-                        color: Colors.black54,
                         size: 28,
                       ),
                     ),
@@ -153,11 +150,6 @@ class _UnitCrudViewState extends State<UnitCrudView> {
                     centerTitle: true,
                     title: Text(
                       isUpdateUnit ? 'Update unit' : "Add Unit",
-                      style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
                     ),
                   ),
                   body: CustomScrollView(

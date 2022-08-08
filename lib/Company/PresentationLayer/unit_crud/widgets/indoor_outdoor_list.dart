@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
+import 'package:osol/Shared/component/methods..dart';
 import 'package:osol/Shared/constants.dart';
 
 class IndoorList extends StatelessWidget {
@@ -18,10 +19,12 @@ class IndoorList extends StatelessWidget {
           children: [
             Text(
               "Indoor",
-              style: TextStyle(
-                  color: ColorManager.onboardingColorDots,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600),
+              style: Theme.of(context).textTheme.headline2!.copyWith(
+                  color: Theme.of(context)
+                      .textTheme
+                      .headline2
+                      ?.color
+                      ?.withOpacity(0.9)),
             ),
             _RowItem(
               title: 'Air Condition',
@@ -68,13 +71,13 @@ class OutdoorList extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Outdoor",
-            style: TextStyle(
-                color: ColorManager.onboardingColorDots,
-                fontSize: 20,
-                fontWeight: FontWeight.w600),
-          ),
+          Text("Outdoor",
+              style: Theme.of(context).textTheme.headline2!.copyWith(
+                  color: Theme.of(context)
+                      .textTheme
+                      .headline2
+                      ?.color
+                      ?.withOpacity(0.9))),
           _RowItem(
               title: 'Balcony',
               svgPath: 'assets/images/balcony.svg',
@@ -130,16 +133,19 @@ class _RowItem extends StatelessWidget {
             if (svgPath != null)
               SvgPicture.asset(
                 svgPath!,
-                color: Colors.black54,
+                color: isDark(context)
+                    ? Colors.white70
+                    : ColorManager.onboardingColorDots,
                 width: 20,
               ),
             const SizedBox(
               width: 10,
             ),
-            Text(
-              title,
-              style: const TextStyle(fontSize: 17.0),
-            ),
+            Text(title,
+                style: Theme.of(context).textTheme.headline3!.copyWith(
+                    color: isDark(context)
+                        ? Colors.white70
+                        : ColorManager.onboardingColorDots)),
           ],
         ), //Text
         const Spacer(),

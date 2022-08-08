@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
 import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_states.dart';
+import 'package:osol/Shared/component/methods..dart';
 import 'package:osol/Shared/component/stacked_fields.dart';
 import 'package:osol/User/BussinssLogic/unitCubit/unit_cubit.dart';
 import 'package:osol/shared/constants.dart';
@@ -43,7 +44,7 @@ class FilterDialog extends StatelessWidget {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                        color: ColorManager.WhiteScreen,
+                        color: getDarkmoodColor(context),
                         borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(20.0),
                             topRight: Radius.circular(20.0))),
@@ -55,22 +56,24 @@ class FilterDialog extends StatelessWidget {
                             padding: const EdgeInsets.all(20.0),
                             child: Container(
                               width: sizeFromWidth(3),
-                              height: 10,
+                              height: 7,
                               decoration: BoxDecoration(
-                                  color: Colors.black87,
+                                  color: getInvertDarkmoodColor(context),
                                   borderRadius: BorderRadius.circular(5)),
                             ),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          padding: EdgeInsets.symmetric(horizontal: 20.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text(
+                              Text(
                                 "Filter",
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 18),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline2!
+                                    .copyWith(fontSize: 18.sp),
                               ),
                               Row(
                                 children: [
@@ -78,18 +81,21 @@ class FilterDialog extends StatelessWidget {
                                     onTap: () {
                                       filterCubit.resetFilters();
                                     },
-                                    child: const Text(
+                                    child: Text(
                                       "Clear all",
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 16),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline2!
+                                          .copyWith(
+                                              fontWeight: FontWeight.w400),
                                     ),
                                   ),
                                   const SizedBox(
                                     width: 5,
                                   ),
-                                  const FaIcon(
+                                  FaIcon(
                                     FontAwesomeIcons.eraser,
-                                    color: Colors.black,
+                                    color: getInvertDarkmoodColor(context),
                                     size: 20,
                                   )
                                 ],
@@ -124,7 +130,7 @@ class FilterDialog extends StatelessWidget {
                                               BorderRadius.circular(10),
                                           color: filterType.selectedIndex == i
                                               ? ColorManager.AppBarHomeColorIcon
-                                              : ColorManager.WhiteScreen,
+                                              : Colors.transparent,
                                         ),
                                         child: Align(
                                           alignment: Alignment.center,
@@ -191,8 +197,9 @@ class FilterDialog extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(
+                  Container(
                     height: 80,
+                    color: getDarkmoodColor(context),
                   ),
                 ],
               ),

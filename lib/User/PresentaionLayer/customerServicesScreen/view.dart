@@ -55,8 +55,9 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
             ),
             centerTitle: true,
-            title: Text("Customer Service",
-                style: Theme.of(context).textTheme.headline1),
+            title: Text(
+              "Customer Service",
+            ),
           ),
           body: Form(
             key: _customerServicesKey,

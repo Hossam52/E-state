@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:osol/Shared/component/methods..dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/common_models/unit_model.dart';
 
@@ -106,10 +107,12 @@ class _FacilitySection extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
               child: Text(
                 sectionTitle,
-                style: const TextStyle(
-                    color: Colors.black87,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600),
+                style: Theme.of(context).textTheme.headline2!.copyWith(
+                    color: Theme.of(context)
+                        .textTheme
+                        .headline2
+                        ?.color
+                        ?.withOpacity(0.9)),
               ),
             ),
             Expanded(
@@ -171,24 +174,16 @@ class _FacilityItemWidget extends StatelessWidget {
           children: [
             Expanded(
               flex: 2,
-              child: Text(
-                item.key,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: ColorManager.onboardingColorDots,
-                  fontSize: 14,
-                ),
-              ),
+              child: Text(item.key,
+                  style: Theme.of(context).textTheme.headline3!.copyWith(
+                      color: isDark(context)
+                          ? Colors.white70
+                          : ColorManager.onboardingColorDots)),
             ),
             Expanded(
-              child: Text(
-                getValue,
-                textAlign: TextAlign.end,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 14,
-                ),
-              ),
+              child: Text(getValue,
+                  textAlign: TextAlign.end,
+                  style: Theme.of(context).textTheme.headline4),
             ),
           ],
         ),

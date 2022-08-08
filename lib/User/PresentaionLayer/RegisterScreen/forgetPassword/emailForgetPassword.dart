@@ -22,7 +22,6 @@ class _EmailForgetPasswordState extends State<EmailForgetPassword> {
       builder: (context, state) {
         var cubit = AuthCubit.get(context);
         return Scaffold(
-          backgroundColor: ColorManager.WhiteScreen,
           body: Column(
             children: [
               Expanded(

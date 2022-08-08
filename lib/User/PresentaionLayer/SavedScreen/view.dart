@@ -37,7 +37,6 @@ class _SavedScreenState extends State<SavedScreen> {
         var cubit = SavedCubit.get(context);
         print("${cubit.dataUnit.length}");
         return Scaffold(
-          backgroundColor: ColorManager.WhiteScreen,
           appBar: AppBar(
             elevation: 0,
             leading: IconButton(
@@ -49,16 +48,11 @@ class _SavedScreenState extends State<SavedScreen> {
                 color: Colors.grey,
               ),
             ),
-            backgroundColor: ColorManager.WhiteScreen,
+
             // toolbarHeight: 70,
             centerTitle: true,
             title: Text(
               "Saved",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 26,
-                fontWeight: FontWeight.w600,
-              ),
             ),
           ),
           body: Column(
@@ -282,7 +276,6 @@ class _SavedScreenState extends State<SavedScreen> {
 AppBar CustomAppBar(context, txt) {
   return AppBar(
     elevation: 0,
-    backgroundColor: ColorManager.WhiteScreen,
     toolbarHeight: 80,
     leading: IconButton(
       onPressed: () {
@@ -290,7 +283,6 @@ AppBar CustomAppBar(context, txt) {
       },
       icon: Icon(
         Icons.arrow_back,
-        color: Colors.black54,
         size: 28,
       ),
     ),
@@ -300,11 +292,6 @@ AppBar CustomAppBar(context, txt) {
     centerTitle: true,
     title: Text(
       "$txt",
-      style: TextStyle(
-        fontSize: 24,
-        fontWeight: FontWeight.bold,
-        color: Colors.black,
-      ),
     ),
   );
 }

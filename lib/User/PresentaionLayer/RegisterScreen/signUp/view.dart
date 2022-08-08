@@ -51,11 +51,6 @@ class _SignUpViewState extends State<SignUpView> {
         centerTitle: false,
         title: Text(
           "Personal Register",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
         ),
         leading: Padding(
           padding: const EdgeInsets.only(
@@ -343,7 +338,6 @@ class _SignUpViewState extends State<SignUpView> {
                               padding: const EdgeInsets.all(8.0),
                               child: CircleAvatar(
                                 radius: 25,
-                                backgroundColor: ColorManager.WhiteScreen,
                                 child: SvgPicture.asset(
                                   "assets/images/google.svg",
                                 ),

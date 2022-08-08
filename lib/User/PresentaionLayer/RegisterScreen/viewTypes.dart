@@ -12,7 +12,6 @@ class TypesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.WhiteScreen,
       appBar: AppBar(
         backgroundColor: ColorManager.OnBoardingScreen,
         elevation: 0,
@@ -39,7 +38,6 @@ class TypesScreen extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   child: CircleAvatar(
                     radius: sizeFromWidth(4),
-                    backgroundColor: ColorManager.WhiteScreen,
                     child: Image(
                       image: AssetImage(
                         "assets/images/estateco.png",

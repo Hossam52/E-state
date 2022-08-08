@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
 import 'package:osol/Shared/Customicon.dart';
+import 'package:osol/Shared/component/methods..dart';
 import 'package:osol/Shared/constants.dart';
 
 class DetailsOfContains extends StatelessWidget {
@@ -29,28 +30,40 @@ class DetailsOfContains extends StatelessWidget {
                     children: [
                       FaIcon(
                         FontAwesomeIcons.bath,
-                        color: Colors.grey,
+                        color:
+                            getInvertDarkmoodColor(context).withOpacity(0.85),
                         size: 12,
                       ),
-                      Text("${cubit.numBathRoom}"),
+                      Text(
+                        "${cubit.numBathRoom}",
+                        style: Theme.of(context).textTheme.headline3!,
+                      ),
                       SizedBox(
                         width: 5,
                       ),
                       FaIcon(
                         FontAwesomeIcons.bed,
                         size: 12,
-                        color: Colors.grey,
+                        color:
+                            getInvertDarkmoodColor(context).withOpacity(0.85),
                       ),
-                      Text("${cubit.numBedRoom}"),
+                      Text(
+                        "${cubit.numBedRoom}",
+                        style: Theme.of(context).textTheme.headline3!,
+                      ),
                       SizedBox(
                         width: 5,
                       ),
                       Icon(
                         OsolIcon.square_,
                         size: 12,
-                        color: Colors.grey,
+                        color:
+                            getInvertDarkmoodColor(context).withOpacity(0.85),
                       ),
-                      Text("$area m²"),
+                      Text(
+                        "$area m²",
+                        style: Theme.of(context).textTheme.headline3!,
+                      ),
                     ],
                   ),
                 ),

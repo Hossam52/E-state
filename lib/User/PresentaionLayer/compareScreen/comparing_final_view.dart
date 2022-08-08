@@ -36,7 +36,6 @@ class _ComparingScreenState extends State<ComparingScreen> {
           },
           child: Scaffold(
             appBar: AppBar(
-              toolbarHeight: 80,
               leading: IconButton(
                 onPressed: () async {
                   Navigator.pop(context);
@@ -50,7 +49,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
               centerTitle: true,
               title: Text(
                 "Compare",
-                style: Theme.of(context).textTheme.headline1,
+              
               ),
             ),
             body: cubit.comparedUnits.isEmpty

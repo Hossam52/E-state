@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
 import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_states.dart';
+import 'package:osol/Shared/component/methods..dart';
 import 'package:osol/shared/constants.dart';
 
 class _StackedContainer extends StatelessWidget {
@@ -28,7 +29,9 @@ class _StackedContainer extends StatelessWidget {
               height: sizeFromHeight(9),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.black45, width: 1),
+                border: Border.all(
+                    color: getInvertDarkmoodColor(context).withOpacity(0.54),
+                    width: 1),
               ),
               child: child),
         ),
@@ -36,7 +39,7 @@ class _StackedContainer extends StatelessWidget {
           top: 10,
           left: sizeFromWidth(11),
           child: Container(
-            color: ColorManager.WhiteScreen,
+            color: getDarkmoodColor(context),
             height: 20,
             child: Row(
               children: [
@@ -46,17 +49,18 @@ class _StackedContainer extends StatelessWidget {
                 if (svgPath != null)
                   SvgPicture.asset(
                     svgPath!,
+                    color: getInvertDarkmoodColor(context),
                   )
                 else if (icon != null)
                   FaIcon(
                     icon,
                     size: 14,
-                    color: Colors.black54,
+                    color: getInvertDarkmoodColor(context),
                   ),
                 const SizedBox(width: 5),
                 Text(
                   title,
-                  style: const TextStyle(color: Colors.black, fontSize: 18),
+                  style: Theme.of(context).textTheme.headline2,
                 ),
               ],
             ),
@@ -116,13 +120,14 @@ class FilterSection extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           child: Align(
                               alignment: Alignment.center,
-                              child: Text(
-                                list[listIndex],
-                                style: TextStyle(
-                                    fontWeight: selectedIndex == listIndex
-                                        ? FontWeight.bold
-                                        : null),
-                              )),
+                              child: Text(list[listIndex],
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline3!
+                                      .copyWith(
+                                          fontWeight: selectedIndex == listIndex
+                                              ? FontWeight.bold
+                                              : null))),
                         ),
                       ),
                     ),
@@ -180,9 +185,13 @@ class PriceFilterSection extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                            "\$${filterCubit.startFilterPrice.toStringAsFixed(1)}"),
+                          "\$${filterCubit.startFilterPrice.toInt()}",
+                          style: Theme.of(context).textTheme.headline4,
+                        ),
                         Text(
-                            "\$${filterCubit.endFilterPrice.toStringAsFixed(1)}")
+                          "\$${filterCubit.endFilterPrice.toInt()}",
+                          style: Theme.of(context).textTheme.headline4,
+                        )
                       ],
                     ),
                   ),

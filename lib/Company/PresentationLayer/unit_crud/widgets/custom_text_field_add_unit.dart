@@ -27,13 +27,7 @@ class CustomTxtFieldAddUnit extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16),
-              ),
+              Text(title, style: Theme.of(context).textTheme.headline2!),
               // Text(
               //   "0/150",
               //   style: TextStyle(

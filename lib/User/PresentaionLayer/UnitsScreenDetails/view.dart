@@ -45,7 +45,6 @@ class _UnitsDetailsScreenState extends State<UnitsDetailsScreen> {
       builder: (context, state) {
         var cubit = UnitClientCubit.get(context);
         return Scaffold(
-          backgroundColor: ColorManager.WhiteScreen,
           appBar: _CustomAppBar(
               context,
               "${cubit.unitById == null ? "Waiting" : cubit.unitById!.title}",
@@ -214,15 +213,12 @@ class _UnitsDetailsScreenState extends State<UnitsDetailsScreen> {
 AppBar _CustomAppBar(BuildContext context, String txt, UnitClientCubit cubit) {
   return AppBar(
     elevation: 0,
-    backgroundColor: ColorManager.WhiteScreen,
-    toolbarHeight: 80,
     leading: IconButton(
       onPressed: () {
         Navigator.pop(context);
       },
       icon: const Icon(
         Icons.arrow_back,
-        color: Colors.black54,
         size: 28,
       ),
     ),
@@ -232,11 +228,6 @@ AppBar _CustomAppBar(BuildContext context, String txt, UnitClientCubit cubit) {
     centerTitle: true,
     title: Text(
       txt,
-      style: const TextStyle(
-        fontSize: 24,
-        fontWeight: FontWeight.bold,
-        color: Colors.black,
-      ),
     ),
     actions: [
       IconButton(

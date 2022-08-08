@@ -25,7 +25,6 @@ class AboutView extends StatelessWidget {
         centerTitle: true,
         title: Text(
           "About App",
-          style: Theme.of(context).textTheme.headline1,
         ),
       ),
       body: Padding(

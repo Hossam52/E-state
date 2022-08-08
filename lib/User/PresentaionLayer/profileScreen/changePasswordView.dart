@@ -29,7 +29,6 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
             centerTitle: true,
             title: Text(
               "Change Password",
-              style: Theme.of(context).textTheme.headline1,
             ),
           ),
           body: Form(

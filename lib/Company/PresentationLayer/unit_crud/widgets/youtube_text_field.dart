@@ -23,8 +23,7 @@ class CustomTxtFieldYoutubeAddUnit extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
-                color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
+            style: Theme.of(context).textTheme.headline3!,
           ),
           Container(
             height: sizeFromHeight(10),

@@ -68,10 +68,8 @@ class _UpdateCompanyScreenState extends State<UpdateCompanyScreen> {
         }
       },
       child: Scaffold(
-        backgroundColor: ColorManager.WhiteScreen,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: ColorManager.WhiteScreen,
           toolbarHeight: 80,
           leadingWidth: 30,
           leading: IconButton(
@@ -82,8 +80,6 @@ class _UpdateCompanyScreenState extends State<UpdateCompanyScreen> {
               padding: EdgeInsets.only(left: 8.0),
               child: Icon(
                 Icons.arrow_back_ios,
-                color: Colors.black54,
-                size: 28,
               ),
             ),
           ),
@@ -93,11 +89,6 @@ class _UpdateCompanyScreenState extends State<UpdateCompanyScreen> {
           centerTitle: false,
           title: const Text(
             "Edit Company Profile",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
           ),
         ),
         body: Form(
@@ -447,7 +438,7 @@ class _CustomIAddLogoCompaniesState extends State<CustomIAddLogoCompanies> {
                       : (company?.image) != null
                           ? CircleAvatar(
                               radius: sizeFromWidth(12),
-                              backgroundColor: ColorManager.WhiteScreen,
+
                               backgroundImage:
                                   CachedNetworkImageProvider(company!.image!
 
@@ -459,7 +450,6 @@ class _CustomIAddLogoCompaniesState extends State<CustomIAddLogoCompanies> {
                             )
                           : CircleAvatar(
                               radius: sizeFromWidth(12),
-                              backgroundColor: ColorManager.WhiteScreen,
                               child: image != null
                                   ? Image.file(
                                       image!,
@@ -473,14 +463,8 @@ class _CustomIAddLogoCompaniesState extends State<CustomIAddLogoCompanies> {
                   padding: EdgeInsets.symmetric(horizontal: 15.0),
                   child: Icon(Icons.add),
                 ),
-                const Text(
-                  "Upload Company Logo",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                  ),
-                )
+                Text("Upload Company Logo",
+                    style: Theme.of(context).textTheme.headline2)
               ],
             ),
           ),
@@ -519,13 +503,8 @@ class CustomTxtFieldCompanyProfile extends StatelessWidget {
             child: FittedBox(
               fit: BoxFit.scaleDown,
               child: Container(
-                child: Text(
-                  title,
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16),
-                ),
+                child:
+                    Text(title, style: Theme.of(context).textTheme.headline2),
               ),
             ),
           ),
@@ -732,8 +711,7 @@ class CustomTxtFieldAboutCompany extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
+            style: Theme.of(context).textTheme.headline2,
           ),
           Container(
             decoration: BoxDecoration(
@@ -783,8 +761,7 @@ class CustomTxtFieldComplexNumber extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
+            style: Theme.of(context).textTheme.headline2,
           ),
           Container(
             height: sizeFromHeight(12),

@@ -21,16 +21,11 @@ class CustomAppBarWithSearch extends StatelessWidget with PreferredSizeWidget {
       preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.15),
       child: AppBar(
         elevation: 0,
-        backgroundColor: ColorManager.WhiteScreen,
         shape: ContinuousRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
         ),
         title: Text(
           title,
-          style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.normal,
-              color: Colors.black),
         ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),

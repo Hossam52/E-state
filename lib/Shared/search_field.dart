@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
+import 'package:osol/Shared/component/methods..dart';
 import 'package:osol/shared/constants.dart';
 
 class AppSearchField extends StatefulWidget {
@@ -39,7 +40,7 @@ class _AppSearchFieldState extends State<AppSearchField> {
           border: InputBorder.none,
           suffixIcon: Icon(
             Icons.search,
-            color: Colors.grey[500],
+            color: isDark(context) ? Colors.white54 : Colors.grey[500],
           ),
         ),
       ),

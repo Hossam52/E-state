@@ -29,14 +29,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final controller = PageController(viewportFraction: 0.8, keepPage: true);
 
-  int currentIndex=0;
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.WhiteScreen,
       appBar: AppBar(
-        backgroundColor: ColorManager.WhiteScreen,
         elevation: 0,
         systemOverlayStyle: const SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,
@@ -54,7 +52,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               physics: BouncingScrollPhysics(),
               itemCount: onbordingData.length,
               itemBuilder: (context, index) {
-                currentIndex=index;
+                currentIndex = index;
                 return Column(
                   children: [
                     Expanded(
@@ -93,13 +91,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(bottom: sizeFromHeight(5),right: 5),
+            padding: EdgeInsets.only(bottom: sizeFromHeight(5), right: 5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 MaterialButton(
-                    onPressed: () => Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (_) => NavigationDrawer(token: "",))),
+                    onPressed: () =>
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (_) => NavigationDrawer(
+                                  token: "",
+                                ))),
                     child: Text(
                       "SKIP",
                       style: TextStyle(
@@ -124,11 +125,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     onPressed: () {
                       setState(() {
                         print(currentIndex);
-                        onbordingData.length==(currentIndex+1)?
-                        Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (_) => NavigationDrawer(token: "",))):
-                        controller.nextPage(curve: Curves.linear, duration: Duration(milliseconds: 500));
-
+                        onbordingData.length == (currentIndex + 1)
+                            ? Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
+                                    builder: (_) => NavigationDrawer(
+                                          token: "",
+                                        )))
+                            : controller.nextPage(
+                                curve: Curves.linear,
+                                duration: Duration(milliseconds: 500));
                       });
                     },
                     child: Text(

@@ -57,7 +57,6 @@ class _OTPForgetPasswordScreenState extends State<OTPForgetPasswordScreen> {
       builder: (context, state) {
         var cubit = AuthCubit.get(context);
         return Scaffold(
-          backgroundColor: ColorManager.WhiteScreen,
           body: GestureDetector(
             onTap: () {},
             child: SizedBox(

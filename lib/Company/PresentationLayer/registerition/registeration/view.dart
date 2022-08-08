@@ -50,10 +50,8 @@ class _CompanyRegisterationScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.WhiteScreen,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: ColorManager.WhiteScreen,
         toolbarHeight: 80,
         leadingWidth: 30,
         leading: IconButton(
@@ -75,11 +73,6 @@ class _CompanyRegisterationScreenState
         centerTitle: false,
         title: Text(
           "Company Register",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
         ),
       ),
       body: Form(
@@ -479,14 +472,12 @@ class _CustomIAddLogoCompaniesState extends State<CustomIAddLogoCompanies> {
                   child: image != null
                       ? CircleAvatar(
                           radius: sizeFromWidth(12),
-                          backgroundColor: ColorManager.WhiteScreen,
                           child: Image.file(
                             image!,
                             fit: BoxFit.cover,
                           ))
                       : CircleAvatar(
                           radius: sizeFromWidth(12),
-                          backgroundColor: ColorManager.WhiteScreen,
                           child: image != null
                               ? Image.file(
                                   image!,

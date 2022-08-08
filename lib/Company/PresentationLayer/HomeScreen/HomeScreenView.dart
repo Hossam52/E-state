@@ -15,7 +15,9 @@ import 'package:osol/Company/PresentationLayer/unit_crud/unit_crud_view.dart';
 import 'package:osol/Company/PresentationLayer/walletScreen/view.dart';
 import 'package:osol/Company/businessLogicLayer/bannersCubit/banners_cubit.dart';
 import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
+import 'package:osol/Shared/component/methods..dart';
 import 'package:osol/Shared/constants.dart';
+import 'package:osol/User/BussinssLogic/AppSettingCubit/app_setting_cubit.dart';
 import 'package:osol/User/PresentaionLayer/DawerScreen/view.dart';
 import 'package:osol/User/PresentaionLayer/notification/view.dart';
 import 'package:osol/shared/Customicon.dart';
@@ -85,7 +87,7 @@ class _HomeScreenUserViewState extends State<HomeScreenCompanyView> {
       builder: (context, state) {
         return Scaffold(
           key: _scaffoldKey,
-          backgroundColor: ColorManager.WhiteScreen,
+          backgroundColor: getDarkmoodColor(context),
           appBar: CustomVompany(
             context,
             Container(
@@ -107,14 +109,18 @@ class _HomeScreenUserViewState extends State<HomeScreenCompanyView> {
                       Text(
                         "Estate GPS",
                         style: TextStyle(
-                            color: ColorManager.firsthomemainicon,
+                            color: isDark(context)
+                                ? Colors.white
+                                : ColorManager.firsthomemainicon,
                             fontWeight: FontWeight.bold,
                             fontSize: 12),
                       ),
                       Text(
                         "Result that move you",
                         style: TextStyle(
-                            color: ColorManager.firsthomemainicon,
+                            color: isDark(context)
+                                ? Colors.white
+                                : ColorManager.firsthomemainicon,
                             fontWeight: FontWeight.bold,
                             fontSize: 6),
                       )
@@ -127,7 +133,7 @@ class _HomeScreenUserViewState extends State<HomeScreenCompanyView> {
           body: currentIndex == 2 ? screen[0] : screen[currentIndex],
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: getDarkmoodColor(context),
               boxShadow: [
                 BoxShadow(
                   blurRadius: 20,
@@ -273,6 +279,7 @@ class _buildOverlayState extends State<buildOverlay> {
               elevation: 8,
               child: Container(
                 decoration: BoxDecoration(
+                  color: getDarkmoodColor(context),
                   borderRadius: BorderRadius.circular(
                     15,
                   ),
@@ -281,50 +288,19 @@ class _buildOverlayState extends State<buildOverlay> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      child: Container(
-                        width: sizeFromWidth(1.2),
-                        child: ListTile(
-                          onTap: () {
-                            final unit =
-                                UnitCubit.get(context).getDataFeature.first;
-                            hideOverLay();
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => const UnitCrudView(),
-                              ),
-                            );
-                          },
-                          leading:
-                              SvgPicture.asset("assets/images/addunit.svg"),
-                          title: Text(
-                            "Add Unit Listing",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
+                    _overlayItem(
+                        title: 'Add Unit Listing',
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => UnitCrudView(),
                             ),
-                          ),
-                          trailing: Icon(
-                            Icons.arrow_forward_ios_outlined,
-                            size: 20,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Container(
-                        width: sizeFromWidth(1.4),
-                        height: 2,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Container(
-                      width: sizeFromWidth(1.2),
-                      child: ListTile(
-                        onTap: () {
-                          hideOverLay();
+                          );
+                        },
+                        svgPath: "assets/images/addunit.svg"),
+                    _overlayItem(
+                        title: 'Add Featured Advertisement',
+                        onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (_) => UnitCrudView(
@@ -333,96 +309,80 @@ class _buildOverlayState extends State<buildOverlay> {
                             ),
                           );
                         },
-                        leading: SvgPicture.asset("assets/images/feature.svg"),
-                        title: Text(
-                          "Add Featured Advertisement",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        trailing: Icon(
-                          Icons.arrow_forward_ios_outlined,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Container(
-                        width: sizeFromWidth(1.4),
-                        height: 2,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Container(
-                      width: sizeFromWidth(1.2),
-                      child: ListTile(
-                        onTap: () {
-                          hideOverLay();
+                        svgPath: "assets/images/feature.svg"),
+                    _overlayItem(
+                        title: 'Add To main banner',
+                        onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (_) => AddBannerInCompanyScreen(),
                             ),
                           );
                         },
-                        leading:
-                            SvgPicture.asset("assets/images/addbanner.svg"),
-                        title: Text(
-                          "Add To main banner",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        trailing: Icon(
-                          Icons.arrow_forward_ios_outlined,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Container(
-                        width: sizeFromWidth(1.4),
-                        height: 2,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Container(
-                      width: sizeFromWidth(1.2),
-                      child: ListTile(
-                        onTap: () {
-                          hideOverLay();
+                        svgPath: "assets/images/addbanner.svg"),
+                    _overlayItem(
+                        title: 'Add Notification',
+                        onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (_) => NotificationScreen(),
                             ),
                           );
                         },
-                        leading: FaIcon(
-                          FontAwesomeIcons.solidBell,
-                          color: ColorManager.onboardingColorDots,
-                        ),
-                        title: Text(
-                          "Add Notification",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        trailing: Icon(
-                          Icons.arrow_forward_ios_outlined,
-                          size: 20,
-                        ),
-                      ),
-                    ),
+                        faIcon: FontAwesomeIcons.solidBell),
                   ],
                 ),
               ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Column _overlayItem(
+      {required String title,
+      String? svgPath,
+      IconData? faIcon,
+      VoidCallback? onPressed}) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Container(
+            width: sizeFromWidth(1.4),
+            height: 2,
+            color: Colors.grey,
+          ),
+        ),
+        Container(
+          width: sizeFromWidth(1.2),
+          child: ListTile(
+            onTap: () {
+              hideOverLay();
+              if (onPressed != null) onPressed();
+            },
+            leading: faIcon != null
+                ? FaIcon(
+                    faIcon,
+                    color: ColorManager.onboardingColorDots,
+                  )
+                : svgPath != null
+                    ? SvgPicture.asset(svgPath)
+                    : null,
+            title: Text(
+              title,
+              style: Theme.of(context).textTheme.headline3!.copyWith(
+                  color: Theme.of(context)
+                      .textTheme
+                      .headline3
+                      ?.color
+                      ?.withOpacity(0.9)),
+            ),
+            trailing: Icon(
+              Icons.arrow_forward_ios_outlined,
+              size: 20,
+              color: getInvertDarkmoodColor(context),
             ),
           ),
         ),
@@ -434,7 +394,7 @@ class _buildOverlayState extends State<buildOverlay> {
 AppBar CustomVompany(context, title) {
   return AppBar(
     elevation: 0,
-    backgroundColor: ColorManager.WhiteScreen,
+    backgroundColor: getDarkmoodColor(context),
     toolbarHeight: 75.h,
     leadingWidth: 83.h,
     leading: Padding(
@@ -448,13 +408,18 @@ AppBar CustomVompany(context, title) {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              border:
-                  Border.all(color: ColorManager.AppBarHomeColorIcon, width: 2),
+              border: Border.all(
+                  color: isDark(context)
+                      ? Colors.white
+                      : ColorManager.AppBarHomeColorIcon,
+                  width: 2),
             ),
             child: Icon(
               OsolIcon.menu,
               size: 22,
-              color: ColorManager.AppBarHomeColorIcon,
+              color: isDark(context)
+                  ? Colors.white
+                  : ColorManager.AppBarHomeColorIcon,
             ),
           ),
         ),
@@ -477,7 +442,8 @@ AppBar CustomVompany(context, title) {
         icon: Icon(
           OsolIcon.bell,
           size: 20,
-          color: ColorManager.AppBarIconcolorGrey,
+          color:
+              isDark(context) ? Colors.white : ColorManager.AppBarIconcolorGrey,
         ),
       )
     ],

@@ -35,10 +35,8 @@ class ChatCompanyView extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: ColorManager.WhiteScreen,
           appBar: AppBar(
             elevation: 0,
-            backgroundColor: ColorManager.WhiteScreen,
             toolbarHeight: 80,
             leading: IconButton(
               onPressed: () {
@@ -46,8 +44,6 @@ class ChatCompanyView extends StatelessWidget {
               },
               icon: Icon(
                 Icons.arrow_back,
-                color: Colors.black54,
-                size: 28,
               ),
             ),
             shape: ContinuousRectangleBorder(
@@ -56,11 +52,6 @@ class ChatCompanyView extends StatelessWidget {
             centerTitle: true,
             title: Text(
               "$name",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
             ),
           ),
           body: state is SuccessGetProfileDataStatus

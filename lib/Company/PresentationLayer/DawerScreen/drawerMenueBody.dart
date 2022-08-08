@@ -16,6 +16,7 @@ import 'package:osol/Company/businessLogicLayer/profilecompanyCubit/profile_comp
 import 'package:osol/Company/dataLayer/dataModel/companyProfile/getProfileDataModel.dart';
 import 'package:osol/Shared/Customicon.dart';
 import 'package:osol/Shared/constants.dart';
+import 'package:osol/Shared/darkmood_switch.dart';
 import 'package:osol/User/BussinssLogic/authCubit/auth_cubit.dart';
 import 'package:osol/User/BussinssLogic/commonCubit/profieCubit/profile_cubit.dart';
 import 'package:osol/User/PresentaionLayer/RegisterScreen/signIn/view.dart';
@@ -269,14 +270,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Switch(
-                                    onChanged: (value) {},
-                                    value: isSwitched,
-                                    activeColor: Colors.white,
-                                  ),
-                                ),
+                                Expanded(flex: 1, child: DarkmoodSwitch()),
                               ],
                             ),
                           ),

@@ -15,7 +15,6 @@ class AppBarUnitsDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
-      backgroundColor: ColorManager.WhiteScreen,
       toolbarHeight: 80,
       leading: IconButton(
         onPressed: () {
@@ -23,7 +22,6 @@ class AppBarUnitsDetails extends StatelessWidget {
         },
         icon: Icon(
           Icons.arrow_back,
-          color: Colors.black54,
           size: 28,
         ),
       ),
@@ -32,12 +30,7 @@ class AppBarUnitsDetails extends StatelessWidget {
       ),
       centerTitle: true,
       title: Text(
-        "Unit details",
-        style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-        ),
+        "Unit detaials",
       ),
       actions: [
         IconButton(
@@ -213,14 +206,12 @@ class CustomFloatingIcon extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 25,
-              backgroundColor: ColorManager.WhiteScreen,
               child: IconButton(
                 onPressed: () {},
                 icon: Icon(Icons.phone),
               ),
             ),
             CircleAvatar(
-              backgroundColor: ColorManager.WhiteScreen,
               radius: 25,
               child: IconButton(
                 onPressed: () {},
@@ -231,7 +222,6 @@ class CustomFloatingIcon extends StatelessWidget {
               ),
             ),
             CircleAvatar(
-              backgroundColor: ColorManager.WhiteScreen,
               radius: 25,
               child: IconButton(
                 onPressed: () {},
@@ -1030,7 +1020,6 @@ class CustomUnitIInformation extends StatelessWidget {
                 border: Border.all(color: ColorManager.onboardingColorDots)),
             child: CircleAvatar(
               radius: sizeFromWidth(12),
-              backgroundColor: ColorManager.WhiteScreen,
               child: Image.asset(
                 "assets/images/companyname.png",
               ),

@@ -61,7 +61,6 @@ class _PinCodeVerificationCompanyScreenState
       builder: (context, state) {
         var cubit = AuthCompanyCubit.get(context);
         return Scaffold(
-          backgroundColor: ColorManager.WhiteScreen,
           body: GestureDetector(
             onTap: () {},
             child: SizedBox(

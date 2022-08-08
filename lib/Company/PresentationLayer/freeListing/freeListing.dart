@@ -13,6 +13,7 @@ import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
 import 'package:osol/Shared/Customicon.dart';
 import 'package:osol/Shared/component/custom_search_bar.dart';
 import 'package:osol/Shared/component/filter_dialog.dart';
+import 'package:osol/Shared/component/methods..dart';
 import 'package:osol/Shared/component/search_and_filter_widget.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/Shared/customListLabel.dart';
@@ -41,10 +42,8 @@ class _PopularScreenState extends State<PopularScreen> {
         builder: (context, state) {
           var cubit = PopularCubit.get(context);
           return Scaffold(
-            backgroundColor: ColorManager.WhiteScreen,
             appBar: AppBar(
               elevation: 0,
-              backgroundColor: ColorManager.WhiteScreen,
               toolbarHeight: 50,
               leading: IconButton(
                 onPressed: () {
@@ -52,8 +51,6 @@ class _PopularScreenState extends State<PopularScreen> {
                 },
                 icon: const Icon(
                   Icons.arrow_back,
-                  color: Colors.black54,
-                  size: 28,
                 ),
               ),
               shape: const ContinuousRectangleBorder(
@@ -63,11 +60,6 @@ class _PopularScreenState extends State<PopularScreen> {
               centerTitle: true,
               title: const Text(
                 "Popular Listing",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
               ),
             ),
             body: CustomScrollView(
@@ -79,6 +71,9 @@ class _PopularScreenState extends State<PopularScreen> {
                           PopularCubit.get(context).showResFromFilter,
                       onSearch: () =>
                           cubit.selectedUnitCategory.onTapped(forceTap: true)),
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(height: 20.h),
                 ),
                 SliverToBoxAdapter(
                   child: Padding(
@@ -101,12 +96,11 @@ class _PopularScreenState extends State<PopularScreen> {
                       child: DefaultTabController(
                         length: 4,
                         child: Scaffold(
-                          backgroundColor: ColorManager.WhiteScreen,
                           appBar: AppBar(
+                            leading: Container(),
                             toolbarHeight: 50,
                             leadingWidth: 0,
                             elevation: 0,
-                            backgroundColor: ColorManager.WhiteScreen,
                             title: Container(
                               margin: EdgeInsets.zero,
                               decoration: BoxDecoration(
@@ -203,9 +197,7 @@ class _StatuesesTabBar extends StatelessWidget {
           border: Border(
               bottom: BorderSide(
                   color: ColorManager.onboardingColorDots, width: 3))),
-      labelStyle:
-          const TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
-      labelColor: Colors.black,
+      labelColor: getInvertDarkmoodColor(context),
       unselectedLabelColor: Colors.grey,
       indicatorColor: ColorManager.onboardingColorDots,
       onTap: (numOfTapped) {
@@ -275,13 +267,8 @@ class CardFreeListingData extends StatelessWidget {
               flex: 1,
               child: Padding(
                 padding: const EdgeInsets.only(left: 3.0),
-                child: Text(
-                  "${unit.type}",
-                  style: TextStyle(
-                    color: ColorManager.TextHomeColor,
-                    fontSize: 12,
-                  ),
-                ),
+                child: Text("${unit.type}",
+                    style: Theme.of(context).textTheme.headline4),
               ),
             ),
             Expanded(
@@ -300,7 +287,7 @@ class CardFreeListingData extends StatelessWidget {
                     ),
                     Text(
                       "${unit.city} , ${unit.country} ",
-                      style: const TextStyle(fontSize: 9),
+                      style: Theme.of(context).textTheme.headline4,
                     )
                   ],
                 ),
@@ -318,7 +305,7 @@ class CardFreeListingData extends StatelessWidget {
                     ),
                     Text(
                       "${unit.watchNum} Seen",
-                      style: TextStyle(fontSize: 10),
+                      style: Theme.of(context).textTheme.headline4,
                     )
                   ],
                 ),

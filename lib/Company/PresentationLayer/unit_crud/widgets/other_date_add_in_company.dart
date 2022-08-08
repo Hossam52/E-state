@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
+import 'package:osol/Shared/component/methods..dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/common_models/unit_model.dart';
 
@@ -38,7 +39,7 @@ class CustomOtherDataAddInCompany extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                          color: Colors.black54,
+                          color: Colors.grey[600]!,
                           width: 1,
                         )),
                     child: Column(
@@ -65,12 +66,10 @@ class CustomOtherDataAddInCompany extends StatelessWidget {
                                 ? Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      Text(
-                                        "Done",
-                                        style: TextStyle(
-                                          color: Colors.black54,
-                                        ),
-                                      ),
+                                      Text("Done",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3!),
                                       SizedBox(
                                         width: 5,
                                       ),
@@ -83,15 +82,15 @@ class CustomOtherDataAddInCompany extends StatelessWidget {
                                 : Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      Text(
-                                        "Next",
-                                        style: TextStyle(
-                                          color: Colors.black54,
-                                        ),
-                                      ),
+                                      Text("Next",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3!),
                                       Icon(
                                         Icons.arrow_forward,
-                                        color: Colors.black54,
+                                        color: isDark(context)
+                                            ? Colors.white
+                                            : Colors.black,
                                       )
                                     ],
                                   ),

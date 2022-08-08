@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
+import 'package:osol/Shared/component/methods..dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/common_models/unit_model.dart';
 
@@ -61,10 +62,12 @@ class _DistanceListState extends State<DistanceList> {
               children: [
                 Text(
                   "Distance",
-                  style: TextStyle(
-                      color: ColorManager.onboardingColorDots,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600),
+                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                      color: Theme.of(context)
+                          .textTheme
+                          .headline1
+                          ?.color
+                          ?.withOpacity(0.9)),
                 ),
                 _DistanceItem(
                     title: 'Train',
@@ -144,18 +147,24 @@ class _DistanceItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: icon != null
-          ? FaIcon(
-              icon!,
-              color: Colors.black54,
-            )
+          ? FaIcon(icon!,
+              color: isDark(context)
+                  ? Colors.white70
+                  : ColorManager.onboardingColorDots)
           : svgPath != null
               ? SvgPicture.asset(
                   svgPath!,
-                  color: Colors.black54,
+                  color: isDark(context)
+                      ? Colors.white70
+                      : ColorManager.onboardingColorDots,
                   width: 20,
                 )
               : null,
-      title: Text(title),
+      title: Text(title,
+          style: Theme.of(context).textTheme.headline3!.copyWith(
+              color: isDark(context)
+                  ? Colors.white70
+                  : ColorManager.onboardingColorDots)),
       trailing: _TextField(
         onChanged: onChanged,
         controller: controller,
@@ -189,13 +198,14 @@ class _TextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
                   width: 1,
-                  color: Colors.black54,
+                  color: getInvertDarkmoodColor(context).withOpacity(0.76),
                 )),
             height: sizeFromHeight(18),
             width: sizeFromWidth(5.5),
             child: TextFormField(
               onChanged: onChanged,
               controller: controller,
+              style: Theme.of(context).textTheme.headline4,
               cursorColor: Colors.black54,
               cursorHeight: 20,
               keyboardType: TextInputType.number,
@@ -207,14 +217,8 @@ class _TextField extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 8.0),
-            child: Text(
-              measureUnit!,
-              style: const TextStyle(
-                color: Colors.black54,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
-            ),
+            child: Text(measureUnit!,
+                style: Theme.of(context).textTheme.headline2),
           ),
         ],
       ),

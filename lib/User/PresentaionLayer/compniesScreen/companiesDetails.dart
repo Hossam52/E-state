@@ -61,12 +61,10 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen> {
         builder: (context, state) {
           var cubit = CompanyCubit.get(context);
           return Scaffold(
-            backgroundColor: ColorManager.WhiteScreen,
             appBar: state is LoadingGetDetectedCompany
                 ? null
                 : AppBar(
                     elevation: 0,
-                    backgroundColor: ColorManager.WhiteScreen,
                     toolbarHeight: 80,
                     leading: IconButton(
                       onPressed: () {
@@ -74,7 +72,6 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen> {
                       },
                       icon: const Icon(
                         Icons.arrow_back,
-                        color: Colors.black54,
                         size: 28,
                       ),
                     ),
@@ -85,11 +82,6 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen> {
                     centerTitle: true,
                     title: Text(
                       "${cubit.company!.name}",
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
                     ),
                   ),
             body: state is ErrorGetDetectedCompany

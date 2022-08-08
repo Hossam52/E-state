@@ -11,6 +11,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Company/PresentationLayer/registerition/registeration/view.dart';
 import 'package:osol/Shared/Customicon.dart';
 import 'package:osol/Shared/constants.dart';
+import 'package:osol/Shared/darkmood_switch.dart';
 import 'package:osol/User/BussinssLogic/AppSettingCubit/app_setting_cubit.dart';
 import 'package:osol/User/BussinssLogic/authCubit/auth_cubit.dart';
 import 'package:osol/User/BussinssLogic/commonCubit/profieCubit/profile_cubit.dart';
@@ -304,20 +305,7 @@ class DrawerMenuBody extends StatelessWidget {
                                     ),
                                     Expanded(
                                       flex: 1,
-                                      child: BlocBuilder<AppSettingCubit,
-                                          AppSettingState>(
-                                        builder: (context, state) {
-                                          return Switch(
-                                            onChanged: (value) {
-                                              AppSettingCubit.get(context)
-                                                  .chandeDarkMode(value);
-                                            },
-                                            value: AppSettingCubit.get(context)
-                                                .isDark,
-                                            activeColor: Colors.white,
-                                          );
-                                        },
-                                      ),
+                                      child: DarkmoodSwitch(),
                                     ),
                                   ],
                                 ),

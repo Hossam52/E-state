@@ -10,7 +10,6 @@ class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.WhiteScreen,
       appBar: CustomAppBar(context, "Notification"),
       body: ListView.builder(itemBuilder: (context, index) {
         return Padding(
@@ -109,7 +108,6 @@ class NotificationScreen extends StatelessWidget {
 AppBar CustomAppBar(context, txt) {
   return AppBar(
     elevation: 0,
-    backgroundColor: ColorManager.WhiteScreen,
     toolbarHeight: 80,
     leading: IconButton(
       onPressed: () {
@@ -117,7 +115,6 @@ AppBar CustomAppBar(context, txt) {
       },
       icon: Icon(
         Icons.arrow_back,
-        color: Colors.black54,
         size: 28,
       ),
     ),
@@ -127,11 +124,6 @@ AppBar CustomAppBar(context, txt) {
     centerTitle: true,
     title: Text(
       "$txt",
-      style: TextStyle(
-        fontSize: 24,
-        fontWeight: FontWeight.bold,
-        color: Colors.black,
-      ),
     ),
   );
 }
