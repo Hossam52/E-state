@@ -9,16 +9,16 @@ class CountryModel {
     if (json['countries'] != null) {
       countries = <Countries>[];
       json['countries'].forEach((v) {
-        countries!.add(new Countries.fromJson(v));
+        countries!.add(Countries.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    if (this.countries != null) {
-      data['countries'] = this.countries!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    if (countries != null) {
+      data['countries'] = countries!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -37,17 +37,17 @@ class Countries {
     if (json['cities'] != null) {
       cities = <Cities>[];
       json['cities'].forEach((v) {
-        cities!.add(new Cities.fromJson(v));
+        cities!.add(Cities.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    if (this.cities != null) {
-      data['cities'] = this.cities!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    if (cities != null) {
+      data['cities'] = cities!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -66,17 +66,17 @@ class Cities {
     if (json['areas'] != null) {
       areas = <Areas>[];
       json['areas'].forEach((v) {
-        areas!.add(new Areas.fromJson(v));
+        areas!.add(Areas.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    if (this.areas != null) {
-      data['areas'] = this.areas!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    if (areas != null) {
+      data['areas'] = areas!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -94,9 +94,9 @@ class Areas {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
     return data;
   }
 }

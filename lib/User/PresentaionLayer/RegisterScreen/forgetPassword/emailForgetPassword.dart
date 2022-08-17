@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/parser.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/BussinssLogic/authCubit/auth_cubit.dart';
@@ -40,7 +39,7 @@ class _EmailForgetPasswordState extends State<EmailForgetPassword> {
                               fit: BoxFit.fill,
                             ),
                           ),
-                          Text(
+                          const Text(
                             "Forget Password",
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -49,10 +48,10 @@ class _EmailForgetPasswordState extends State<EmailForgetPassword> {
                               fontSize: 22,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
-                          Text(
+                          const Text(
                             "Provide your account email for which you want to reset Your password",
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -88,7 +87,7 @@ class _EmailForgetPasswordState extends State<EmailForgetPassword> {
                               obscure: false,
                               suffixIcon: null,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             ElevatedButton(
@@ -103,8 +102,8 @@ class _EmailForgetPasswordState extends State<EmailForgetPassword> {
                                 }
                               },
                               child: state is LoadingForgetPass
-                                  ? CircularProgressIndicator()
-                                  : Text(
+                                  ? const CircularProgressIndicator()
+                                  : const Text(
                                       "Next",
                                       style: TextStyle(
                                         color: Colors.white,

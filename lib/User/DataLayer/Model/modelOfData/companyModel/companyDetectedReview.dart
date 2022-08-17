@@ -10,15 +10,15 @@ class CompanyDetectedReviewModel {
   CompanyDetectedReviewModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     reviews = json['reviews'] != null
-        ? new CompanyReview.fromJson(json['reviews'])
+        ? CompanyReview.fromJson(json['reviews'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    if (this.reviews != null) {
-      data['reviews'] = this.reviews!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    if (reviews != null) {
+      data['reviews'] = reviews!.toJson();
     }
     return data;
   }
@@ -35,23 +35,23 @@ class CompanyReview {
     if (json['data'] != null) {
       data = <DataOfReview>[];
       json['data'].forEach((v) {
-        data!.add(new DataOfReview.fromJson(v));
+        data!.add(DataOfReview.fromJson(v));
       });
     }
-    links = json['links'] != null ? new Links.fromJson(json['links']) : null;
-    meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
+    links = json['links'] != null ? Links.fromJson(json['links']) : null;
+    meta = json['meta'] != null ? Meta.fromJson(json['meta']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
-    if (this.links != null) {
-      data['links'] = this.links!.toJson();
+    if (links != null) {
+      data['links'] = links!.toJson();
     }
-    if (this.meta != null) {
-      data['meta'] = this.meta!.toJson();
+    if (meta != null) {
+      data['meta'] = meta!.toJson();
     }
     return data;
   }
@@ -77,10 +77,9 @@ class DataOfReview {
 
   DataOfReview.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    client =
-        json['client'] != null ? new Client.fromJson(json['client']) : null;
+    client = json['client'] != null ? Client.fromJson(json['client']) : null;
     company =
-        json['company'] != null ? new Company.fromJson(json['company']) : null;
+        json['company'] != null ? Company.fromJson(json['company']) : null;
     body = json['body'];
     strNum = json['strNum']?.toDouble();
     myReview = json['myReview'];
@@ -88,18 +87,18 @@ class DataOfReview {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    if (this.client != null) {
-      data['client'] = this.client!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    if (client != null) {
+      data['client'] = client!.toJson();
     }
-    if (this.company != null) {
-      data['company'] = this.company!.toJson();
+    if (company != null) {
+      data['company'] = company!.toJson();
     }
-    data['body'] = this.body;
-    data['strNum'] = this.strNum;
-    data['myReview'] = this.myReview;
-    data['date'] = this.date;
+    data['body'] = body;
+    data['strNum'] = strNum;
+    data['myReview'] = myReview;
+    data['date'] = date;
     return data;
   }
 }
@@ -113,7 +112,7 @@ class Client {
   String? image;
   int? gender;
   String? phone;
-  Null? reason;
+  dynamic reason;
   String? status;
 
   Client(
@@ -142,17 +141,17 @@ class Client {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_name'] = this.userName;
-    data['email'] = this.email;
-    data['country'] = this.country;
-    data['city'] = this.city;
-    data['image'] = this.image;
-    data['gender'] = this.gender;
-    data['phone'] = this.phone;
-    data['reason'] = this.reason;
-    data['status'] = this.status;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['user_name'] = userName;
+    data['email'] = email;
+    data['country'] = country;
+    data['city'] = city;
+    data['image'] = image;
+    data['gender'] = gender;
+    data['phone'] = phone;
+    data['reason'] = reason;
+    data['status'] = status;
     return data;
   }
 }
@@ -171,7 +170,7 @@ class Company {
   String? type;
   String? regestrationNum;
   String? phone;
-  Null? reason;
+  dynamic reason;
   String? status;
   String? date;
 
@@ -213,23 +212,23 @@ class Company {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['country'] = this.country;
-    data['city'] = this.city;
-    data['mother_company'] = this.motherCompany;
-    data['image'] = this.image;
-    data['address'] = this.address;
-    data['about'] = this.about;
-    data['branches_num'] = this.branchesNum;
-    data['type'] = this.type;
-    data['regestration_num'] = this.regestrationNum;
-    data['phone'] = this.phone;
-    data['reason'] = this.reason;
-    data['status'] = this.status;
-    data['date'] = this.date;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['email'] = email;
+    data['country'] = country;
+    data['city'] = city;
+    data['mother_company'] = motherCompany;
+    data['image'] = image;
+    data['address'] = address;
+    data['about'] = about;
+    data['branches_num'] = branchesNum;
+    data['type'] = type;
+    data['regestration_num'] = regestrationNum;
+    data['phone'] = phone;
+    data['reason'] = reason;
+    data['status'] = status;
+    data['date'] = date;
     return data;
   }
 }

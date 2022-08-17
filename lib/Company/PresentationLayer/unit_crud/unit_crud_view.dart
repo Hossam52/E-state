@@ -1,14 +1,8 @@
-import 'dart:developer';
 import 'dart:io';
 
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:osol/Company/PresentationLayer/DawerScreen/view.dart';
 import 'package:osol/Company/PresentationLayer/companyProfile/view.dart';
 import 'package:osol/Company/PresentationLayer/unit_crud/widgets/custom_drop_down.dart';
@@ -75,7 +69,7 @@ class _UnitCrudViewState extends State<UnitCrudView> {
       Navigator.pop(context);
     } else {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (BuildContext context) => NavigationDrawerCompany()));
+          builder: (BuildContext context) => const NavigationDrawerCompany()));
     }
   }
 
@@ -155,9 +149,9 @@ class _UnitCrudViewState extends State<UnitCrudView> {
                   body: CustomScrollView(
                     physics: const BouncingScrollPhysics(),
                     slivers: [
-                      SliverToBoxAdapter(
+                      const SliverToBoxAdapter(
                         child: Padding(
-                            padding: const EdgeInsets.only(
+                            padding: EdgeInsets.only(
                                 top: 15.0, bottom: 15, left: 20, right: 20),
                             child: SelectUnitImages()),
                       ),
@@ -607,7 +601,7 @@ class _UnitCrudViewState extends State<UnitCrudView> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 20),
-                          child: Container(
+                          child: SizedBox(
                             height: sizeFromHeight(10),
                             child: state is LoadingAddUnitState
                                 ? const Center(

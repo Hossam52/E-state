@@ -3,15 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osol/Company/businessLogicLayer/authCompany/auth_company_cubit.dart';
-import 'package:osol/Shared/constants.dart';
-import 'package:osol/User/BussinssLogic/authCubit/auth_cubit.dart';
 
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class PinCodeVerificationCompanyScreen extends StatefulWidget {
   final String? phoneNumber;
 
-  PinCodeVerificationCompanyScreen({
+  const PinCodeVerificationCompanyScreen({
     Key? key,
     this.phoneNumber,
   }) : super(key: key);
@@ -136,7 +134,7 @@ class _PinCodeVerificationCompanyScreenState
                           ],
                           onCompleted: (v) {
                             cubit.changeValueOfOTP(v);
-                            debugPrint("$v");
+                            debugPrint(v);
                           },
                           // onTap: () {
                           //   print("Pressed");
@@ -194,7 +192,7 @@ class _PinCodeVerificationCompanyScreenState
                     height: 14,
                   ),
                   state is LoadingsendOTPCompany
-                      ? Center(child: CircularProgressIndicator())
+                      ? const Center(child: CircularProgressIndicator())
                       : Container(
                           margin: const EdgeInsets.symmetric(
                               vertical: 16.0, horizontal: 30),

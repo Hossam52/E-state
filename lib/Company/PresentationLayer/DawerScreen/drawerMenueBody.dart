@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -6,19 +5,12 @@ import 'package:flutter_svg/svg.dart';
 
 // import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:osol/Company/PresentationLayer/registerition/registeration/view.dart';
-import 'package:osol/Company/businessLogicLayer/authCompany/auth_company_cubit.dart';
 import 'package:osol/Company/businessLogicLayer/profilecompanyCubit/profile_company_cubit.dart';
 import 'package:osol/Company/dataLayer/dataModel/companyProfile/getProfileDataModel.dart';
-import 'package:osol/Shared/Customicon.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/Shared/darkmood_switch.dart';
-import 'package:osol/User/BussinssLogic/authCubit/auth_cubit.dart';
-import 'package:osol/User/BussinssLogic/commonCubit/profieCubit/profile_cubit.dart';
 import 'package:osol/User/PresentaionLayer/RegisterScreen/signIn/view.dart';
 import 'package:osol/User/PresentaionLayer/aboutScreen/view.dart';
 import 'package:osol/User/PresentaionLayer/appsettingScreen/view.dart';
@@ -89,7 +81,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
+                          SizedBox(
                             height: sizeFromHeight(18),
                             child: Row(
                               children: [
@@ -117,7 +109,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                           const SizedBox(
                             height: 5,
                           ),
-                          Container(
+                          SizedBox(
                             height: sizeFromHeight(18),
                             child: Row(
                               children: [
@@ -137,7 +129,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                                   )),
                                   child: const Text(
                                     "Messages",
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
@@ -150,7 +142,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                           const SizedBox(
                             height: 5,
                           ),
-                          Container(
+                          SizedBox(
                             height: sizeFromHeight(18),
                             child: Row(
                               children: [
@@ -168,7 +160,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                                   )),
                                   child: const Text(
                                     "Settings",
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
@@ -181,7 +173,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                           const SizedBox(
                             height: 5,
                           ),
-                          Container(
+                          SizedBox(
                             height: sizeFromHeight(18),
                             child: Row(
                               children: [
@@ -199,7 +191,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                                   )),
                                   child: const Text(
                                     "Contact Us",
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
@@ -212,7 +204,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                           const SizedBox(
                             height: 5,
                           ),
-                          Container(
+                          SizedBox(
                             height: sizeFromHeight(18),
                             child: Row(
                               children: [
@@ -230,7 +222,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                                   )),
                                   child: const Text(
                                     "About App",
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
@@ -243,7 +235,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                           const SizedBox(
                             height: 5,
                           ),
-                          Container(
+                          SizedBox(
                             height: sizeFromHeight(18),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -262,7 +254,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                                     onTap: () {},
                                     child: const Text(
                                       "Dark mode",
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500,
@@ -270,14 +262,14 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                Expanded(flex: 1, child: DarkmoodSwitch()),
+                                const Expanded(flex: 1, child: DarkmoodSwitch()),
                               ],
                             ),
                           ),
                           const SizedBox(
                             height: 5,
                           ),
-                          Container(
+                          SizedBox(
                             height: sizeFromHeight(18),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -321,12 +313,12 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                   flex: 2,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10.0, top: 10),
-                    child: Container(
+                    child: SizedBox(
                       height: sizeFromHeight(10),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Container(
+                          SizedBox(
                             height: sizeFromHeight(18),
                             child: Row(
                               children: [
@@ -349,7 +341,7 @@ class DrawerMenuBodyCompany extends StatelessWidget {
                                   },
                                   child: const Text(
                                     "LogOut",
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,

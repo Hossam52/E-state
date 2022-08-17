@@ -7,14 +7,14 @@ class AddNewProjectModel {
   AddNewProjectModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     project =
-        json['project'] != null ? new Project.fromJson(json['project']) : null;
+        json['project'] != null ? Project.fromJson(json['project']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    if (this.project != null) {
-      data['project'] = this.project!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    if (project != null) {
+      data['project'] = project!.toJson();
     }
     return data;
   }
@@ -70,17 +70,17 @@ class Project {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['long'] = this.long;
-    data['lat'] = this.lat;
-    data['delivery_date'] = this.deliveryDate;
-    data['description'] = this.description;
-    data['company'] = this.company;
-    data['num_of_units'] = this.numOfUnits;
-    data['status'] = this.status;
-    data['image'] = this.image;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    data['long'] = long;
+    data['lat'] = lat;
+    data['delivery_date'] = deliveryDate;
+    data['description'] = description;
+    data['company'] = company;
+    data['num_of_units'] = numOfUnits;
+    data['status'] = status;
+    data['image'] = image;
     return data;
   }
 }

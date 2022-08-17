@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Shared/constants.dart';
 
-import 'mapTest.dart';
 
 class AboutView extends StatelessWidget {
   @override
@@ -14,16 +13,16 @@ class AboutView extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             size: 28,
           ),
         ),
-        shape: ContinuousRectangleBorder(
+        shape: const ContinuousRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
         ),
         centerTitle: true,
-        title: Text(
+        title: const Text(
           "About App",
         ),
       ),
@@ -32,14 +31,14 @@ class AboutView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Container(
+            SizedBox(
               width: double.infinity,
               height: sizeFromHeight(6),
               child: Text(
                   "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.",
                   style: Theme.of(context).textTheme.headline1),
             ),
-            Container(
+            SizedBox(
               width: double.infinity,
               height: sizeFromHeight(3),
               child: Text(
@@ -47,17 +46,17 @@ class AboutView extends StatelessWidget {
                   "culpa qui officia deserunt mollit anim id est laborum.",
                   style: Theme.of(context).textTheme.headline2),
             ),
-            Container(
+            SizedBox(
               height: sizeFromHeight(10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
-                      FaIcon(
+                      const FaIcon(
                         FontAwesomeIcons.clock,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       Text(
@@ -66,7 +65,7 @@ class AboutView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  FaIcon(
+                  const FaIcon(
                     FontAwesomeIcons.ellipsisVertical,
                   )
                 ],
@@ -74,7 +73,7 @@ class AboutView extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {},
-              child: Text(
+              child: const Text(
                 "More",
                 style: TextStyle(
                   color: Colors.white,
@@ -82,7 +81,7 @@ class AboutView extends StatelessWidget {
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50),
+                minimumSize: const Size(double.infinity, 50),
                 primary: ColorManager.onboardingColorDots,
               ),
             ),

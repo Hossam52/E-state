@@ -1,17 +1,13 @@
 import 'dart:developer';
 import 'dart:typed_data';
 
-import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:meta/meta.dart';
 import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
-import 'package:osol/Shared/Customicon.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/BussinssLogic/savedCubit/saved_cubit.dart';
 import 'package:osol/User/DataLayer/DataProvider/dioHelper.dart';
@@ -57,7 +53,7 @@ class HomeCubit extends Cubit<HomeState> {
     MapScreen(),
     CompaniesViewData(),
     CompareView(),
-    MoreViewScreen(),
+    const MoreViewScreen(),
   ];
 
   changeDrawerState() {
@@ -213,7 +209,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future getToken() async {
     sharedToken = await Shared.prefGetString(key: "CompanyTokenVerify");
-    debugPrint("dddd${sharedToken}");
+    debugPrint("dddd$sharedToken");
   }
 
   changeTogleIconsState(index) {
@@ -222,8 +218,8 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   /// Map Screen
-  ScrollController scrollController = new ScrollController();
-  double _width = sizeFromWidth(1.5);
+  ScrollController scrollController = ScrollController();
+  final double _width = sizeFromWidth(1.5);
 
   void scrollToIndex(index) {
     scrollController.animateTo(_width * index,
@@ -310,7 +306,7 @@ class HomeCubit extends Cubit<HomeState> {
     start = value.start;
     end = value.end;
     emit(ChangeValueOfSlider());
-    print("${start},$end");
+    print("$start,$end");
   }
 
   int indexOfTypeOfFilter = 0;
@@ -338,7 +334,7 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> getBannerOfClientHome() async {
     dataBanner.clear();
     final cToken = await Shared.prefGetString(key: "CompanyTokenVerify");
-    debugPrint("mmmmmmmm${cToken}");
+    debugPrint("mmmmmmmm$cToken");
     emit(LoadingGetBannerOfHomeState());
     Response response;
     try {
@@ -350,13 +346,13 @@ class HomeCubit extends Cubit<HomeState> {
         clientBannerModel = ClientBannerModel.fromJson(response.data);
         clientBannerModel?.banners?.data?.forEach((element) {
           dataBanner.add(element);
-          debugPrint("saaaa${element}");
+          debugPrint("saaaa$element");
         });
         emit(SuccesGetDataOfBannerState());
       }
     } catch (e) {
       emit(ErrorDrtBannerClient());
-      debugPrint("${e.toString()}");
+      debugPrint(e.toString());
     }
   }
 
@@ -365,7 +361,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> getFeatureOfClientHome() async {
     final cToken = await Shared.prefGetString(key: "CompanyTokenVerify");
-    debugPrint("mmmmmmmm${cToken}");
+    debugPrint("mmmmmmmm$cToken");
     emit(LoadingGetFeatureState());
     Response response;
     final Map<String, dynamic> data = {'add_type': 'Feature'};
@@ -467,7 +463,7 @@ class HomeCubit extends Cubit<HomeState> {
                   ? BitmapDescriptor.fromBytes(markerLabel!)
                   : BitmapDescriptor.defaultMarker,
               zIndex: 2,
-              anchor: Offset(0.5, 0.5),
+              anchor: const Offset(0.5, 0.5),
               flat: false,
               onTap: () {
                 scrollToIndex(
@@ -497,7 +493,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> getPopularOfClientHome() async {
     final cToken = await Shared.prefGetString(key: "CompanyTokenVerify");
-    debugPrint("ed${cToken}");
+    debugPrint("ed$cToken");
 
     emit(LoadingGetPopularState());
     Response response;

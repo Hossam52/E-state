@@ -1,21 +1,19 @@
 import 'dart:developer';
 import 'dart:io';
-import 'package:bloc/bloc.dart';
+
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:meta/meta.dart';
 import 'package:open_location_picker/open_location_picker.dart';
 import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
 import 'package:osol/Company/dataLayer/dataModel/addUnit/addUnitModel.dart';
 import 'package:osol/Company/dataLayer/dataModel/features/featuresModel.dart';
 import 'package:osol/Company/dataLayer/dataModel/pobular/popularModel.dart';
 import 'package:osol/Shared/CustomToast.dart';
+import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/BussinssLogic/commonCubit/common_cubit.dart';
 import 'package:osol/User/DataLayer/DataProvider/dioHelper.dart';
-import 'package:osol/Shared/constants.dart';
 import 'package:osol/common_models/unit_model.dart';
 
 import '../../../User/DataLayer/localDataLayer/localData.dart';
@@ -193,7 +191,6 @@ class UnitCubit extends Cubit<UnitState> {
         File(image.path),
       );
     }
-    ;
     emit(ChangeImageFileUnitState());
   }
 
@@ -336,7 +333,7 @@ class UnitCubit extends Cubit<UnitState> {
   chaangeCurrentPage() {
     lastPage != currentDetailsScreen
         ? detactedPage++
-        : debugPrint("${detactedPage}");
+        : debugPrint("$detactedPage");
     emit(ChangeCurrentPageInUnit());
   }
 
@@ -367,27 +364,30 @@ class UnitCubit extends Cubit<UnitState> {
         getDataFeature.clear();
         getAllFeaturesCompanyModel =
             GetAllFeaturesCompanyModel.fromJson(response.data);
-        getAllFeaturesCompanyModel?.units?.data!.forEach((element) {
-          getDataFeature.add(element);
-        });
+        if (getAllFeaturesCompanyModel != null &&
+            getAllFeaturesCompanyModel!.units != null) {
+          for (var element in getAllFeaturesCompanyModel!.units!.data) {
+            getDataFeature.add(element);
+          }
+        }
         currentPage = getAllFeaturesCompanyModel?.units?.meta!.currentPage;
         lastPage = getAllPobularCompanyModel?.units?.meta!.lastPage;
 
         if (state is SuccessGetFeaturesData) {
-          getDataFeature.forEach((element) {
+          for (var element in getDataFeature) {
             element.images?.forEach((element) {
               images.add(element);
             });
-          });
+          }
           print(images[0]);
           emit(SuccessGetImageData());
         }
-        log("${getDataFeature}");
+        log("$getDataFeature");
         print("momom:${getDataFeature[0].images?.first}");
         emit(SuccessGetFeaturesData());
       }
     } catch (e) {
-      debugPrint("${e.toString()}");
+      debugPrint(e.toString());
       emit(ErrorGetFeaturesData());
     }
   }
@@ -424,18 +424,21 @@ class UnitCubit extends Cubit<UnitState> {
       if (response.statusCode == 200) {
         getAllPobularCompanyModel = PopularModel.fromJson(response.data);
         getDataPopular.clear();
-        getAllPobularCompanyModel?.units?.data!.forEach((element) {
-          getDataPopular.add(element);
-        });
+        if (getAllPobularCompanyModel != null &&
+            getAllPobularCompanyModel!.units != null) {
+          for (var element in getAllPobularCompanyModel!.units!.data) {
+            getDataPopular.add(element);
+          }
+        }
         if (state is SuccessGetPopularData) images.clear();
-        getDataPopular.forEach((element) {
+        for (var element in getDataPopular) {
           element.images?.forEach((element) {
             images.add(element);
           });
-        });
+        }
         emit(SuccessGetPopularImageData());
       }
-      log("${getDataPopular}");
+      log("$getDataPopular");
       emit(SuccessGetPopularData());
     } catch (e) {
       emit(ErrorGetPopularData());
@@ -477,7 +480,7 @@ class UnitCubit extends Cubit<UnitState> {
 
   void addLocation(SelectedLocation value) {
     selectedLocation = value;
-    print("value of addLoc: ${value}");
+    print("value of addLoc: $value");
     emit(changeValueOfLocation());
   }
 

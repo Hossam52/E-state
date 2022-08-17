@@ -51,7 +51,7 @@ class MoreViewScreen extends StatelessWidget {
                 "My account",
                 style: Theme.of(context).textTheme.headline2,
               ),
-              subtitle: Container(
+              subtitle: SizedBox(
                 width: double.infinity,
                 child: FittedBox(
                   child: Text(
@@ -94,7 +94,7 @@ class MoreViewScreen extends StatelessWidget {
                 "Messages",
                 style: Theme.of(context).textTheme.headline2,
               ),
-              subtitle: Container(
+              subtitle: SizedBox(
                 width: double.infinity,
                 child: Text(
                   "2 new messages found",
@@ -178,7 +178,7 @@ class MoreViewScreen extends StatelessWidget {
                 "About App",
                 style: Theme.of(context).textTheme.headline2,
               ),
-              subtitle: Container(
+              subtitle: SizedBox(
                 width: double.infinity,
                 child: Text(
                   "Learn More about Osol App",
@@ -222,7 +222,7 @@ class MoreViewScreen extends StatelessWidget {
                 "Customer Services",
                 style: Theme.of(context).textTheme.headline2,
               ),
-              subtitle: Container(
+              subtitle: SizedBox(
                 width: double.infinity,
                 child: Text(
                   "Contact us if you have some issues",
@@ -266,7 +266,7 @@ class MoreViewScreen extends StatelessWidget {
                 "Privacy and Policy",
                 style: Theme.of(context).textTheme.headline2,
               ),
-              subtitle: Container(
+              subtitle: SizedBox(
                 width: double.infinity,
                 child: Text(
                   "Contact us if you have some issue",

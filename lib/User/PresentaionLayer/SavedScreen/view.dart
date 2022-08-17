@@ -1,17 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:osol/Shared/component/filter_dialog.dart';
-import 'package:osol/Shared/component/search_and_filter_widget.dart';
 import 'package:osol/Shared/constants.dart';
-import 'package:osol/Shared/customBottomAppBar.dart';
-import 'package:osol/Shared/custom_mini_appBar.dart';
-import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
 import 'package:osol/User/BussinssLogic/savedCubit/saved_cubit.dart';
-import 'package:osol/User/DataLayer/Model/modelOfData/onBoardingModel.dart';
 import 'package:osol/User/PresentaionLayer/searchScreen/view.dart';
 
 class SavedScreen extends StatefulWidget {
@@ -43,7 +34,7 @@ class _SavedScreenState extends State<SavedScreen> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back,
                 color: Colors.grey,
               ),
@@ -51,7 +42,7 @@ class _SavedScreenState extends State<SavedScreen> {
 
             // toolbarHeight: 70,
             centerTitle: true,
-            title: Text(
+            title: const Text(
               "Saved",
             ),
           ),
@@ -152,7 +143,7 @@ class _SavedScreenState extends State<SavedScreen> {
                         children: [
                           Text(
                             "${cubit.dataUnit.length} Result Found",
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16,
                             ),
                           ),
@@ -179,7 +170,7 @@ class _SavedScreenState extends State<SavedScreen> {
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.all(5.0),
-                                      child: Container(
+                                      child: SizedBox(
                                         height: sizeFromHeight(14.5),
                                         child: cubit.toggleSaved == 0
                                             ? SvgPicture.asset(
@@ -205,7 +196,7 @@ class _SavedScreenState extends State<SavedScreen> {
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.all(5.0),
-                                      child: Container(
+                                      child: SizedBox(
                                         height: sizeFromHeight(14.5),
                                         child: cubit.toggleSaved == 0
                                             ? SvgPicture.asset(
@@ -231,10 +222,8 @@ class _SavedScreenState extends State<SavedScreen> {
                 child: cubit.toggleSaved == 0
                     ? ListView.builder(
                         scrollDirection: Axis.vertical,
-                        physics: BouncingScrollPhysics(),
-                        itemCount: cubit.dataUnit.length != null
-                            ? cubit.dataUnit.length
-                            : 3,
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: cubit.dataUnit.length,
                         itemBuilder: (context, index) {
                           return Padding(
                               padding: const EdgeInsets.only(
@@ -246,12 +235,10 @@ class _SavedScreenState extends State<SavedScreen> {
                     : Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: GridView.builder(
-                          itemCount: cubit.dataUnit.length != null
-                              ? cubit.dataUnit.length
-                              : 3,
-                          physics: BouncingScrollPhysics(),
+                          itemCount: cubit.dataUnit.length,
+                          physics: const BouncingScrollPhysics(),
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             mainAxisSpacing: 20,
                             crossAxisSpacing: 20,
@@ -281,12 +268,12 @@ AppBar CustomAppBar(context, txt) {
       onPressed: () {
         Navigator.pop(context);
       },
-      icon: Icon(
+      icon: const Icon(
         Icons.arrow_back,
         size: 28,
       ),
     ),
-    shape: ContinuousRectangleBorder(
+    shape: const ContinuousRectangleBorder(
       borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
     ),
     centerTitle: true,

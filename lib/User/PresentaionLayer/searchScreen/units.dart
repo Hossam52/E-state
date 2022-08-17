@@ -1,7 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:osol/Shared/constants.dart';
 
 // AppBar searchAppBar(context){
 //   return AppBar(

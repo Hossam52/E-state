@@ -45,11 +45,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           SizedBox(
             height: 30.h,
           ),
-          Container(
+          SizedBox(
             height: 220.h,
             child: PageView.builder(
               controller: controller,
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               itemCount: onbordingData.length,
               itemBuilder: (context, index) {
                 currentIndex = index;
@@ -63,7 +63,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         fit: BoxFit.fill,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                   ],
@@ -133,7 +133,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                         )))
                             : controller.nextPage(
                                 curve: Curves.linear,
-                                duration: Duration(milliseconds: 500));
+                                duration: const Duration(milliseconds: 500));
                       });
                     },
                     child: Text(

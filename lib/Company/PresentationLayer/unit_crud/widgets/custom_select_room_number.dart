@@ -21,7 +21,7 @@ class CustomSelectRoomNumber extends StatelessWidget {
       },
       builder: (context, state) {
         var cubit = UnitCubit.get(context);
-        return Container(
+        return SizedBox(
           height: sizeFromHeight(6.5),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,8 +52,8 @@ class CustomSelectRoomNumber extends StatelessWidget {
                           child: Container(
                             alignment: Alignment.center,
                             child: Text(
-                              "${num}",
-                              style: TextStyle(
+                              "$num",
+                              style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 14,
                               ),
@@ -68,7 +68,7 @@ class CustomSelectRoomNumber extends StatelessWidget {
                             onTap: () {
                               cubit.changeNumRoomsPlus();
                             },
-                            child: Icon(
+                            child: const Icon(
                               FontAwesomeIcons.chevronUp,
                               color: Colors.black54,
                               size: 14,
@@ -78,7 +78,7 @@ class CustomSelectRoomNumber extends StatelessWidget {
                             onTap: () {
                               cubit.changeNumRoomsMinus();
                             },
-                            child: Icon(
+                            child: const Icon(
                               FontAwesomeIcons.chevronDown,
                               color: Colors.black54,
                               size: 14,

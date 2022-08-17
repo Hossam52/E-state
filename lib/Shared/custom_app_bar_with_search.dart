@@ -1,10 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/shared/constants.dart';
 
 import 'Customicon.dart';
-import 'custom_search_bar.dart';
 
 class CustomAppBarWithPreferredSizeInHomeScreen extends StatelessWidget with PreferredSizeWidget {
   CustomAppBarWithPreferredSizeInHomeScreen({
@@ -21,7 +18,7 @@ class CustomAppBarWithPreferredSizeInHomeScreen extends StatelessWidget with Pre
   @override
   Widget build(BuildContext context) {
     return PreferredSize(
-      preferredSize: Size.fromHeight(70),
+      preferredSize: const Size.fromHeight(70),
       child: AppBar(
         elevation: 0,
         backgroundColor: colorAB,
@@ -46,12 +43,12 @@ class CustomAppBarWithPreferredSizeInHomeScreen extends StatelessWidget with Pre
             ),
           ),
         ),
-        shape: ContinuousRectangleBorder(
+        shape: const ContinuousRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
         ),
         title: Text(
           title,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
         ),
         actions: [
           IconButton(
@@ -75,5 +72,5 @@ class CustomAppBarWithPreferredSizeInHomeScreen extends StatelessWidget with Pre
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(100);
+  Size get preferredSize => const Size.fromHeight(100);
 }

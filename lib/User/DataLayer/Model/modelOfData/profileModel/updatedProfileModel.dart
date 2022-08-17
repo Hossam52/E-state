@@ -6,15 +6,14 @@ class UploadedDataModel {
 
   UploadedDataModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    client =
-    json['client'] != null ? new Client.fromJson(json['client']) : null;
+    client = json['client'] != null ? Client.fromJson(json['client']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    if (this.client != null) {
-      data['client'] = this.client!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    if (client != null) {
+      data['client'] = client!.toJson();
     }
     return data;
   }
@@ -29,20 +28,20 @@ class Client {
   String? image;
   int? gender;
   String? phone;
-  Null? reason;
+  dynamic reason;
   String? status;
 
   Client(
       {this.id,
-        this.userName,
-        this.email,
-        this.country,
-        this.city,
-        this.image,
-        this.gender,
-        this.phone,
-        this.reason,
-        this.status});
+      this.userName,
+      this.email,
+      this.country,
+      this.city,
+      this.image,
+      this.gender,
+      this.phone,
+      this.reason,
+      this.status});
 
   Client.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -58,17 +57,17 @@ class Client {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_name'] = this.userName;
-    data['email'] = this.email;
-    data['country'] = this.country;
-    data['city'] = this.city;
-    data['image'] = this.image;
-    data['gender'] = this.gender;
-    data['phone'] = this.phone;
-    data['reason'] = this.reason;
-    data['status'] = this.status;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['user_name'] = userName;
+    data['email'] = email;
+    data['country'] = country;
+    data['city'] = city;
+    data['image'] = image;
+    data['gender'] = gender;
+    data['phone'] = phone;
+    data['reason'] = reason;
+    data['status'] = status;
     return data;
   }
 }

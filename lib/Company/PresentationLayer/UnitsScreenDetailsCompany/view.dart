@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,8 +12,6 @@ import 'package:osol/Shared/component/methods..dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/Shared/custom_video_player.dart';
 import 'package:osol/Shared/unit_facilities.dart';
-import 'package:osol/User/DataLayer/Model/modelOfData/onBoardingModel.dart';
-import 'package:osol/User/PresentaionLayer/UnitsScreenDetails/units.dart';
 import 'package:osol/common_models/unit_model.dart';
 import 'package:osol/shared/Customicon.dart';
 
@@ -67,7 +64,7 @@ class UnitDetailsCompanyScreen extends StatelessWidget {
                         //     .getUnitById(unit.id.toString());
                       }
                     },
-                    icon: FaIcon(
+                    icon: const FaIcon(
                       FontAwesomeIcons.pen,
                       size: 20,
                     ),
@@ -174,7 +171,7 @@ class _UnitStatistics extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20),
-      child: Container(
+      child: SizedBox(
         height: sizeFromHeight(3),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -263,7 +260,7 @@ class ListDetailsCompany extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 image: DecorationImage(
-                    image: CachedNetworkImageProvider("${image}"),
+                    image: CachedNetworkImageProvider(image),
                     fit: BoxFit.cover),
               ),
               height: sizeFromHeight(3),
@@ -318,7 +315,7 @@ class _DetailsLocatioAndNameUnit extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-      child: Container(
+      child: SizedBox(
         height: sizeFromHeight(6),
         width: sizeFromWidth(1.5),
         child: Column(
@@ -331,7 +328,7 @@ class _DetailsLocatioAndNameUnit extends StatelessWidget {
                   unit.title!,
                   style: Theme.of(context).textTheme.headline2,
                 ),
-                Container(
+                SizedBox(
                   width: sizeFromWidth(3.5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

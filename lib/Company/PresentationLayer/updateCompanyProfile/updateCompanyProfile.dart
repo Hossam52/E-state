@@ -3,7 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:osol/Company/businessLogicLayer/profilecompanyCubit/profile_company_cubit.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,8 +12,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:osol/Company/PresentationLayer/DawerScreen/view.dart';
-import 'package:osol/Company/PresentationLayer/HomeScreen/HomeScreenView.dart';
-import 'package:osol/Company/businessLogicLayer/authCompany/auth_company_cubit.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/BussinssLogic/commonCubit/common_cubit.dart';
 import 'package:osol/User/PresentaionLayer/RegisterScreen/signUp/view.dart';
@@ -64,7 +61,7 @@ class _UpdateCompanyScreenState extends State<UpdateCompanyScreen> {
       listener: (context, state) {
         if (state is SuccessUpdateCompanyProfile) {
           Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (_) => NavigationDrawerCompany()));
+              MaterialPageRoute(builder: (_) => const NavigationDrawerCompany()));
         }
       },
       child: Scaffold(
@@ -230,7 +227,9 @@ class _UpdateCompanyScreenState extends State<UpdateCompanyScreen> {
                   ),
                   child: CustomTxtFieldCompanyProfile(
                     controller: companyBranchNumController,
-                    validator: (String? v) {},
+                    validator: (String? v) {
+                      return null;
+                    },
                     hint: "number",
                     title: "Number Of branches",
                     width: 0,
@@ -285,7 +284,7 @@ class _UpdateCompanyScreenState extends State<UpdateCompanyScreen> {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                NavigationDrawerCompany(),
+                                const NavigationDrawerCompany(),
                           ),
                         );
                       },
@@ -313,11 +312,11 @@ class _UpdateCompanyScreenState extends State<UpdateCompanyScreen> {
                                         type: companyTypeController.text,
                                         phone: companyPhoneController.text,
                                         name: companyNameController.text,
-                                        cityId: await CommonCubit.get(context)
+                                        cityId: CommonCubit.get(context)
                                             .cityIndex
                                             .toString(),
                                         countryId:
-                                            await CommonCubit.get(context)
+                                            CommonCubit.get(context)
                                                 .valueCountryId
                                                 .toString(),
                                       );
@@ -409,7 +408,7 @@ class _CustomIAddLogoCompaniesState extends State<CustomIAddLogoCompanies> {
                 ? cubit.changeImageData(imageFile: image)
                 : debugPrint("Image Null data");
           }),
-          child: Container(
+          child: SizedBox(
             height: sizeFromHeight(8),
             width: 327.w,
             child: Row(
@@ -426,7 +425,7 @@ class _CustomIAddLogoCompaniesState extends State<CustomIAddLogoCompanies> {
                   child: image != null
                       ? Container(
                           width: 2 * sizeFromWidth(12),
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.red,
                             shape: BoxShape.circle,
                           ),
@@ -491,7 +490,7 @@ class CustomTxtFieldCompanyProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(7),
       width: width == 0 ? double.infinity : width,
       child: Column(
@@ -543,7 +542,7 @@ class CustomTxtFieldSuffixIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(6.5),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -591,7 +590,7 @@ class CustomSelectListProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(7),
       width: width == 0 ? double.infinity : width,
       child: Column(
@@ -650,7 +649,7 @@ class CustomTxtFieldSocialCompany extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(7),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -703,7 +702,7 @@ class CustomTxtFieldAboutCompany extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(5.7),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -753,7 +752,7 @@ class CustomTxtFieldComplexNumber extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(8.3),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

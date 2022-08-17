@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/BussinssLogic/authCubit/auth_cubit.dart';
 import 'package:osol/User/PresentaionLayer/RegisterScreen/signUp/view.dart';
 
@@ -221,7 +220,7 @@ class _OTPForgetPasswordScreenState extends State<OTPForgetPasswordScreen> {
                     height: 14,
                   ),
                   state is LoadingsendOTP
-                      ? Center(child: CircularProgressIndicator())
+                      ? const Center(child: CircularProgressIndicator())
                       : Container(
                           margin: const EdgeInsets.symmetric(
                               vertical: 16.0, horizontal: 30),

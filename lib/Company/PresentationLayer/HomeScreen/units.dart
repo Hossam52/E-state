@@ -1,25 +1,19 @@
 import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:osol/Company/PresentationLayer/UnitsScreenDetailsCompany/view.dart';
 import 'package:osol/Company/PresentationLayer/company_search/company_search_screen.dart';
 import 'package:osol/Company/businessLogicLayer/bannersCubit/banners_cubit.dart';
 import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
-import 'package:osol/Company/dataLayer/dataModel/features/featuresModel.dart';
 import 'package:osol/Shared/Customicon.dart';
-import 'package:osol/Shared/component/filter_dialog.dart';
 import 'package:osol/Shared/component/methods..dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/DataLayer/Model/modelOfData/onBoardingModel.dart';
 import 'package:osol/User/PresentaionLayer/HomeScreen/units.dart';
-import 'package:osol/User/PresentaionLayer/searchScreen/view.dart';
 import 'package:osol/common_models/unit_model.dart';
 
 class HomeViewCompanyData extends StatefulWidget {
@@ -50,7 +44,7 @@ class _HomeViewDataState extends State<HomeViewCompanyData> {
         left: 23.0,
       ),
       child: CustomScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(
             child: Row(
@@ -66,7 +60,7 @@ class _HomeViewDataState extends State<HomeViewCompanyData> {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (_) => const CompanySearchScreen()));
                   },
-                  icon: Icon(Icons.search),
+                  icon: const Icon(Icons.search),
                   color: Colors.grey[500],
                 ),
               ],
@@ -83,11 +77,11 @@ class _HomeViewDataState extends State<HomeViewCompanyData> {
                   //     ? print(
                   //         "Mostafa banner: ${cubit.bannerData[index].image!}")
                   //     : UnitCubit.get(context).getAllFunction();
-                  return Container(
+                  return SizedBox(
                     height: sizeFromHeight(3.5),
                     child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         itemCount: state is SuccessGetAllBannersCompany
                             ? cubit.bannerData.length
                             : homeScreenSliderData.length,
@@ -96,11 +90,11 @@ class _HomeViewDataState extends State<HomeViewCompanyData> {
                             image: state is SuccessGetAllBannersCompany
                                 ? DecorationImage(
                                     image: NetworkImage(
-                                        "${cubit.bannerData[index].image!}"),
+                                        cubit.bannerData[index].image!),
                                     fit: BoxFit.cover)
                                 : DecorationImage(
                                     image: AssetImage(
-                                        "${homeScreenSliderData[index].image}"),
+                                        homeScreenSliderData[index].image),
                                     fit: BoxFit.scaleDown),
                             txt: state is SuccessGetAllBannersCompany
                                 ? cubit.bannerData[index].description!
@@ -115,7 +109,7 @@ class _HomeViewDataState extends State<HomeViewCompanyData> {
           SliverToBoxAdapter(
               child: Padding(
             padding: const EdgeInsets.only(right: 20.0, left: 3, top: 0),
-            child: Container(
+            child: SizedBox(
               height: sizeFromHeight(12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -154,18 +148,18 @@ class _HomeViewDataState extends State<HomeViewCompanyData> {
               builder: (context, state) {
                 var cubit = UnitCubit.get(context);
                 if (cubit.getDataFeature.isEmpty) {
-                  return _EmptyList(title: 'No Feature ads added');
+                  return const _EmptyList(title: 'No Feature ads added');
                 }
                 return Padding(
                   padding: const EdgeInsets.only(right: 20.0, left: 0),
-                  child: Container(
+                  child: SizedBox(
                     height: sizeFromHeight(2.1),
                     child: ListView.builder(
                         itemCount: cubit.getDataFeature.isNotEmpty
                             ? cubit.getDataFeature.length
                             : homeScreenSliderData.length,
                         scrollDirection: Axis.horizontal,
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         itemBuilder: (context, index) {
                           return _FeaturedItem(
                             featured: cubit.getDataFeature[index],
@@ -180,7 +174,7 @@ class _HomeViewDataState extends State<HomeViewCompanyData> {
           SliverToBoxAdapter(
               child: Padding(
             padding: const EdgeInsets.only(right: 20.0, left: 3, top: 0),
-            child: Container(
+            child: SizedBox(
               height: sizeFromHeight(12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -218,18 +212,18 @@ class _HomeViewDataState extends State<HomeViewCompanyData> {
               builder: (context, state) {
                 var cubit = UnitCubit.get(context);
                 if (cubit.getDataPopular.isEmpty) {
-                  return _EmptyList(title: 'No company projects');
+                  return const _EmptyList(title: 'No company projects');
                 }
                 return Padding(
                   padding: const EdgeInsets.only(right: 20.0, left: 0),
-                  child: Container(
+                  child: SizedBox(
                     height: sizeFromHeight(2.1),
                     child: ListView.builder(
                         itemCount: cubit.getDataPopular != null
                             ? cubit.getDataPopular.length
                             : homeScreenSliderData.length,
                         scrollDirection: Axis.horizontal,
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.only(top: 8.0, bottom: 8),
@@ -261,7 +255,7 @@ class _HomeViewDataState extends State<HomeViewCompanyData> {
 }
 
 class CardHomeDetailsCompanyView extends StatelessWidget {
-  CardHomeDetailsCompanyView({required this.unit});
+  const CardHomeDetailsCompanyView({required this.unit});
   final UnitModel unit;
   @override
   Widget build(BuildContext context) {
@@ -314,7 +308,7 @@ class CardHomeDetailsCompanyView extends StatelessWidget {
                             child: Text("${unit.title} (${unit.type})",
                                 style: Theme.of(context).textTheme.headline3),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Padding(
@@ -327,7 +321,7 @@ class CardHomeDetailsCompanyView extends StatelessWidget {
                                   color: ColorManager.redHeartcolor,
                                   size: 16,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
                                 Text(
@@ -337,7 +331,7 @@ class CardHomeDetailsCompanyView extends StatelessWidget {
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Padding(
@@ -346,7 +340,7 @@ class CardHomeDetailsCompanyView extends StatelessWidget {
                             child: Row(
                               children: [
                                 SvgPicture.asset("assets/images/eye.svg"),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
                                 Text(
@@ -356,7 +350,7 @@ class CardHomeDetailsCompanyView extends StatelessWidget {
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                         ],

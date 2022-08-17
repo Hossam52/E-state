@@ -1,13 +1,9 @@
 import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
-import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
-import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
 import 'package:osol/User/BussinssLogic/savedCubit/saved_cubit.dart';
 import 'package:osol/User/DataLayer/DataProvider/dioHelper.dart';
 import 'package:osol/common_models/unit_model.dart';
@@ -15,7 +11,6 @@ import 'package:osol/common_models/unit_model.dart';
 import '../../../Shared/constants.dart';
 import '../../DataLayer/Model/modelOfData/unitClientModel/getAllReviewData.dart';
 import '../../DataLayer/Model/modelOfData/unitClientModel/getAllUnitsDetailsModel.dart';
-import '../../DataLayer/Model/modelOfData/unitClientModel/getUnitByIdModel.dart';
 import '../../DataLayer/Model/modelOfData/unitClientModel/unitRevewModel.dart';
 import '../../DataLayer/localDataLayer/localData.dart';
 
@@ -62,9 +57,9 @@ class UnitClientCubit extends Cubit<UnitClientState> {
         unitById = (getUnitByIdModel!);
         getUnitByIdModel?.images?.forEach((element) {
           imagesData.add(element);
-          print("dd${element}");
+          print("dd$element");
         });
-        print("print body ${unitAllReviewList}");
+        print("print body $unitAllReviewList");
         emit(SuccessGetUnitById());
       } else {
         debugPrint("Error Get Unit By Id1");
@@ -89,7 +84,7 @@ class UnitClientCubit extends Cubit<UnitClientState> {
     if (response.statusCode == 200) {
       getUnitByIdFirstModel = UnitModel.fromJson(response.data["units"]);
       firstUnit.add(getUnitByIdFirstModel!);
-      print("print body ${firstUnit}");
+      print("print body $firstUnit");
       emit(SuccessGetFirstUnitById());
     } else {
       debugPrint("Error Get Unit By Id2");
@@ -118,7 +113,7 @@ class UnitClientCubit extends Cubit<UnitClientState> {
       getUnitByIdSecondModel = UnitModel.fromJson(response.data["units"]);
 
       secondUnit.add(getUnitByIdSecondModel!);
-      print("print body ${secondUnit}");
+      print("print body $secondUnit");
       emit(SuccessGetSecondUnitById());
     } else {
       debugPrint("Error Get Unit By Id3");
@@ -168,7 +163,7 @@ class UnitClientCubit extends Cubit<UnitClientState> {
         metaUnitReviewLastPage = unitAllReviewModel?.meta?.lastPage;
         nextPage = unitAllReviewModel?.links?.next;
         totalUnitReview = unitAllReviewModel?.meta?.total;
-        debugPrint("all unit review${unitAllReviewList}");
+        debugPrint("all unit review$unitAllReviewList");
         emit(SuccessGetAllReviewState());
       } else {
         debugPrint("Error On Add Review");
@@ -190,7 +185,7 @@ class UnitClientCubit extends Cubit<UnitClientState> {
       data: {
         "unit_id": await unitId,
         "body": reviewBody,
-        "strNum": starNum == null ? "0" : starNum,
+        "strNum": starNum,
       },
       token: clienToken,
     );
@@ -198,7 +193,7 @@ class UnitClientCubit extends Cubit<UnitClientState> {
       debugPrint("sasas${response.data}");
       unitReviewModel = Review.fromJson(response.data);
       unitReviewList.add(unitReviewModel!);
-      debugPrint("unit review${unitReviewList}");
+      debugPrint("unit review$unitReviewList");
       emit(SuccessAddReviewState());
     } else {
       debugPrint("Error On Add Review2");
@@ -250,7 +245,7 @@ class UnitClientCubit extends Cubit<UnitClientState> {
     start = value.start;
     end = value.end;
     emit(ChangeValueOfSlider());
-    print("${start},$end");
+    print("$start,$end");
   }
 
   int indexOfTypeOfFilter = 2;
@@ -286,13 +281,17 @@ class UnitClientCubit extends Cubit<UnitClientState> {
         debugPrint("get All unit Details data${response.data}");
         getAllUnitsDetailsModel =
             GetAllUnitsDetailsModel.fromJson(response.data);
-        getAllUnitsDetailsModel?.units?.data?.forEach((element) {
-          if (comparedUnits.indexWhere(
-                  (comparedUnit) => element.id == comparedUnit.id) ==
-              -1) {
-            getAllDataList.add(element);
+
+        if (getAllUnitsDetailsModel != null &&
+            getAllUnitsDetailsModel!.units != null) {
+          for (var element in getAllUnitsDetailsModel!.units!.data) {
+            if (comparedUnits.indexWhere(
+                    (comparedUnit) => element.id == comparedUnit.id) ==
+                -1) {
+              getAllDataList.add(element);
+            }
           }
-        });
+        }
         emit(SuccessGetAllUnitClientDetails());
       } else {
         debugPrint("Error On Add Review 3--");
@@ -317,9 +316,12 @@ class UnitClientCubit extends Cubit<UnitClientState> {
     if (response.statusCode == 200) {
       debugPrint("get All unit Details data${response.data}");
       getAllUnitsDetailsModel = GetAllUnitsDetailsModel.fromJson(response.data);
-      getAllUnitsDetailsModel?.units?.data?.forEach((element) {
-        getAllDataList.add(element);
-      });
+      if (getAllUnitsDetailsModel != null &&
+          getAllUnitsDetailsModel!.units != null) {
+        for (var element in getAllUnitsDetailsModel!.units!.data) {
+          getAllDataList.add(element);
+        }
+      }
       emit(SuccessGetAllUnitClientDetails());
     } else {
       debugPrint("Error On Add Review 3");
@@ -381,8 +383,8 @@ class UnitClientCubit extends Cubit<UnitClientState> {
   }
 
   /// map Screen
-  ScrollController scrollController = new ScrollController();
-  double _width = sizeFromWidth(1.5);
+  ScrollController scrollController = ScrollController();
+  final double _width = sizeFromWidth(1.5);
 
   void scrollToIndex(index) {
     scrollController.animateTo(_width * index,

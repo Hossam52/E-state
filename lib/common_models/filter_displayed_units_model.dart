@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:osol/common_models/unit_model.dart';
 import 'package:osol/shared/Customicon.dart';
 
 abstract class UnitCategory {

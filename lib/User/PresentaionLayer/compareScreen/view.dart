@@ -3,19 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
 import 'package:osol/Shared/Customicon.dart';
-import 'package:osol/Shared/component/custom_app_bar_with_search.dart';
 import 'package:osol/Shared/component/search_and_filter_widget.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/BussinssLogic/AppSettingCubit/app_setting_cubit.dart';
 import 'package:osol/User/BussinssLogic/authCubit/auth_cubit.dart';
 import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
-import 'package:osol/User/DataLayer/Model/modelOfData/onBoardingModel.dart';
 import 'package:osol/User/PresentaionLayer/DawerScreen/view.dart';
-import 'package:osol/User/PresentaionLayer/HomeScreen/HomeScreenView.dart';
 import 'package:osol/common_models/unit_model.dart';
 
 import '../../BussinssLogic/unitCubit/unit_cubit.dart';
@@ -81,7 +76,7 @@ class _CompareViewState extends State<CompareView> {
                       ),
                       ...cubit.comparedUnits
                           .map((e) => SliverToBoxAdapter(
-                                child: Container(
+                                child: SizedBox(
                                   height: 120.h,
                                   child: Padding(
                                     padding: const EdgeInsets.only(
@@ -120,7 +115,7 @@ class _CompareViewState extends State<CompareView> {
                           .toList(),
                       state is LoadingGetAllUnitClientDetails
                           ? const SliverToBoxAdapter(
-                              child: const Center(
+                              child: Center(
                                   child: CircularProgressIndicator()),
                             )
                           : cubit.comparedUnits.length == 2
@@ -150,7 +145,7 @@ class _CompareViewState extends State<CompareView> {
                     ],
                   ),
           ),
-          floatingActionButton: _CompareButton(),
+          floatingActionButton: const _CompareButton(),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
         );
@@ -161,7 +156,7 @@ class _CompareViewState extends State<CompareView> {
 
 class GridCardsInCompare extends StatefulWidget {
   final UnitModel unit;
-  GridCardsInCompare({required this.unit});
+  const GridCardsInCompare({required this.unit});
 
   @override
   State<GridCardsInCompare> createState() => _GridCardsInCompareState();
@@ -207,7 +202,7 @@ class _GridCardsInCompareState extends State<GridCardsInCompare> {
                 decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(6),
-                      topRight: const Radius.circular(6),
+                      topRight: Radius.circular(6),
                     ),
                     image: DecorationImage(
                       image: CachedNetworkImageProvider(
@@ -260,7 +255,7 @@ class _GridCardsInCompareState extends State<GridCardsInCompare> {
                   ),
                   const TextSpan(
                     text: "\\ Mnth",
-                    style: const TextStyle(color: Colors.lightBlueAccent),
+                    style: TextStyle(color: Colors.lightBlueAccent),
                   )
                 ])),
               ),
@@ -335,7 +330,7 @@ class _CompareUnitDetailsState extends State<CompareUnitDetails> {
                     ],
                   ),
                   Expanded(
-                    child: Container(
+                    child: SizedBox(
                       width: 130.w,
                       child: Row(
                         children: [
@@ -366,7 +361,7 @@ class _CompareUnitDetailsState extends State<CompareUnitDetails> {
 }
 
 class _CompareButton extends StatelessWidget {
-  _CompareButton();
+  const _CompareButton();
 
   @override
   Widget build(BuildContext context) {
@@ -378,7 +373,7 @@ class _CompareButton extends StatelessWidget {
           child: InkWell(
             onTap: () async {
               Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => ComparingScreen()));
+                  .push(MaterialPageRoute(builder: (_) => const ComparingScreen()));
             },
             child: Container(
                 decoration: BoxDecoration(
@@ -391,7 +386,7 @@ class _CompareButton extends StatelessWidget {
                 alignment: Alignment.center,
                 child: const Text(
                   "Compare",
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

@@ -1,6 +1,5 @@
 import 'dart:io';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,10 +8,12 @@ import 'package:flutter_screenutil/src/size_extension.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:osol/Company/businessLogicLayer/authCompany/auth_company_cubit.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/BussinssLogic/commonCubit/common_cubit.dart';
 import 'package:osol/User/PresentaionLayer/RegisterScreen/signUp/view.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+
 import '../../../Company/PresentationLayer/registerition/registeration/view.dart';
 import '../../../Shared/constants.dart';
 import '../../BussinssLogic/commonCubit/common_cubit.dart';
@@ -47,23 +48,22 @@ class _UpdateProfileState extends State<UpdateProfile> {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: Text(
+            title: const Text(
               "Update Profile",
-             
             ),
           ),
           body: cubit.profileDate.isEmpty
-              ? CupertinoActivityIndicator(
+              ? const CupertinoActivityIndicator(
                   color: Colors.blue,
                 )
               : Form(
                   key: myForm,
                   child: CustomScrollView(
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     slivers: [
-                      SliverToBoxAdapter(
+                      const SliverToBoxAdapter(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 5),
+                          padding: EdgeInsets.only(left: 20, right: 5),
                           child: UploadNewImage(),
                         ),
                       ),
@@ -93,7 +93,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                               vertical: 20, horizontal: 20),
                           child: CustomSelectListGender(
                             title: "Gender",
-                            myList: ["Male", "Female"],
+                            myList: const ["Male", "Female"],
                           ),
                         ),
                       ),
@@ -113,14 +113,12 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 8.0),
                                       child: CustomSelectListRegister(
-                                        myList: cubit.countryData == null
-                                            ? []
-                                            : cubit.countryData,
+                                        myList: cubit.countryData,
                                         title: "Country",
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 8,
                                   ),
                                   Expanded(
@@ -128,9 +126,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 8.0),
                                       child: CustomSelectListCities(
-                                        myList: cubit.cityData == null
-                                            ? []
-                                            : cubit.cityData,
+                                        myList: cubit.cityData,
                                         title: "City",
                                       ),
                                     ),
@@ -149,7 +145,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
                           ),
                           child: CustomTxtFieldCompanyProfile(
                             controller: NumController,
-                            validator: (String? v) {},
+                            validator: (String? v) {
+                              return null;
+                            },
                             hint: "${cubit.profileDate[0].client!.phone}",
                             title: "Phone Number",
                             width: 0,
@@ -174,7 +172,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                         ? cubit.profileDate[0].client!.userName
                                             .toString()
                                         : NameController.text.toString(),
-                                    cityId: await CommonCubit.get(context)
+                                    cityId: CommonCubit.get(context)
                                         .cityIndex
                                         .toString(),
                                     countryId: CommonCubit.get(context)
@@ -187,7 +185,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                         : NumController.text.toString(),
                                   );
                                 },
-                                child: Text("Update Profile"),
+                                child: const Text("Update Profile"),
                               ),
                             )),
                       ),
@@ -220,7 +218,7 @@ class _UploadNewImageState extends State<UploadNewImage> {
       });
     } on PlatformException catch (e) {
       Fluttertoast.showToast(
-          msg: "${e.toString()}",
+          msg: e.toString(),
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
@@ -249,7 +247,7 @@ class _UploadNewImageState extends State<UploadNewImage> {
                 ? cubit.changeImageData(imageFile: image)
                 : debugPrint("Image Null data");
           }),
-          child: Container(
+          child: SizedBox(
             height: sizeFromHeight(8),
             width: 327.w,
             child: Row(
@@ -281,8 +279,8 @@ class _UploadNewImageState extends State<UploadNewImage> {
                                   "assets/images/upimage.svg",
                                 )),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.0),
                   child: Icon(Icons.add),
                 ),
                 Text(

@@ -22,7 +22,7 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
 
   TextEditingController problemController = TextEditingController();
 
-  GlobalKey<FormState> _customerServicesKey = GlobalKey();
+  final GlobalKey<FormState> _customerServicesKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -46,16 +46,16 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back,
                 size: 28,
               ),
             ),
-            shape: ContinuousRectangleBorder(
+            shape: const ContinuousRectangleBorder(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
             ),
             centerTitle: true,
-            title: Text(
+            title: const Text(
               "Customer Service",
             ),
           ),
@@ -76,21 +76,21 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
                         color: AppSettingCubit.get(context).isDark
                             ? ColorManager.DarkThemeBlackGround2
                             : ColorManager.CompareConatainer,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topRight: Radius.circular(30),
                           topLeft: Radius.circular(30),
                         ),
                       ),
                       child: ListView(
                         children: [
-                          Container(
+                          SizedBox(
                             height: 70.h,
                             child: Row(
                               children: [
-                                Expanded(
+                                const Expanded(
                                   flex: 2,
                                   child: Padding(
-                                    padding: const EdgeInsets.only(left: 20.0),
+                                    padding: EdgeInsets.only(left: 20.0),
                                     child: FaIcon(
                                       FontAwesomeIcons.user,
                                     ),
@@ -98,7 +98,7 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
                                 ),
                                 Expanded(
                                   flex: 10,
-                                  child: Container(
+                                  child: SizedBox(
                                     height: 70,
                                     child: CustomTxtField(
                                       controller: nameController,
@@ -108,20 +108,20 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
                                         }
                                         return null;
                                       },
-                                      decoration: InputDecoration(),
+                                      decoration: const InputDecoration(),
                                       keyBoardType: TextInputType.multiline,
                                     ),
                                   ),
                                 ),
-                                Expanded(flex: 2, child: Text("Name")),
+                                const Expanded(flex: 2, child: Text("Name")),
                               ],
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             height: 70.h,
                             child: Row(
                               children: [
-                                Expanded(
+                                const Expanded(
                                   flex: 2,
                                   child: Icon(
                                     Icons.phone,
@@ -129,7 +129,7 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
                                 ),
                                 Expanded(
                                   flex: 10,
-                                  child: Container(
+                                  child: SizedBox(
                                     height: 70,
                                     child: CustomTxtField(
                                       controller: phoneController,
@@ -139,20 +139,20 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
                                         }
                                         return null;
                                       },
-                                      decoration: InputDecoration(),
+                                      decoration: const InputDecoration(),
                                       keyBoardType: TextInputType.number,
                                     ),
                                   ),
                                 ),
-                                Expanded(flex: 2, child: Text("Mobile")),
+                                const Expanded(flex: 2, child: Text("Mobile")),
                               ],
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             height: 70.h,
                             child: Row(
                               children: [
-                                Expanded(
+                                const Expanded(
                                   flex: 2,
                                   child: Icon(
                                     FontAwesomeIcons.envelopeOpen,
@@ -160,7 +160,7 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
                                 ),
                                 Expanded(
                                   flex: 10,
-                                  child: Container(
+                                  child: SizedBox(
                                     height: 70,
                                     child: CustomTxtField(
                                       controller: emailController,
@@ -170,12 +170,12 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
                                         }
                                         return null;
                                       },
-                                      decoration: InputDecoration(),
+                                      decoration: const InputDecoration(),
                                       keyBoardType: TextInputType.multiline,
                                     ),
                                   ),
                                 ),
-                                Expanded(flex: 2, child: Text("Email")),
+                                const Expanded(flex: 2, child: Text("Email")),
                               ],
                             ),
                           ),
@@ -183,7 +183,7 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
                             padding: const EdgeInsets.all(20.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
+                              children: const [
                                 Icon(
                                   Icons.pending_actions,
                                 ),
@@ -191,7 +191,7 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
                               ],
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             height: 100.h,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
@@ -211,7 +211,7 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
                                       }
                                       return null;
                                     },
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       border: OutlineInputBorder(
                                         borderSide: BorderSide.none,
                                       ),
@@ -223,7 +223,7 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
                           Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: state is LoadingSendMessageToCustomerServices
-                                ? Center(child: CircularProgressIndicator())
+                                ? const Center(child: CircularProgressIndicator())
                                 : ElevatedButton(
                                     onPressed: () async {
                                       if (!_customerServicesKey.currentState!
@@ -241,7 +241,7 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
                                             : print("false state");
                                       }
                                     },
-                                    child: Text(
+                                    child: const Text(
                                       "Send",
                                       style: TextStyle(
                                         color: Colors.white,
@@ -249,7 +249,7 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
                                       ),
                                     ),
                                     style: ElevatedButton.styleFrom(
-                                      minimumSize: Size(double.infinity, 50),
+                                      minimumSize: const Size(double.infinity, 50),
                                       primary: ColorManager.onboardingColorDots,
                                     ),
                                   ),

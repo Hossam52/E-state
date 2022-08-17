@@ -1,21 +1,15 @@
-import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
 import 'package:osol/Shared/Customicon.dart';
 
 import 'package:osol/Shared/constants.dart';
-import 'package:osol/Shared/custom_mini_appBar.dart';
 import 'package:osol/Shared/unit_bookmark.dart';
 import 'package:osol/User/BussinssLogic/unitCubit/unit_cubit.dart';
-import 'package:osol/User/DataLayer/Model/modelOfData/onBoardingModel.dart';
 import 'package:osol/User/PresentaionLayer/HomeScreen/units.dart';
 import 'package:osol/User/PresentaionLayer/UnitsScreenDetails/units.dart';
-import 'package:osol/User/PresentaionLayer/compareScreen/view.dart';
 import 'package:osol/User/PresentaionLayer/searchScreen/view.dart';
 
 class UnitsDetailsScreen extends StatefulWidget {
@@ -30,6 +24,7 @@ class _UnitsDetailsScreenState extends State<UnitsDetailsScreen> {
   TextEditingController writeReviewController = TextEditingController();
   ScrollController scrollController = ScrollController();
 
+  @override
   void initState() {
     UnitClientCubit.get(context).unitAllReviewList.clear();
     UnitClientCubit.get(context).zeroId();
@@ -51,7 +46,7 @@ class _UnitsDetailsScreenState extends State<UnitsDetailsScreen> {
               cubit),
           body: cubit.unitById == null
               ? const Center(
-                  child: const CircularProgressIndicator(),
+                  child: CircularProgressIndicator(),
                 )
               : CustomScrollView(
                   physics: const BouncingScrollPhysics(),
@@ -60,7 +55,7 @@ class _UnitsDetailsScreenState extends State<UnitsDetailsScreen> {
                       child: Padding(
                         padding: const EdgeInsets.only(
                             top: 15.0, bottom: 15, left: 20),
-                        child: Container(
+                        child: SizedBox(
                           height: sizeFromHeight(3.5),
                           width: sizeFromWidth(1.5),
                           child: ListView.builder(
@@ -141,8 +136,8 @@ class _UnitsDetailsScreenState extends State<UnitsDetailsScreen> {
                     SliverToBoxAdapter(
                       child: CustomAboutDeveloper(unit: cubit.unitById!),
                     ),
-                    SliverToBoxAdapter(
-                      child: const Padding(
+                    const SliverToBoxAdapter(
+                      child: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 20),
                         child: CustomVideo(),

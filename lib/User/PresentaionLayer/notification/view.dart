@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Shared/constants.dart';
-import 'package:osol/Shared/custom_mini_appBar.dart';
-import 'package:osol/User/PresentaionLayer/searchScreen/view.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -32,7 +30,7 @@ class NotificationScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
+                const Expanded(
                   flex: 1,
                   child: CircleAvatar(
                     radius: 30,
@@ -44,9 +42,9 @@ class NotificationScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    children: const [
                       Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
+                        padding: EdgeInsets.only(top: 8.0),
                         child: Text(
                           "Managment",
                           style: TextStyle(
@@ -56,7 +54,7 @@ class NotificationScreen extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
+                        padding: EdgeInsets.only(bottom: 8.0),
                         child: Text(
                           "Wellcome To Gps state app",
                           style: TextStyle(
@@ -75,7 +73,7 @@ class NotificationScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Row(
-                          children: [
+                          children: const [
                             FaIcon(
                               FontAwesomeIcons.clock,
                               color: Colors.grey,
@@ -113,12 +111,12 @@ AppBar CustomAppBar(context, txt) {
       onPressed: () {
         Navigator.pop(context);
       },
-      icon: Icon(
+      icon: const Icon(
         Icons.arrow_back,
         size: 28,
       ),
     ),
-    shape: ContinuousRectangleBorder(
+    shape: const ContinuousRectangleBorder(
       borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
     ),
     centerTitle: true,

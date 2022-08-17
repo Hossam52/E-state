@@ -9,15 +9,15 @@ class GetUnitByIdModel {
   GetUnitByIdModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     units = json['units'] != null
-        ? new AllUnitsModel.fromJson(json['units'])
+        ? AllUnitsModel.fromJson(json['units'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    if (this.units != null) {
-      data['units'] = this.units!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    if (units != null) {
+      data['units'] = units!.toJson();
     }
     return data;
   }

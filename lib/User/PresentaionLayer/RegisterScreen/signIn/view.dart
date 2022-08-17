@@ -6,14 +6,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/BussinssLogic/authCubit/auth_cubit.dart';
-import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
-import 'package:osol/User/PresentaionLayer/DawerScreen/view.dart';
-import 'package:osol/User/PresentaionLayer/HomeScreen/HomeScreenView.dart';
 import 'package:osol/User/PresentaionLayer/RegisterScreen/forgetPassword/emailForgetPassword.dart';
 import 'package:osol/User/PresentaionLayer/RegisterScreen/signUp/view.dart';
 import 'package:osol/User/PresentaionLayer/RegisterScreen/viewTypes.dart';
 
-import '../uploadImage.dart';
 
 class SignInView extends StatefulWidget {
   @override
@@ -31,17 +27,17 @@ class _SignInViewState extends State<SignInView> {
     return showDialog(
         context: context,
         builder: (BuildContext context) => CupertinoAlertDialog(
-              title: Text("Exit"),
-              content: Text("Are you sure you want to leave the app?"),
+              title: const Text("Exit"),
+              content: const Text("Are you sure you want to leave the app?"),
               actions: [
                 CupertinoDialogAction(
-                    child: Text("YES"),
+                    child: const Text("YES"),
                     onPressed: () {
                       SystemChannels.platform
                           .invokeMethod('SystemNavigator.pop');
                     }),
                 CupertinoDialogAction(
-                    child: Text("NO"),
+                    child: const Text("NO"),
                     onPressed: () {
                       Navigator.of(context).pop(false);
                     })
@@ -66,7 +62,7 @@ class _SignInViewState extends State<SignInView> {
                 elevation: 0,
                 backgroundColor: ColorManager.onboardingColorDots,
                 toolbarHeight: 80,
-                shape: ContinuousRectangleBorder(
+                shape: const ContinuousRectangleBorder(
                   borderRadius:
                       BorderRadius.vertical(bottom: Radius.circular(10)),
                 ),
@@ -76,11 +72,11 @@ class _SignInViewState extends State<SignInView> {
                   Icons.arrow_forward,
                   color: ColorManager.onboardingColorDots,
                 ),
-                title: Text(
+                title: const Text(
                   "",
                
                 ),
-                actions: [],
+                actions: const [],
               ),
               body: Column(
                 children: [
@@ -89,7 +85,7 @@ class _SignInViewState extends State<SignInView> {
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 15.0),
                       child: Container(
-                          child: Image(
+                          child: const Image(
                         image: AssetImage("assets/images/estatehomee.png"),
                       )),
                     ),
@@ -101,7 +97,7 @@ class _SignInViewState extends State<SignInView> {
                         child: Container(
                           decoration: BoxDecoration(
                             color: ColorManager.WhiteScreen,
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                               topRight: Radius.circular(30),
                               topLeft: Radius.circular(30),
                             ),
@@ -109,10 +105,10 @@ class _SignInViewState extends State<SignInView> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: ListView(
-                              physics: BouncingScrollPhysics(),
+                              physics: const BouncingScrollPhysics(),
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(
                                     vertical: 10,
                                     horizontal: 15.0,
                                   ),
@@ -159,8 +155,8 @@ class _SignInViewState extends State<SignInView> {
                                         cubit.changeSuffixIcon();
                                       },
                                       icon: cubit.suffix == true
-                                          ? Icon(Icons.visibility)
-                                          : Icon(Icons.visibility_off),
+                                          ? const Icon(Icons.visibility)
+                                          : const Icon(Icons.visibility_off),
                                     ),
                                   ),
                                 ),
@@ -178,7 +174,7 @@ class _SignInViewState extends State<SignInView> {
                                             ),
                                           );
                                         },
-                                        child: Text(
+                                        child: const Text(
                                           "Forget Password ?",
                                           style: TextStyle(
                                             color: Colors.black54,
@@ -191,7 +187,7 @@ class _SignInViewState extends State<SignInView> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: state is LoadingSignIn
-                                      ? Center(
+                                      ? const Center(
                                           child: CircularProgressIndicator())
                                       : ElevatedButton(
                                           onPressed: () {
@@ -207,7 +203,7 @@ class _SignInViewState extends State<SignInView> {
                                                       passController.text);
                                             }
                                           },
-                                          child: Text(
+                                          child: const Text(
                                             "Login",
                                             style: TextStyle(
                                               color: Colors.white,
@@ -216,7 +212,7 @@ class _SignInViewState extends State<SignInView> {
                                           ),
                                           style: ElevatedButton.styleFrom(
                                             minimumSize:
-                                                Size(double.infinity, 50),
+                                                const Size(double.infinity, 50),
                                             primary: ColorManager
                                                 .onboardingColorDots,
                                           ),
@@ -235,7 +231,7 @@ class _SignInViewState extends State<SignInView> {
                                         ),
                                       ),
                                     ),
-                                    Text("OR"),
+                                    const Text("OR"),
                                     Expanded(
                                       flex: 3,
                                       child: Padding(
@@ -289,7 +285,7 @@ class _SignInViewState extends State<SignInView> {
                                 ),
                                 Row(
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Don't have an account?",
                                       style: TextStyle(
                                         color: Colors.black87,
@@ -300,9 +296,9 @@ class _SignInViewState extends State<SignInView> {
                                           Navigator.of(context).push(
                                               MaterialPageRoute(
                                                   builder: (_) =>
-                                                      TypesScreen()));
+                                                      const TypesScreen()));
                                         },
-                                        child: Text(
+                                        child: const Text(
                                           "Register",
                                           style: TextStyle(
                                             color: Colors.black,

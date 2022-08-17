@@ -1,11 +1,8 @@
 import 'dart:io';
 
-import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:osol/Company/PresentationLayer/DawerScreen/view.dart';
 import 'package:osol/Company/dataLayer/dataModel/banners/getAllBannersModel.dart';
 import 'package:osol/Shared/CustomToast.dart';
@@ -28,7 +25,7 @@ class BannersCubit extends Cubit<BannersState> {
   Future getAllBanners() async {
     final mainToken = await Shared.prefGetString(key: "CompanyTokenVerify");
     emit(LoadingGetAllBannersCompany());
-    debugPrint("mostafa:${mainToken}");
+    debugPrint("mostafa:$mainToken");
     Response response;
     try {
       response = await DioHelper.postDataWithAuth(
@@ -103,7 +100,7 @@ class BannersCubit extends Cubit<BannersState> {
         print("${response.data}");
         CustomToast(color: Colors.green, msg: "تمت الأضافه بنجاح");
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => NavigationDrawerCompany()));
+            MaterialPageRoute(builder: (_) => const NavigationDrawerCompany()));
         emit(SuccessAddBannerState());
       } else if (response.statusCode == 200 &&
           response.data["status"] == false) {

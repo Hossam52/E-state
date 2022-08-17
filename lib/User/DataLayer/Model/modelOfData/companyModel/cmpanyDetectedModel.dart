@@ -7,15 +7,15 @@ class CompanyDetectedModel {
   CompanyDetectedModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     company = json['company'] != null
-        ? new CompanyDetectedData.fromJson(json['company'])
+        ? CompanyDetectedData.fromJson(json['company'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    if (this.company != null) {
-      data['company'] = this.company!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    if (company != null) {
+      data['company'] = company!.toJson();
     }
     return data;
   }
@@ -78,33 +78,33 @@ class CompanyDetectedData {
     if (json['myBranches'] != null) {
       myBranches = <MyBranches>[];
       json['myBranches'].forEach((v) {
-        myBranches!.add(new MyBranches.fromJson(v));
+        myBranches!.add(MyBranches.fromJson(v));
       });
     }
     date = json['date'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['country'] = this.country;
-    data['city'] = this.city;
-    data['mother_company'] = this.motherCompany;
-    data['image'] = this.image;
-    data['address'] = this.address;
-    data['about'] = this.about;
-    data['branches_num'] = this.branchesNum;
-    data['type'] = this.type;
-    data['regestration_num'] = this.regestrationNum;
-    data['phone'] = this.phone;
-    data['reason'] = this.reason;
-    data['status'] = this.status;
-    if (this.myBranches != null) {
-      data['myBranches'] = this.myBranches!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['email'] = email;
+    data['country'] = country;
+    data['city'] = city;
+    data['mother_company'] = motherCompany;
+    data['image'] = image;
+    data['address'] = address;
+    data['about'] = about;
+    data['branches_num'] = branchesNum;
+    data['type'] = type;
+    data['regestration_num'] = regestrationNum;
+    data['phone'] = phone;
+    data['reason'] = reason;
+    data['status'] = status;
+    if (myBranches != null) {
+      data['myBranches'] = myBranches!.map((v) => v.toJson()).toList();
     }
-    data['date'] = this.date;
+    data['date'] = date;
     return data;
   }
 }
@@ -123,7 +123,7 @@ class MyBranches {
   String? type;
   String? regestrationNum;
   String? phone;
-  Null? reason;
+  dynamic reason;
   String? status;
   List<String>? myBranches;
   String? date;
@@ -173,26 +173,26 @@ class MyBranches {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['country'] = this.country;
-    data['city'] = this.city;
-    data['mother_company'] = this.motherCompany;
-    data['image'] = this.image;
-    data['address'] = this.address;
-    data['about'] = this.about;
-    data['branches_num'] = this.branchesNum;
-    data['type'] = this.type;
-    data['regestration_num'] = this.regestrationNum;
-    data['phone'] = this.phone;
-    data['reason'] = this.reason;
-    data['status'] = this.status;
-    if (this.myBranches != null) {
-      data['myBranches'] = this.myBranches!.map((v) => v).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['email'] = email;
+    data['country'] = country;
+    data['city'] = city;
+    data['mother_company'] = motherCompany;
+    data['image'] = image;
+    data['address'] = address;
+    data['about'] = about;
+    data['branches_num'] = branchesNum;
+    data['type'] = type;
+    data['regestration_num'] = regestrationNum;
+    data['phone'] = phone;
+    data['reason'] = reason;
+    data['status'] = status;
+    if (myBranches != null) {
+      data['myBranches'] = myBranches!.map((v) => v).toList();
     }
-    data['date'] = this.date;
+    data['date'] = date;
     return data;
   }
 }

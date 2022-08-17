@@ -28,14 +28,14 @@ class CustomOtherDataAddInCompany extends StatelessWidget {
         var cubit = UnitCubit.get(context);
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-          child: Container(
+          child: SizedBox(
             // height: sizeFromHeight(1.25),
             width: sizeFromWidth(1.5),
             child: Column(
               children: [
                 Container(
                   child: Container(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
@@ -45,7 +45,7 @@ class CustomOtherDataAddInCompany extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
+                        SizedBox(
                           height: sizeFromHeight(1.5),
                           child: PageView.builder(
                               itemCount: Screen.length,
@@ -58,7 +58,7 @@ class CustomOtherDataAddInCompany extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             pageViewController.nextPage(
-                                duration: Duration(milliseconds: 800),
+                                duration: const Duration(milliseconds: 800),
                                 curve: Curves.easeIn);
                           },
                           child: Container(
@@ -70,10 +70,10 @@ class CustomOtherDataAddInCompany extends StatelessWidget {
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline3!),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 5,
                                       ),
-                                      FaIcon(
+                                      const FaIcon(
                                         FontAwesomeIcons.check,
                                         color: Colors.black54,
                                       )

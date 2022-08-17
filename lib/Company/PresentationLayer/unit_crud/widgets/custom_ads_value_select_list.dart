@@ -17,7 +17,7 @@ class CustomAdsTypeValueSelectList extends StatelessWidget {
     return BlocBuilder<UnitCubit, UnitState>(
       builder: (context, state) {
         var cubit = UnitCubit.get(context);
-        return Container(
+        return SizedBox(
           height: sizeFromHeight(6.5),
           width: sizeFromWidth(2.4),
           child: Column(
@@ -42,9 +42,9 @@ class CustomAdsTypeValueSelectList extends StatelessWidget {
                   ),
                   child: DropdownButton(
                     value: cubit.adsTypeValue,
-                    underline: SizedBox(),
+                    underline: const SizedBox(),
                     isExpanded: true,
-                    hint: Text("Select"),
+                    hint: const Text("Select"),
                     items: myList?.map((String value) {
                       return DropdownMenuItem<String>(
                         value: value,

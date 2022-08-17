@@ -31,7 +31,7 @@ class FeaturedScreen extends StatelessWidget {
         children: [
           Column(
             children: [
-              Container(
+              SizedBox(
                   height: sizeFromHeight(3),
                   child: Center(
                       child: SvgPicture.asset("assets/images/featured.svg"))),
@@ -48,7 +48,7 @@ class FeaturedScreen extends StatelessWidget {
               onPressed: () {},
               style: ElevatedButton.styleFrom(
                   minimumSize: Size(double.infinity, sizeFromHeight(10))),
-              child: Text(
+              child: const Text(
                 "Upgrade",
                 style: TextStyle(
                   color: Colors.white,

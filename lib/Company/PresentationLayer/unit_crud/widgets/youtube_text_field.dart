@@ -15,7 +15,7 @@ class CustomTxtFieldYoutubeAddUnit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(6.5),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -34,7 +34,7 @@ class CustomTxtFieldYoutubeAddUnit extends StatelessWidget {
             child: Center(
               child: TextFormField(
                 validator: validator,
-                toolbarOptions: ToolbarOptions(
+                toolbarOptions: const ToolbarOptions(
                   copy: true,
                   cut: true,
                   paste: true,
@@ -42,12 +42,12 @@ class CustomTxtFieldYoutubeAddUnit extends StatelessWidget {
                 ),
                 controller: controller,
                 decoration: InputDecoration(
-                  hintText: "${hint}",
-                  suffixIcon: Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
+                  hintText: hint,
+                  suffixIcon: const Padding(
+                    padding: EdgeInsets.only(top: 8.0),
                     child: FaIcon(FontAwesomeIcons.link),
                   ),
-                  border: OutlineInputBorder(
+                  border: const OutlineInputBorder(
                     borderSide: BorderSide.none,
                   ),
                 ),

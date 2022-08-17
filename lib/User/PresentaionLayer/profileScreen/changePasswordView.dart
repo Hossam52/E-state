@@ -27,7 +27,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: Text(
+            title: const Text(
               "Change Password",
             ),
           ),
@@ -86,7 +86,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                             confPass: tText.text.toString());
                       }
                     },
-                    child: Text(
+                    child: const Text(
                       "Change Password",
                       style: TextStyle(fontSize: 16),
                     ),
@@ -127,18 +127,20 @@ class _CustomProfileTextFormState extends State<CustomProfileTextForm> {
       padding: const EdgeInsets.all(10.0),
       child: TextFormField(
         obscureText: widget.cubit.visb,
-        validator: (String? v) {},
+        validator: (String? v) {
+          return null;
+        },
         controller: widget.controller,
         decoration: InputDecoration(
           suffixIcon: widget.cubit.visb
               ? IconButton(
-                  icon: Icon(Icons.visibility),
+                  icon: const Icon(Icons.visibility),
                   onPressed: () {
                     widget.cubit.changeVisi();
                   },
                 )
               : IconButton(
-                  icon: Icon(Icons.visibility_off),
+                  icon: const Icon(Icons.visibility_off),
                   onPressed: () {
                     widget.cubit.changeVisi();
                   },

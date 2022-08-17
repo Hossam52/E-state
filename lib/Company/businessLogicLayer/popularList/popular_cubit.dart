@@ -1,22 +1,16 @@
 import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
 import 'package:osol/Company/dataLayer/dataModel/PopularListModel/PopularListModel.dart';
 import 'package:osol/Company/dataLayer/dataModel/pobular/company_unit_category_filter.dart';
-import 'package:osol/Company/dataLayer/dataModel/pobular/popularModel.dart';
-import 'package:osol/Shared/CustomToast.dart';
 import 'package:osol/Shared/constants.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:osol/User/DataLayer/DataProvider/dioHelper.dart';
-import 'package:osol/common_models/unit_model.dart';
-import 'package:osol/shared/Customicon.dart';
 import 'package:osol/common_models/filter_displayed_units_model.dart';
+import 'package:osol/common_models/unit_model.dart';
 
 import '../../../User/DataLayer/localDataLayer/localData.dart';
 
@@ -171,7 +165,7 @@ class PopularCubit extends Cubit<PopularState> {
       if (response.statusCode == 200) {
         popularListModel = PopularListModel.fromJson(response.data);
         detectedUnitList.clear();
-        popularListModel?.units?.data?.forEach((element) {
+        popularListModel?.units?.data.forEach((element) {
           detectedUnitList.add(element);
         });
         selectedCategory.units = List.from(detectedUnitList);
@@ -204,9 +198,11 @@ class PopularCubit extends Cubit<PopularState> {
       if (response.statusCode == 200) {
         popularListModel = PopularListModel.fromJson(response.data);
         detectedUnitList.clear();
-        popularListModel?.units?.data?.forEach((element) {
-          detectedUnitList.add(element);
-        });
+        if (popularListModel != null && popularListModel!.units != null) {
+          for (var element in popularListModel!.units!.data) {
+            detectedUnitList.add(element);
+          }
+        }
         selectedCategory.units = List.from(detectedUnitList);
         emit(SuccessGetPopularListData());
       }

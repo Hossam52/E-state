@@ -8,17 +8,17 @@ class OTPVerificationResultModel {
   OTPVerificationResultModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     client =
-        json['client'] != null ? new Client.fromJson(json['client']) : null;
+        json['client'] != null ? Client.fromJson(json['client']) : null;
     token = json['token'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    if (this.client != null) {
-      data['client'] = this.client!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    if (client != null) {
+      data['client'] = client!.toJson();
     }
-    data['token'] = this.token;
+    data['token'] = token;
     return data;
   }
 }
@@ -55,15 +55,15 @@ class Client {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_name'] = this.userName;
-    data['email'] = this.email;
-    data['country'] = this.country;
-    data['city'] = this.city;
-    data['image'] = this.image;
-    data['gender'] = this.gender;
-    data['phone'] = this.phone;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['user_name'] = userName;
+    data['email'] = email;
+    data['country'] = country;
+    data['city'] = city;
+    data['image'] = image;
+    data['gender'] = gender;
+    data['phone'] = phone;
     return data;
   }
 }

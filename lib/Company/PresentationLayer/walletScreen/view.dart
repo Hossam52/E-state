@@ -1,5 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:osol/Shared/constants.dart';
@@ -14,7 +13,7 @@ class WalletView extends StatelessWidget {
         body: CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
-          child: Container(
+          child: SizedBox(
             height: sizeFromHeight(2.5),
             child: Column(
               children: [
@@ -101,25 +100,25 @@ class WalletView extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Container(
+                                        SizedBox(
                                             height: sizeFromHeight(18),
                                             width: sizeFromWidth(12),
-                                            child: Image(
+                                            child: const Image(
                                               image: AssetImage(
                                                   "assets/images/hologram.png"),
                                             )),
-                                        Container(
+                                        SizedBox(
                                             height: sizeFromHeight(18),
                                             width: sizeFromWidth(8),
-                                            child: Image(
+                                            child: const Image(
                                               fit: BoxFit.fill,
                                               image: AssetImage(
                                                   "assets/images/chip.png"),
                                             )),
-                                        Container(
+                                        SizedBox(
                                             height: sizeFromHeight(18),
                                             width: sizeFromWidth(12),
-                                            child: Image(
+                                            child: const Image(
                                               image: AssetImage(
                                                   "assets/images/visa.png"),
                                             )),
@@ -162,7 +161,7 @@ class WalletView extends StatelessWidget {
           ),
         ),
         SliverToBoxAdapter(
-          child: Container(
+          child: SizedBox(
             height: sizeFromHeight(7),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -205,7 +204,7 @@ class WalletView extends StatelessWidget {
           ),
         ),
         SliverToBoxAdapter(
-          child: Container(
+          child: SizedBox(
             height: sizeFromHeight(1.5),
             child: DefaultTabController(
               length: 3,
@@ -219,12 +218,12 @@ class WalletView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    labelStyle: TextStyle(
+                    labelStyle: const TextStyle(
                         color: Colors.black, fontWeight: FontWeight.w600),
                     labelColor: Colors.black,
                     unselectedLabelColor: Colors.grey,
                     indicatorColor: ColorManager.WhiteScreen,
-                    tabs: [
+                    tabs: const [
                       FittedBox(
                         fit: BoxFit.scaleDown,
                         child: Tab(
@@ -250,7 +249,7 @@ class WalletView extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                             color: ColorManager.CompareConatainer,
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                               topRight: Radius.circular(20),
                               topLeft: Radius.circular(20),
                             )),
@@ -283,8 +282,8 @@ class WalletView extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(8)),
                                     ),
-                                    title: Padding(
-                                      padding: const EdgeInsets.symmetric(
+                                    title: const Padding(
+                                      padding: EdgeInsets.symmetric(
                                           vertical: 15.0),
                                       child: Text(
                                         "Visa Master Card",
@@ -301,7 +300,7 @@ class WalletView extends StatelessWidget {
                                           fontWeight: FontWeight.normal),
                                     ),
                                   ),
-                                  Divider(
+                                  const Divider(
                                     color: Colors.black87,
                                     height: 1,
                                     indent: 10,
@@ -322,9 +321,9 @@ class WalletView extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(8)),
                                     ),
-                                    title: Padding(
+                                    title: const Padding(
                                       padding:
-                                          const EdgeInsets.only(bottom: 15.0),
+                                          EdgeInsets.only(bottom: 15.0),
                                       child: Text(
                                         "Visa Master Card",
                                         style: TextStyle(
@@ -349,7 +348,7 @@ class WalletView extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                             color: ColorManager.CompareConatainer,
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                               topRight: Radius.circular(20),
                               topLeft: Radius.circular(20),
                             )),
@@ -382,8 +381,8 @@ class WalletView extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(8)),
                                     ),
-                                    title: Padding(
-                                      padding: const EdgeInsets.symmetric(
+                                    title: const Padding(
+                                      padding: EdgeInsets.symmetric(
                                           vertical: 15.0),
                                       child: Text(
                                         "Visa Master Card",
@@ -400,7 +399,7 @@ class WalletView extends StatelessWidget {
                                           fontWeight: FontWeight.normal),
                                     ),
                                   ),
-                                  Divider(
+                                  const Divider(
                                     color: Colors.black87,
                                     height: 1,
                                     indent: 10,
@@ -421,9 +420,9 @@ class WalletView extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(8)),
                                     ),
-                                    title: Padding(
+                                    title: const Padding(
                                       padding:
-                                          const EdgeInsets.only(bottom: 15.0),
+                                          EdgeInsets.only(bottom: 15.0),
                                       child: Text(
                                         "Visa Master Card",
                                         style: TextStyle(
@@ -448,7 +447,7 @@ class WalletView extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                             color: ColorManager.CompareConatainer,
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                               topRight: Radius.circular(20),
                               topLeft: Radius.circular(20),
                             )),
@@ -469,8 +468,8 @@ class WalletView extends StatelessWidget {
                                       color: ColorManager.onboardingColorDots,
                                       borderRadius: BorderRadius.circular(8)),
                                 ),
-                                title: Padding(
-                                  padding: const EdgeInsets.symmetric(
+                                title: const Padding(
+                                  padding: EdgeInsets.symmetric(
                                       vertical: 15.0),
                                   child: FittedBox(
                                     fit: BoxFit.scaleDown,
@@ -482,7 +481,7 @@ class WalletView extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                subtitle: FittedBox(
+                                subtitle: const FittedBox(
                                   fit: BoxFit.scaleDown,
                                   child: Text(
                                     "Package for 3 month usage",
@@ -511,8 +510,8 @@ class WalletView extends StatelessWidget {
                                       color: ColorManager.onboardingColorDots,
                                       borderRadius: BorderRadius.circular(8)),
                                 ),
-                                title: Padding(
-                                  padding: const EdgeInsets.symmetric(
+                                title: const Padding(
+                                  padding: EdgeInsets.symmetric(
                                       vertical: 15.0),
                                   child: FittedBox(
                                     fit: BoxFit.scaleDown,
@@ -524,7 +523,7 @@ class WalletView extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                subtitle: FittedBox(
+                                subtitle: const FittedBox(
                                   fit: BoxFit.scaleDown,
                                   child: Text(
                                     "Package for 3 month usage",
@@ -553,8 +552,8 @@ class WalletView extends StatelessWidget {
                                       color: ColorManager.onboardingColorDots,
                                       borderRadius: BorderRadius.circular(8)),
                                 ),
-                                title: Padding(
-                                  padding: const EdgeInsets.symmetric(
+                                title: const Padding(
+                                  padding: EdgeInsets.symmetric(
                                       vertical: 15.0),
                                   child: FittedBox(
                                     fit: BoxFit.scaleDown,
@@ -566,7 +565,7 @@ class WalletView extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                subtitle: FittedBox(
+                                subtitle: const FittedBox(
                                   fit: BoxFit.scaleDown,
                                   child: Text(
                                     "Package for 3 month usage",
@@ -595,8 +594,8 @@ class WalletView extends StatelessWidget {
                                       color: ColorManager.onboardingColorDots,
                                       borderRadius: BorderRadius.circular(8)),
                                 ),
-                                title: Padding(
-                                  padding: const EdgeInsets.symmetric(
+                                title: const Padding(
+                                  padding: EdgeInsets.symmetric(
                                       vertical: 15.0),
                                   child: FittedBox(
                                     fit: BoxFit.scaleDown,
@@ -608,7 +607,7 @@ class WalletView extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                subtitle: FittedBox(
+                                subtitle: const FittedBox(
                                   fit: BoxFit.scaleDown,
                                   child: Text(
                                     "Package for 3 month usage",

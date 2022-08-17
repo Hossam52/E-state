@@ -50,7 +50,7 @@ class CompanySearchScreen extends StatelessWidget {
                   Expanded(
                     child: state is LoadingGetFeaturesData ||
                             state is LoadingGetPopularData
-                        ? Center(
+                        ? const Center(
                             child: CircularProgressIndicator(),
                           )
                         : GridView.builder(

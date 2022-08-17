@@ -1,6 +1,4 @@
-import 'dart:ui' as ui;
 
-import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 
@@ -23,9 +21,9 @@ class RPSCustomPainter extends CustomPainter {
     path_0.arcToPoint(Offset(size.width*0.9558952,size.height),radius: Radius.elliptical(size.width*0.04410475, size.height*0.03846154),rotation: 0 ,largeArc: false,clockwise: true);
     path_0.close();
 
-    Paint paint_0_fill = Paint()..style=PaintingStyle.fill;
-    paint_0_fill.color = Color(0xff006aff).withOpacity(1.0);
-    canvas.drawPath(path_0,paint_0_fill);
+    Paint paint0Fill = Paint()..style=PaintingStyle.fill;
+    paint0Fill.color = const Color(0xff006aff).withOpacity(1.0);
+    canvas.drawPath(path_0,paint0Fill);
 
   }
 

@@ -1,24 +1,19 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:intl/src/intl/date_format.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:osol/Company/PresentationLayer/DawerScreen/view.dart';
-import 'package:osol/Company/PresentationLayer/companyProjects/view.dart';
 import 'package:osol/Company/PresentationLayer/unit_crud/unit_crud_widgets.dart';
 import 'package:osol/Company/PresentationLayer/unit_crud/widgets/add_custom_date.dart';
 import 'package:osol/Company/businessLogicLayer/compayProject/company_project_cubit.dart';
 import 'package:osol/Company/dataLayer/dataModel/projectsOfCompany/ProjectsofCompany.dart';
 import 'package:osol/Shared/CustomToast.dart';
 import 'package:osol/Shared/constants.dart';
-import 'package:osol/User/BussinssLogic/companyCubit/company_cubit.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 
@@ -83,10 +78,10 @@ class _UpdateProjectScreenState extends State<UpdateProjectScreen> {
                   return true;
                 },
                 child: Container(
-                  decoration: new BoxDecoration(
-                      borderRadius: new BorderRadius.only(
-                          topLeft: const Radius.circular(20.0),
-                          topRight: const Radius.circular(20.0))),
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20.0),
+                          topRight: Radius.circular(20.0))),
                   clipBehavior: Clip.hardEdge,
                   child: Scaffold(
                     body: Form(
@@ -191,7 +186,7 @@ class _UpdateProjectScreenState extends State<UpdateProjectScreen> {
                                 child: state is LoadingUpdateProjectstate
                                     ? const Center(
                                         child:
-                                            const CircularProgressIndicator())
+                                            CircularProgressIndicator())
                                     : ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                             maximumSize: const Size(
@@ -213,7 +208,7 @@ class _UpdateProjectScreenState extends State<UpdateProjectScreen> {
                                         },
                                         child: const Text(
                                           "Save Changes",
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold),
@@ -324,7 +319,7 @@ class _CustomIAddBannerImageCompaniesState
                               children: [
                                 Padding(
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                      const EdgeInsets.symmetric(horizontal: 8.0),
                                   child: Text("Edit Current image",
                                       style: Theme.of(context)
                                           .textTheme
@@ -398,7 +393,7 @@ class _CustomIAddBannerImageCompaniesState
                               children: [
                                 Padding(
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                      const EdgeInsets.symmetric(horizontal: 8.0),
                                   child: Text("Edit Current image",
                                       style: Theme.of(context)
                                           .textTheme

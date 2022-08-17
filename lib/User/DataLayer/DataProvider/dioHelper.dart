@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:osol/Shared/constants.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class DioHelper {
   static late Dio dio;
@@ -19,6 +20,12 @@ class DioHelper {
         },
       ),
     );
+    dio.interceptors.add(PrettyDioLogger(
+        requestBody: true,
+        responseBody: true,
+        error: true,
+        compact: true,
+        maxWidth: 90));
   }
 
   static Future<Response> getData({

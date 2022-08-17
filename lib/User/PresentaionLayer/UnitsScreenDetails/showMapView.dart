@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:intl/intl.dart';
 
 class LocationHelper {
   static Future<Position> determineCurrentLocation() async {
@@ -124,7 +122,7 @@ class _MyShowMapState extends State<MyShowMap> {
               ? buildMAp()
               : Center(
             child: Container(
-              child: CircularProgressIndicator(
+              child: const CircularProgressIndicator(
                 color: Colors.blue,
               ),
             ),

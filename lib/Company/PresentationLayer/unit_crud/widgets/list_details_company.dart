@@ -9,8 +9,8 @@ class ListDetailsCompany extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(right: 20.0),
-      child: Container(
+      padding: const EdgeInsets.only(right: 20.0),
+      child: SizedBox(
         height: sizeFromHeight(3.5),
         width: sizeFromWidth(1.3),
         child: Stack(
@@ -19,7 +19,7 @@ class ListDetailsCompany extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 image: DecorationImage(
-                    image: AssetImage("${image}"), fit: BoxFit.cover),
+                    image: AssetImage(image), fit: BoxFit.cover),
               ),
               height: sizeFromHeight(3),
               width: double.infinity,

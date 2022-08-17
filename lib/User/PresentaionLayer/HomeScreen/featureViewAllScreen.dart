@@ -1,17 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
-import 'package:osol/User/PresentaionLayer/HomeScreen/units.dart';
 import 'package:osol/common_models/unit_model.dart';
 
 import '../../../Shared/Customicon.dart';
 import '../../BussinssLogic/authCubit/auth_cubit.dart';
-import '../../BussinssLogic/commonCubit/profieCubit/profile_cubit.dart';
-import '../../BussinssLogic/unitCubit/unit_cubit.dart';
 import '../UnitsScreenDetails/view.dart';
 
 class FeatureViewAllScreen extends StatefulWidget {
@@ -36,21 +32,21 @@ class _FeatureViewAllScreenState extends State<FeatureViewAllScreen> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back,
               ),
             ),
-            shape: ContinuousRectangleBorder(
+            shape: const ContinuousRectangleBorder(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
             ),
             centerTitle: true,
-            title: Text(
+            title: const Text(
               "All Features",
             ),
-            actions: [],
+            actions: const [],
           ),
           body: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               mainAxisSpacing: 20,
               crossAxisSpacing: 4,
@@ -60,7 +56,7 @@ class _FeatureViewAllScreenState extends State<FeatureViewAllScreen> {
               return Padding(
                 padding: const EdgeInsets.only(right: 10.0, left: 10),
                 child: features.isEmpty
-                    ? Center(
+                    ? const Center(
                         child: CircularProgressIndicator(),
                       )
                     : InkWell(
@@ -90,7 +86,7 @@ class _FeatureViewAllScreenState extends State<FeatureViewAllScreen> {
 }
 
 class CardHomeFeatureView extends StatelessWidget {
-  CardHomeFeatureView({required this.unit});
+  const CardHomeFeatureView({required this.unit});
   final UnitModel unit;
   @override
   Widget build(BuildContext context) {
@@ -114,7 +110,7 @@ class CardHomeFeatureView extends StatelessWidget {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(6),
                           topRight: Radius.circular(6),
                         ),
@@ -149,7 +145,7 @@ class CardHomeFeatureView extends StatelessWidget {
                       Padding(
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-                        child: Container(
+                        child: SizedBox(
                           width: sizeFromWidth(3),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -161,7 +157,7 @@ class CardHomeFeatureView extends StatelessWidget {
                                   style: TextStyle(
                                       color: ColorManager.OnBoardingScreen),
                                 ),
-                                TextSpan(
+                                const TextSpan(
                                   text: "\\ Mnth",
                                   style:
                                       TextStyle(color: Colors.lightBlueAccent),
@@ -180,17 +176,17 @@ class CardHomeFeatureView extends StatelessWidget {
                               color: ColorManager.AppBarIconcolorGrey,
                               size: 16,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
                             Text(
                               "${unit.city} , ${unit.country}",
-                              style: TextStyle(fontSize: 10),
+                              style: const TextStyle(fontSize: 10),
                             )
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                     ],
@@ -202,7 +198,7 @@ class CardHomeFeatureView extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     color: ColorManager.homeColorFeature,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(10),
                       bottomRight: Radius.circular(10),
                     ),
@@ -223,17 +219,17 @@ class CardHomeFeatureView extends StatelessWidget {
                                 size: 12,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 3,
                             ),
                             Text(
                               "${unit.area} m²",
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 12),
+                                  const TextStyle(color: Colors.black, fontSize: 12),
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Column(
@@ -246,17 +242,17 @@ class CardHomeFeatureView extends StatelessWidget {
                                 size: 12,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 3,
                             ),
                             Text(
                               "${unit.bathroom}",
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 12),
+                                  const TextStyle(color: Colors.black, fontSize: 12),
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Column(
@@ -269,17 +265,17 @@ class CardHomeFeatureView extends StatelessWidget {
                                 color: Colors.grey[400],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 3,
                             ),
                             Text(
                               "${unit.bedrooms}",
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 12),
+                                  const TextStyle(color: Colors.black, fontSize: 12),
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Column(
@@ -292,10 +288,10 @@ class CardHomeFeatureView extends StatelessWidget {
                                 size: 12,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 3,
                             ),
-                            Text(
+                            const Text(
                               "3.4",
                               style:
                                   TextStyle(color: Colors.black, fontSize: 12),

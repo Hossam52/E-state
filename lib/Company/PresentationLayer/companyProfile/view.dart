@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
@@ -24,11 +23,13 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
 
   TextEditingController companyAddressController = TextEditingController();
 
+  @override
   initState() {
     ProfileCompanyCubit.get(context).getProfileCompany();
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProfileCompanyCubit, ProfileCompanyState>(
       listener: (context, state) {
@@ -45,26 +46,26 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back,
               ),
             ),
-            shape: ContinuousRectangleBorder(
+            shape: const ContinuousRectangleBorder(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
             ),
             centerTitle: true,
-            title: Text(
+            title: const Text(
               "Profile",
             ),
           ),
           body: state is LoadingGetProfileDataStatus
-              ? Center(child: CircularProgressIndicator())
+              ? const Center(child: CircularProgressIndicator())
               : CustomScrollView(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   slivers: [
-                    SliverToBoxAdapter(
+                    const SliverToBoxAdapter(
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 5),
+                        padding: EdgeInsets.only(left: 20, right: 5),
                         child: CustomIInformationCompanies(),
                       ),
                     ),
@@ -224,7 +225,7 @@ class CustomIInformationCompanies extends StatelessWidget {
       builder: (context, state) {
         var cubit = ProfileCompanyCubit.get(context);
         final company = cubit.companyProfile;
-        return Container(
+        return SizedBox(
           height: sizeFromHeight(8),
           width: 327.w,
           child: Row(
@@ -263,7 +264,7 @@ class CustomIInformationCompanies extends StatelessWidget {
                   ],
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Container(
@@ -275,7 +276,7 @@ class CustomIInformationCompanies extends StatelessWidget {
                           color: Colors.grey.withOpacity(0.3),
                           spreadRadius: 5,
                           blurRadius: 7,
-                          offset: Offset(0, 3), // changes position of shadow
+                          offset: const Offset(0, 3), // changes position of shadow
                         ),
                       ]),
                   child: IconButton(
@@ -313,7 +314,7 @@ class CustomTxtFieldCompanyProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(7),
       width: width == 0 ? double.infinity : width,
       child: Column(
@@ -327,7 +328,7 @@ class CustomTxtFieldCompanyProfile extends StatelessWidget {
               child: Container(
                 child: Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w600,
                       fontSize: 16),
@@ -348,8 +349,8 @@ class CustomTxtFieldCompanyProfile extends StatelessWidget {
               child: TextFormField(
                 controller: controller,
                 decoration: InputDecoration(
-                    hintText: "${hint}",
-                    border: OutlineInputBorder(
+                    hintText: hint,
+                    border: const OutlineInputBorder(
                       borderSide: BorderSide.none,
                     )),
               ),
@@ -369,7 +370,7 @@ class CustomTxtFieldSuffixIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(6.5),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -377,7 +378,7 @@ class CustomTxtFieldSuffixIcon extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
           ),
           Container(
@@ -389,12 +390,12 @@ class CustomTxtFieldSuffixIcon extends StatelessWidget {
             child: Center(
               child: TextFormField(
                 decoration: InputDecoration(
-                    hintText: "${hint}",
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
+                    hintText: hint,
+                    suffixIcon: const Padding(
+                      padding: EdgeInsets.only(top: 8.0),
                       child: FaIcon(FontAwesomeIcons.link),
                     ),
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                       borderSide: BorderSide.none,
                     )),
               ),
@@ -417,7 +418,7 @@ class CustomSelectListProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(7),
       width: width == 0 ? double.infinity : width,
       child: Column(
@@ -428,7 +429,7 @@ class CustomSelectListProfile extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w600,
                     fontSize: 16),
@@ -450,8 +451,8 @@ class CustomSelectListProfile extends StatelessWidget {
               ),
               child: DropdownButton<String>(
                 isExpanded: true,
-                underline: SizedBox(),
-                hint: Text("Select"),
+                underline: const SizedBox(),
+                hint: const Text("Select"),
                 items: <String>['1', '2', '3'].map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
@@ -476,7 +477,7 @@ class CustomTxtFieldSocialCompany extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(7),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -484,7 +485,7 @@ class CustomTxtFieldSocialCompany extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
           ),
           Container(
@@ -497,12 +498,12 @@ class CustomTxtFieldSocialCompany extends StatelessWidget {
             child: Center(
               child: TextFormField(
                 decoration: InputDecoration(
-                    hintText: "${hint}",
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
+                    hintText: hint,
+                    suffixIcon: const Padding(
+                      padding: EdgeInsets.only(top: 8.0),
                       child: FaIcon(FontAwesomeIcons.link),
                     ),
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                       borderSide: BorderSide.none,
                     )),
               ),
@@ -527,7 +528,7 @@ class CustomTxtFieldAboutCompany extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(6),
       width: double.infinity,
       child: Column(
@@ -536,7 +537,7 @@ class CustomTxtFieldAboutCompany extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
           ),
           Container(
@@ -551,8 +552,8 @@ class CustomTxtFieldAboutCompany extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                "$text",
-                style: TextStyle(
+                text,
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -572,7 +573,7 @@ class CustomTxtFieldComplexNumber extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(7),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -580,7 +581,7 @@ class CustomTxtFieldComplexNumber extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
           ),
           Container(
@@ -599,9 +600,9 @@ class CustomTxtFieldComplexNumber extends StatelessWidget {
                         color: Colors.blue.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(5)),
                     child: Padding(
-                      padding: EdgeInsets.only(top: 15),
+                      padding: const EdgeInsets.only(top: 15),
                       child: TextFormField(
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             hintText: "+20",
                             border: OutlineInputBorder(
                               borderSide: BorderSide.none,
@@ -614,11 +615,11 @@ class CustomTxtFieldComplexNumber extends StatelessWidget {
                   flex: 10,
                   child: Container(
                     child: Padding(
-                      padding: EdgeInsets.only(top: 15),
+                      padding: const EdgeInsets.only(top: 15),
                       child: TextFormField(
                         decoration: InputDecoration(
-                            hintText: "${hint}",
-                            border: OutlineInputBorder(
+                            hintText: hint,
+                            border: const OutlineInputBorder(
                               borderSide: BorderSide.none,
                             )),
                       ),
@@ -648,7 +649,7 @@ class CustomLabelCompanyProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(7),
       width: width == 0 ? double.infinity : width,
       child: Column(
@@ -678,7 +679,7 @@ class CustomLabelCompanyProfile extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.only(top: 18.0, left: 10, right: 10),
-              child: Text("$text",
+              child: Text(text,
                   style: Theme.of(context)
                       .textTheme
                       .headline4

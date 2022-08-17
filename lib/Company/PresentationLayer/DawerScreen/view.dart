@@ -1,17 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:osol/Company/PresentationLayer/HomeScreen/HomeScreenView.dart';
 import 'package:osol/Shared/constants.dart';
-import 'package:osol/User/BussinssLogic/companyCubit/company_cubit.dart';
 import 'package:osol/User/PresentaionLayer/DawerScreen/view.dart';
-import 'package:osol/User/PresentaionLayer/HomeScreen/HomeScreenView.dart';
 
 import 'drawerMenueBody.dart';
 
 class NavigationDrawerCompany extends StatefulWidget {
-  NavigationDrawerCompany({Key? key}) : super(key: key);
+  const NavigationDrawerCompany({Key? key}) : super(key: key);
 
   static ZoomDrawerController zoomDrawerController = ZoomDrawerController();
 
@@ -45,7 +42,7 @@ class _NavigationDrawerState extends State<NavigationDrawerCompany>
       openCurve: Curves.fastOutSlowIn,
       closeCurve: Curves.bounceOut,
       androidCloseOnBackTap: true,
-      duration: Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 200),
     );
   }
 }

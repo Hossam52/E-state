@@ -37,14 +37,14 @@ class _CustomSelectDateState extends State<CustomSelectDate> {
             });
             cubit.changeDate(DateFormat('yyyy-MM-dd').format(newDate));
           },
-          child: Container(
+          child: SizedBox(
             height: sizeFromHeight(6.5),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+                  children: const [
                     Text(
                       "",
                       style: TextStyle(
@@ -66,7 +66,7 @@ class _CustomSelectDateState extends State<CustomSelectDate> {
                       horizontal: 8.0,
                     ),
                     child: Center(
-                      child: Text("${widget.title}"),
+                      child: Text(widget.title),
                     ),
                   ),
                 )

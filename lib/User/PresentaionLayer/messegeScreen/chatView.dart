@@ -5,7 +5,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/BussinssLogic/commonCubit/profieCubit/profile_cubit.dart';
 
-import '../../BussinssLogic/companyCubit/company_cubit.dart';
 
 class ChatView extends StatefulWidget {
   String? name;
@@ -91,7 +90,7 @@ class _ChatViewState extends State<ChatView> {
 
   TextEditingController chatController = TextEditingController();
 
-  DateTime _now = DateTime.now();
+  final DateTime _now = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -103,12 +102,12 @@ class _ChatViewState extends State<ChatView> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             size: 28,
           ),
         ),
-        shape: ContinuousRectangleBorder(
+        shape: const ContinuousRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
         ),
         centerTitle: true,
@@ -191,7 +190,7 @@ class _ChatViewState extends State<ChatView> {
                               onChanged: (String? v) {
                                 messageText = v;
                               },
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                   border: InputBorder.none,
                                   hintText: "Say Something...",
                                   hintStyle: TextStyle(
@@ -251,7 +250,7 @@ class _ChatViewState extends State<ChatView> {
                             //   chatController.clear();
                             // },
                             child: Container(
-                              child: Icon(
+                              child: const Icon(
                                 FontAwesomeIcons.mailForward,
                                 color: Colors.blue,
                                 size: 50,
@@ -292,7 +291,7 @@ class ChatWidget extends StatelessWidget {
                 children: [
                   Container(
                     width: sizeFromWidth(2.5),
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: Colors.blue,
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(10),
@@ -306,13 +305,13 @@ class ChatWidget extends StatelessWidget {
                         textAlign: TextAlign.end,
                         maxLines: 4,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   CircleAvatar(
@@ -337,14 +336,14 @@ class ChatWidget extends StatelessWidget {
                     radius: 30,
                     backgroundImage: NetworkImage("$img"),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Container(
                     width: sizeFromWidth(2.5),
                     decoration: BoxDecoration(
                         color: ColorManager.chatGreyColor,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topRight: Radius.circular(10),
                           topLeft: Radius.circular(10),
                           bottomRight: Radius.circular(10),
@@ -355,7 +354,7 @@ class ChatWidget extends StatelessWidget {
                         "$txt",
                         maxLines: 4,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                         ),
                       ),

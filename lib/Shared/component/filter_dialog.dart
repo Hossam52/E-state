@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
 import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_states.dart';
 import 'package:osol/Shared/component/methods..dart';
 import 'package:osol/Shared/component/stacked_fields.dart';
-import 'package:osol/User/BussinssLogic/unitCubit/unit_cubit.dart';
 import 'package:osol/shared/constants.dart';
 
 class FilterDialog extends StatelessWidget {
@@ -64,7 +62,7 @@ class FilterDialog extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [

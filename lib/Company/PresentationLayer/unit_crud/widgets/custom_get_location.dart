@@ -30,12 +30,12 @@ class CustomGetLocation extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (_) => BlocProvider.value(
                       value: UnitCubit.get(context),
-                      child: MyMap(),
+                      child: const MyMap(),
                     ),
                   ),
                 );
               },
-              child: Container(
+              child: SizedBox(
                 height: sizeFromHeight(6.5),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,7 +67,7 @@ class CustomGetLocation extends StatelessWidget {
                                   fontSize: 16),
                             ),
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 5.0),
+                              padding: const EdgeInsets.symmetric(horizontal: 5.0),
                               child: SvgPicture.asset("assets/images/map.svg"),
                             ),
                           ],
@@ -84,7 +84,7 @@ class CustomGetLocation extends StatelessWidget {
                 onTap: () {
                   UnitCubit.get(context).removeLatLngLocation();
                 },
-                child: Container(
+                child: SizedBox(
                   height: sizeFromHeight(6.5),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -106,7 +106,7 @@ class CustomGetLocation extends StatelessWidget {
                                     color: ColorManager.WhiteScreen,
                                     fontSize: 16),
                               ),
-                              Padding(
+                              const Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 5.0),
                                 child: Icon(
                                   Icons.close,

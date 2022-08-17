@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/BussinssLogic/AppSettingCubit/app_setting_cubit.dart';
 
@@ -20,16 +19,16 @@ class AppSettingView extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back,
                 size: 28,
               ),
             ),
-            shape: ContinuousRectangleBorder(
+            shape: const ContinuousRectangleBorder(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
             ),
             centerTitle: true,
-            title: Text(
+            title: const Text(
               "App Setting",
             ),
           ),
@@ -55,14 +54,14 @@ class AppSettingView extends StatelessWidget {
                       "Change Language",
                       style: Theme.of(context).textTheme.headline2,
                     ),
-                    trailing: Container(
+                    trailing: SizedBox(
                       width: sizeFromWidth(4.5),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text("English",
                               style: Theme.of(context).textTheme.headline2),
-                          Icon(
+                          const Icon(
                             Icons.arrow_forward_ios,
                           ),
                         ],
@@ -71,7 +70,7 @@ class AppSettingView extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
@@ -96,7 +95,7 @@ class AppSettingView extends StatelessWidget {
                       "Dark Mode",
                       style: Theme.of(context).textTheme.headline2,
                     ),
-                    trailing: Container(
+                    trailing: SizedBox(
                       width: sizeFromWidth(4.5),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -114,7 +113,7 @@ class AppSettingView extends StatelessWidget {
                               decoration: TextDecoration.underline,
                             ),
                           ),
-                          Icon(
+                          const Icon(
                             Icons.arrow_forward_ios,
                           ),
                         ],
@@ -123,7 +122,7 @@ class AppSettingView extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
@@ -143,7 +142,7 @@ class AppSettingView extends StatelessWidget {
                     ),
                     title: Text("Font Size",
                         style: Theme.of(context).textTheme.headline2),
-                    trailing: Container(
+                    trailing: SizedBox(
                       width: sizeFromWidth(4.5),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -152,7 +151,7 @@ class AppSettingView extends StatelessWidget {
                             "medium",
                             style: Theme.of(context).textTheme.headline2,
                           ),
-                          Icon(
+                          const Icon(
                             Icons.arrow_forward_ios,
                           ),
                         ],

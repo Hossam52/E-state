@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,7 +29,6 @@ import 'User/BussinssLogic/unitCubit/unit_cubit.dart';
 import 'User/DataLayer/DataProvider/dioHelper.dart';
 import 'User/DataLayer/localDataLayer/localData.dart';
 import 'User/PresentaionLayer/DawerScreen/view.dart';
-import 'User/PresentaionLayer/RegisterScreen/otpScreen/view.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -108,7 +106,7 @@ class MyApp extends StatelessWidget {
               ),
               BlocProvider(
                   create: (context) => AppSettingCubit()
-                    ..chandeDarkMode(darkMode != null ? darkMode : false)),
+                    ..chandeDarkMode(darkMode ?? false)),
 
               ///company
               BlocProvider(create: (context) => AuthCompanyCubit()),
@@ -130,7 +128,7 @@ class MyApp extends StatelessWidget {
             child: BlocBuilder<AppSettingCubit, AppSettingState>(
               builder: (context, state) {
                 return ScreenUtilInit(
-                  designSize: Size(375, 812),
+                  designSize: const Size(375, 812),
                   builder: (BuildContext context, child) => MaterialApp(
                     navigatorKey: navigatorKey,
                     onGenerateRoute: onGenerateRoute,
@@ -138,8 +136,7 @@ class MyApp extends StatelessWidget {
                     theme: ThemeData(
                         appBarTheme: AppBarTheme(
                           backgroundColor: Colors.white,
-                          backwardsCompatibility: false,
-                          systemOverlayStyle: SystemUiOverlayStyle(
+                          systemOverlayStyle: const SystemUiOverlayStyle(
                             statusBarBrightness: Brightness.light,
                             statusBarColor: Colors.white,
                             statusBarIconBrightness: Brightness.dark,
@@ -181,22 +178,21 @@ class MyApp extends StatelessWidget {
                                 color: ColorManager.firsthomemainicon,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 6)),
-                        iconTheme: IconThemeData(color: Colors.black),
-                        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                        iconTheme: const IconThemeData(color: Colors.black),
+                        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
                           backgroundColor: Colors.white,
                         ),
                         scaffoldBackgroundColor: Colors.white),
                     darkTheme: ThemeData(
                         appBarTheme: AppBarTheme(
                             backgroundColor: ColorManager.DarkThemeBackGround,
-                            backwardsCompatibility: false,
                             systemOverlayStyle: SystemUiOverlayStyle(
                               statusBarBrightness: Brightness.dark,
                               statusBarColor: ColorManager.DarkThemeBackGround,
                               statusBarIconBrightness: Brightness.light,
                             ),
                             elevation: 0,
-                            iconTheme: IconThemeData(color: Colors.white),
+                            iconTheme: const IconThemeData(color: Colors.white),
                             titleTextStyle: Theme.of(context)
                                 .textTheme
                                 .headline5!
@@ -204,7 +200,7 @@ class MyApp extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white)),
                         primaryColor: ColorManager.DarkThemeBackGround,
-                        textTheme: TextTheme(
+                        textTheme: const TextTheme(
                             headline1: TextStyle(
                               color: Colors.white,
                               fontSize: 32,
@@ -234,7 +230,7 @@ class MyApp extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 6)),
                         backgroundColor: ColorManager.DarkThemeBackGround,
-                        iconTheme: IconThemeData(color: Colors.white),
+                        iconTheme: const IconThemeData(color: Colors.white),
                         bottomNavigationBarTheme: BottomNavigationBarThemeData(
                           backgroundColor: ColorManager.DarkThemeBackGround,
                         ),
@@ -248,7 +244,7 @@ class MyApp extends StatelessWidget {
                       '/': (context) => accessType == null
                           ? SplashScreen()
                           : accessType == "company"
-                              ? NavigationDrawerCompany()
+                              ? const NavigationDrawerCompany()
                               : NavigationDrawer(token: token.toString()),
                     },
                   ),

@@ -1,6 +1,5 @@
 import 'package:osol/common_models/unit_model.dart';
 import 'package:osol/common_models/filter_displayed_units_model.dart';
-import 'package:osol/shared/constants.dart';
 
 abstract class UserUnitCategory {
   List<UnitModel>? features;

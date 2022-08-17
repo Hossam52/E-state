@@ -10,7 +10,7 @@ import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
 import 'package:osol/Shared/constants.dart';
 
 class SelectUnitImages extends StatefulWidget {
-  SelectUnitImages({Key? key}) : super(key: key);
+  const SelectUnitImages({Key? key}) : super(key: key);
 
   @override
   State<SelectUnitImages> createState() => SelectUnitImagesState();
@@ -31,7 +31,7 @@ class SelectUnitImagesState extends State<SelectUnitImages> {
       changeImageData();
     } on PlatformException catch (e) {
       Fluttertoast.showToast(
-          msg: "${e.toString()}",
+          msg: e.toString(),
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
@@ -43,11 +43,11 @@ class SelectUnitImagesState extends State<SelectUnitImages> {
 
   changeImageData() {
     imageFileList!.isNotEmpty
-        ? UnitCubit.get(this.context).changeImageData(imageFile: imageFileList)
+        ? UnitCubit.get(context).changeImageData(imageFile: imageFileList)
         : null;
 
-    UnitCubit.get(this.context).imageData!.isNotEmpty
-        ? UnitCubit.get(this.context).changeListData()
+    UnitCubit.get(context).imageData!.isNotEmpty
+        ? UnitCubit.get(context).changeListData()
         : null;
   }
 

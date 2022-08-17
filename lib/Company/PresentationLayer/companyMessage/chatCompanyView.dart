@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Company/businessLogicLayer/profilecompanyCubit/profile_company_cubit.dart';
 import 'package:osol/Shared/constants.dart';
-import 'package:osol/User/BussinssLogic/commonCubit/profieCubit/profile_cubit.dart';
 
 class ChatCompanyView extends StatelessWidget {
   String? name;
@@ -25,7 +24,7 @@ class ChatCompanyView extends StatelessWidget {
     }
   }
 
-  DateTime _now = DateTime.now();
+  final DateTime _now = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +41,11 @@ class ChatCompanyView extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back,
               ),
             ),
-            shape: ContinuousRectangleBorder(
+            shape: const ContinuousRectangleBorder(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
             ),
             centerTitle: true,
@@ -127,7 +126,7 @@ class ChatCompanyView extends StatelessWidget {
                                   onChanged: (String? v) {
                                     messageText = v;
                                   },
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                       border: InputBorder.none,
                                       hintText: "Say Something...",
                                       hintStyle: TextStyle(
@@ -167,7 +166,7 @@ class ChatCompanyView extends StatelessWidget {
                                   chatController.clear();
                                 },
                                 child: Container(
-                                  child: Icon(
+                                  child: const Icon(
                                     FontAwesomeIcons.mailForward,
                                     color: Colors.blue,
                                     size: 50,
@@ -181,7 +180,7 @@ class ChatCompanyView extends StatelessWidget {
                     ),
                   ],
                 )
-              : Center(
+              : const Center(
                   child: CupertinoActivityIndicator(),
                 ),
         );
@@ -213,7 +212,7 @@ class ChatWidget extends StatelessWidget {
                 children: [
                   Container(
                     width: sizeFromWidth(2.5),
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: Colors.blue,
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(10),
@@ -227,13 +226,13 @@ class ChatWidget extends StatelessWidget {
                         textAlign: TextAlign.end,
                         maxLines: 4,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   CircleAvatar(
@@ -258,14 +257,14 @@ class ChatWidget extends StatelessWidget {
                     radius: 30,
                     backgroundImage: NetworkImage("$img"),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Container(
                     width: sizeFromWidth(2.5),
                     decoration: BoxDecoration(
                         color: ColorManager.chatGreyColor,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topRight: Radius.circular(10),
                           topLeft: Radius.circular(10),
                           bottomRight: Radius.circular(10),
@@ -276,7 +275,7 @@ class ChatWidget extends StatelessWidget {
                         "$txt",
                         maxLines: 4,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                         ),
                       ),

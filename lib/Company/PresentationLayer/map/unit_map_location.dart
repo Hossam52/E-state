@@ -1,15 +1,11 @@
 import 'dart:async';
-import 'dart:collection';
 import 'dart:developer';
 import 'dart:typed_data';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
-import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/PresentaionLayer/notification/view.dart';
 
 class LocationHelper {

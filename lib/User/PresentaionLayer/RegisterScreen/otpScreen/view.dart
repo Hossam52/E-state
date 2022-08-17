@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/BussinssLogic/authCubit/auth_cubit.dart';
 
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -10,7 +9,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 class PinCodeVerificationScreen extends StatefulWidget {
   final String? phoneNumber;
 
-  PinCodeVerificationScreen({
+  const PinCodeVerificationScreen({
     Key? key,
     this.phoneNumber,
   }) : super(key: key);
@@ -191,7 +190,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                     height: 14,
                   ),
                   state is LoadingsendOTP
-                      ? Center(child: CircularProgressIndicator())
+                      ? const Center(child: CircularProgressIndicator())
                       : Container(
                           margin: const EdgeInsets.symmetric(
                               vertical: 16.0, horizontal: 30),

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:osol/shared/constants.dart';
 
 import 'onBoardingView.dart';
@@ -40,9 +39,9 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: ColorManager.OnBoardingScreen,
       body: Center(
-        child: Container(
+        child: SizedBox(
           height: sizeFromHeight(4),
-          child: Center(
+          child: const Center(
             child: Image(
               image: AssetImage("assets/images/estatehomee.png"),
             ),

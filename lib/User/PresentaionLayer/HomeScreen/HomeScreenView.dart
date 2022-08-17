@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,16 +9,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
 import 'package:osol/Shared/component/filter_dialog.dart';
-import 'package:osol/Shared/customBottomAppBar.dart';
 import 'package:osol/Shared/unit_bookmark.dart';
 import 'package:osol/User/BussinssLogic/AppSettingCubit/app_setting_cubit.dart';
 import 'package:osol/User/BussinssLogic/authCubit/auth_cubit.dart';
 import 'package:osol/User/BussinssLogic/commonCubit/profieCubit/profile_cubit.dart';
 import 'package:osol/User/BussinssLogic/companyCubit/company_cubit.dart';
 import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
-import 'package:osol/User/BussinssLogic/savedCubit/saved_cubit.dart';
 import 'package:osol/User/BussinssLogic/unitCubit/unit_cubit.dart';
 import 'package:osol/User/PresentaionLayer/DawerScreen/view.dart';
 import 'package:osol/User/PresentaionLayer/RegisterScreen/signIn/view.dart';
@@ -29,7 +25,6 @@ import 'package:osol/common_models/unit_model.dart';
 import 'package:osol/shared/Customicon.dart';
 import 'package:osol/shared/constants.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomeScreenUserView extends StatefulWidget {
   String token;
@@ -81,17 +76,17 @@ class _HomeScreenUserViewState extends State<HomeScreenUserView> {
       return showDialog(
           context: context,
           builder: (BuildContext context) => CupertinoAlertDialog(
-                title: Text("Exit"),
-                content: Text("Are you sure you want to leave the app?"),
+                title: const Text("Exit"),
+                content: const Text("Are you sure you want to leave the app?"),
                 actions: [
                   CupertinoDialogAction(
-                      child: Text("YES"),
+                      child: const Text("YES"),
                       onPressed: () {
                         SystemChannels.platform
                             .invokeMethod('SystemNavigator.pop');
                       }),
                   CupertinoDialogAction(
-                      child: Text("NO"),
+                      child: const Text("NO"),
                       onPressed: () {
                         Navigator.of(context).pop(false);
                       })
@@ -119,7 +114,7 @@ class _HomeScreenUserViewState extends State<HomeScreenUserView> {
             appBar: cubit.currentIndex == 0
                 ? HomeAppBar(
                     context,
-                    Container(
+                    SizedBox(
                       width: 110,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -127,7 +122,7 @@ class _HomeScreenUserViewState extends State<HomeScreenUserView> {
                           Container(
                             height: 20.h,
                             width: 13.w,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 image: DecorationImage(
                                     fit: BoxFit.fill,
                                     image: AssetImage(
@@ -163,13 +158,13 @@ class _HomeScreenUserViewState extends State<HomeScreenUserView> {
                             style: Theme.of(context).textTheme.headline5,
                           )
                         : cubit2.profileDate.isEmpty
-                            ? Center(child: CircularProgressIndicator())
+                            ? const Center(child: CircularProgressIndicator())
                             : Text(
                                 "Hello ${getFirstName(cubit2.profileModel?.client?.userName)}",
                                 style: Theme.of(context).textTheme.headline5),
                     cubit.currentIndex == 4 ? true : false),
             body: state is LoadingGetBannerOfHomeState
-                ? Center(
+                ? const Center(
                     child: CircularProgressIndicator(),
                   )
                 : cubit.screen[cubit.currentIndex],
@@ -219,13 +214,13 @@ class CardHomeDetailsUserView extends StatelessWidget {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(4.0),
-                              child: Container(
+                              child: SizedBox(
                                 width: sizeFromWidth(1.5),
                                 height: sizeFromHeight(4.69),
                                 child: ListView.builder(
                                   controller: controllerHome,
                                   scrollDirection: Axis.horizontal,
-                                  physics: BouncingScrollPhysics(),
+                                  physics: const BouncingScrollPhysics(),
                                   itemCount: features.length,
                                   itemBuilder: (context, index) {
                                     cubit.currentHomeBoardIndex = index;
@@ -233,9 +228,9 @@ class CardHomeDetailsUserView extends StatelessWidget {
                                       padding:
                                           const EdgeInsets.only(right: 8.0),
                                       child: features.isEmpty
-                                          ? Container(
+                                          ? SizedBox(
                                               width: sizeFromWidth(1.5),
-                                              child: Center(
+                                              child: const Center(
                                                   child:
                                                       CircularProgressIndicator()),
                                             )
@@ -317,7 +312,7 @@ class CardHomeDetailsUserView extends StatelessWidget {
                                     color: ColorManager.AppBarIconcolorGrey,
                                     size: 16,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   Text(
@@ -331,7 +326,7 @@ class CardHomeDetailsUserView extends StatelessWidget {
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Container(
+                              child: SizedBox(
                                 width: sizeFromWidth(1.6),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -339,12 +334,12 @@ class CardHomeDetailsUserView extends StatelessWidget {
                                     Text.rich(TextSpan(children: [
                                       TextSpan(
                                         text:
-                                            "\$ ${unit.price == null ? 0 : unit.price} ",
+                                            "\$ ${unit.price ?? 0} ",
                                         style: TextStyle(
                                             color:
                                                 ColorManager.OnBoardingScreen),
                                       ),
-                                      TextSpan(
+                                      const TextSpan(
                                         text: "\\ Mnth",
                                         style: TextStyle(
                                             fontSize: 13,
@@ -358,7 +353,7 @@ class CardHomeDetailsUserView extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(
                                   right: 8.0, left: 8, bottom: 3),
-                              child: Container(
+                              child: SizedBox(
                                 width: sizeFromWidth(1.6),
                                 child: Row(
                                   mainAxisAlignment:
@@ -374,7 +369,7 @@ class CardHomeDetailsUserView extends StatelessWidget {
                                       style:
                                           Theme.of(context).textTheme.headline4,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     FaIcon(
@@ -387,7 +382,7 @@ class CardHomeDetailsUserView extends StatelessWidget {
                                       style:
                                           Theme.of(context).textTheme.headline4,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     FaIcon(
@@ -400,7 +395,7 @@ class CardHomeDetailsUserView extends StatelessWidget {
                                       style:
                                           Theme.of(context).textTheme.headline4,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     Text(
@@ -446,7 +441,7 @@ class CustomTxtFieldWithSearch extends StatelessWidget {
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: Container(
+          child: SizedBox(
             height: sizeFromHeight(8),
             child: Column(
               children: [
@@ -463,12 +458,12 @@ class CustomTxtFieldWithSearch extends StatelessWidget {
                             )),
                         child: TextFormField(
                           onChanged: (v) {
-                            debugPrint("$v");
+                            debugPrint(v);
                           },
                           cursorColor: Colors.grey[500],
                           cursorHeight: sizeFromHeight(17),
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(
+                            contentPadding: const EdgeInsets.only(
                               bottom: 15,
                               left: 10,
                             ),
@@ -481,7 +476,7 @@ class CustomTxtFieldWithSearch extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 5,
                     ),
                     Expanded(
@@ -500,7 +495,7 @@ class CustomTxtFieldWithSearch extends StatelessWidget {
                               },
                             ),
                             context: context,
-                            shape: RoundedRectangleBorder(
+                            shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(20),
                               ),
@@ -525,7 +520,7 @@ class CustomTxtFieldWithSearch extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
               ],
@@ -567,7 +562,7 @@ AppBar HomeAppBar(
         ),
       ),
     ),
-    shape: ContinuousRectangleBorder(
+    shape: const ContinuousRectangleBorder(
       borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
     ),
     centerTitle: true,
@@ -588,7 +583,7 @@ AppBar HomeAppBar(
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (_) => NotificationScreen(),
+              builder: (_) => const NotificationScreen(),
             ),
           );
         },
@@ -629,7 +624,7 @@ AppBar AppBarRemainsScreen(BuildContext context, Widget title, bool isMore) {
         ),
       ),
     ),
-    shape: ContinuousRectangleBorder(
+    shape: const ContinuousRectangleBorder(
       borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
     ),
     centerTitle: false,
@@ -640,7 +635,7 @@ AppBar AppBarRemainsScreen(BuildContext context, Widget title, bool isMore) {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (_) => NotificationScreen(),
+                    builder: (_) => const NotificationScreen(),
                   ),
                 );
               },
@@ -667,7 +662,7 @@ AppBar AppBarRemainsScreen(BuildContext context, Widget title, bool isMore) {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (_) => NotificationScreen(),
+                    builder: (_) => const NotificationScreen(),
                   ),
                 );
               },
@@ -721,8 +716,8 @@ class MainUserNavigationBar extends StatelessWidget {
                     gap: 8,
                     activeColor: Colors.white,
                     iconSize: 14,
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    duration: Duration(milliseconds: 800),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    duration: const Duration(milliseconds: 800),
                     tabBackgroundColor: ColorManager.AppBarHomeColorIcon,
                     color: Colors.grey[400],
                     tabBorderRadius: 14,

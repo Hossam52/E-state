@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Shared/customListLabel.dart';
 import 'package:osol/User/BussinssLogic/AppSettingCubit/app_setting_cubit.dart';
@@ -32,8 +31,8 @@ class ListViewDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(right: 20.0),
-      child: Container(
+      padding: const EdgeInsets.only(right: 20.0),
+      child: SizedBox(
         height: sizeFromHeight(3.6),
         width: sizeFromWidth(1.3),
         child: Stack(
@@ -74,11 +73,11 @@ class ListViewDetails extends StatelessWidget {
             Positioned(
                 left: 40,
                 top: 90,
-                child: Container(
+                child: SizedBox(
                   height: 70.h,
                   width: 100.w,
                   child: Text(
-                    "${txt}",
+                    txt,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -106,8 +105,8 @@ class ListViewCmpanyDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(right: 20.0),
-      child: Container(
+      padding: const EdgeInsets.only(right: 20.0),
+      child: SizedBox(
         height: sizeFromHeight(3.6),
         width: sizeFromWidth(1.3),
         child: Stack(
@@ -130,7 +129,7 @@ class ListViewCmpanyDetails extends StatelessWidget {
 class pageViewDetails extends StatelessWidget {
   final UnitModel unit;
 
-  pageViewDetails({required this.unit});
+  const pageViewDetails({required this.unit});
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +165,8 @@ class pageViewDetails extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 5.0, vertical: 5),
                     child: Container(
                       width: 80.w,
                       decoration: BoxDecoration(
@@ -181,7 +181,8 @@ class pageViewDetails extends StatelessWidget {
                 Expanded(
                   flex: 5,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 8),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -202,7 +203,7 @@ class pageViewDetails extends StatelessWidget {
                               color: ColorManager.AppBarIconcolorGrey,
                               size: 10.w,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 2,
                             ),
                             Text(
@@ -220,7 +221,7 @@ class pageViewDetails extends StatelessWidget {
                                 style: TextStyle(
                                     color: ColorManager.OnBoardingScreen),
                               ),
-                              TextSpan(
+                              const TextSpan(
                                 text: "\\ Mnth",
                                 style: TextStyle(color: Colors.lightBlueAccent),
                               )
@@ -240,7 +241,7 @@ class pageViewDetails extends StatelessWidget {
                                 "${unit.area} m²",
                                 style: Theme.of(context).textTheme.headline4,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               FaIcon(
@@ -252,7 +253,7 @@ class pageViewDetails extends StatelessWidget {
                                 "${unit.bathroom}",
                                 style: Theme.of(context).textTheme.headline4,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               FaIcon(
@@ -264,7 +265,7 @@ class pageViewDetails extends StatelessWidget {
                                 "${unit.bedrooms}",
                                 style: Theme.of(context).textTheme.headline4,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Text(
@@ -294,7 +295,7 @@ class pageViewDetails extends StatelessWidget {
 
 class CardHomeRecentlyWatchedView extends StatelessWidget {
   final UnitModel unit;
-  CardHomeRecentlyWatchedView({required this.unit});
+  const CardHomeRecentlyWatchedView({required this.unit});
 
   @override
   Widget build(BuildContext context) {
@@ -321,7 +322,7 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(6),
                           topRight: Radius.circular(6),
                         ),
@@ -353,7 +354,7 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
                       Padding(
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-                        child: Container(
+                        child: SizedBox(
                           width: sizeFromWidth(3),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -365,7 +366,7 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
                                   style: TextStyle(
                                       color: ColorManager.OnBoardingScreen),
                                 ),
-                                TextSpan(
+                                const TextSpan(
                                   text: "\\ Mnth",
                                   style:
                                       TextStyle(color: Colors.lightBlueAccent),
@@ -384,7 +385,7 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
                               color: ColorManager.AppBarIconcolorGrey,
                               size: 16,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
                             Text(
@@ -394,7 +395,7 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                     ],
@@ -406,7 +407,7 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     color: ColorManager.homeColorFeature,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(10),
                       bottomRight: Radius.circular(10),
                     ),
@@ -427,17 +428,17 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
                                 size: 12,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 3,
                             ),
                             Text(
                               "${unit.area} m²",
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 12),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 12),
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Column(
@@ -450,17 +451,17 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
                                 size: 12,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 3,
                             ),
                             Text(
                               "${unit.bathroom}",
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 12),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 12),
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Column(
@@ -473,17 +474,17 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
                                 color: Colors.grey[400],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 3,
                             ),
                             Text(
                               "${unit.bedrooms}",
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 12),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 12),
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Column(
@@ -496,10 +497,10 @@ class CardHomeRecentlyWatchedView extends StatelessWidget {
                                 size: 12,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 3,
                             ),
-                            Text(
+                            const Text(
                               "3.4",
                               style:
                                   TextStyle(color: Colors.black, fontSize: 12),
@@ -539,17 +540,17 @@ class HomeViewData extends StatelessWidget {
       return showDialog(
           context: context,
           builder: (BuildContext context) => CupertinoAlertDialog(
-                title: Text("Exit"),
-                content: Text("Are you sure you want to leave the app?"),
+                title: const Text("Exit"),
+                content: const Text("Are you sure you want to leave the app?"),
                 actions: [
                   CupertinoDialogAction(
-                      child: Text("YES"),
+                      child: const Text("YES"),
                       onPressed: () {
                         SystemChannels.platform
                             .invokeMethod('SystemNavigator.pop');
                       }),
                   CupertinoDialogAction(
-                      child: Text("NO"),
+                      child: const Text("NO"),
                       onPressed: () {
                         Navigator.of(context).pop(false);
                       })
@@ -573,7 +574,7 @@ class HomeViewData extends StatelessWidget {
         return features.isEmpty &&
                 cubit.dataBanner.isEmpty &&
                 cubit.popularUnits.isEmpty
-            ? Center(
+            ? const Center(
                 child: CupertinoActivityIndicator(),
               )
             : Padding(
@@ -581,12 +582,12 @@ class HomeViewData extends StatelessWidget {
                   left: 25.0,
                 ),
                 child: CustomScrollView(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   slivers: [
                     SliverToBoxAdapter(
-                      child: Container(
+                      child: SizedBox(
                         height: sizeFromHeight(11),
-                        child: Container(
+                        child: SizedBox(
                           height: sizeFromHeight(10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -598,7 +599,7 @@ class HomeViewData extends StatelessWidget {
                                     style:
                                         Theme.of(context).textTheme.headline1),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
                             ],
@@ -607,14 +608,14 @@ class HomeViewData extends StatelessWidget {
                       ),
                     ),
                     SliverToBoxAdapter(
-                      child: Container(
+                      child: SizedBox(
                         height: sizeFromHeight(3.5),
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            physics: BouncingScrollPhysics(),
-                            itemCount: cubit.dataBanner.length == null
-                                ? homeScreenSliderData.length
-                                : cubit.dataBanner.length,
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: cubit.dataBanner.isNotEmpty
+                                ? cubit.dataBanner.length
+                                : homeScreenSliderData.length,
                             itemBuilder: (context, index) {
                               return InkWell(
                                 // onTap: cubit3.userToken == null &&
@@ -630,7 +631,7 @@ class HomeViewData extends StatelessWidget {
                                 //         );
                                 //       },
                                 child: ListViewDetails(
-                                    image: cubit.dataBanner.length == null
+                                    image: cubit.dataBanner.isEmpty
                                         ? DecorationImage(
                                             image: AssetImage(
                                               homeScreenSliderData[index].image,
@@ -643,7 +644,7 @@ class HomeViewData extends StatelessWidget {
                                             ),
                                             fit: BoxFit.cover,
                                           ),
-                                    txt: cubit.dataBanner.length == null
+                                    txt: cubit.dataBanner.isEmpty
                                         ? homeScreenSliderData[index].Text
                                         : cubit.dataBanner[index].description
                                             .toString()),
@@ -654,7 +655,7 @@ class HomeViewData extends StatelessWidget {
                     SliverToBoxAdapter(
                         child: Padding(
                       padding: const EdgeInsets.only(right: 20.0),
-                      child: Container(
+                      child: SizedBox(
                         height: sizeFromHeight(13.7),
                         child: Padding(
                           padding: const EdgeInsets.only(top: 20),
@@ -665,11 +666,11 @@ class HomeViewData extends StatelessWidget {
                     )),
                     SliverToBoxAdapter(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.only(
+                        padding: const EdgeInsetsDirectional.only(
                             top: 10, start: 20.0, bottom: 10),
-                        child: Container(
+                        child: SizedBox(
                           height: sizeFromHeight(18),
-                          child: UserFilterLabelsWidget(
+                          child: const UserFilterLabelsWidget(
                             displayCustomFilter: false,
                             num: 200,
                           ),
@@ -681,7 +682,7 @@ class HomeViewData extends StatelessWidget {
                       padding: const EdgeInsets.only(
                         right: 20.0,
                       ),
-                      child: Container(
+                      child: SizedBox(
                         height: sizeFromHeight(30),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -703,12 +704,12 @@ class HomeViewData extends StatelessWidget {
                                     style:
                                         Theme.of(context).textTheme.headline3,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 3,
                                   ),
                                   Container(
-                                    child:
-                                        Icon(Icons.arrow_forward_ios, size: 18),
+                                    child: const Icon(Icons.arrow_forward_ios,
+                                        size: 18),
                                   ),
                                 ],
                               ),
@@ -723,12 +724,12 @@ class HomeViewData extends StatelessWidget {
                               padding: const EdgeInsets.only(
                                 right: 20.0,
                               ),
-                              child: Container(
+                              child: SizedBox(
                                 height: sizeFromHeight(2.8),
                                 child: ListView.builder(
                                     itemCount: features.length,
                                     scrollDirection: Axis.horizontal,
-                                    physics: BouncingScrollPhysics(),
+                                    physics: const BouncingScrollPhysics(),
                                     itemBuilder: (context, index) {
                                       return InkWell(
                                         onTap: cubit3.userToken == null &&
@@ -764,13 +765,13 @@ class HomeViewData extends StatelessWidget {
                               ),
                             ),
                           )
-                        : SliverToBoxAdapter(),
+                        : const SliverToBoxAdapter(),
                     SliverToBoxAdapter(
                         child: Padding(
                       padding: const EdgeInsets.only(
                         right: 20.0,
                       ),
-                      child: Container(
+                      child: SizedBox(
                         height: sizeFromHeight(15),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -786,12 +787,12 @@ class HomeViewData extends StatelessWidget {
                                       style: Theme.of(context)
                                           .textTheme
                                           .headline3),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 3,
                                   ),
                                   Container(
-                                    child:
-                                        Icon(Icons.arrow_forward_ios, size: 18),
+                                    child: const Icon(Icons.arrow_forward_ios,
+                                        size: 18),
                                   ),
                                 ],
                               ),
@@ -803,12 +804,12 @@ class HomeViewData extends StatelessWidget {
                     SliverToBoxAdapter(
                       child: Padding(
                         padding: const EdgeInsets.only(right: 20.0),
-                        child: Container(
+                        child: SizedBox(
                           height: sizeFromHeight(5.1),
                           width: 327.w,
                           child: PageView.builder(
                               scrollDirection: Axis.horizontal,
-                              physics: BouncingScrollPhysics(),
+                              physics: const BouncingScrollPhysics(),
                               itemCount: features.length,
                               itemBuilder: (context, index) {
                                 final unit = features[index];
@@ -828,7 +829,7 @@ class HomeViewData extends StatelessWidget {
                       padding: const EdgeInsets.only(
                         right: 20.0,
                       ),
-                      child: Container(
+                      child: SizedBox(
                         height: sizeFromHeight(15),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -842,7 +843,7 @@ class HomeViewData extends StatelessWidget {
                     populars.isNotEmpty
                         ? SliverGrid(
                             gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
+                                const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               mainAxisSpacing: 20,
                               crossAxisSpacing: 4,
@@ -854,7 +855,7 @@ class HomeViewData extends StatelessWidget {
                                   padding: const EdgeInsets.only(
                                       right: 20.0, left: 3),
                                   child: populars.isEmpty
-                                      ? Center(
+                                      ? const Center(
                                           child: CircularProgressIndicator(),
                                         )
                                       : InkWell(
@@ -881,7 +882,7 @@ class HomeViewData extends StatelessWidget {
                               childCount: populars.length,
                             ),
                           )
-                        : SliverToBoxAdapter()
+                        : const SliverToBoxAdapter()
                   ],
                 ),
               );

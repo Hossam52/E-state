@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -45,11 +44,11 @@ class _SignUpViewState extends State<SignUpView> {
         backgroundColor: ColorManager.onboardingColorDots,
         toolbarHeight: 80,
         leadingWidth: 30,
-        shape: ContinuousRectangleBorder(
+        shape: const ContinuousRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
         ),
         centerTitle: false,
-        title: Text(
+        title: const Text(
           "Personal Register",
         ),
         leading: Padding(
@@ -61,7 +60,7 @@ class _SignUpViewState extends State<SignUpView> {
               InkWell(
                 onTap: () => Navigator.pop(context),
                 child: Container(
-                  child: Icon(
+                  child: const Icon(
                     Icons.arrow_back_ios,
                     color: Colors.white,
                     size: 24,
@@ -71,7 +70,7 @@ class _SignUpViewState extends State<SignUpView> {
             ],
           ),
         ),
-        actions: [
+        actions: const [
           // InkWell(
           //   onTap:()=> Navigator.pop(context),
           //   child: Padding(
@@ -100,24 +99,24 @@ class _SignUpViewState extends State<SignUpView> {
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
-            child: Container(
+            child: SizedBox(
               height: sizeFromHeight(4),
               child: Container(
-                padding: EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.only(bottom: 10),
                 alignment: Alignment.center,
-                child: Image(
+                child: const Image(
                   image: AssetImage("assets/images/estatehomee.png"),
                 ),
               ),
             ),
           ),
           SliverToBoxAdapter(
-            child: Container(
+            child: SizedBox(
               height: sizeFromHeight(0.7),
               child: Container(
                 decoration: BoxDecoration(
                   color: ColorManager.WhiteScreen,
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(30),
                     topLeft: Radius.circular(30),
                   ),
@@ -187,7 +186,7 @@ class _SignUpViewState extends State<SignUpView> {
                           padding: const EdgeInsets.only(bottom: 8.0, top: 8),
                           child: CustomSelectListGender(
                             title: "Gender",
-                            myList: ["Male", "Female"],
+                            myList: const ["Male", "Female"],
                           ),
                         ),
                         BlocBuilder<CommonCubit, CommonState>(
@@ -200,14 +199,12 @@ class _SignUpViewState extends State<SignUpView> {
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 8.0),
                                     child: CustomSelectListRegister(
-                                      myList: cubit.countryData == null
-                                          ? []
-                                          : cubit.countryData,
+                                      myList: cubit.countryData,
                                       title: "Country",
                                     ),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 8,
                                 ),
                                 Expanded(
@@ -215,9 +212,7 @@ class _SignUpViewState extends State<SignUpView> {
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 8.0),
                                     child: CustomSelectListCities(
-                                      myList: cubit.cityData == null
-                                          ? []
-                                          : cubit.cityData,
+                                      myList: cubit.cityData,
                                       title: "City",
                                     ),
                                   ),
@@ -248,7 +243,7 @@ class _SignUpViewState extends State<SignUpView> {
                             return Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: state is LoadingRegisterUserState
-                                    ? CircularProgressIndicator()
+                                    ? const CircularProgressIndicator()
                                     : ElevatedButton(
                                         onPressed: () async {
                                           cubit.emailRegister =
@@ -265,10 +260,9 @@ class _SignUpViewState extends State<SignUpView> {
                                               gender: gendrValue == "Male"
                                                   ? "0"
                                                   : "1",
-                                              cityId:
-                                                  await CommonCubit.get(context)
-                                                      .cityIndex
-                                                      .toString(),
+                                              cityId: CommonCubit.get(context)
+                                                  .cityIndex
+                                                  .toString(),
                                               countryId:
                                                   CommonCubit.get(context)
                                                       .valueCountryId,
@@ -277,7 +271,7 @@ class _SignUpViewState extends State<SignUpView> {
                                             print("Error In Register");
                                           }
                                         },
-                                        child: Text(
+                                        child: const Text(
                                           "Register",
                                           style: TextStyle(
                                             color: Colors.white,
@@ -286,7 +280,7 @@ class _SignUpViewState extends State<SignUpView> {
                                         ),
                                         style: ElevatedButton.styleFrom(
                                           minimumSize:
-                                              Size(double.infinity, 50),
+                                              const Size(double.infinity, 50),
                                           primary:
                                               ColorManager.onboardingColorDots,
                                         ),
@@ -306,7 +300,7 @@ class _SignUpViewState extends State<SignUpView> {
                                 ),
                               ),
                             ),
-                            Text("OR"),
+                            const Text("OR"),
                             Expanded(
                               flex: 3,
                               child: Padding(
@@ -416,7 +410,7 @@ class _CustomTxtEditingState extends State<CustomTxtEditing> {
           borderRadius: BorderRadius.circular(10),
         ),
         child: TextFormField(
-          toolbarOptions: ToolbarOptions(
+          toolbarOptions: const ToolbarOptions(
             paste: true,
             selectAll: true,
             copy: true,
@@ -427,7 +421,7 @@ class _CustomTxtEditingState extends State<CustomTxtEditing> {
           decoration: InputDecoration(
               suffixIcon: widget.suffixIcon,
               hintText: widget.hint,
-              border: OutlineInputBorder(
+              border: const OutlineInputBorder(
                 borderSide: BorderSide.none,
               )),
           validator: widget.validate,
@@ -472,8 +466,8 @@ class CustomSelectListRegister extends StatelessWidget {
             child: DropdownButton(
               isExpanded: true,
               value: cubit.dropDownCountryValue,
-              underline: SizedBox(),
-              hint: Text("${title}"),
+              underline: const SizedBox(),
+              hint: Text(title),
               items: myList.map((dynamic value) {
                 return DropdownMenuItem(
                   value: value,
@@ -534,8 +528,8 @@ class CustomSelectListCities extends StatelessWidget {
             child: DropdownButton<Cities>(
               isExpanded: true,
               value: cubit.newValue,
-              underline: SizedBox(),
-              hint: Text("${title}"),
+              underline: const SizedBox(),
+              hint: Text(title),
               items: myList.map((Cities value) {
                 return DropdownMenuItem(
                   value: value,
@@ -597,8 +591,8 @@ class CustomSelectListAreas extends StatelessWidget {
             child: DropdownButton<Cities>(
               isExpanded: true,
               value: cubit.newValue,
-              underline: SizedBox(),
-              hint: Text("${title}"),
+              underline: const SizedBox(),
+              hint: Text(title),
               items: myList.map((Cities value) {
                 return DropdownMenuItem(
                   value: value,
@@ -651,8 +645,8 @@ class CustomSelectListGender extends StatelessWidget {
             child: DropdownButton<String>(
               isExpanded: true,
               value: cubit.genderValue,
-              underline: SizedBox(),
-              hint: Text("${title}"),
+              underline: const SizedBox(),
+              hint: Text(title),
               items: myList.map((value) {
                 return DropdownMenuItem(
                   value: value,

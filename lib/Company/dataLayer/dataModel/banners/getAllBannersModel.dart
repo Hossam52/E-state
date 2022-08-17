@@ -10,14 +10,14 @@ class GetAllBannersCompanyModel {
   GetAllBannersCompanyModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     banners =
-        json['banners'] != null ? new Banners.fromJson(json['banners']) : null;
+        json['banners'] != null ? Banners.fromJson(json['banners']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    if (this.banners != null) {
-      data['banners'] = this.banners!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    if (banners != null) {
+      data['banners'] = banners!.toJson();
     }
     return data;
   }
@@ -34,23 +34,23 @@ class Banners {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(Data.fromJson(v));
       });
     }
-    links = json['links'] != null ? new Links.fromJson(json['links']) : null;
-    meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
+    links = json['links'] != null ? Links.fromJson(json['links']) : null;
+    meta = json['meta'] != null ? Meta.fromJson(json['meta']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
-    if (this.links != null) {
-      data['links'] = this.links!.toJson();
+    if (links != null) {
+      data['links'] = links!.toJson();
     }
-    if (this.meta != null) {
-      data['meta'] = this.meta!.toJson();
+    if (meta != null) {
+      data['meta'] = meta!.toJson();
     }
     return data;
   }
@@ -88,15 +88,15 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['video_url'] = this.videoUrl;
-    data['end_date'] = this.endDate;
-    data['description'] = this.description;
-    data['company'] = this.company;
-    data['image'] = this.image;
-    data['status'] = this.status;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    data['video_url'] = videoUrl;
+    data['end_date'] = endDate;
+    data['description'] = description;
+    data['company'] = company;
+    data['image'] = image;
+    data['status'] = status;
     return data;
   }
 }

@@ -19,7 +19,7 @@ class CustomTxtFieldAddUnit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(6.5),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,8 +50,8 @@ class CustomTxtFieldAddUnit extends StatelessWidget {
               maxLength: maxLength,
               validator: validator,
               decoration: InputDecoration(
-                  hintText: "${hint}",
-                  border: OutlineInputBorder(
+                  hintText: hint,
+                  border: const OutlineInputBorder(
                     borderSide: BorderSide.none,
                   )),
             ),

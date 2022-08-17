@@ -1,10 +1,8 @@
-import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,12 +14,8 @@ import 'package:osol/User/DataLayer/Model/modelOfData/onBoardingModel.dart';
 import 'package:osol/User/PresentaionLayer/HomeScreen/units.dart';
 import 'package:osol/User/PresentaionLayer/UnitsScreenDetails/view.dart';
 import 'package:osol/User/PresentaionLayer/compniesScreen/units.dart';
-import 'package:osol/User/PresentaionLayer/searchScreen/view.dart';
 import 'package:osol/common_models/unit_model.dart';
-import 'package:readmore/readmore.dart';
 
-import '../../BussinssLogic/authCubit/auth_cubit.dart';
-import '../../BussinssLogic/homeCubit/home_cubit.dart';
 
 class CompanyDetailsScreen extends StatefulWidget {
   final String companyId;
@@ -41,6 +35,7 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen> {
     HomeScreenSliderModel(image: "assets/images/pic5.png", Text: "60%"),
   ];
 
+  @override
   void initState() {
     // CompanyCubit.get(context).zeroId();
     // CompanyCubit.get(context).dataOfCompanyReview.clear();
@@ -421,7 +416,7 @@ class CompanyUnitItem extends StatelessWidget {
                                   color: ColorManager.OnBoardingScreen),
                             ),
                             const TextSpan(
-                              text: "\ Mnth",
+                              text: " Mnth",
                               style: TextStyle(
                                   fontSize: 9, color: Colors.lightBlueAccent),
                             )
@@ -616,7 +611,7 @@ class HorizontalScrollBranches extends StatelessWidget {
                         width: 80.w,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                              image: NetworkImage("$img"), fit: BoxFit.cover),
+                              image: NetworkImage(img), fit: BoxFit.cover),
                           borderRadius: BorderRadius.circular(5),
                         ),
                       ),
@@ -634,7 +629,7 @@ class HorizontalScrollBranches extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                "$branchName",
+                                branchName,
                                 style: TextStyle(
                                   color: ColorManager.TextHomeColor,
                                   fontSize: 14.sp,

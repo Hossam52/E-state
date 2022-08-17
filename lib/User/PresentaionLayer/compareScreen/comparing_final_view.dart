@@ -1,14 +1,10 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Shared/constants.dart';
-import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
 import 'package:osol/User/BussinssLogic/unitCubit/unit_cubit.dart';
-import 'package:osol/User/PresentaionLayer/DawerScreen/view.dart';
-import 'package:osol/common_models/unit_model.dart';
 
 class ComparingScreen extends StatefulWidget {
   const ComparingScreen({
@@ -47,7 +43,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                 ),
               ),
               centerTitle: true,
-              title: Text(
+              title: const Text(
                 "Compare",
               
               ),
@@ -146,7 +142,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                 ],
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               height: 110.h,
                               child: Row(
                                 mainAxisAlignment:
@@ -239,7 +235,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                 ],
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               height: 110.h,
                               child: Row(
                                 mainAxisAlignment:
@@ -270,7 +266,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "${secondUnit.price == null ? 0 : secondUnit.price}",
+                                          "${secondUnit.price ?? 0}",
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline3,
@@ -287,7 +283,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "${firstUnit.price == null ? 0 : firstUnit.price}",
+                                          "${firstUnit.price ?? 0}",
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline3,
@@ -299,7 +295,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                 ],
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               height: 110.h,
                               child: Row(
                                 mainAxisAlignment:
@@ -330,7 +326,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "${secondUnit.area == null ? 0 : secondUnit.area} m2",
+                                          "${secondUnit.area ?? 0} m2",
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline3,
@@ -347,7 +343,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "${firstUnit.area == null ? 0 : firstUnit.area} m2",
+                                          "${firstUnit.area ?? 0} m2",
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline3,
@@ -359,7 +355,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                 ],
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               height: 110.h,
                               child: Row(
                                 mainAxisAlignment:
@@ -390,7 +386,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "${secondUnit.rooms == null ? 0 : secondUnit.rooms} ",
+                                          "${secondUnit.rooms ?? 0} ",
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline3,
@@ -407,7 +403,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "${firstUnit.rooms == null ? 0 : firstUnit.rooms} ",
+                                          "${firstUnit.rooms ?? 0} ",
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline3,
@@ -419,7 +415,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                 ],
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               height: 110.h,
                               child: Row(
                                 mainAxisAlignment:
@@ -450,7 +446,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "${secondUnit.floor == null ? 0 : secondUnit.floor} ",
+                                          "${secondUnit.floor ?? 0} ",
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline3,
@@ -467,7 +463,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "${firstUnit.floor == null ? 0 : firstUnit.floor} ",
+                                          "${firstUnit.floor ?? 0} ",
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline3,
@@ -479,7 +475,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                 ],
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               height: 110.h,
                               child: Row(
                                 mainAxisAlignment:
@@ -510,7 +506,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "${secondUnit.bathroom == null ? 0 : secondUnit.bathroom}",
+                                          "${secondUnit.bathroom ?? 0}",
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline3,
@@ -527,7 +523,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "${firstUnit.bathroom == null ? 0 : firstUnit.bathroom} ",
+                                          "${firstUnit.bathroom ?? 0} ",
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline3,
@@ -539,7 +535,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                 ],
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               height: 110.h,
                               child: Row(
                                 mainAxisAlignment:
@@ -570,7 +566,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "${secondUnit.finishedType == null ? "Ignore" : secondUnit.finishedType} ",
+                                          "${secondUnit.finishedType ?? "Ignore"} ",
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline2,
@@ -599,7 +595,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                 ],
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               height: 110.h,
                               child: Row(
                                 mainAxisAlignment:
@@ -630,7 +626,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "${secondUnit.yearBuild == null ? 0 : secondUnit.yearBuild} ",
+                                          "${secondUnit.yearBuild ?? 0} ",
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline3,
@@ -647,7 +643,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "${firstUnit.yearBuild == null ? 0 : firstUnit.yearBuild} ",
+                                          "${firstUnit.yearBuild ?? 0} ",
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline3,
@@ -659,7 +655,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                 ],
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               height: 110.h,
                               child: Row(
                                 mainAxisAlignment:
@@ -690,7 +686,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "${secondUnit.view == null ? "Not Detected" : secondUnit.view}",
+                                          secondUnit.view ?? "Not Detected",
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline3,
@@ -707,7 +703,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "${firstUnit.view == null ? "Not Detected" : firstUnit.view} ",
+                                          "${firstUnit.view ?? "Not Detected"} ",
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline3,
@@ -719,7 +715,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                 ],
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               height: 110.h,
                               child: Row(
                                 mainAxisAlignment:
@@ -787,7 +783,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                 ],
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               height: 110.h,
                               child: Row(
                                 mainAxisAlignment:
@@ -855,7 +851,7 @@ class _ComparingScreenState extends State<ComparingScreen> {
                                 ],
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               height: 110.h,
                               child: Row(
                                 mainAxisAlignment:

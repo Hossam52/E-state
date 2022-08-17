@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:osol/Company/PresentationLayer/registerition/registeration/view.dart';
 import 'package:osol/Shared/constants.dart';
-import 'package:osol/User/BussinssLogic/commonCubit/common_cubit.dart';
 import 'package:osol/User/PresentaionLayer/RegisterScreen/signUp/view.dart';
 
 class TypesScreen extends StatelessWidget {
@@ -22,7 +20,7 @@ class TypesScreen extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     bottomRight: Radius.circular(12),
                     bottomLeft: Radius.circular(12),
                   ),
@@ -38,7 +36,7 @@ class TypesScreen extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   child: CircleAvatar(
                     radius: sizeFromWidth(4),
-                    child: Image(
+                    child: const Image(
                       image: AssetImage(
                         "assets/images/estateco.png",
                       ),
@@ -47,7 +45,7 @@ class TypesScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-                child: Container(
+                child: SizedBox(
                   height: sizeFromHeight(5),
                   width: sizeFromWidth(1),
                   child: Row(
@@ -63,7 +61,7 @@ class TypesScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-                child: Container(
+                child: SizedBox(
                   height: sizeFromHeight(1.9),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -78,7 +76,7 @@ class TypesScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-                child: Container(
+                child: SizedBox(
                   height: sizeFromHeight(1.9),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -93,7 +91,7 @@ class TypesScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-                child: Container(
+                child: SizedBox(
                   height: sizeFromHeight(5),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -108,7 +106,7 @@ class TypesScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-                child: Container(
+                child: SizedBox(
                   height: sizeFromHeight(1.9),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -123,7 +121,7 @@ class TypesScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-                child: Container(
+                child: SizedBox(
                   height: sizeFromHeight(1.9),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -143,7 +141,7 @@ class TypesScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
               horizontal: 20.0,
             ),
-            child: Container(
+            child: SizedBox(
               height: sizeFromHeight(3),
               child: Column(
                 children: [
@@ -160,7 +158,7 @@ class TypesScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: ColorManager.OnBoardingScreen,
                             borderRadius: BorderRadius.circular(5)),
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             "Company Account",
                             style: TextStyle(
@@ -187,7 +185,7 @@ class TypesScreen extends StatelessWidget {
                             border: Border.all(
                                 color: ColorManager.OnBoardingScreen, width: 2),
                             borderRadius: BorderRadius.circular(5)),
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             "Personal Account",
                             style: TextStyle(

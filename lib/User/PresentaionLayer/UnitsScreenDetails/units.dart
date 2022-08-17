@@ -41,7 +41,7 @@ class DetailsLocatioAndNameUnits extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-      child: Container(
+      child: SizedBox(
         height: sizeFromHeight(6),
         width: sizeFromWidth(1.5),
         child: Column(
@@ -52,7 +52,7 @@ class DetailsLocatioAndNameUnits extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    "$location",
+                    location,
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 14.sp,
@@ -60,7 +60,7 @@ class DetailsLocatioAndNameUnits extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 Expanded(
@@ -68,25 +68,25 @@ class DetailsLocatioAndNameUnits extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        FaIcon(
+                        const FaIcon(
                           FontAwesomeIcons.bath,
                           color: Colors.grey,
                           size: 12,
                         ),
-                        Text("$bathRoom"),
-                        SizedBox(
+                        Text(bathRoom),
+                        const SizedBox(
                           width: 5,
                         ),
-                        FaIcon(
+                        const FaIcon(
                           FontAwesomeIcons.bed,
                           size: 12,
                           color: Colors.grey,
                         ),
-                        Text("$bedRoom"),
-                        SizedBox(
+                        Text(bedRoom),
+                        const SizedBox(
                           width: 5,
                         ),
-                        Icon(
+                        const Icon(
                           OsolIcon.square_,
                           size: 12,
                           color: Colors.grey,
@@ -107,7 +107,7 @@ class DetailsLocatioAndNameUnits extends StatelessWidget {
                   children: [
                     Text(
                       "$price EGP",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                       ),
                     ),
@@ -118,12 +118,12 @@ class DetailsLocatioAndNameUnits extends StatelessWidget {
                           color: ColorManager.redHeartcolor,
                           size: 14,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         Text(
                           "$city, $country",
-                          style: TextStyle(color: Colors.black, fontSize: 12),
+                          style: const TextStyle(color: Colors.black, fontSize: 12),
                         )
                       ],
                     )
@@ -140,7 +140,7 @@ class DetailsLocatioAndNameUnits extends StatelessWidget {
                               )));
                     },
                     child: Row(
-                      children: [
+                      children: const [
                         Icon(
                           OsolIcon.location,
                           color: Colors.white,
@@ -175,7 +175,7 @@ class CustomFloatingIcon extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Padding(
         padding: const EdgeInsets.all(18.0),
-        child: Container(
+        child: SizedBox(
           height: sizeFromHeight(9),
           width: sizeFromWidth(1.5),
           child: Row(
@@ -190,7 +190,7 @@ class CustomFloatingIcon extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: ColorManager.onboardingColorDots,
                       borderRadius: BorderRadius.circular(80)),
-                  child: Icon(
+                  child: const Icon(
                     Icons.chat_bubble,
                     color: Colors.white,
                     size: 30,
@@ -209,7 +209,7 @@ class CustomFloatingIcon extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: ColorManager.onboardingColorDots,
                       borderRadius: BorderRadius.circular(80)),
-                  child: FaIcon(
+                  child: const FaIcon(
                     FontAwesomeIcons.whatsapp,
                     color: Colors.white,
                     size: 40,
@@ -226,7 +226,7 @@ class CustomFloatingIcon extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: ColorManager.onboardingColorDots,
                       borderRadius: BorderRadius.circular(80)),
-                  child: Icon(
+                  child: const Icon(
                     Icons.phone,
                     color: Colors.white,
                     size: 30,
@@ -265,7 +265,7 @@ class _CustomWriteReviewState extends State<CustomWriteReview> {
     return BlocConsumer<UnitClientCubit, UnitClientState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return Container(
+        return SizedBox(
           height: sizeFromHeight(4),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -274,16 +274,16 @@ class _CustomWriteReviewState extends State<CustomWriteReview> {
               Flexible(
                 child: Form(
                   key: AddReviewKey,
-                  child: Container(
+                  child: SizedBox(
                     height: sizeFromHeight(3.5),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Flexible(
+                        const Flexible(
                           flex: 1,
                           child: Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
+                            padding: EdgeInsets.only(bottom: 8.0),
                             child: Text(
                               "Write A review",
                               style: TextStyle(
@@ -330,8 +330,9 @@ class _CustomWriteReviewState extends State<CustomWriteReview> {
                                                 if (v!.isEmpty) {
                                                   return "You Must Enter Your Review";
                                                 }
+                                                return null;
                                               },
-                                              decoration: InputDecoration(
+                                              decoration: const InputDecoration(
                                                 contentPadding: EdgeInsets.only(
                                                   bottom: 15,
                                                   left: 10,
@@ -346,9 +347,9 @@ class _CustomWriteReviewState extends State<CustomWriteReview> {
                                               direction: Axis.horizontal,
                                               allowHalfRating: true,
                                               itemCount: 5,
-                                              itemPadding: EdgeInsets.symmetric(
+                                              itemPadding: const EdgeInsets.symmetric(
                                                   horizontal: 4.0),
-                                              itemBuilder: (context, _) => Icon(
+                                              itemBuilder: (context, _) => const Icon(
                                                 Icons.star,
                                                 color: Colors.amber,
                                               ),
@@ -362,7 +363,7 @@ class _CustomWriteReviewState extends State<CustomWriteReview> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     Expanded(
@@ -423,13 +424,13 @@ class CustomReview extends StatelessWidget {
         // TODO: implement listener
       },
       builder: (context, state) {
-        return Container(
+        return SizedBox(
           height: sizeFromHeight(2.5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 8.0),
                 child: Text(
                   "Reviews",
                   style: TextStyle(
@@ -438,14 +439,14 @@ class CustomReview extends StatelessWidget {
                       fontWeight: FontWeight.w600),
                 ),
               ),
-              Container(
+              SizedBox(
                 height: sizeFromHeight(3),
                 width: sizeFromWidth(1),
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: review.length,
                     itemBuilder: (context, index) => Padding(
-                          padding: EdgeInsets.only(right: 20.0),
+                          padding: const EdgeInsets.only(right: 20.0),
                           child: Row(
                             children: [
                               Container(
@@ -472,7 +473,7 @@ class CustomReview extends StatelessWidget {
                                               child: Image.network(
                                                   "${review[index].client?.image}")),
                                         ),
-                                        Container(
+                                        SizedBox(
                                           height: sizeFromHeight(13),
                                           child: Column(
                                             crossAxisAlignment:
@@ -482,14 +483,14 @@ class CustomReview extends StatelessWidget {
                                             children: [
                                               Text(
                                                 "${review[index].client?.userName}",
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 16,
                                                 ),
                                               ),
                                               Text(
                                                 "${review[index].date?.substring(0, 10)}",
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 16,
                                                 ),
@@ -497,7 +498,7 @@ class CustomReview extends StatelessWidget {
                                             ],
                                           ),
                                         ),
-                                        Spacer(),
+                                        const Spacer(),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text(
@@ -507,11 +508,11 @@ class CustomReview extends StatelessWidget {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Container(
+                                      child: SizedBox(
                                         height: sizeFromHeight(7),
                                         child: Text(
                                           "${review[index].body}",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 16,
                                           ),
                                         ),
@@ -523,8 +524,8 @@ class CustomReview extends StatelessWidget {
                                       direction: Axis.horizontal,
                                       itemCount: 5,
                                       itemPadding:
-                                          EdgeInsets.symmetric(horizontal: 4.0),
-                                      itemBuilder: (context, _) => Icon(
+                                          const EdgeInsets.symmetric(horizontal: 4.0),
+                                      itemBuilder: (context, _) => const Icon(
                                         Icons.star,
                                         color: Colors.amber,
                                       ),
@@ -541,11 +542,11 @@ class CustomReview extends StatelessWidget {
                                             }
                                           : () {},
                                       child: cubit.nextPage != null
-                                          ? Icon(Icons.arrow_forward_ios)
-                                          : Icon(Icons.arrow_forward_ios,
+                                          ? const Icon(Icons.arrow_forward_ios)
+                                          : const Icon(Icons.arrow_forward_ios,
                                               color: Colors.grey),
                                     )
-                                  : SizedBox()
+                                  : const SizedBox()
                             ],
                           ),
                         )),
@@ -564,13 +565,13 @@ class CustomVideo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(3),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
+          const Padding(
+            padding: EdgeInsets.only(bottom: 8.0),
             child: Text(
               "Video",
               style: TextStyle(
@@ -600,21 +601,21 @@ class CustomVideo extends StatelessWidget {
 
 ///End custom video
 class CustomAboutDeveloper extends StatelessWidget {
-  CustomAboutDeveloper({required this.unit});
+  const CustomAboutDeveloper({required this.unit});
   final UnitModel unit;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-      child: Container(
+      child: SizedBox(
         height: sizeFromHeight(1.2),
         width: sizeFromWidth(1.5),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
+            const Padding(
+              padding: EdgeInsets.only(bottom: 8.0),
               child: Text(
                 "About Developer",
                 style: TextStyle(
@@ -654,13 +655,13 @@ class CustomAboutDeveloper extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Real estate Company",
                           style: TextStyle(
                             fontSize: 18,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                         Row(
@@ -670,10 +671,10 @@ class CustomAboutDeveloper extends StatelessWidget {
                               color: ColorManager.redHeartcolor,
                               size: 18,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
-                            Text(
+                            const Text(
                               "North Coast, Egypt",
                               style:
                                   TextStyle(color: Colors.black, fontSize: 12),
@@ -686,8 +687,8 @@ class CustomAboutDeveloper extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
+            const Padding(
+              padding: EdgeInsets.only(top: 20),
               child: Text(
                 "Other Data",
                 style: TextStyle(
@@ -716,7 +717,7 @@ class CustomDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Container(
+      child: SizedBox(
         height: sizeFromHeight(7),
         width: sizeFromWidth(1.5),
         child: Column(
@@ -729,14 +730,14 @@ class CustomDescription extends StatelessWidget {
                   color: ColorManager.onboardingColorDots, fontSize: 18),
             ),
             ReadMoreText(
-              "$description",
-              style: TextStyle(fontSize: 16),
+              description,
+              style: const TextStyle(fontSize: 16),
               trimLines: 2,
               colorClickableText: ColorManager.onboardingColorDots,
               trimMode: TrimMode.Line,
               trimCollapsedText: 'Read more',
               trimExpandedText: "Read less",
-              moreStyle: TextStyle(
+              moreStyle: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 decorationStyle: TextDecorationStyle.wavy,
@@ -776,7 +777,7 @@ class CustomUnitdetailsOfUnits extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(2),
       width: sizeFromWidth(1.2),
       child: Row(
@@ -845,67 +846,57 @@ class CustomUnitdetailsOfUnits extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "$status",
-                style: TextStyle(
+                status,
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18,
                 ),
               ),
               Text(
-                "$rooms",
-                style: TextStyle(
+                rooms,
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18,
                 ),
               ),
               Text(
-                "$floor",
-                style: TextStyle(
+                floor,
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18,
                 ),
               ),
               Text(
-                "$bathRooms",
-                style: TextStyle(
+                bathRooms,
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18,
                 ),
               ),
               Text(
-                "$yearBuild",
-                style: TextStyle(
+                yearBuild,
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18,
                 ),
               ),
               Text(
-                "$finishType",
-                style: TextStyle(
+                finishType,
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18,
                 ),
               ),
               Text(
                 "$area m²",
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18,
                 ),
               ),
               Text(
-                "$view",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
-              SizedBox(
-                width: sizeFromWidth(3),
-              ),
-              Text(
-                "$seller",
-                style: TextStyle(
+                view,
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18,
                 ),
@@ -914,8 +905,18 @@ class CustomUnitdetailsOfUnits extends StatelessWidget {
                 width: sizeFromWidth(3),
               ),
               Text(
-                "$paymentMethod",
-                style: TextStyle(
+                seller,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                ),
+              ),
+              SizedBox(
+                width: sizeFromWidth(3),
+              ),
+              Text(
+                paymentMethod,
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18,
                 ),
@@ -942,7 +943,7 @@ class CustomUnitIInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(7),
       width: 327.w,
       child: Row(
@@ -968,8 +969,8 @@ class CustomUnitIInformation extends StatelessWidget {
                 FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(
-                    "${unitName}",
-                    style: TextStyle(
+                    unitName,
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -979,8 +980,8 @@ class CustomUnitIInformation extends StatelessWidget {
                 FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(
-                    "$date",
-                    style: TextStyle(
+                    date,
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 16,
                     ),
@@ -989,10 +990,10 @@ class CustomUnitIInformation extends StatelessWidget {
               ],
             ),
           ),
-          Spacer(),
+          const Spacer(),
           IconButton(
             onPressed: () {},
-            icon: FaIcon(
+            icon: const FaIcon(
               FontAwesomeIcons.ellipsisVertical,
               color: Colors.grey,
               size: 30,

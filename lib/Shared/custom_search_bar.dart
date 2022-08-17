@@ -11,7 +11,7 @@ class CustomSearchBar extends StatefulWidget {
 class _CustomSearchBarState extends State<CustomSearchBar> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 40,
       child: Center(
         child: TextFormField(
@@ -20,22 +20,22 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
               fillColor: Colors.white,
               filled: true,
               focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
+                  borderSide: const BorderSide(color: Colors.white),
                   borderRadius: BorderRadius.circular(10)),
               enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
+                  borderSide: const BorderSide(color: Colors.white),
                   borderRadius: BorderRadius.circular(10)),
               border: OutlineInputBorder(
                   borderSide: BorderSide.none,
                   borderRadius: BorderRadius.circular(10)),
               prefixIcon: IconButton(
                 onPressed:widget.onPressed,
-                icon: Icon(
+                icon: const Icon(
                   Icons.search,
                   color: Colors.black,
                 ),
               ),
-              contentPadding: EdgeInsets.all(10)),
+              contentPadding: const EdgeInsets.all(10)),
         ),
       ),
     );

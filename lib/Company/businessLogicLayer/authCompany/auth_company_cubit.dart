@@ -1,12 +1,10 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:meta/meta.dart';
 import 'package:osol/Company/PresentationLayer/DawerScreen/view.dart';
 import 'package:osol/Company/PresentationLayer/registerition/otpCompany/view.dart';
 import 'package:osol/Company/dataLayer/dataModel/verifyCompanyModel.dart';
@@ -87,14 +85,14 @@ class AuthCompanyCubit extends Cubit<AuthCompanyState> {
             fontSize: 16.0);
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (_) => PinCodeVerificationCompanyScreen(),
+            builder: (_) => const PinCodeVerificationCompanyScreen(),
           ),
         );
         return response;
       }
     } catch (error) {
       Fluttertoast.showToast(
-          msg: "${error}",
+          msg: "$error",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 3,
@@ -147,7 +145,7 @@ class AuthCompanyCubit extends Cubit<AuthCompanyState> {
         data: {"email": emailRegister},
       );
       if (response.statusCode == 200 && response.data["status"] == true) {
-        debugPrint("OTP Responce:${response}");
+        debugPrint("OTP Responce:$response");
         emit(SuccessSendOTP());
         log(response.data.toString());
         Fluttertoast.showToast(
@@ -187,7 +185,7 @@ class AuthCompanyCubit extends Cubit<AuthCompanyState> {
         data: {"token": otpValue},
       );
       if (response.statusCode == 200 && response.data["status"] == true) {
-        debugPrint("OTP Responce:${response}");
+        debugPrint("OTP Responce:$response");
         emit(SuccessSendOTP());
         Fluttertoast.showToast(
             msg: "تم تفعيل الحساب بنجاح",
@@ -212,10 +210,10 @@ class AuthCompanyCubit extends Cubit<AuthCompanyState> {
             ? await Shared.prefSetString(
                 key: "CompanyTokenVerify", value: userToken)
             : print(userToken);
-        debugPrint("verify data ${userToken}");
+        debugPrint("verify data $userToken");
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (_) => NavigationDrawerCompany(),
+            builder: (_) => const NavigationDrawerCompany(),
           ),
         );
       } else {
@@ -238,7 +236,7 @@ class AuthCompanyCubit extends Cubit<AuthCompanyState> {
   Future logOutCompany({context}) async {
     final mainToken = await Shared.prefGetString(key: "CompanyTokenVerify");
     emit(LoadingLogOutCompany());
-    debugPrint("mostafa:${mainToken}");
+    debugPrint("mostafa:$mainToken");
     Response response;
     try {
       response = await DioHelper.postDataWithAuth(
@@ -277,7 +275,7 @@ class AuthCompanyCubit extends Cubit<AuthCompanyState> {
     } catch (e) {
       emit(ErrorLogOutCompany());
       Fluttertoast.showToast(
-          msg: "${e.toString()}",
+          msg: e.toString(),
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 3,

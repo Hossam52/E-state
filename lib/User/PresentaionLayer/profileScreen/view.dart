@@ -21,16 +21,16 @@ class ProfileView extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back,
                 size: 28,
               ),
             ),
-            shape: ContinuousRectangleBorder(
+            shape: const ContinuousRectangleBorder(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
             ),
             centerTitle: true,
-            title: Text(
+            title: const Text(
               "Profile",
             ),
           ),
@@ -48,7 +48,7 @@ class ProfileView extends StatelessWidget {
                   "${cubit.profileDate[0].client?.userName}",
                   style: Theme.of(context).textTheme.headline2,
                 ),
-                subtitle: Container(
+                subtitle: SizedBox(
                   width: double.infinity,
                   child: Text(
                     "Personal account",
@@ -59,7 +59,7 @@ class ProfileView extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (_) => UpdateProfile(),
+                        builder: (_) => const UpdateProfile(),
                       ),
                     );
                   },
@@ -104,7 +104,7 @@ class ProfileView extends StatelessWidget {
                       "Change Name",
                       style: Theme.of(context).textTheme.headline2,
                     ),
-                    trailing: Icon(
+                    trailing: const Icon(
                       Icons.arrow_forward_ios,
                     ),
                   ),
@@ -135,7 +135,7 @@ class ProfileView extends StatelessWidget {
                       "Change Password",
                       style: Theme.of(context).textTheme.headline2,
                     ),
-                    trailing: Icon(
+                    trailing: const Icon(
                       Icons.arrow_forward_ios,
                     ),
                   ),

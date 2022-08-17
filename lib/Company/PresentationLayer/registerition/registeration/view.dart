@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,11 +9,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:osol/Company/PresentationLayer/DawerScreen/view.dart';
-import 'package:osol/Company/PresentationLayer/HomeScreen/HomeScreenView.dart';
 import 'package:osol/Company/businessLogicLayer/authCompany/auth_company_cubit.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/BussinssLogic/commonCubit/common_cubit.dart';
 import 'package:osol/User/PresentaionLayer/RegisterScreen/signUp/view.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
 class CompanyRegisterationScreen extends StatefulWidget {
   @override
@@ -58,8 +57,8 @@ class _CompanyRegisterationScreenState
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Padding(
-            padding: const EdgeInsets.only(left: 8.0),
+          icon: const Padding(
+            padding: EdgeInsets.only(left: 8.0),
             child: Icon(
               Icons.arrow_back_ios,
               color: Colors.black54,
@@ -67,18 +66,18 @@ class _CompanyRegisterationScreenState
             ),
           ),
         ),
-        shape: ContinuousRectangleBorder(
+        shape: const ContinuousRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
         ),
         centerTitle: false,
-        title: Text(
+        title: const Text(
           "Company Register",
         ),
       ),
       body: Form(
         key: myForm,
         child: CustomScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           slivers: [
             SliverToBoxAdapter(
               child: Padding(
@@ -221,22 +220,19 @@ class _CompanyRegisterationScreenState
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: CustomSelectListRegister(
-                              myList: cubit.countryData == null
-                                  ? []
-                                  : cubit.countryData,
+                              myList: cubit.countryData,
                               title: "Country",
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 8,
                         ),
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: CustomSelectListCities(
-                              myList:
-                                  cubit.cityData == null ? [] : cubit.cityData,
+                              myList: cubit.cityData,
                               title: "City",
                             ),
                           ),
@@ -275,7 +271,9 @@ class _CompanyRegisterationScreenState
                 ),
                 child: CustomTxtFieldCompanyProfile(
                   controller: companyBranchNumController,
-                  validator: (String? v) {},
+                  validator: (String? v) {
+                    return null;
+                  },
                   hint: "number",
                   title: "Number Of branches",
                   width: 0,
@@ -330,7 +328,7 @@ class _CompanyRegisterationScreenState
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (BuildContext context) =>
-                              NavigationDrawerCompany(),
+                              const NavigationDrawerCompany(),
                         ),
                       );
                     },
@@ -341,7 +339,7 @@ class _CompanyRegisterationScreenState
                       builder: (context, state) {
                         var cubit = AuthCompanyCubit.get(context);
                         return state is LoadingRegisterCompanyState
-                            ? Center(
+                            ? const Center(
                                 child: CircularProgressIndicator(),
                               )
                             : InkWell(
@@ -364,7 +362,7 @@ class _CompanyRegisterationScreenState
                                       password: companyPassController.text,
                                       confirmPassword:
                                           companyConPassController.text,
-                                      cityId: await CommonCubit.get(context)
+                                      cityId: CommonCubit.get(context)
                                           .cityIndex
                                           .toString(),
                                       countryId: CommonCubit.get(context)
@@ -382,7 +380,7 @@ class _CompanyRegisterationScreenState
                                         color: ColorManager.AppBarIconcolorGrey
                                             .withOpacity(0.08),
                                       )),
-                                  child: Center(
+                                  child: const Center(
                                     child: Text(
                                       "Register",
                                       style: TextStyle(
@@ -426,7 +424,7 @@ class _CustomIAddLogoCompaniesState extends State<CustomIAddLogoCompanies> {
       });
     } on PlatformException catch (e) {
       Fluttertoast.showToast(
-          msg: "${e.toString()}",
+          msg: e.toString(),
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
@@ -455,7 +453,7 @@ class _CustomIAddLogoCompaniesState extends State<CustomIAddLogoCompanies> {
                 ? cubit.changeImageData(imageFile: image)
                 : debugPrint("Image Null data");
           }),
-          child: Container(
+          child: SizedBox(
             height: sizeFromHeight(8),
             width: 327.w,
             child: Row(
@@ -487,11 +485,11 @@ class _CustomIAddLogoCompaniesState extends State<CustomIAddLogoCompanies> {
                                   "assets/images/upimage.svg",
                                 )),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.0),
                   child: Icon(Icons.add),
                 ),
-                Text(
+                const Text(
                   "Upload Company Logo",
                   style: TextStyle(
                     color: Colors.black,
@@ -525,7 +523,7 @@ class CustomTxtFieldCompanyProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(7),
       width: width == 0 ? double.infinity : width,
       child: Column(
@@ -539,7 +537,7 @@ class CustomTxtFieldCompanyProfile extends StatelessWidget {
               child: Container(
                 child: Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w600,
                       fontSize: 16),
@@ -561,8 +559,8 @@ class CustomTxtFieldCompanyProfile extends StatelessWidget {
                 controller: controller,
                 validator: validator,
                 decoration: InputDecoration(
-                    hintText: "${hint}",
-                    border: OutlineInputBorder(
+                    hintText: hint,
+                    border: const OutlineInputBorder(
                       borderSide: BorderSide.none,
                     )),
               ),
@@ -582,7 +580,7 @@ class CustomTxtFieldSuffixIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(6.5),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -590,7 +588,7 @@ class CustomTxtFieldSuffixIcon extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
           ),
           Container(
@@ -602,12 +600,12 @@ class CustomTxtFieldSuffixIcon extends StatelessWidget {
             child: Center(
               child: TextFormField(
                 decoration: InputDecoration(
-                    hintText: "${hint}",
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
+                    hintText: hint,
+                    suffixIcon: const Padding(
+                      padding: EdgeInsets.only(top: 8.0),
                       child: FaIcon(FontAwesomeIcons.link),
                     ),
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                       borderSide: BorderSide.none,
                     )),
               ),
@@ -630,7 +628,7 @@ class CustomSelectListProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(7),
       width: width == 0 ? double.infinity : width,
       child: Column(
@@ -641,7 +639,7 @@ class CustomSelectListProfile extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w600,
                     fontSize: 16),
@@ -663,8 +661,8 @@ class CustomSelectListProfile extends StatelessWidget {
               ),
               child: DropdownButton<String>(
                 isExpanded: true,
-                underline: SizedBox(),
-                hint: Text("Select"),
+                underline: const SizedBox(),
+                hint: const Text("Select"),
                 items: <String>['1', '2', '3'].map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
@@ -689,7 +687,7 @@ class CustomTxtFieldSocialCompany extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(7),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -697,7 +695,7 @@ class CustomTxtFieldSocialCompany extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
           ),
           Container(
@@ -710,12 +708,12 @@ class CustomTxtFieldSocialCompany extends StatelessWidget {
             child: Center(
               child: TextFormField(
                 decoration: InputDecoration(
-                    hintText: "${hint}",
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
+                    hintText: hint,
+                    suffixIcon: const Padding(
+                      padding: EdgeInsets.only(top: 8.0),
                       child: FaIcon(FontAwesomeIcons.link),
                     ),
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                       borderSide: BorderSide.none,
                     )),
               ),
@@ -742,7 +740,7 @@ class CustomTxtFieldAboutCompany extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(5.7),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -750,7 +748,7 @@ class CustomTxtFieldAboutCompany extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
           ),
           Container(
@@ -765,8 +763,8 @@ class CustomTxtFieldAboutCompany extends StatelessWidget {
               controller: controller,
               validator: validator,
               decoration: InputDecoration(
-                hintText: "$hint",
-                border: OutlineInputBorder(
+                hintText: hint,
+                border: const OutlineInputBorder(
                   borderSide: BorderSide.none,
                 ),
               ),
@@ -793,7 +791,7 @@ class CustomTxtFieldComplexNumber extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(8.3),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -801,7 +799,7 @@ class CustomTxtFieldComplexNumber extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
           ),
           Container(
@@ -820,9 +818,9 @@ class CustomTxtFieldComplexNumber extends StatelessWidget {
                         color: Colors.blue.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(5)),
                     child: Padding(
-                      padding: EdgeInsets.only(top: 15),
+                      padding: const EdgeInsets.only(top: 15),
                       child: TextFormField(
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             hintText: "+20",
                             border: OutlineInputBorder(
                               borderSide: BorderSide.none,
@@ -835,13 +833,13 @@ class CustomTxtFieldComplexNumber extends StatelessWidget {
                   flex: 10,
                   child: Container(
                     child: Padding(
-                      padding: EdgeInsets.only(top: 15),
+                      padding: const EdgeInsets.only(top: 15),
                       child: TextFormField(
                         validator: validator,
                         controller: controller,
                         decoration: InputDecoration(
-                            hintText: "${hint}",
-                            border: OutlineInputBorder(
+                            hintText: hint,
+                            border: const OutlineInputBorder(
                               borderSide: BorderSide.none,
                             )),
                       ),

@@ -18,7 +18,7 @@ class ListScreen extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
                     bottomLeft: Radius.circular(10),
@@ -28,7 +28,7 @@ class ListScreen extends StatelessWidget {
                     color: Colors.grey.withOpacity(0.2),
                     spreadRadius: 5,
                     blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
+                    offset: const Offset(0, 3), // changes position of shadow
                   ),
                 ],
               ),
@@ -50,7 +50,7 @@ class ListScreen extends StatelessWidget {
                     "assets/images/popularity.svg",
                   ),
                 ),
-                title: Text(
+                title: const Text(
                   "Popular",
                   style: TextStyle(
                     color: Colors.black,
@@ -69,7 +69,7 @@ class ListScreen extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
                     bottomLeft: Radius.circular(10),
@@ -79,7 +79,7 @@ class ListScreen extends StatelessWidget {
                     color: Colors.grey.withOpacity(0.2),
                     spreadRadius: 5,
                     blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
+                    offset: const Offset(0, 3), // changes position of shadow
                   ),
                 ],
               ),
@@ -101,7 +101,7 @@ class ListScreen extends StatelessWidget {
                     "assets/images/panners.svg",
                   ),
                 ),
-                title: Text(
+                title: const Text(
                   "Banner",
                   style: TextStyle(
                     color: Colors.black,
@@ -120,7 +120,7 @@ class ListScreen extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
                     bottomLeft: Radius.circular(10),
@@ -130,7 +130,7 @@ class ListScreen extends StatelessWidget {
                     color: Colors.grey.withOpacity(0.2),
                     spreadRadius: 5,
                     blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
+                    offset: const Offset(0, 3), // changes position of shadow
                   ),
                 ],
               ),
@@ -138,7 +138,7 @@ class ListScreen extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (_) {
-                      return FeaturedScreen();
+                      return const FeaturedScreen();
                     }),
                   );
                 },
@@ -152,7 +152,7 @@ class ListScreen extends StatelessWidget {
                     "assets/images/features.svg",
                   ),
                 ),
-                title: Text(
+                title: const Text(
                   "Featured",
                   style: TextStyle(
                     color: Colors.black,

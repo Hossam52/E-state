@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
@@ -34,7 +33,7 @@ class HorizontalScrollList extends StatelessWidget {
                 controller: cubit.scrollController,
                 shrinkWrap: true,
                 itemCount: populars.length,
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return InkWell(
@@ -68,14 +67,14 @@ class HorizontalScrollList extends StatelessWidget {
                                   Expanded(
                                     flex: 3,
                                     child: Padding(
-                                      padding: EdgeInsets.symmetric(
+                                      padding: const EdgeInsets.symmetric(
                                           horizontal: 5.0, vertical: 5),
                                       child: Container(
                                         width: 80.w,
                                         decoration: BoxDecoration(
                                           image: DecorationImage(
                                               image: NetworkImage(
-                                                  "${populars[index].images![0]}"),
+                                                  populars[index].images![0]),
                                               fit: BoxFit.cover),
                                           borderRadius:
                                               BorderRadius.circular(5),
@@ -86,7 +85,7 @@ class HorizontalScrollList extends StatelessWidget {
                                   Expanded(
                                     flex: 6,
                                     child: Padding(
-                                      padding: EdgeInsets.symmetric(
+                                      padding: const EdgeInsets.symmetric(
                                           horizontal: 8.0, vertical: 8),
                                       child: Column(
                                         mainAxisAlignment:
@@ -140,7 +139,7 @@ class HorizontalScrollList extends StatelessWidget {
                                                     .AppBarIconcolorGrey,
                                                 size: 10.w,
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 2,
                                               ),
                                               Text(
@@ -157,13 +156,13 @@ class HorizontalScrollList extends StatelessWidget {
                                               Text.rich(TextSpan(children: [
                                                 TextSpan(
                                                   text:
-                                                      "\$ ${populars[index].price == null ? 0 : populars[index].price} ",
+                                                      "\$ ${populars[index].price ?? 0} ",
                                                   style: TextStyle(
                                                       fontSize: 10,
                                                       color: ColorManager
                                                           .OnBoardingScreen),
                                                 ),
-                                                TextSpan(
+                                                const TextSpan(
                                                   text: "\\ Mnth",
                                                   style: TextStyle(
                                                       fontSize: 10,
@@ -207,7 +206,7 @@ class HorizontalScrollList extends StatelessWidget {
                                                           .TextHomeColor,
                                                       fontSize: 10),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: 5,
                                                 ),
                                                 FaIcon(
@@ -222,7 +221,7 @@ class HorizontalScrollList extends StatelessWidget {
                                                           .TextHomeColor,
                                                       fontSize: 10),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: 5,
                                                 ),
                                                 FaIcon(
@@ -237,7 +236,7 @@ class HorizontalScrollList extends StatelessWidget {
                                                           .TextHomeColor,
                                                       fontSize: 10),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: 5,
                                                 ),
                                               ],

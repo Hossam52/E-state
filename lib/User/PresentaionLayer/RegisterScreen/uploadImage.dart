@@ -14,19 +14,19 @@ class UploadImage extends StatefulWidget {
 class _UploadImageState extends State<UploadImage> {
   DioHelper api = DioHelper();
   File _image = File("");
-  TextEditingController _txtNameImage = TextEditingController();
+  final TextEditingController _txtNameImage = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_left),
+          icon: const Icon(Icons.arrow_left),
           onPressed: () => Navigator.pop(context, false),
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.file_upload),
+            icon: const Icon(Icons.file_upload),
             onPressed: () {
               uploadImage(_image);
             },
@@ -45,33 +45,33 @@ class _UploadImageState extends State<UploadImage> {
           TextField(
             controller: _txtNameImage,
             keyboardType: TextInputType.text,
-            decoration: InputDecoration(hintText: "Nama Image"),
+            decoration: const InputDecoration(hintText: "Nama Image"),
             maxLength: 9,
             textAlign: TextAlign.center,
           ),
-          SizedBox(
+          const SizedBox(
             height: 50.0,
           ),
           Container(
             child: _image == null
-                ? Text('No Images Selected')
+                ? const Text('No Images Selected')
                 : Image.file(_image),
           ),
-          SizedBox(
+          const SizedBox(
             height: 50.0,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               RaisedButton(
-                child: Icon(Icons.camera),
+                child: const Icon(Icons.camera),
                 onPressed: () => getImageCamera(),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 50.0,
               ),
               RaisedButton(
-                child: Icon(Icons.image),
+                child: const Icon(Icons.image),
                 onPressed: () => getImageGallery(),
               )
             ],

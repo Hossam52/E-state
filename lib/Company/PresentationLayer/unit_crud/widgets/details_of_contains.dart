@@ -17,13 +17,13 @@ class DetailsOfContains extends StatelessWidget {
         var cubit = UnitCubit.get(context);
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-          child: Container(
+          child: SizedBox(
             height: sizeFromHeight(30),
             width: sizeFromWidth(1.5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Container(
+                SizedBox(
                   width: sizeFromWidth(2.5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -38,7 +38,7 @@ class DetailsOfContains extends StatelessWidget {
                         "${cubit.numBathRoom}",
                         style: Theme.of(context).textTheme.headline3!,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       FaIcon(
@@ -51,7 +51,7 @@ class DetailsOfContains extends StatelessWidget {
                         "${cubit.numBedRoom}",
                         style: Theme.of(context).textTheme.headline3!,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       Icon(

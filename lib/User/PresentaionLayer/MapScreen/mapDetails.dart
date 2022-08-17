@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:collection';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,7 +14,6 @@ import 'package:osol/Shared/component/search_and_filter_widget.dart';
 
 import '../../../Company/PresentationLayer/HomeScreen/mapGetLocation.dart';
 import '../../../Shared/constants.dart';
-import '../../../Shared/customBottomAppBar.dart';
 import '../../../Shared/customListLabel.dart';
 import '../../BussinssLogic/authCubit/auth_cubit.dart';
 import '../../BussinssLogic/homeCubit/home_cubit.dart';
@@ -29,7 +26,7 @@ class MapScreen extends StatefulWidget {
 
 class MapScreenState extends State<MapScreen> {
   var myMarkers = HashSet<Marker>();
-  Completer<GoogleMapController> _mapController = Completer();
+  final Completer<GoogleMapController> _mapController = Completer();
 
   @override
   void initState() {
@@ -42,7 +39,7 @@ class MapScreenState extends State<MapScreen> {
     super.initState();
   }
 
-  Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
 
   static Position? position;
 
@@ -52,7 +49,7 @@ class MapScreenState extends State<MapScreen> {
     });
   }
 
-  static final CameraPosition _kLake = CameraPosition(
+  static const CameraPosition _kLake = CameraPosition(
       target: LatLng(30.0064196, 31.4329283),
       tilt: 59.440717697143555,
       zoom: 10);
@@ -73,7 +70,7 @@ class MapScreenState extends State<MapScreen> {
                   onTap: (LatLng latLng) {
                     final lat = latLng.latitude;
                     final long = latLng.longitude;
-                    print("${lat};;;$long");
+                    print("$lat;;;$long");
                   },
                   initialCameraPosition: _kLake,
                   compassEnabled: false,
@@ -119,7 +116,7 @@ class MapScreenState extends State<MapScreen> {
                       child: SizedBox(
                         height: sizeFromHeight(17),
                         width: sizeFromWidth(1),
-                        child: UserFilterLabelsWidget(
+                        child: const UserFilterLabelsWidget(
                           num: 400,
                         ),
                       ),

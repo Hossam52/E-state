@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:osol/Company/dataLayer/dataModel/projectsOfCompany/ProjectsofCompany.dart';
-import 'package:osol/User/DataLayer/Model/modelOfData/companyModel/CompanyModel.dart';
 
 class UserCompanyProjects {
   bool status;

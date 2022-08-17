@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Shared/constants.dart';
-import 'package:osol/User/BussinssLogic/commonCubit/profieCubit/profile_cubit.dart';
 
 import '../../businessLogicLayer/profilecompanyCubit/profile_company_cubit.dart';
 import 'chatCompanyView.dart';
@@ -28,15 +25,15 @@ class MessageCompanyView extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back,
               ),
             ),
-            shape: ContinuousRectangleBorder(
+            shape: const ContinuousRectangleBorder(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
             ),
             centerTitle: true,
-            title: Text(
+            title: const Text(
               "Messages",
             ),
           ),
@@ -85,7 +82,7 @@ class MessageCompanyView extends StatelessWidget {
                                           : null;
                                       messageWidget != null
                                           ? messagesWidget.add(messageWidget)
-                                          : Text("There is no Chats");
+                                          : const Text("There is no Chats");
                                     }
                                   }
                                   return ListView(
@@ -101,10 +98,10 @@ class MessageCompanyView extends StatelessWidget {
                         )
                       ],
                     )
-                  : Center(
+                  : const Center(
                       child: CircularProgressIndicator(),
                     )
-              : Center(child: CupertinoActivityIndicator()),
+              : const Center(child: CupertinoActivityIndicator()),
         );
       },
     );
@@ -137,27 +134,27 @@ class ChatData extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(
                 builder: (_) => ChatCompanyView(
-                      email: '$companyEmail',
-                      name: '$companyName',
+                      email: companyEmail,
+                      name: companyName,
                     )),
           );
         },
         leading: CircleAvatar(
           radius: 30,
-          backgroundImage: NetworkImage("$img"),
+          backgroundImage: NetworkImage(img),
         ),
         title: Text(
-          "$companyName",
-          style: TextStyle(
+          companyName,
+          style: const TextStyle(
             color: Colors.black,
             fontSize: 16,
           ),
         ),
-        subtitle: Container(
+        subtitle: SizedBox(
           width: double.infinity,
           child: Text(
-            "$msg",
-            style: TextStyle(
+            msg,
+            style: const TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.w300,
               fontSize: 14,
@@ -169,7 +166,7 @@ class ChatData extends StatelessWidget {
           children: [
             Text.rich(TextSpan(children: [
               TextSpan(
-                text: "$time",
+                text: time,
                 style: TextStyle(
                   color: ColorManager.AppBarIconcolorGrey,
                 ),
@@ -198,7 +195,7 @@ class ChatData extends StatelessWidget {
             //         ),
             //       )
             //     :
-            SizedBox(
+            const SizedBox(
               height: 25,
               width: 25,
             )

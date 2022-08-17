@@ -1,9 +1,7 @@
 import 'dart:async';
-import 'dart:collection';
 import 'dart:developer';
 import 'dart:typed_data';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
@@ -89,7 +87,7 @@ class _MyMapState extends State<MyMap> {
             markerId: MarkerId(latLng.longitude.toString()), position: latLng),
       );
     });
-    print("${lat}++++${long}");
+    print("$lat++++$long");
   }
 
   Widget buildMAp() {
@@ -134,7 +132,7 @@ class _MyMapState extends State<MyMap> {
               ? buildMAp()
               : Center(
                   child: Container(
-                    child: CircularProgressIndicator(
+                    child: const CircularProgressIndicator(
                       color: Colors.blue,
                     ),
                   ),
@@ -153,7 +151,7 @@ class _MyMapState extends State<MyMap> {
                   lat != null ? Navigator.pop(context) : null;
                 },
                 child: lat == null
-                    ? Text(
+                    ? const Text(
                         "Pick Your Location",
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -161,7 +159,7 @@ class _MyMapState extends State<MyMap> {
                           fontWeight: FontWeight.bold,
                         ),
                       )
-                    : Text(
+                    : const Text(
                         "Done",
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -173,17 +171,17 @@ class _MyMapState extends State<MyMap> {
                     primary: lat == null
                         ? Colors.grey
                         : ColorManager.onboardingColorDots,
-                    minimumSize: Size(double.infinity, 60)),
+                    minimumSize: const Size(double.infinity, 60)),
               ),
             ),
           ),
         ],
       ),
       floatingActionButton: Container(
-        margin: EdgeInsets.fromLTRB(0, 0, 0, 80),
+        margin: const EdgeInsets.fromLTRB(0, 0, 0, 80),
         child: FloatingActionButton(
           onPressed: _goToMyCurrentLocation,
-          child: Icon(
+          child: const Icon(
             Icons.place,
             color: Colors.white,
           ),

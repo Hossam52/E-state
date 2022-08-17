@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
@@ -47,7 +46,7 @@ class _CompanyProjectScreenState extends State<CompanyProjectScreen> {
             ),
             shape: const ContinuousRectangleBorder(
               borderRadius:
-                  const BorderRadius.vertical(bottom: Radius.circular(10)),
+                  BorderRadius.vertical(bottom: Radius.circular(10)),
             ),
             centerTitle: true,
             title: const Text(
@@ -55,7 +54,7 @@ class _CompanyProjectScreenState extends State<CompanyProjectScreen> {
             ),
           ),
           body: state is LoadingGetAllProjects
-              ? const Center(child: const CircularProgressIndicator())
+              ? const Center(child: CircularProgressIndicator())
               : ListView.builder(
                   itemCount: cubit.dataOfProjects.length,
                   itemBuilder: (context, index) {
@@ -232,7 +231,7 @@ class _ProjectItem extends StatelessWidget {
 
 class CustomBottomSheet extends StatefulWidget {
   final DataOfProjects project;
-  CustomBottomSheet({required this.project});
+  const CustomBottomSheet({required this.project});
 
   @override
   _CustomBottomSheetState createState() => _CustomBottomSheetState();
@@ -251,7 +250,7 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
           isScrollControlled: true,
           enableDrag: true,
           context: context,
-          builder: (BuildContext context) => Container(
+          builder: (BuildContext context) => SizedBox(
             height: sizeFromHeight(1.1),
             width: 42.w,
             child: UpdateProjectScreen(
@@ -285,7 +284,7 @@ class CustomTxtFieldCompanyProject extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(6.5),
       width: width == 0 ? double.infinity : width,
       child: Column(
@@ -306,7 +305,7 @@ class CustomTxtFieldCompanyProject extends StatelessWidget {
             child: Center(
               child: TextFormField(
                 decoration: InputDecoration(
-                    hintText: "${hint}",
+                    hintText: hint,
                     border: const OutlineInputBorder(
                       borderSide: BorderSide.none,
                     )),
@@ -327,7 +326,7 @@ class CustomTxtFieldDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(4.5),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -346,7 +345,7 @@ class CustomTxtFieldDescription extends StatelessWidget {
             height: 100,
             child: TextFormField(
               decoration: InputDecoration(
-                hintText: "$hint",
+                hintText: hint,
                 border: const OutlineInputBorder(
                   borderSide: BorderSide.none,
                 ),

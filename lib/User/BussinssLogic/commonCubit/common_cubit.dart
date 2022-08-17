@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
@@ -60,8 +59,8 @@ class CommonCubit extends Cubit<CommonState> {
       selectedCity.areas?.forEach((element) {
         changeSelectedAreas(element);
         changeSelectedAreasId(element.id);
-        getAreaData(element.id).then((value) => print("${areasData}"));
-        print("id:${newAreasIdValue}");
+        getAreaData(element.id).then((value) => print("$areasData"));
+        print("id:$newAreasIdValue");
       });
     }
     if (areasData.where((e) => e.id.toString() == areaId).toList().isNotEmpty) {
@@ -136,7 +135,6 @@ class CommonCubit extends Cubit<CommonState> {
           print(element.name);
         });
       }
-      ;
 
       if (state is SuccessGetCountry) {
         print("mostata:$countryData");

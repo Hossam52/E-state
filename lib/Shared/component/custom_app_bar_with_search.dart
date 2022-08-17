@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
 import '../custom_search_bar.dart';
 
 class CustomAppBarWithSearch extends StatelessWidget with PreferredSizeWidget {
@@ -21,14 +20,14 @@ class CustomAppBarWithSearch extends StatelessWidget with PreferredSizeWidget {
       preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.15),
       child: AppBar(
         elevation: 0,
-        shape: ContinuousRectangleBorder(
+        shape: const ContinuousRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
         ),
         title: Text(
           title,
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           color: Colors.grey[500],
           onPressed: () {
             Navigator.of(context).pop();
@@ -36,7 +35,7 @@ class CustomAppBarWithSearch extends StatelessWidget with PreferredSizeWidget {
         ),
         centerTitle: true,
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(50),
+          preferredSize: const Size.fromHeight(50),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Row(
@@ -48,12 +47,12 @@ class CustomAppBarWithSearch extends StatelessWidget with PreferredSizeWidget {
                         decoration: BoxDecoration(
                             color: Colors.grey[500],
                             borderRadius: BorderRadius.circular(10)),
-                        child: Icon(
+                        child: const Icon(
                           CupertinoIcons.line_horizontal_3_decrease,
                           color: Colors.white,
                         ),
                       )
-                    : SizedBox(),
+                    : const SizedBox(),
                 SizedBox(
                   width: withFilter ? 10 : 0,
                 ),
@@ -71,5 +70,5 @@ class CustomAppBarWithSearch extends StatelessWidget with PreferredSizeWidget {
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(140);
+  Size get preferredSize => const Size.fromHeight(140);
 }

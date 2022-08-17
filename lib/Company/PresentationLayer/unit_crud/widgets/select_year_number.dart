@@ -20,7 +20,7 @@ class _CustomSelectNumberOfYearState extends State<CustomSelectNumberOfYear> {
     return BlocBuilder<UnitCubit, UnitState>(
       builder: (context, state) {
         var cubit = UnitCubit.get(context);
-        return Container(
+        return SizedBox(
           height: sizeFromHeight(6.5),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,7 +55,7 @@ class _CustomSelectNumberOfYearState extends State<CustomSelectNumberOfYear> {
                             child: TextFormField(
                               controller: widget.controller,
                               keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 hintText: "0",
                                 border: InputBorder.none,
                               ),

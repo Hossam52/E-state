@@ -6,14 +6,14 @@ class AddUnitModel {
 
   AddUnitModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    unit = json['unit'] != null ? new Unit.fromJson(json['unit']) : null;
+    unit = json['unit'] != null ? Unit.fromJson(json['unit']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    if (this.unit != null) {
-      data['unit'] = this.unit!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    if (unit != null) {
+      data['unit'] = unit!.toJson();
     }
     return data;
   }
@@ -213,69 +213,69 @@ class Unit {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['type'] = this.type;
-    data['required_fields'] = this.requiredFields;
-    data['view'] = this.view;
-    data['description'] = this.description;
-    data['purpose'] = this.purpose;
-    data['down_payment'] = this.downPayment;
-    data['monthly_payment'] = this.monthlyPayment;
-    data['deposite'] = this.deposite;
-    data['num_years'] = this.numYears;
-    data['price'] = this.price;
-    data['payment_method'] = this.paymentMethod;
-    data['country_id'] = this.countryId;
-    data['city_id'] = this.cityId;
-    data['area_id'] = this.areaId;
-    data['available'] = this.available;
-    data['available_date'] = this.availableDate;
-    data['lat'] = this.lat;
-    data['long'] = this.long;
-    data['video'] = this.video;
-    data['rooms'] = this.rooms;
-    data['bathroom'] = this.bathroom;
-    data['floor'] = this.floor;
-    data['year_build'] = this.yearBuild;
-    data['area'] = this.area;
-    data['bedrooms'] = this.bedrooms;
-    data['finished_type'] = this.finishedType;
-    data['metro'] = this.metro;
-    data['train'] = this.train;
-    data['bus'] = this.bus;
-    data['pharmacy'] = this.pharmacy;
-    data['beach'] = this.beach;
-    data['bakary'] = this.bakary;
-    data['resturant'] = this.resturant;
-    data['coffe'] = this.coffe;
-    data['air_condition'] = this.airCondition;
-    data['cable_tv'] = this.cableTv;
-    data['computer'] = this.computer;
-    data['gas_line'] = this.gasLine;
-    data['dishwasher'] = this.dishwasher;
-    data['internet'] = this.internet;
-    data['heater'] = this.heater;
-    data['microwave'] = this.microwave;
-    data['balcony'] = this.balcony;
-    data['lift'] = this.lift;
-    data['grill'] = this.grill;
-    data['pool'] = this.pool;
-    data['parking'] = this.parking;
-    data['recption'] = this.recption;
-    data['security'] = this.security;
-    data['add_type'] = this.addType;
-    data['company_id'] = this.companyId;
-    data['status'] = this.status;
-    data['images'] = this.images;
-    data['watch_num'] = this.watchNum;
-    data['lead_num'] = this.leadNum;
-    data['opened_num'] = this.openedNum;
-    data['auth_watch'] = this.authWatch;
-    data['auth_open'] = this.authOpen;
-    data['auth_lead'] = this.authLead;
-    data['auth_Favourite'] = this.authFavourite;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    data['type'] = type;
+    data['required_fields'] = requiredFields;
+    data['view'] = view;
+    data['description'] = description;
+    data['purpose'] = purpose;
+    data['down_payment'] = downPayment;
+    data['monthly_payment'] = monthlyPayment;
+    data['deposite'] = deposite;
+    data['num_years'] = numYears;
+    data['price'] = price;
+    data['payment_method'] = paymentMethod;
+    data['country_id'] = countryId;
+    data['city_id'] = cityId;
+    data['area_id'] = areaId;
+    data['available'] = available;
+    data['available_date'] = availableDate;
+    data['lat'] = lat;
+    data['long'] = long;
+    data['video'] = video;
+    data['rooms'] = rooms;
+    data['bathroom'] = bathroom;
+    data['floor'] = floor;
+    data['year_build'] = yearBuild;
+    data['area'] = area;
+    data['bedrooms'] = bedrooms;
+    data['finished_type'] = finishedType;
+    data['metro'] = metro;
+    data['train'] = train;
+    data['bus'] = bus;
+    data['pharmacy'] = pharmacy;
+    data['beach'] = beach;
+    data['bakary'] = bakary;
+    data['resturant'] = resturant;
+    data['coffe'] = coffe;
+    data['air_condition'] = airCondition;
+    data['cable_tv'] = cableTv;
+    data['computer'] = computer;
+    data['gas_line'] = gasLine;
+    data['dishwasher'] = dishwasher;
+    data['internet'] = internet;
+    data['heater'] = heater;
+    data['microwave'] = microwave;
+    data['balcony'] = balcony;
+    data['lift'] = lift;
+    data['grill'] = grill;
+    data['pool'] = pool;
+    data['parking'] = parking;
+    data['recption'] = recption;
+    data['security'] = security;
+    data['add_type'] = addType;
+    data['company_id'] = companyId;
+    data['status'] = status;
+    data['images'] = images;
+    data['watch_num'] = watchNum;
+    data['lead_num'] = leadNum;
+    data['opened_num'] = openedNum;
+    data['auth_watch'] = authWatch;
+    data['auth_open'] = authOpen;
+    data['auth_lead'] = authLead;
+    data['auth_Favourite'] = authFavourite;
     return data;
   }
 }

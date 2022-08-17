@@ -11,7 +11,7 @@ class SelectCustomDate extends StatefulWidget {
   final String? initialDate;
   final String selectedDate;
 
-  SelectCustomDate(
+  const SelectCustomDate(
       {Key? key,
       required this.title,
       required this.hint,

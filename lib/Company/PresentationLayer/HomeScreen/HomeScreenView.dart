@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
@@ -7,21 +6,17 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:osol/Company/PresentationLayer/HomeScreen/units.dart';
 import 'package:osol/Company/PresentationLayer/addBanner/view.dart';
-import 'package:osol/Company/PresentationLayer/addFeature/view.dart';
 import 'package:osol/Company/PresentationLayer/addScreen/addScreen.dart';
 
 import 'package:osol/Company/PresentationLayer/moreCompanyScreen/view.dart';
 import 'package:osol/Company/PresentationLayer/unit_crud/unit_crud_view.dart';
 import 'package:osol/Company/PresentationLayer/walletScreen/view.dart';
 import 'package:osol/Company/businessLogicLayer/bannersCubit/banners_cubit.dart';
-import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
 import 'package:osol/Shared/component/methods..dart';
 import 'package:osol/Shared/constants.dart';
-import 'package:osol/User/BussinssLogic/AppSettingCubit/app_setting_cubit.dart';
 import 'package:osol/User/PresentaionLayer/DawerScreen/view.dart';
 import 'package:osol/User/PresentaionLayer/notification/view.dart';
 import 'package:osol/shared/Customicon.dart';
-import 'package:osol/Shared/constants.dart';
 
 import '../listScreen/listScreen.dart';
 
@@ -35,13 +30,13 @@ class _HomeScreenUserViewState extends State<HomeScreenCompanyView> {
   int index = 0;
   int indexBottomSheet = 0;
   bool overLaySheet = false;
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   List<Widget> screen = [
-    HomeViewCompanyData(),
-    ListScreen(),
-    AddScreen(),
+    const HomeViewCompanyData(),
+    const ListScreen(),
+    const AddScreen(),
     WalletView(),
-    MoreViewCompanyScreen(),
+    const MoreViewCompanyScreen(),
   ];
   List ScreenName = ["Home", "Listing", "Home", "Wallet", "More"];
   OverlayEntry? entry;
@@ -90,7 +85,7 @@ class _HomeScreenUserViewState extends State<HomeScreenCompanyView> {
           backgroundColor: getDarkmoodColor(context),
           appBar: CustomVompany(
             context,
-            Container(
+            SizedBox(
               width: 90,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -98,7 +93,7 @@ class _HomeScreenUserViewState extends State<HomeScreenCompanyView> {
                   Container(
                     height: 25.h,
                     width: 17.w,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         image: DecorationImage(
                             fit: BoxFit.fill,
                             image: AssetImage("assets/images/estatehom.png"))),
@@ -151,8 +146,8 @@ class _HomeScreenUserViewState extends State<HomeScreenCompanyView> {
                   gap: 8,
                   activeColor: Colors.white,
                   iconSize: 14,
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  duration: Duration(milliseconds: 800),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  duration: const Duration(milliseconds: 800),
                   tabBackgroundColor: ColorManager.AppBarHomeColorIcon,
                   color: Colors.grey[400],
                   tabBorderRadius: 12,
@@ -186,7 +181,7 @@ class _HomeScreenUserViewState extends State<HomeScreenCompanyView> {
                         setState(() {
                           overLaySheet = !overLaySheet;
                           overLaySheet == true
-                              ? WidgetsBinding.instance!.addPostFrameCallback(
+                              ? WidgetsBinding.instance.addPostFrameCallback(
                                   (timeStamp) => ShowOverlay())
                               : hideOverLay();
                         });
@@ -293,7 +288,7 @@ class _buildOverlayState extends State<buildOverlay> {
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => UnitCrudView(),
+                              builder: (_) => const UnitCrudView(),
                             ),
                           );
                         },
@@ -303,7 +298,7 @@ class _buildOverlayState extends State<buildOverlay> {
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => UnitCrudView(
+                              builder: (_) => const UnitCrudView(
                                 adsType: 'Feature',
                               ),
                             ),
@@ -325,7 +320,7 @@ class _buildOverlayState extends State<buildOverlay> {
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => NotificationScreen(),
+                              builder: (_) => const NotificationScreen(),
                             ),
                           );
                         },
@@ -355,7 +350,7 @@ class _buildOverlayState extends State<buildOverlay> {
             color: Colors.grey,
           ),
         ),
-        Container(
+        SizedBox(
           width: sizeFromWidth(1.2),
           child: ListTile(
             onTap: () {
@@ -425,7 +420,7 @@ AppBar CustomVompany(context, title) {
         ),
       ),
     ),
-    shape: ContinuousRectangleBorder(
+    shape: const ContinuousRectangleBorder(
       borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
     ),
     centerTitle: true,
@@ -435,7 +430,7 @@ AppBar CustomVompany(context, title) {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (_) => NotificationScreen(),
+              builder: (_) => const NotificationScreen(),
             ),
           );
         },

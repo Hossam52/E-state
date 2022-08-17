@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +9,7 @@ import 'package:osol/Shared/constants.dart';
 import 'package:osol/common_models/unit_model.dart';
 
 class DistanceList extends StatefulWidget {
-  DistanceList({Key? key, required this.unit}) : super(key: key);
+  const DistanceList({Key? key, required this.unit}) : super(key: key);
 
   @override
   State<DistanceList> createState() => _DistanceListState();

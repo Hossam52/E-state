@@ -1,12 +1,7 @@
-import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
-import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
-import 'package:osol/Shared/component/getShared.dart';
 import 'package:osol/Shared/constants.dart';
-import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
 import 'package:osol/User/DataLayer/DataProvider/dioHelper.dart';
 import 'package:osol/User/DataLayer/Model/modelOfData/savedModel/SavedModel.dart';
 import 'package:osol/common_models/unit_model.dart';
@@ -61,11 +56,13 @@ class SavedCubit extends Cubit<SavedState> {
       );
       if (response.statusCode == 200) {
         savedGetModel = SavedModel.fromJson(response.data);
-        savedGetModel?.units?.data?.forEach((element) {
-          dataUnit.add(element);
-          debugPrint("Saved unit ${dataUnit}");
-          emit(SuccessGetSavedData());
-        });
+        if (savedGetModel != null && savedGetModel!.units != null) {
+          for (var element in savedGetModel!.units!.data) {
+            dataUnit.add(element);
+            debugPrint("Saved unit $dataUnit");
+            emit(SuccessGetSavedData());
+          }
+        }
       } else {
         print("error");
       }
@@ -120,7 +117,7 @@ class SavedCubit extends Cubit<SavedState> {
     start = value.start;
     end = value.end;
     emit(ChangeValueOfSlider());
-    print("${start},$end");
+    print("$start,$end");
   }
 
   int indexOfTypeOfFilter = 2;

@@ -42,7 +42,7 @@ class _MessageViewState extends State<MessageView> {
                     BorderRadius.vertical(bottom: Radius.circular(10)),
               ),
               centerTitle: true,
-              title: Text(
+              title: const Text(
                 "Messages",
               ),
             ),
@@ -115,7 +115,7 @@ class _MessageViewState extends State<MessageView> {
                     onPressed: () async {
                       await ChatsCubit.instance(context).getAllChats();
                     },
-                    child: Text('Press')),
+                    child: const Text('Press')),
                 Divider(
                   height: 0.2,
                   color: ColorManager.AppBarIconcolorGrey,

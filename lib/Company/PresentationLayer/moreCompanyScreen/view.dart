@@ -10,8 +10,6 @@ import 'package:osol/User/PresentaionLayer/PrivacyAndPolicyScreen/view.dart';
 import 'package:osol/User/PresentaionLayer/aboutScreen/view.dart';
 import 'package:osol/User/PresentaionLayer/appsettingScreen/view.dart';
 import 'package:osol/User/PresentaionLayer/customerServicesScreen/view.dart';
-import 'package:osol/User/PresentaionLayer/messegeScreen/view.dart';
-import 'package:osol/User/PresentaionLayer/profileScreen/view.dart';
 
 import '../companyMessage/view.dart';
 
@@ -40,7 +38,7 @@ class MoreViewCompanyScreen extends StatelessWidget {
               context,
               title: 'Company Projects',
               subTitle: 'change your account data,email,password...etc',
-              screen: CompanyProjectScreen(),
+              screen: const CompanyProjectScreen(),
               icon: OsolIcon.estate,
             ),
             _listTileItem(

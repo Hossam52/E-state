@@ -6,13 +6,10 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Company/PresentationLayer/registerition/registeration/view.dart';
-import 'package:osol/Shared/Customicon.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/Shared/darkmood_switch.dart';
-import 'package:osol/User/BussinssLogic/AppSettingCubit/app_setting_cubit.dart';
 import 'package:osol/User/BussinssLogic/authCubit/auth_cubit.dart';
 import 'package:osol/User/BussinssLogic/commonCubit/profieCubit/profile_cubit.dart';
 import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
@@ -31,17 +28,17 @@ class DrawerMenuBody extends StatelessWidget {
     return showDialog(
         context: context,
         builder: (BuildContext context) => CupertinoAlertDialog(
-              title: Text("Exit"),
-              content: Text("Are you sure you want to leave the app?"),
+              title: const Text("Exit"),
+              content: const Text("Are you sure you want to leave the app?"),
               actions: [
                 CupertinoDialogAction(
-                    child: Text("YES"),
+                    child: const Text("YES"),
                     onPressed: () {
                       SystemChannels.platform
                           .invokeMethod('SystemNavigator.pop');
                     }),
                 CupertinoDialogAction(
-                    child: Text("NO"),
+                    child: const Text("NO"),
                     onPressed: () {
                       Navigator.of(context).pop(false);
                     })
@@ -80,7 +77,7 @@ class DrawerMenuBody extends StatelessWidget {
                           children: [
                             cubit2.userToken == null &&
                                     cubit3.getMyToken == null
-                                ? CircleAvatar(
+                                ? const CircleAvatar(
                                     radius: 35,
                                     backgroundImage:
                                         AssetImage("assets/images/guest.png"),
@@ -92,12 +89,12 @@ class DrawerMenuBody extends StatelessWidget {
                                     ),
                                     backgroundColor: Colors.transparent,
                                   ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Text(
-                              "${cubit.profileModel?.client?.userName == null ? "" : cubit.profileModel?.client?.userName}",
-                              style: TextStyle(
+                              cubit.profileModel?.client?.userName ?? "",
+                              style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.white,
@@ -126,7 +123,7 @@ class DrawerMenuBody extends StatelessWidget {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (_) => SavedScreen()));
                                 },
-                                child: Container(
+                                child: SizedBox(
                                   height: sizeFromHeight(18),
                                   child: Row(
                                     children: [
@@ -134,10 +131,10 @@ class DrawerMenuBody extends StatelessWidget {
                                         FontAwesomeIcons.solidBookmark,
                                         color: ColorManager.WhiteScreen,
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
-                                      Text(
+                                      const Text(
                                         "Saved",
                                         style: TextStyle(
                                           color: Colors.white,
@@ -149,10 +146,10 @@ class DrawerMenuBody extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
-                              Container(
+                              SizedBox(
                                 height: sizeFromHeight(18),
                                 child: Row(
                                   children: [
@@ -162,7 +159,7 @@ class DrawerMenuBody extends StatelessWidget {
                                         color: ColorManager.WhiteScreen,
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     InkWell(
@@ -170,7 +167,7 @@ class DrawerMenuBody extends StatelessWidget {
                                           .push(MaterialPageRoute(
                                         builder: (_) => MessageView(),
                                       )),
-                                      child: Text(
+                                      child: const Text(
                                         "Messages",
                                         style: TextStyle(
                                           color: Colors.white,
@@ -182,10 +179,10 @@ class DrawerMenuBody extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
-                              Container(
+                              SizedBox(
                                 height: sizeFromHeight(18),
                                 child: Row(
                                   children: [
@@ -193,7 +190,7 @@ class DrawerMenuBody extends StatelessWidget {
                                       FontAwesomeIcons.gear,
                                       color: ColorManager.WhiteScreen,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     InkWell(
@@ -201,7 +198,7 @@ class DrawerMenuBody extends StatelessWidget {
                                           .push(MaterialPageRoute(
                                         builder: (_) => AppSettingView(),
                                       )),
-                                      child: Text(
+                                      child: const Text(
                                         "Settings",
                                         style: TextStyle(
                                           color: Colors.white,
@@ -213,10 +210,10 @@ class DrawerMenuBody extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
-                              Container(
+                              SizedBox(
                                 height: sizeFromHeight(18),
                                 child: Row(
                                   children: [
@@ -224,7 +221,7 @@ class DrawerMenuBody extends StatelessWidget {
                                       FontAwesomeIcons.phone,
                                       color: ColorManager.WhiteScreen,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     InkWell(
@@ -232,7 +229,7 @@ class DrawerMenuBody extends StatelessWidget {
                                           .push(MaterialPageRoute(
                                         builder: (_) => CustomerServicesView(),
                                       )),
-                                      child: Text(
+                                      child: const Text(
                                         "Contact Us",
                                         style: TextStyle(
                                           color: Colors.white,
@@ -244,10 +241,10 @@ class DrawerMenuBody extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
-                              Container(
+                              SizedBox(
                                 height: sizeFromHeight(18),
                                 child: Row(
                                   children: [
@@ -255,7 +252,7 @@ class DrawerMenuBody extends StatelessWidget {
                                       child: SvgPicture.asset(
                                           "assets/images/examilation.svg"),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 15,
                                     ),
                                     InkWell(
@@ -263,7 +260,7 @@ class DrawerMenuBody extends StatelessWidget {
                                           .push(MaterialPageRoute(
                                         builder: (_) => AboutView(),
                                       )),
-                                      child: Text(
+                                      child: const Text(
                                         "About App",
                                         style: TextStyle(
                                           color: Colors.white,
@@ -275,10 +272,10 @@ class DrawerMenuBody extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
-                              Container(
+                              SizedBox(
                                 height: sizeFromHeight(18),
                                 child: Row(
                                   mainAxisAlignment:
@@ -292,7 +289,7 @@ class DrawerMenuBody extends StatelessWidget {
                                         size: 20,
                                       ),
                                     ),
-                                    Expanded(
+                                    const Expanded(
                                       flex: 2,
                                       child: Text(
                                         "Dark mode",
@@ -303,17 +300,17 @@ class DrawerMenuBody extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    Expanded(
+                                    const Expanded(
                                       flex: 1,
                                       child: DarkmoodSwitch(),
                                     ),
                                   ],
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
-                              Container(
+                              SizedBox(
                                 height: sizeFromHeight(18),
                                 child: Row(
                                   mainAxisAlignment:
@@ -326,7 +323,7 @@ class DrawerMenuBody extends StatelessWidget {
                                         color: ColorManager.WhiteScreen,
                                       ),
                                     ),
-                                    Expanded(
+                                    const Expanded(
                                       flex: 2,
                                       child: Text(
                                         "Languages",
@@ -341,7 +338,7 @@ class DrawerMenuBody extends StatelessWidget {
                                       flex: 1,
                                       child: IconButton(
                                           onPressed: () {},
-                                          icon: Icon(
+                                          icon: const Icon(
                                             Icons.arrow_forward_ios,
                                             color: Colors.white,
                                           )),
@@ -360,7 +357,7 @@ class DrawerMenuBody extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10.0, top: 10),
                       child: SingleChildScrollView(
-                        child: Container(
+                        child: SizedBox(
                           height: sizeFromHeight(10),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -376,7 +373,7 @@ class DrawerMenuBody extends StatelessWidget {
                                   child: FittedBox(
                                     fit: BoxFit.scaleDown,
                                     child: Container(
-                                      child: Text(
+                                      child: const Text(
                                         "Register as a company",
                                         style: TextStyle(
                                           color: Colors.white,
@@ -386,7 +383,7 @@ class DrawerMenuBody extends StatelessWidget {
                                       ),
                                     ),
                                   )),
-                              Container(
+                              SizedBox(
                                 height: sizeFromHeight(18),
                                 child: Row(
                                   children: [
@@ -394,7 +391,7 @@ class DrawerMenuBody extends StatelessWidget {
                                       FontAwesomeIcons.arrowRightFromBracket,
                                       color: ColorManager.WhiteScreen,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     cubit2.userToken == null &&
@@ -406,7 +403,7 @@ class DrawerMenuBody extends StatelessWidget {
                                                       builder: (_) =>
                                                           SignInView()));
                                             },
-                                            child: Text(
+                                            child: const Text(
                                               "Sign In",
                                               style: TextStyle(
                                                 color: Colors.white,
@@ -420,7 +417,7 @@ class DrawerMenuBody extends StatelessWidget {
                                               await AuthCubit.get(context)
                                                   .logOut(context: context);
                                             },
-                                            child: Text(
+                                            child: const Text(
                                               "LogOut",
                                               style: TextStyle(
                                                 color: Colors.white,

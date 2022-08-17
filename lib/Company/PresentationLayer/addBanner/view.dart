@@ -1,23 +1,19 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:osol/Company/PresentationLayer/DawerScreen/view.dart';
-import 'package:osol/Company/PresentationLayer/registerition/registeration/view.dart';
 import 'package:osol/Company/PresentationLayer/unit_crud/unit_crud_widgets.dart';
 import 'package:osol/Company/PresentationLayer/unit_crud/widgets/add_custom_date.dart';
 import 'package:osol/Company/businessLogicLayer/bannersCubit/banners_cubit.dart';
 import 'package:path/path.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/DataLayer/Model/modelOfData/onBoardingModel.dart';
-import 'package:intl/src/intl/date_format.dart';
 import 'package:path_provider/path_provider.dart';
 
 class AddBannerInCompanyScreen extends StatefulWidget {
@@ -45,7 +41,7 @@ class _AddBannerInCompanyScreenState extends State<AddBannerInCompanyScreen> {
 
   navigateFun(context) {
     Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (BuildContext context) => NavigationDrawerCompany()));
+        builder: (BuildContext context) => const NavigationDrawerCompany()));
   }
 
   @override
@@ -67,26 +63,26 @@ class _AddBannerInCompanyScreenState extends State<AddBannerInCompanyScreen> {
                   onPressed: () {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (BuildContext context) =>
-                            NavigationDrawerCompany()));
+                            const NavigationDrawerCompany()));
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back,
                     size: 28,
                   ),
                 ),
-                shape: ContinuousRectangleBorder(
+                shape: const ContinuousRectangleBorder(
                   borderRadius:
                       BorderRadius.vertical(bottom: Radius.circular(10)),
                 ),
                 centerTitle: true,
-                title: Text(
+                title: const Text(
                   "Add Banner",
                 ),
               ),
               body: Form(
                 key: bannerFormKey,
                 child: CustomScrollView(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   slivers: [
                     SliverToBoxAdapter(
                       child: Padding(
@@ -179,13 +175,13 @@ class _AddBannerInCompanyScreenState extends State<AddBannerInCompanyScreen> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 20),
-                        child: Container(
+                        child: SizedBox(
                           height: sizeFromHeight(10),
                           child: state is LoadingAddBannerState
-                              ? Center(child: CircularProgressIndicator())
+                              ? const Center(child: CircularProgressIndicator())
                               : ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      maximumSize: Size(double.infinity, 50)),
+                                      maximumSize: const Size(double.infinity, 50)),
                                   onPressed: () async {
                                     if (!bannerFormKey.currentState!
                                         .validate()) {
@@ -201,7 +197,7 @@ class _AddBannerInCompanyScreenState extends State<AddBannerInCompanyScreen> {
                                       );
                                     }
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     "Publish",
                                     style: TextStyle(
                                         color: Colors.white,
@@ -243,7 +239,7 @@ class _CustomIAddBannerImageCompaniesState
       });
     } on PlatformException catch (e) {
       Fluttertoast.showToast(
-          msg: "${e.toString()}",
+          msg: e.toString(),
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
@@ -272,7 +268,7 @@ class _CustomIAddBannerImageCompaniesState
                 ? cubit.changeImageBannerData(imageFile: image)
                 : debugPrint("Image Null data");
           }),
-          child: Container(
+          child: SizedBox(
             height: sizeFromHeight(8),
             width: 327.w,
             child: Container(
@@ -305,8 +301,8 @@ class _CustomIAddBannerImageCompaniesState
                                 alignment: Alignment.center,
                                 child: SvgPicture.asset(
                                     "assets/images/imageunit.svg")),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
                               child: Icon(
                                 Icons.add,
                                 size: 40,

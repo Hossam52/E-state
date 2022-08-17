@@ -3,17 +3,17 @@ import 'package:osol/common_models/pagination/meta.dart';
 import 'package:osol/common_models/unit_model.dart';
 
 class AllUnitsModel {
-  List<UnitModel>? data;
+  List<UnitModel> data = [];
   Links? links;
   Meta? meta;
 
-  AllUnitsModel({this.data, this.links, this.meta});
+  AllUnitsModel({required this.data, this.links, this.meta});
 
   AllUnitsModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
       data = <UnitModel>[];
       json['data'].forEach((v) {
-        data!.add(UnitModel.fromJson(v));
+        data.add(UnitModel.fromJson(v));
       });
     }
     links = json['links'] != null ? Links.fromJson(json['links']) : null;
@@ -23,7 +23,7 @@ class AllUnitsModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+      data['data'] = this.data.map((v) => v.toJson()).toList();
     }
     if (links != null) {
       data['links'] = links!.toJson();

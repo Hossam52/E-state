@@ -1,26 +1,21 @@
 import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:meta/meta.dart';
 import 'package:osol/Company/PresentationLayer/DawerScreen/view.dart';
 import 'package:osol/Company/dataLayer/dataModel/verifyCompanyModel.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/BussinssLogic/commonCubit/profieCubit/profile_cubit.dart';
 import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
 import 'package:osol/User/DataLayer/DataProvider/dioHelper.dart';
-import 'package:osol/User/DataLayer/Model/modelOfData/countryModel/modelOfData.dart';
 import 'package:osol/User/DataLayer/Model/modelOfData/modelOfLogIn/modelOfLogin.dart';
-import 'package:osol/User/DataLayer/Model/modelOfData/modelOfOTPResponce/modelOfOTPResponce.dart';
 import 'package:osol/User/PresentaionLayer/DawerScreen/view.dart';
 import 'package:osol/User/PresentaionLayer/RegisterScreen/forgetPassword/otpForgetPassword.dart';
 import 'package:osol/User/PresentaionLayer/RegisterScreen/otpScreen/view.dart';
 import 'package:osol/User/PresentaionLayer/RegisterScreen/signIn/view.dart';
 
-import '../../../main.dart';
 import '../../DataLayer/localDataLayer/localData.dart';
 
 part 'auth_state.dart';
@@ -95,7 +90,7 @@ class AuthCubit extends Cubit<AuthState> {
             fontSize: 16.0);
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (_) => PinCodeVerificationScreen(),
+            builder: (_) => const PinCodeVerificationScreen(),
           ),
         );
         return response;
@@ -125,7 +120,7 @@ class AuthCubit extends Cubit<AuthState> {
       // }
     } catch (error) {
       Fluttertoast.showToast(
-          msg: "${error}",
+          msg: "$error",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 3,
@@ -189,7 +184,7 @@ class AuthCubit extends Cubit<AuthState> {
         data: {"token": otpValue},
       );
       if (response.statusCode == 200 && response.data["status"] == true) {
-        debugPrint("OTP Responce:${response}");
+        debugPrint("OTP Responce:$response");
         emit(SuccessSendOTP());
         Fluttertoast.showToast(
             msg: "تم تفعيل الحساب بنجاح",
@@ -215,7 +210,7 @@ class AuthCubit extends Cubit<AuthState> {
             ? await Shared.prefSetString(
                 key: "CompanyTokenVerify", value: userToken)
             : print(userToken);
-        debugPrint("verify data ${userToken}");
+        debugPrint("verify data $userToken");
         ProfileCubit.get(context).getProfileData();
         HomeCubit.get(context).getDataOfHome();
         Navigator.of(context).pushReplacement(
@@ -246,7 +241,7 @@ class AuthCubit extends Cubit<AuthState> {
   String? clientToken;
 
   Future logInAsUser({email, password, context}) async {
-    debugPrint("${userToken}");
+    debugPrint("$userToken");
     emit(LoadingSignIn());
     Response response;
     LoginResultModel? loginResponse;
@@ -277,7 +272,7 @@ class AuthCubit extends Cubit<AuthState> {
             textColor: Colors.white,
             fontSize: 16.0);
         Navigator.of(context).push(
-            MaterialPageRoute(builder: (_) => PinCodeVerificationScreen()));
+            MaterialPageRoute(builder: (_) => const PinCodeVerificationScreen()));
         return response;
       } else if (response.data["status"] == true &&
           response.data["type"] == "company") {
@@ -296,8 +291,8 @@ class AuthCubit extends Cubit<AuthState> {
         userToken != null
             ? await Shared.prefSetString(
                 key: "CompanyTokenVerify", value: userToken)
-            : print("fff${userToken}");
-        debugPrint(";;;;${userToken}");
+            : print("fff$userToken");
+        debugPrint(";;;;$userToken");
         Fluttertoast.showToast(
             msg: "تم التسجيل بنجاح",
             toastLength: Toast.LENGTH_SHORT,
@@ -308,7 +303,7 @@ class AuthCubit extends Cubit<AuthState> {
             fontSize: 16.0);
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (_) => NavigationDrawerCompany(),
+            builder: (_) => const NavigationDrawerCompany(),
           ),
         );
         return response;
@@ -331,7 +326,7 @@ class AuthCubit extends Cubit<AuthState> {
             ? await Shared.prefSetString(
                 key: "CompanyTokenVerify", value: userToken)
             : print(userToken);
-        debugPrint("hhhhhh]${userToken}");
+        debugPrint("hhhhhh]$userToken");
         clientToken = userToken;
         await ProfileCubit.get(context).getProfileData();
         HomeCubit.get(context).getDataOfHome();
@@ -354,7 +349,7 @@ class AuthCubit extends Cubit<AuthState> {
       }
     } catch (e) {
       emit(ErrorSignInMain());
-      print("${e.toString()}");
+      print(e.toString());
       Fluttertoast.showToast(
           msg: "$e",
           toastLength: Toast.LENGTH_SHORT,
@@ -376,15 +371,11 @@ class AuthCubit extends Cubit<AuthState> {
       Response response = await DioHelper.postData(
         url: resendOTP,
         data: {
-          "email": emailRegister == null
-              ? emailLog == null
-                  ? emailForgetPassword
-                  : emailLog
-              : emailRegister
+          "email": emailRegister ?? (emailLog ?? emailForgetPassword)
         },
       );
       if (response.statusCode == 200 && response.data["status"] == true) {
-        debugPrint("OTP Responce:${response}");
+        debugPrint("OTP Responce:$response");
         emit(SuccessSendOTP());
         Fluttertoast.showToast(
             msg: "${response.data["message"]}",
@@ -414,7 +405,7 @@ class AuthCubit extends Cubit<AuthState> {
   Future logOut({context}) async {
     final mainToken = await Shared.prefGetString(key: "CompanyTokenVerify");
     emit(LoadingLogOut());
-    debugPrint("${mainToken}");
+    debugPrint("$mainToken");
     Response response;
     try {
       response = await DioHelper.postDataWithAuth(
@@ -453,7 +444,7 @@ class AuthCubit extends Cubit<AuthState> {
     } catch (e) {
       emit(ErrorLogOut());
       Fluttertoast.showToast(
-          msg: "${e.toString()}",
+          msg: e.toString(),
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 3,
@@ -504,7 +495,7 @@ class AuthCubit extends Cubit<AuthState> {
     } catch (e) {
       emit(ErrorForgetPass());
       Fluttertoast.showToast(
-          msg: "${e.toString()}",
+          msg: e.toString(),
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 10,
@@ -532,7 +523,7 @@ class AuthCubit extends Cubit<AuthState> {
       print(pass);
       print(passConfirm);
       if (response.statusCode == 200 && response.data["status"] == true) {
-        debugPrint("OTP Responce:${response}");
+        debugPrint("OTP Responce:$response");
         emit(SuccessSendOTP());
         Fluttertoast.showToast(
             msg: "تم تفعيل الحساب بنجاح",
@@ -557,7 +548,7 @@ class AuthCubit extends Cubit<AuthState> {
             ? await Shared.prefSetString(
                 key: "CompanyTokenVerify", value: userToken)
             : print(userToken);
-        debugPrint("verify data ${userToken}");
+        debugPrint("verify data $userToken");
         ProfileCubit.get(context).getProfileData();
         HomeCubit.get(context).getDataOfHome();
         Navigator.of(context).pushReplacement(

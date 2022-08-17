@@ -10,14 +10,14 @@ class AllProjectsModel {
   AllProjectsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     project =
-        json['project'] != null ? new Projects.fromJson(json['project']) : null;
+        json['project'] != null ? Projects.fromJson(json['project']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    if (this.project != null) {
-      data['project'] = this.project!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    if (project != null) {
+      data['project'] = project!.toJson();
     }
     return data;
   }
@@ -34,23 +34,23 @@ class Projects {
     if (json['data'] != null) {
       data = <DataOfProjects>[];
       json['data'].forEach((v) {
-        data!.add(new DataOfProjects.fromJson(v));
+        data!.add(DataOfProjects.fromJson(v));
       });
     }
-    links = json['links'] != null ? new Links.fromJson(json['links']) : null;
-    meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
+    links = json['links'] != null ? Links.fromJson(json['links']) : null;
+    meta = json['meta'] != null ? Meta.fromJson(json['meta']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
-    if (this.links != null) {
-      data['links'] = this.links!.toJson();
+    if (links != null) {
+      data['links'] = links!.toJson();
     }
-    if (this.meta != null) {
-      data['meta'] = this.meta!.toJson();
+    if (meta != null) {
+      data['meta'] = meta!.toJson();
     }
     return data;
   }
@@ -106,21 +106,21 @@ class DataOfProjects {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['long'] = this.long;
-    data['lat'] = this.lat;
-    data['country_id'] = this.countryId;
-    data['city_id'] = this.cityId;
-    data['country'] = this.country;
-    data['city'] = this.city;
-    data['delivery_date'] = this.deliveryDate;
-    data['description'] = this.description;
-    data['company'] = this.company;
-    data['num_of_units'] = this.numOfUnits;
-    data['status'] = this.status;
-    data['image'] = this.image;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    data['long'] = long;
+    data['lat'] = lat;
+    data['country_id'] = countryId;
+    data['city_id'] = cityId;
+    data['country'] = country;
+    data['city'] = city;
+    data['delivery_date'] = deliveryDate;
+    data['description'] = description;
+    data['company'] = company;
+    data['num_of_units'] = numOfUnits;
+    data['status'] = status;
+    data['image'] = image;
     return data;
   }
 }

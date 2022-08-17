@@ -2,18 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
-import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_states.dart';
 import 'package:osol/Shared/Customicon.dart';
 import 'package:osol/Shared/component/search_and_filter_widget.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/Shared/unit_bookmark.dart';
-import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
 import 'package:osol/User/BussinssLogic/savedCubit/saved_cubit.dart';
 import 'package:osol/User/BussinssLogic/unitCubit/unit_cubit.dart';
-import 'package:osol/User/PresentaionLayer/HomeScreen/HomeScreenView.dart';
 import 'package:osol/User/PresentaionLayer/UnitsScreenDetails/view.dart';
 import 'package:osol/common_models/unit_model.dart';
 
@@ -23,6 +19,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  @override
   void initState() {
     super.initState();
     FilterCubit.instance(context).resetSearchText();
@@ -120,7 +117,7 @@ class _SearchScreenState extends State<SearchScreen> {
 class HorizontalCard extends StatelessWidget {
   final UnitModel unit;
 
-  HorizontalCard({required this.unit});
+  const HorizontalCard({required this.unit});
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +137,7 @@ class HorizontalCard extends StatelessWidget {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             elevation: 2,
-            child: Container(
+            child: SizedBox(
                 height: sizeFromHeight(5),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,

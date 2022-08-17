@@ -7,14 +7,14 @@ class CompanyModel {
   CompanyModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     company =
-    json['company'] != null ? new Company.fromJson(json['company']) : null;
+        json['company'] != null ? Company.fromJson(json['company']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    if (this.company != null) {
-      data['company'] = this.company!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    if (company != null) {
+      data['company'] = company!.toJson();
     }
     return data;
   }
@@ -31,23 +31,23 @@ class Company {
     if (json['data'] != null) {
       data = <CompanyData>[];
       json['data'].forEach((v) {
-        data!.add(new CompanyData.fromJson(v));
+        data!.add(CompanyData.fromJson(v));
       });
     }
-    links = json['links'] != null ? new Links.fromJson(json['links']) : null;
-    meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
+    links = json['links'] != null ? Links.fromJson(json['links']) : null;
+    meta = json['meta'] != null ? Meta.fromJson(json['meta']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
-    if (this.links != null) {
-      data['links'] = this.links!.toJson();
+    if (links != null) {
+      data['links'] = links!.toJson();
     }
-    if (this.meta != null) {
-      data['meta'] = this.meta!.toJson();
+    if (meta != null) {
+      data['meta'] = meta!.toJson();
     }
     return data;
   }
@@ -70,18 +70,18 @@ class CompanyData {
 
   CompanyData(
       {this.id,
-        this.name,
-        this.email,
-        this.country,
-        this.city,
-        this.motherCompany,
-        this.image,
-        this.address,
-        this.about,
-        this.branchesNum,
-        this.type,
-        this.regestrationNum,
-        this.phone});
+      this.name,
+      this.email,
+      this.country,
+      this.city,
+      this.motherCompany,
+      this.image,
+      this.address,
+      this.about,
+      this.branchesNum,
+      this.type,
+      this.regestrationNum,
+      this.phone});
 
   CompanyData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -100,20 +100,20 @@ class CompanyData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['country'] = this.country;
-    data['city'] = this.city;
-    data['mother_company'] = this.motherCompany;
-    data['image'] = this.image;
-    data['address'] = this.address;
-    data['about'] = this.about;
-    data['branches_num'] = this.branchesNum;
-    data['type'] = this.type;
-    data['regestration_num'] = this.regestrationNum;
-    data['phone'] = this.phone;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['email'] = email;
+    data['country'] = country;
+    data['city'] = city;
+    data['mother_company'] = motherCompany;
+    data['image'] = image;
+    data['address'] = address;
+    data['about'] = about;
+    data['branches_num'] = branchesNum;
+    data['type'] = type;
+    data['regestration_num'] = regestrationNum;
+    data['phone'] = phone;
     return data;
   }
 }
@@ -121,8 +121,8 @@ class CompanyData {
 class Links {
   String? first;
   String? last;
-  Null? prev;
-  Null? next;
+  dynamic prev;
+  dynamic next;
 
   Links({this.first, this.last, this.prev, this.next});
 
@@ -134,11 +134,11 @@ class Links {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['first'] = this.first;
-    data['last'] = this.last;
-    data['prev'] = this.prev;
-    data['next'] = this.next;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['first'] = first;
+    data['last'] = last;
+    data['prev'] = prev;
+    data['next'] = next;
     return data;
   }
 }
@@ -154,12 +154,12 @@ class Meta {
 
   Meta(
       {this.currentPage,
-        this.from,
-        this.lastPage,
-        this.path,
-        this.perPage,
-        this.to,
-        this.total});
+      this.from,
+      this.lastPage,
+      this.path,
+      this.perPage,
+      this.to,
+      this.total});
 
   Meta.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
@@ -172,14 +172,14 @@ class Meta {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['current_page'] = this.currentPage;
-    data['from'] = this.from;
-    data['last_page'] = this.lastPage;
-    data['path'] = this.path;
-    data['per_page'] = this.perPage;
-    data['to'] = this.to;
-    data['total'] = this.total;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['current_page'] = currentPage;
+    data['from'] = from;
+    data['last_page'] = lastPage;
+    data['path'] = path;
+    data['per_page'] = perPage;
+    data['to'] = to;
+    data['total'] = total;
     return data;
   }
 }

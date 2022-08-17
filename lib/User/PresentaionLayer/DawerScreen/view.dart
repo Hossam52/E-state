@@ -30,17 +30,17 @@ class _NavigationDrawerState extends State<NavigationDrawer>
       return showDialog(
           context: context,
           builder: (BuildContext context) => CupertinoAlertDialog(
-                title: Text("Exit"),
-                content: Text("Are you sure you want to leave the app?"),
+                title: const Text("Exit"),
+                content: const Text("Are you sure you want to leave the app?"),
                 actions: [
                   CupertinoDialogAction(
-                      child: Text("YES"),
+                      child: const Text("YES"),
                       onPressed: () {
                         SystemChannels.platform
                             .invokeMethod('SystemNavigator.pop');
                       }),
                   CupertinoDialogAction(
-                      child: Text("NO"),
+                      child: const Text("NO"),
                       onPressed: () {
                         Navigator.of(context).pop(false);
                       })
@@ -79,7 +79,7 @@ class _NavigationDrawerState extends State<NavigationDrawer>
             openCurve: Curves.fastOutSlowIn,
             closeCurve: Curves.bounceOut,
             androidCloseOnBackTap: true,
-            duration: Duration(milliseconds: 200),
+            duration: const Duration(milliseconds: 200),
           ),
         );
       },

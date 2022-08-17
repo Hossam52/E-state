@@ -38,8 +38,8 @@ class AddUnitSelectListAreas extends StatelessWidget {
             child: DropdownButton<Areas>(
               isExpanded: true,
               value: cubit.newAreasValue,
-              underline: SizedBox(),
-              hint: Text("${title}"),
+              underline: const SizedBox(),
+              hint: Text(title),
               items: myList.map((Areas value) {
                 return DropdownMenuItem(
                   value: value,

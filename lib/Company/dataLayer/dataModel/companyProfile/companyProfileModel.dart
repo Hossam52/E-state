@@ -7,14 +7,14 @@ class CompanyProfileModel {
   CompanyProfileModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     company =
-    json['company'] != null ? new Company.fromJson(json['company']) : null;
+    json['company'] != null ? Company.fromJson(json['company']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    if (this.company != null) {
-      data['company'] = this.company!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    if (company != null) {
+      data['company'] = company!.toJson();
     }
     return data;
   }
@@ -67,20 +67,20 @@ class Company {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['country'] = this.country;
-    data['city'] = this.city;
-    data['mother_company'] = this.motherCompany;
-    data['image'] = this.image;
-    data['address'] = this.address;
-    data['about'] = this.about;
-    data['branches_num'] = this.branchesNum;
-    data['type'] = this.type;
-    data['regestration_num'] = this.regestrationNum;
-    data['phone'] = this.phone;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['email'] = email;
+    data['country'] = country;
+    data['city'] = city;
+    data['mother_company'] = motherCompany;
+    data['image'] = image;
+    data['address'] = address;
+    data['about'] = about;
+    data['branches_num'] = branchesNum;
+    data['type'] = type;
+    data['regestration_num'] = regestrationNum;
+    data['phone'] = phone;
     return data;
   }
 }

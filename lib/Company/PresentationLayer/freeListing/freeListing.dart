@@ -1,26 +1,15 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:osol/Company/PresentationLayer/UnitsScreenDetailsCompany/view.dart';
-import 'package:osol/Company/businessLogicLayer/filter_cubit/filter_cubit.dart';
 import 'package:osol/Company/businessLogicLayer/popularList/popular_cubit.dart';
-import 'package:osol/Company/businessLogicLayer/unitsCubit/unit_cubit.dart';
 import 'package:osol/Shared/Customicon.dart';
-import 'package:osol/Shared/component/custom_search_bar.dart';
-import 'package:osol/Shared/component/filter_dialog.dart';
 import 'package:osol/Shared/component/methods..dart';
 import 'package:osol/Shared/component/search_and_filter_widget.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/Shared/customListLabel.dart';
-import 'package:osol/Shared/search_field.dart';
-import 'package:osol/User/PresentaionLayer/HomeScreen/units.dart';
-import 'package:osol/User/PresentaionLayer/UnitsScreenDetails/view.dart';
-import 'package:osol/User/PresentaionLayer/searchScreen/view.dart';
 import 'package:osol/common_models/unit_model.dart';
 
 class PopularScreen extends StatefulWidget {
@@ -82,7 +71,7 @@ class _PopularScreenState extends State<PopularScreen> {
                     ),
                     child: SizedBox(
                       height: sizeFromHeight(18),
-                      child: CompanyFilterLabelsWidget(
+                      child: const CompanyFilterLabelsWidget(
                         num: 200,
                       ),
                     ),
@@ -221,7 +210,7 @@ class _StatuesesTabBar extends StatelessWidget {
 
 class CardFreeListingData extends StatelessWidget {
   final UnitModel unit;
-  CardFreeListingData({required this.unit});
+  const CardFreeListingData({required this.unit});
 
   @override
   Widget build(BuildContext context) {

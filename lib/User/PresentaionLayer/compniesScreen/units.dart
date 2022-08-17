@@ -1,13 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_launch/flutter_launch.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:osol/Shared/component/search_and_filter_widget.dart';
 import 'package:osol/User/BussinssLogic/AppSettingCubit/app_setting_cubit.dart';
 import 'package:osol/User/DataLayer/Model/modelOfData/companyModel/CompanyModel.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
@@ -21,7 +18,7 @@ import 'companiesDetails.dart';
 
 class CompaniesListView extends StatelessWidget {
   final CompanyData company;
-  CompaniesListView({Key? key, required this.company}) : super(key: key);
+  const CompaniesListView({Key? key, required this.company}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +51,7 @@ class CompaniesListView extends StatelessWidget {
                   flex: 2,
                   child: Padding(
                     padding: const EdgeInsets.all(5.0),
-                    child: Container(
+                    child: SizedBox(
                       height: sizeFromHeight(6),
                       width: sizeFromHeight(6),
                       child: cubit.companyData.length == null
@@ -127,7 +124,7 @@ class CompaniesListView extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        Container(
+                        SizedBox(
                           width: sizeFromWidth(2),
                           child: Row(
                             children: [
@@ -149,7 +146,7 @@ class CompaniesListView extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        Container(
+                        SizedBox(
                           width: sizeFromWidth(2),
                           child: Row(
                             children: [
@@ -187,7 +184,7 @@ class CompaniesListView extends StatelessWidget {
 ///End Custom Company AppBar
 class GridCompanies extends StatelessWidget {
   final CompanyData company;
-  GridCompanies({required this.company});
+  const GridCompanies({required this.company});
 
   @override
   Widget build(BuildContext context) {
@@ -277,7 +274,7 @@ class GridCompanies extends StatelessWidget {
                       const SizedBox(
                         height: 4,
                       ),
-                      Container(
+                      SizedBox(
                         width: sizeFromWidth(2),
                         child: Row(
                           children: [
@@ -301,7 +298,7 @@ class GridCompanies extends StatelessWidget {
                       const SizedBox(
                         height: 4,
                       ),
-                      Container(
+                      SizedBox(
                         width: sizeFromWidth(2),
                         child: Row(
                           children: [
@@ -358,17 +355,17 @@ class _CustomWriteReviewCompaniesState
         var cubit = CompanyCubit.get(context);
         return Form(
           key: AddReviewKey,
-          child: Container(
+          child: SizedBox(
             height: sizeFromHeight(3.5),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Flexible(
+                const Flexible(
                   flex: 1,
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.only(bottom: 8.0),
-                    child: const Text(
+                    child: Text(
                       "Write A review",
                       style: TextStyle(
                           color: Colors.black87,
@@ -412,6 +409,7 @@ class _CustomWriteReviewCompaniesState
                                         if (v!.isEmpty) {
                                           return "You Must Enter Your Review";
                                         }
+                                        return null;
                                       },
                                       decoration: const InputDecoration(
                                         contentPadding: EdgeInsets.only(
@@ -491,14 +489,14 @@ class CustomReviewCompanies extends StatelessWidget {
         // TODO: implement listener
       },
       builder: (context, state) {
-        return Container(
+        return SizedBox(
           height: sizeFromHeight(2.2),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
-                child: const Text(
+                child: Text(
                   "Reviews",
                   style: TextStyle(
                       color: Colors.black87,
@@ -506,11 +504,11 @@ class CustomReviewCompanies extends StatelessWidget {
                       fontWeight: FontWeight.w600),
                 ),
               ),
-              Container(
+              SizedBox(
                 height: sizeFromHeight(3),
                 width: sizeFromWidth(1),
                 child: cubit.isReviewsLoading
-                    ? const Center(child: const CircularProgressIndicator())
+                    ? const Center(child: CircularProgressIndicator())
                     : ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: cubit.dataOfCompanyReview.length,
@@ -549,7 +547,7 @@ class CustomReviewCompanies extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                            Container(
+                                            SizedBox(
                                               height: sizeFromHeight(13),
                                               child: Column(
                                                 crossAxisAlignment:
@@ -586,7 +584,7 @@ class CustomReviewCompanies extends StatelessWidget {
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: Container(
+                                          child: SizedBox(
                                             height: sizeFromHeight(7),
                                             child: Text(
                                               "${cubit.dataOfCompanyReview[index].body}",
@@ -655,7 +653,7 @@ class CustomAboutDeveloperCompanies extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Container(
+      child: SizedBox(
         height: sizeFromHeight(19),
         width: sizeFromWidth(1.5),
         child: Padding(
@@ -664,7 +662,7 @@ class CustomAboutDeveloperCompanies extends StatelessWidget {
             children: [
               const Text(
                 "Branches",
-                style: const TextStyle(
+                style: TextStyle(
                     color: Colors.black87,
                     fontSize: 20,
                     fontWeight: FontWeight.w600),
@@ -732,7 +730,7 @@ class CustomDescriptionCompanies extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Padding(
         padding: const EdgeInsets.all(18.0),
-        child: Container(
+        child: SizedBox(
           height: sizeFromHeight(9),
           width: sizeFromWidth(1.5),
           child: Row(
@@ -829,13 +827,13 @@ class CustomdetailsOfCompanies extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(2),
       width: sizeFromWidth(1.2),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
+          SizedBox(
             width: sizeFromWidth(2.5),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -874,16 +872,16 @@ class CustomdetailsOfCompanies extends StatelessWidget {
               ],
             ),
           ),
-          Container(
+          SizedBox(
             width: sizeFromWidth(2.5),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
+                SizedBox(
                   width: sizeFromWidth(2.5),
                   child: Text(
-                    "$about",
+                    about,
                     style: const TextStyle(
                       color: Colors.black,
                       fontSize: 14,
@@ -891,28 +889,28 @@ class CustomdetailsOfCompanies extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "$companyType",
+                  companyType,
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 14,
                   ),
                 ),
                 Text(
-                  "$email",
+                  email,
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 14,
                   ),
                 ),
                 Text(
-                  "$phone",
+                  phone,
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 14,
                   ),
                 ),
                 Text(
-                  "$regiserNum",
+                  regiserNum,
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 14,
@@ -941,7 +939,7 @@ class CustomIInformationCompanies extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: sizeFromHeight(7),
       width: 327.w,
       child: Row(
@@ -965,7 +963,7 @@ class CustomIInformationCompanies extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "$companyName",
+                  companyName,
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 16,
@@ -973,7 +971,7 @@ class CustomIInformationCompanies extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "$creationDate",
+                  creationDate,
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 16,
