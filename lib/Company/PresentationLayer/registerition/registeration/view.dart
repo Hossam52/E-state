@@ -1,12 +1,13 @@
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:flrx_validator/flrx_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:osol/Company/PresentationLayer/DawerScreen/view.dart';
 import 'package:osol/Company/businessLogicLayer/authCompany/auth_company_cubit.dart';
@@ -17,6 +18,8 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
 class CompanyRegisterationScreen extends StatefulWidget {
+  const CompanyRegisterationScreen({Key? key}) : super(key: key);
+
   @override
   State<CompanyRegisterationScreen> createState() =>
       _CompanyRegisterationScreenState();
@@ -33,6 +36,7 @@ class _CompanyRegisterationScreenState
   TextEditingController companyConPassController = TextEditingController();
 
   TextEditingController companyPhoneController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
 
   TextEditingController companyBranchNumController = TextEditingController();
 
@@ -45,6 +49,24 @@ class _CompanyRegisterationScreenState
   TextEditingController companyRegisterNumController = TextEditingController();
 
   GlobalKey<FormState> myForm = GlobalKey();
+
+  @override
+  void dispose() {
+    super.dispose();
+    companyNameController.dispose();
+    companyEmailController.dispose();
+    companyPassController.dispose();
+    companyConPassController.dispose();
+
+    companyPhoneController.dispose();
+    countryController.dispose();
+    companyBranchNumController.dispose();
+    companyAboutController.dispose();
+    companyAddressController.dispose();
+    companyAddressController.dispose();
+    companyTypeController.dispose();
+    companyRegisterNumController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,12 +115,11 @@ class _CompanyRegisterationScreenState
                 ),
                 child: CustomTxtFieldCompanyProfile(
                   controller: companyTypeController,
-                  validator: (String? v) {
-                    if (v!.isEmpty) {
-                      return "You must enter the type of your company";
-                    }
-                    return null;
-                  },
+                  validator: Validator(rules: [
+                    RequiredRule(
+                        validationMessage:
+                            "You must enter the type of your company"),
+                  ]),
                   hint: "change Type",
                   title: "Company Type",
                   width: 0,
@@ -113,12 +134,11 @@ class _CompanyRegisterationScreenState
                 ),
                 child: CustomTxtFieldCompanyProfile(
                   controller: companyNameController,
-                  validator: (String? v) {
-                    if (v!.isEmpty) {
-                      return "You must enter the name of your company";
-                    }
-                    return null;
-                  },
+                  validator: Validator(rules: [
+                    RequiredRule(
+                        validationMessage:
+                            "You must enter the name of your company"),
+                  ]),
                   hint: "Change Name",
                   title: "Company Name",
                   width: 0,
@@ -132,16 +152,14 @@ class _CompanyRegisterationScreenState
                   vertical: 10,
                 ),
                 child: CustomTxtFieldCompanyProfile(
-                  validator: (String? v) {
-                    if (v!.isEmpty || !v.contains("@")) {
-                      return "You must valid email";
-                    }
-                    return null;
-                  },
+                  validator: Validator(rules: [
+                    EmailRule(),
+                  ]),
                   controller: companyEmailController,
                   hint: "Change Email",
                   title: "Email",
                   width: 0,
+                  textInputType: TextInputType.emailAddress,
                 ),
               ),
             ),
@@ -152,13 +170,14 @@ class _CompanyRegisterationScreenState
                   vertical: 10,
                 ),
                 child: CustomTxtFieldCompanyProfile(
+                  obSecure: true,
                   controller: companyPassController,
-                  validator: (String? v) {
-                    if (v!.isEmpty || v.length < 8) {
-                      return "You must enter correct Password";
-                    }
-                    return null;
-                  },
+                  validator: Validator(rules: [
+                    RequiredRule(
+                        validationMessage: "You must enter correct Password"),
+                    MinLengthRule(8,
+                        validationMessage: "You must enter correct Password")
+                  ]),
                   hint: "Enter Your Password",
                   title: "Password",
                   width: 0,
@@ -172,13 +191,14 @@ class _CompanyRegisterationScreenState
                   vertical: 10,
                 ),
                 child: CustomTxtFieldCompanyProfile(
+                  obSecure: true,
                   controller: companyConPassController,
-                  validator: (String? v) {
-                    if (v!.isEmpty || v.length < 8) {
-                      return "You must enter correct Password";
-                    }
-                    return null;
-                  },
+                  validator: Validator(rules: [
+                    RequiredRule(
+                        validationMessage: "You must enter correct Password"),
+                    MinLengthRule(8,
+                        validationMessage: "You must enter correct Password")
+                  ]),
                   hint: "Enter Your confirm Password",
                   title: "confirm Password",
                   width: 0,
@@ -192,13 +212,16 @@ class _CompanyRegisterationScreenState
                   vertical: 10,
                 ),
                 child: CustomTxtFieldCompanyProfile(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
+                  textInputType: TextInputType.number,
                   controller: companyRegisterNumController,
-                  validator: (String? v) {
-                    if (v!.isEmpty) {
-                      return "You must enter Your Registration Number";
-                    }
-                    return null;
-                  },
+                  validator: Validator(rules: [
+                    RequiredRule(
+                        validationMessage:
+                            "You must enter Your Registration Number"),
+                  ]),
                   hint: "Number",
                   title: "Registration Number",
                   width: sizeFromWidth(2.4),
@@ -254,12 +277,10 @@ class _CompanyRegisterationScreenState
                   hint: "Change Address",
                   title: "Address",
                   controller: companyAddressController,
-                  validator: (String? v) {
-                    if (v!.isEmpty) {
-                      return "You must enter correct Address";
-                    }
-                    return null;
-                  },
+                  validator: Validator(rules: [
+                    RequiredRule(
+                        validationMessage: "You must enter correct Address"),
+                  ]),
                 ),
               ),
             ),
@@ -270,6 +291,10 @@ class _CompanyRegisterationScreenState
                   vertical: 10,
                 ),
                 child: CustomTxtFieldCompanyProfile(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
+                  textInputType: TextInputType.number,
                   controller: companyBranchNumController,
                   validator: (String? v) {
                     return null;
@@ -287,13 +312,20 @@ class _CompanyRegisterationScreenState
                     vertical: 10,
                   ),
                   child: CustomTxtFieldComplexNumber(
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    textInputType: TextInputType.number,
+                    countryController: countryController,
                     controller: companyPhoneController,
-                    validator: (String? v) {
-                      if (v!.isEmpty || v.length < 8) {
-                        return "You must enter correct phone Number";
-                      }
-                      return null;
-                    },
+                    validator: Validator(rules: [
+                      RequiredRule(
+                          validationMessage:
+                              "You must enter correct phone Number"),
+                      MinLengthRule(8,
+                          validationMessage:
+                              "You must enter correct phone Number")
+                    ]),
                     title: 'Phone Number',
                     hint: "1011153207",
                   )),
@@ -306,12 +338,14 @@ class _CompanyRegisterationScreenState
                 ),
                 child: CustomTxtFieldAboutCompany(
                   controller: companyAboutController,
-                  validator: (String? v) {
-                    if (v!.isEmpty || v.length < 8) {
-                      return "You must enter some Information About Your Company";
-                    }
-                    return null;
-                  },
+                  validator: Validator(rules: [
+                    RequiredRule(
+                        validationMessage:
+                            "You must enter some Information About Your Company"),
+                    MinLengthRule(8,
+                        validationMessage:
+                            "You must enter some Information About Your Company")
+                  ]),
                   hint: "some details about company",
                   title: "About Company",
                 ),
@@ -358,6 +392,7 @@ class _CompanyRegisterationScreenState
                                           companyRegisterNumController.text,
                                       type: companyTypeController.text,
                                       phone: companyPhoneController.text,
+                                      countryCode: countryController.text,
                                       name: companyNameController.text,
                                       password: companyPassController.text,
                                       confirmPassword:
@@ -369,7 +404,7 @@ class _CompanyRegisterationScreenState
                                           .valueCountryId,
                                     );
                                   } else {
-                                    print("Error In Register");
+                                    log("Error In Register");
                                   }
                                 },
                                 child: Container(
@@ -406,6 +441,8 @@ class _CompanyRegisterationScreenState
 }
 
 class CustomIAddLogoCompanies extends StatefulWidget {
+  const CustomIAddLogoCompanies({Key? key}) : super(key: key);
+
   @override
   State<CustomIAddLogoCompanies> createState() =>
       _CustomIAddLogoCompaniesState();
@@ -414,7 +451,7 @@ class CustomIAddLogoCompanies extends StatefulWidget {
 class _CustomIAddLogoCompaniesState extends State<CustomIAddLogoCompanies> {
   File? image;
 
-  Future ImagePick() async {
+  Future ImagePick(BuildContext context) async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
@@ -448,7 +485,7 @@ class _CustomIAddLogoCompaniesState extends State<CustomIAddLogoCompanies> {
         var cubit = AuthCompanyCubit.get(context);
 
         return InkWell(
-          onTap: () => ImagePick().then((value) {
+          onTap: () => ImagePick(context).then((value) {
             image != null
                 ? cubit.changeImageData(imageFile: image)
                 : debugPrint("Image Null data");
@@ -470,9 +507,8 @@ class _CustomIAddLogoCompaniesState extends State<CustomIAddLogoCompanies> {
                   child: image != null
                       ? CircleAvatar(
                           radius: sizeFromWidth(12),
-                          child: Image.file(
+                          foregroundImage: FileImage(
                             image!,
-                            fit: BoxFit.cover,
                           ))
                       : CircleAvatar(
                           radius: sizeFromWidth(12),
@@ -507,19 +543,26 @@ class _CustomIAddLogoCompaniesState extends State<CustomIAddLogoCompanies> {
 }
 
 class CustomTxtFieldCompanyProfile extends StatelessWidget {
-  String hint;
-  String title;
-  double width;
-  String? Function(String?)? validator;
-  TextEditingController controller;
+  final String hint;
+  final String title;
+  final double width;
+  final TextInputType? textInputType;
+  final String? Function(String?)? validator;
+  final TextEditingController controller;
+  final bool obSecure;
 
-  CustomTxtFieldCompanyProfile({
+  final List<TextInputFormatter>? inputFormatters;
+  const CustomTxtFieldCompanyProfile({
+    Key? key,
     required this.title,
     required this.hint,
     required this.width,
     required this.validator,
+    this.textInputType,
+    this.obSecure = false,
+    this.inputFormatters,
     required this.controller,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -534,14 +577,12 @@ class CustomTxtFieldCompanyProfile extends StatelessWidget {
             padding: const EdgeInsets.all(5.0),
             child: FittedBox(
               fit: BoxFit.scaleDown,
-              child: Container(
-                child: Text(
-                  title,
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16),
-                ),
+              child: Text(
+                title,
+                style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16),
               ),
             ),
           ),
@@ -556,163 +597,13 @@ class CustomTxtFieldCompanyProfile extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(top: 18.0),
               child: TextFormField(
+                obscureText: obSecure,
+                inputFormatters: inputFormatters,
+                keyboardType: textInputType,
                 controller: controller,
                 validator: validator,
                 decoration: InputDecoration(
                     hintText: hint,
-                    border: const OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                    )),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class CustomTxtFieldSuffixIcon extends StatelessWidget {
-  String hint;
-  String title;
-
-  CustomTxtFieldSuffixIcon({required this.title, required this.hint});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: sizeFromHeight(6.5),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
-          ),
-          Container(
-            height: sizeFromHeight(10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: ColorManager.CompareConatainer,
-            ),
-            child: Center(
-              child: TextFormField(
-                decoration: InputDecoration(
-                    hintText: hint,
-                    suffixIcon: const Padding(
-                      padding: EdgeInsets.only(top: 8.0),
-                      child: FaIcon(FontAwesomeIcons.link),
-                    ),
-                    border: const OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                    )),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class CustomSelectListProfile extends StatelessWidget {
-  String title = "";
-  double width;
-
-  CustomSelectListProfile(
-    this.width,
-    this.title,
-  );
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: sizeFromHeight(7),
-      width: width == 0 ? double.infinity : width,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16),
-              ),
-            ],
-          ),
-          Container(
-            height: sizeFromHeight(12),
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6),
-              border: Border.all(
-                  color: ColorManager.AppBarIconcolorGrey.withOpacity(0.08)),
-              color: ColorManager.CompareConatainer,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8.0,
-              ),
-              child: DropdownButton<String>(
-                isExpanded: true,
-                underline: const SizedBox(),
-                hint: const Text("Select"),
-                items: <String>['1', '2', '3'].map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (_) {},
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class CustomTxtFieldSocialCompany extends StatelessWidget {
-  String hint;
-  String title;
-
-  CustomTxtFieldSocialCompany({required this.title, required this.hint});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: sizeFromHeight(7),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
-          ),
-          Container(
-            height: sizeFromHeight(12),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6),
-                color: ColorManager.CompareConatainer,
-                border: Border.all(
-                    color: ColorManager.AppBarIconcolorGrey.withOpacity(0.08))),
-            child: Center(
-              child: TextFormField(
-                decoration: InputDecoration(
-                    hintText: hint,
-                    suffixIcon: const Padding(
-                      padding: EdgeInsets.only(top: 8.0),
-                      child: FaIcon(FontAwesomeIcons.link),
-                    ),
                     border: const OutlineInputBorder(
                       borderSide: BorderSide.none,
                     )),
@@ -777,17 +668,24 @@ class CustomTxtFieldAboutCompany extends StatelessWidget {
 }
 
 class CustomTxtFieldComplexNumber extends StatelessWidget {
-  String hint;
-  String title;
-  String? Function(String?)? validator;
-  TextEditingController controller;
+  final String hint;
+  final String title;
+  final String? Function(String?)? validator;
+  final TextEditingController controller;
+  final TextEditingController countryController;
+  final TextInputType? textInputType;
+  final List<TextInputFormatter>? inputFormatters;
 
-  CustomTxtFieldComplexNumber({
+  const CustomTxtFieldComplexNumber({
+    Key? key,
     required this.title,
     required this.hint,
     required this.validator,
+    required this.countryController,
     required this.controller,
-  });
+    this.textInputType,
+    this.inputFormatters,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -820,6 +718,9 @@ class CustomTxtFieldComplexNumber extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(top: 15),
                       child: TextFormField(
+                        inputFormatters: inputFormatters,
+                        keyboardType: textInputType,
+                        controller: countryController,
                         decoration: const InputDecoration(
                             hintText: "+20",
                             border: OutlineInputBorder(
@@ -835,6 +736,8 @@ class CustomTxtFieldComplexNumber extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(top: 15),
                       child: TextFormField(
+                        inputFormatters: inputFormatters,
+                        keyboardType: textInputType,
                         validator: validator,
                         controller: controller,
                         decoration: InputDecoration(
@@ -854,3 +757,155 @@ class CustomTxtFieldComplexNumber extends StatelessWidget {
     );
   }
 }
+// class CustomTxtFieldSocialCompany extends StatelessWidget {
+//   String hint;
+//   String title;
+//
+//   CustomTxtFieldSocialCompany({required this.title, required this.hint});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return SizedBox(
+//       height: sizeFromHeight(7),
+//       child: Column(
+//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Text(
+//             title,
+//             style: const TextStyle(
+//                 color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
+//           ),
+//           Container(
+//             height: sizeFromHeight(12),
+//             decoration: BoxDecoration(
+//                 borderRadius: BorderRadius.circular(6),
+//                 color: ColorManager.CompareConatainer,
+//                 border: Border.all(
+//                     color: ColorManager.AppBarIconcolorGrey.withOpacity(0.08))),
+//             child: Center(
+//               child: TextFormField(
+//                 decoration: InputDecoration(
+//                     hintText: hint,
+//                     suffixIcon: const Padding(
+//                       padding: EdgeInsets.only(top: 8.0),
+//                       child: FaIcon(FontAwesomeIcons.link),
+//                     ),
+//                     border: const OutlineInputBorder(
+//                       borderSide: BorderSide.none,
+//                     )),
+//               ),
+//             ),
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+// class CustomTxtFieldSuffixIcon extends StatelessWidget {
+//   String hint;
+//   String title;
+//
+//   CustomTxtFieldSuffixIcon({required this.title, required this.hint});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return SizedBox(
+//       height: sizeFromHeight(6.5),
+//       child: Column(
+//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Text(
+//             title,
+//             style: const TextStyle(
+//                 color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
+//           ),
+//           Container(
+//             height: sizeFromHeight(10),
+//             decoration: BoxDecoration(
+//               borderRadius: BorderRadius.circular(10),
+//               color: ColorManager.CompareConatainer,
+//             ),
+//             child: Center(
+//               child: TextFormField(
+//                 decoration: InputDecoration(
+//                     hintText: hint,
+//                     suffixIcon: const Padding(
+//                       padding: EdgeInsets.only(top: 8.0),
+//                       child: FaIcon(FontAwesomeIcons.link),
+//                     ),
+//                     border: const OutlineInputBorder(
+//                       borderSide: BorderSide.none,
+//                     )),
+//               ),
+//             ),
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }
+//
+// class CustomSelectListProfile extends StatelessWidget {
+//   String title = "";
+//   double width;
+//
+//   CustomSelectListProfile(
+//       this.width,
+//       this.title,
+//       );
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return SizedBox(
+//       height: sizeFromHeight(7),
+//       width: width == 0 ? double.infinity : width,
+//       child: Column(
+//         mainAxisAlignment: MainAxisAlignment.spaceAround,
+//         children: [
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               Text(
+//                 title,
+//                 style: const TextStyle(
+//                     color: Colors.black,
+//                     fontWeight: FontWeight.w600,
+//                     fontSize: 16),
+//               ),
+//             ],
+//           ),
+//           Container(
+//             height: sizeFromHeight(12),
+//             width: double.infinity,
+//             decoration: BoxDecoration(
+//               borderRadius: BorderRadius.circular(6),
+//               border: Border.all(
+//                   color: ColorManager.AppBarIconcolorGrey.withOpacity(0.08)),
+//               color: ColorManager.CompareConatainer,
+//             ),
+//             child: Padding(
+//               padding: const EdgeInsets.symmetric(
+//                 horizontal: 8.0,
+//               ),
+//               child: DropdownButton<String>(
+//                 isExpanded: true,
+//                 underline: const SizedBox(),
+//                 hint: const Text("Select"),
+//                 items: <String>['1', '2', '3'].map((String value) {
+//                   return DropdownMenuItem<String>(
+//                     value: value,
+//                     child: Text(value),
+//                   );
+//                 }).toList(),
+//                 onChanged: (_) {},
+//               ),
+//             ),
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }

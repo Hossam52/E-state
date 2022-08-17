@@ -7,7 +7,6 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:osol/Company/PresentationLayer/HomeScreen/units.dart';
 import 'package:osol/Company/PresentationLayer/addBanner/view.dart';
 import 'package:osol/Company/PresentationLayer/addScreen/addScreen.dart';
-
 import 'package:osol/Company/PresentationLayer/moreCompanyScreen/view.dart';
 import 'package:osol/Company/PresentationLayer/unit_crud/unit_crud_view.dart';
 import 'package:osol/Company/PresentationLayer/walletScreen/view.dart';
@@ -21,6 +20,8 @@ import 'package:osol/shared/Customicon.dart';
 import '../listScreen/listScreen.dart';
 
 class HomeScreenCompanyView extends StatefulWidget {
+  const HomeScreenCompanyView({Key? key}) : super(key: key);
+
   @override
   State<HomeScreenCompanyView> createState() => _HomeScreenUserViewState();
 }
@@ -146,7 +147,8 @@ class _HomeScreenUserViewState extends State<HomeScreenCompanyView> {
                   gap: 8,
                   activeColor: Colors.white,
                   iconSize: 14,
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   duration: const Duration(milliseconds: 800),
                   tabBackgroundColor: ColorManager.AppBarHomeColorIcon,
                   color: Colors.grey[400],

@@ -10,7 +10,6 @@ import 'package:osol/User/PresentaionLayer/RegisterScreen/forgetPassword/emailFo
 import 'package:osol/User/PresentaionLayer/RegisterScreen/signUp/view.dart';
 import 'package:osol/User/PresentaionLayer/RegisterScreen/viewTypes.dart';
 
-
 class SignInView extends StatefulWidget {
   @override
   State<SignInView> createState() => _SignInViewState();
@@ -46,6 +45,13 @@ class _SignInViewState extends State<SignInView> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+    passController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
@@ -74,7 +80,6 @@ class _SignInViewState extends State<SignInView> {
                 ),
                 title: const Text(
                   "",
-               
                 ),
                 actions: const [],
               ),

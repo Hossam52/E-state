@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:osol/Company/PresentationLayer/DawerScreen/view.dart';
 import 'package:osol/Company/PresentationLayer/registerition/otpCompany/view.dart';
 import 'package:osol/Company/dataLayer/dataModel/verifyCompanyModel.dart';
+import 'package:osol/Shared/component/notify_helper.dart';
 import 'package:osol/Shared/constants.dart';
 import 'package:osol/User/DataLayer/DataProvider/dioHelper.dart';
 import 'package:osol/User/PresentaionLayer/RegisterScreen/signIn/view.dart';
@@ -25,13 +26,18 @@ class AuthCompanyCubit extends Cubit<AuthCompanyState> {
   File? imageData;
 
   changeImageData({imageFile}) {
+    print("changeImageData $imageFile");
+
     imageData = imageFile;
+    print("imageData $imageData");
+
     emit(ChangeImageState());
   }
 
   Future<dynamic> registerAsCompany({
     cityId,
     phone,
+    countryCode,
     countryId,
     password,
     name,
@@ -45,6 +51,13 @@ class AuthCompanyCubit extends Cubit<AuthCompanyState> {
     registerationNum,
   }) async {
     try {
+      if (imageData == null) {
+        NotifyHelper.showToast(
+            "please choose company Image first!", Colors.red);
+
+        return;
+      }
+      log("image path $imageData");
       emit(LoadingRegisterCompanyState());
       Response response =
           await DioHelper.postData(url: authRegisterCompanyURL, data: {
@@ -55,7 +68,7 @@ class AuthCompanyCubit extends Cubit<AuthCompanyState> {
         "password_confirmation": "$confirmPassword",
         "country_id": "$countryId",
         "city_id": "$cityId",
-        "phone": "$phone",
+        "phone": "$countryCode$phone",
         "type": "$type",
         "address": "$address",
         "about": "$about",
@@ -64,25 +77,13 @@ class AuthCompanyCubit extends Cubit<AuthCompanyState> {
       });
       if (response.statusCode == 200 && response.data["status"] == false) {
         emit(ErrorDataRegisterCompanyState());
-        Fluttertoast.showToast(
-            msg: response.data["message"].values.first.first,
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 3,
-            backgroundColor: Colors.yellow,
-            textColor: Colors.white,
-            fontSize: 16.0);
+        NotifyHelper.showToast(
+            response.data["message"].values.first.first, Colors.yellow);
       } else if (response.statusCode == 200 &&
           response.data["status"] == true) {
         emit(SuccessRegisterCompanyState());
-        Fluttertoast.showToast(
-            msg: "تم التسجيل بنجاح",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 3,
-            backgroundColor: Colors.green,
-            textColor: Colors.white,
-            fontSize: 16.0);
+        NotifyHelper.showToast("تم التسجيل بنجاح", Colors.green);
+
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (_) => const PinCodeVerificationCompanyScreen(),
@@ -90,17 +91,12 @@ class AuthCompanyCubit extends Cubit<AuthCompanyState> {
         );
         return response;
       }
-    } catch (error) {
-      Fluttertoast.showToast(
-          msg: "$error",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 3,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
+    } catch (error, trace) {
+      NotifyHelper.showToast(error.toString(), Colors.red);
       emit(ErrorRegisterCompanyState()
         ..ErrPrint(error.toString(), "Error Register"));
+      log(error.toString());
+      log(trace.toString());
     }
   }
 

@@ -78,6 +78,9 @@ dependencies:
 #  better_player: ^0.0.82
   youtube_player_flutter: ^8.1.0
 
+  # form field validator
+  flrx_validator: ^0.6.0
+
 
 
 dev_dependencies:

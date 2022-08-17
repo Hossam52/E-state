@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
-
 // import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:osol/Company/PresentationLayer/registerition/registeration/view.dart';
 import 'package:osol/Shared/constants.dart';
@@ -387,13 +386,6 @@ class DrawerMenuBody extends StatelessWidget {
                                 height: sizeFromHeight(18),
                                 child: Row(
                                   children: [
-                                    FaIcon(
-                                      FontAwesomeIcons.arrowRightFromBracket,
-                                      color: ColorManager.WhiteScreen,
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
                                     cubit2.userToken == null &&
                                             cubit3.myToken == null
                                         ? InkWell(
@@ -403,13 +395,26 @@ class DrawerMenuBody extends StatelessWidget {
                                                       builder: (_) =>
                                                           SignInView()));
                                             },
-                                            child: const Text(
-                                              "Sign In",
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w500,
-                                              ),
+                                            child: Row(
+                                              children: [
+                                                FaIcon(
+                                                  FontAwesomeIcons
+                                                      .arrowRightFromBracket,
+                                                  color:
+                                                      ColorManager.WhiteScreen,
+                                                ),
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
+                                                const Text(
+                                                  "Sign In",
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           )
                                         : InkWell(
@@ -417,13 +422,26 @@ class DrawerMenuBody extends StatelessWidget {
                                               await AuthCubit.get(context)
                                                   .logOut(context: context);
                                             },
-                                            child: const Text(
-                                              "LogOut",
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w500,
-                                              ),
+                                            child: Row(
+                                              children: [
+                                                FaIcon(
+                                                  FontAwesomeIcons
+                                                      .arrowRightFromBracket,
+                                                  color:
+                                                      ColorManager.WhiteScreen,
+                                                ),
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
+                                                const Text(
+                                                  "LogOut",
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                   ],

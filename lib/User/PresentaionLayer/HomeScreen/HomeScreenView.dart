@@ -27,9 +27,10 @@ import 'package:osol/shared/constants.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomeScreenUserView extends StatefulWidget {
-  String token;
+ final String token;
 
-  HomeScreenUserView({required this.token});
+  const HomeScreenUserView({Key? key,required this.token}) : super(key: key);
+
 
   @override
   State<HomeScreenUserView> createState() => _HomeScreenUserViewState();
