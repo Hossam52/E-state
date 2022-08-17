@@ -13,8 +13,8 @@ import 'package:osol/User/BussinssLogic/savedCubit/saved_cubit.dart';
 import 'package:osol/User/DataLayer/DataProvider/dioHelper.dart';
 import 'package:osol/User/DataLayer/Model/modelOfData/BannerModel/bannerModel.dart';
 import 'package:osol/User/DataLayer/Model/modelOfData/featureModel/getFeatureModel.dart';
-import 'package:osol/User/DataLayer/Model/modelOfData/popularModel/PopularModel.dart';
 import 'package:osol/User/DataLayer/Model/modelOfData/onBoardingModel.dart';
+import 'package:osol/User/DataLayer/Model/modelOfData/popularModel/PopularModel.dart';
 import 'package:osol/User/DataLayer/Model/modelOfData/popularModel/user_unit_category_filter.dart';
 import 'package:osol/User/PresentaionLayer/HomeScreen/units.dart';
 import 'package:osol/User/PresentaionLayer/MapScreen/mapDetails.dart';
@@ -553,9 +553,11 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   getDataOfHome() async {
-    getBannerOfClientHome();
-    getFeatureOfClientHome();
-    getPopularOfClientHome();
-    getMyToken();
+    await getMyToken();
+    await Future.wait([
+      getBannerOfClientHome(),
+      getFeatureOfClientHome(),
+      getPopularOfClientHome(),
+    ]);
   }
 }

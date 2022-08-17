@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,6 +21,7 @@ import 'package:osol/User/BussinssLogic/homeCubit/home_cubit.dart';
 import 'package:osol/User/BussinssLogic/savedCubit/saved_cubit.dart';
 import 'package:osol/User/PresentaionLayer/OnboardingScreen/splash.dart';
 import 'package:osol/shared/routing.dart';
+
 import 'Company/PresentationLayer/DawerScreen/view.dart';
 import 'Company/businessLogicLayer/addNewProjectCubit/add_new_projects_cubit.dart';
 import 'Company/businessLogicLayer/blocObserver/blocObserver.dart';
@@ -78,8 +80,7 @@ class MyApp extends StatelessWidget {
             providers: [
               BlocProvider(
                   create: (context) => HomeCubit(
-                      context: context, accessType: accessType, token: token)
-                    ..getDataOfHome()),
+                      context: context, accessType: accessType, token: token)),
               BlocProvider(
                   create: (context) =>
                       CommonCubit(accessType: accessType, token: token)
@@ -105,8 +106,8 @@ class MyApp extends StatelessWidget {
                 create: (context) => UnitClientCubit(),
               ),
               BlocProvider(
-                  create: (context) => AppSettingCubit()
-                    ..chandeDarkMode(darkMode ?? false)),
+                  create: (context) =>
+                      AppSettingCubit()..chandeDarkMode(darkMode ?? false)),
 
               ///company
               BlocProvider(create: (context) => AuthCompanyCubit()),
@@ -179,7 +180,8 @@ class MyApp extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 6)),
                         iconTheme: const IconThemeData(color: Colors.black),
-                        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+                        bottomNavigationBarTheme:
+                            const BottomNavigationBarThemeData(
                           backgroundColor: Colors.white,
                         ),
                         scaffoldBackgroundColor: Colors.white),
