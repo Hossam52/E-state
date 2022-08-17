@@ -75,6 +75,7 @@ class AuthCompanyCubit extends Cubit<AuthCompanyState> {
         "branches_num": "$branchNum",
         "regestration_num": "$registerationNum",
       });
+      imageData = null;
       if (response.statusCode == 200 && response.data["status"] == false) {
         emit(ErrorDataRegisterCompanyState());
         NotifyHelper.showToast(
